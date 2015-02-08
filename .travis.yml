@@ -1,14 +1,10 @@
 language: scala
 scala:
-   - 2.9.3
-   - 2.10.4
-   - 2.11.2
+   - 2.11.5
 script:
   - sbt stage
   - sbt compile
   - sbt test
+  - sbt run
 jdk:
-  - openjdk7
-  - oraclejdk7
   - oraclejdk8
-  - openjdk6
