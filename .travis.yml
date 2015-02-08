@@ -7,3 +7,8 @@ script:
   - sbt stage
   - sbt compile
   - sbt test
+jdk:
+  - openjdk7
+  - oraclejdk7
+  - oraclejdk8
+  - openjdk6
