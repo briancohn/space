@@ -1,0 +1,61 @@
+[0m[[0mdebug[0m] [0m[0m
+[0m[[0mdebug[0m] [0mInitial source changes: [0m
+[0m[[0mdebug[0m] [0m	removed:Set()[0m
+[0m[[0mdebug[0m] [0m	added: Set(/Users/innovation/Documents/space/src/main/scala/HelloWorld.scala)[0m
+[0m[[0mdebug[0m] [0m	modified: Set()[0m
+[0m[[0mdebug[0m] [0mRemoved products: Set()[0m
+[0m[[0mdebug[0m] [0mExternal API changes: API Changes: Set()[0m
+[0m[[0mdebug[0m] [0mModified binary dependencies: Set()[0m
+[0m[[0mdebug[0m] [0mInitial directly invalidated sources: Set(/Users/innovation/Documents/space/src/main/scala/HelloWorld.scala)[0m
+[0m[[0mdebug[0m] [0m[0m
+[0m[[0mdebug[0m] [0mSources indirectly invalidated by:[0m
+[0m[[0mdebug[0m] [0m	product: Set()[0m
+[0m[[0mdebug[0m] [0m	binary dep: Set()[0m
+[0m[[0mdebug[0m] [0m	external source: Set()[0m
+[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set(/Users/innovation/Documents/space/src/main/scala/HelloWorld.scala)[0m
+[0m[[0mdebug[0m] [0mRecompiling all 1 sources: invalidated sources (1) exceeded 50.0% of all sources[0m
+[0m[[0minfo[0m] [0mCompiling 1 Scala source to /Users/innovation/Documents/space/target/scala-2.11/classes...[0m
+[0m[[0mdebug[0m] [0mGetting compiler-interface from component compiler for Scala 2.11.5[0m
+[0m[[0mdebug[0m] [0mPlain interface to Scala compiler 2.11.5  with arguments: [0m
+[0m[[0mdebug[0m] [0m	-nowarn[0m
+[0m[[0mdebug[0m] [0m	-d[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_17b1bd89[0m
+[0m[[0mdebug[0m] [0m	-bootclasspath[0m
+[0m[[0mdebug[0m] [0m	/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsfd.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Frameworks/JavaRuntimeSupport.framework/Resources/Java/JavaRuntimeSupport.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/ui.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/laf.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/sunrsasign.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsse.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/charsets.jar:/Users/innovation/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.5.jar[0m
+[0m[[0mdebug[0m] [0m	-classpath[0m
+[0m[[0mdebug[0m] [0m	/Users/innovation/.sbt/boot/scala-2.10.4/org.scala-sbt/sbt/0.13.7/xsbti/interface-0.13.7.jar:/Users/innovation/.sbt/boot/scala-2.10.4/org.scala-sbt/sbt/0.13.7/compiler-interface-src/compiler-interface-src-0.13.7.jar:/Users/innovation/.ivy2/cache/org.scala-lang/scala-compiler/jars/scala-compiler-2.11.5.jar:/Users/innovation/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.5.jar:/Users/innovation/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/bundles/scala-xml_2.11-1.0.3.jar:/Users/innovation/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/bundles/scala-parser-combinators_2.11-1.0.3.jar:/Users/innovation/.ivy2/cache/jline/jline/jars/jline-2.12.jar[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/API.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/Analyzer.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/Command.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/Compat.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/CompilerInterface.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/ConsoleInterface.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/DelegatingReporter.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/Dependency.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/ExtractAPI.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/ExtractUsedNames.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/LocateClassFile.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/Log.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/Message.scala[0m
+[0m[[0mdebug[0m] [0m	/var/folders/hx/6j11_5951tx236_w55zkmg480000gn/T/sbt_6739ee69/xsbt/ScaladocInterface.scala[0m
+[0m[[0mdebug[0m] [0mGetting compiler-interface from component compiler for Scala 2.11.5[0m
+[0m[[0mdebug[0m] [0mRunning cached compiler 488f7f6, interfacing (CompilerInterface) with Scala compiler version 2.11.5[0m
+[0m[[0mdebug[0m] [0mCalling Scala compiler with arguments  (CompilerInterface):[0m
+[0m[[0mdebug[0m] [0m	-bootclasspath[0m
+[0m[[0mdebug[0m] [0m	/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsfd.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Frameworks/JavaRuntimeSupport.framework/Resources/Java/JavaRuntimeSupport.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/ui.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/laf.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/sunrsasign.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsse.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/charsets.jar:/Users/innovation/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.5.jar[0m
+[0m[[0mdebug[0m] [0m	-classpath[0m
+[0m[[0mdebug[0m] [0m	/Users/innovation/Documents/space/target/scala-2.11/classes[0m
+[0m[[0mdebug[0m] [0mScala compilation took 21.833197 s[0m
+[0m[[0mdebug[0m] [0mInvalidating /Users/innovation/Documents/space/src/main/scala/HelloWorld.scala...[0m
+[0m[[0mdebug[0m] [0mInvalidating (transitively) by inheritance from /Users/innovation/Documents/space/src/main/scala/HelloWorld.scala...[0m
+[0m[[0mdebug[0m] [0mInitial set of included nodes: Set(/Users/innovation/Documents/space/src/main/scala/HelloWorld.scala)[0m
+[0m[[0mdebug[0m] [0mInvalidated by transitive inheritance dependency: Set(/Users/innovation/Documents/space/src/main/scala/HelloWorld.scala)[0m
+[0m[[0mdebug[0m] [0mThe /Users/innovation/Documents/space/src/main/scala/HelloWorld.scala source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m	notify, wait, $asInstanceOf, equals, asInstanceOf, synchronized, $isInstanceOf, main, notifyAll, isInstanceOf, ==, clone, toString, !=, HelloWorld, getClass, ne, eq, ##, finalize, hashCode.[0m
+[0m[[0mdebug[0m] [0mAll member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0mNew invalidations:[0m
+[0m[[0mdebug[0m] [0m	Set()[0m
+[0m[[0mdebug[0m] [0mInitial set of included nodes: Set()[0m
+[0m[[0mdebug[0m] [0mPreviously invalidated, but (transitively) depend on new invalidations:[0m
+[0m[[0mdebug[0m] [0m	Set()[0m
+[0m[[0mdebug[0m] [0mAll newly invalidated sources after taking into account (previously) recompiled sources:Set()[0m
