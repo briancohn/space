@@ -7,7 +7,7 @@
 		revision="0.0.1"
 		conf="test"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20150209130515"/>
+		date="20150209144621"/>
 	<dependencies>
 		<module organisation="org.scalacheck" name="scalacheck_2.10">
 			<revision name="1.12.1" status="release" pubdate="20141202005311" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scalacheck.org" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="32">
@@ -121,7 +121,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_system-win-i686">
 			<revision name="1.1" status="release" pubdate="20131011154118" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="29">
-				<metadata-artifact status="successful" details="" size="5271" time="207" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-i686/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-i686/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_system-win-i686/1.1/netlib-native_system-win-i686-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="5271" time="300" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-i686/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-i686/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_system-win-i686/1.1/netlib-native_system-win-i686-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
 					<artifact name="netlib-native_system-win-i686" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="561459" time="0" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-i686/jars/netlib-native_system-win-i686-1.1-natives.jar">
@@ -132,7 +132,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_system-win-x86_64">
 			<revision name="1.1" status="release" pubdate="20131011154207" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="28">
-				<metadata-artifact status="successful" details="" size="5130" time="218" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-x86_64/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-x86_64/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_system-win-x86_64/1.1/netlib-native_system-win-x86_64-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="5130" time="256" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-x86_64/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-x86_64/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_system-win-x86_64/1.1/netlib-native_system-win-x86_64-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
 					<artifact name="netlib-native_system-win-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="637428" time="0" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-x86_64/jars/netlib-native_system-win-x86_64-1.1-natives.jar">
@@ -143,7 +143,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_system-linux-armhf">
 			<revision name="1.1" status="release" pubdate="20131011163120" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="27">
-				<metadata-artifact status="successful" details="" size="4780" time="311" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-armhf/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-armhf/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_system-linux-armhf/1.1/netlib-native_system-linux-armhf-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="4780" time="243" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-armhf/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-armhf/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_system-linux-armhf/1.1/netlib-native_system-linux-armhf-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
 					<artifact name="netlib-native_system-linux-armhf" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="310891" time="0" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-armhf/jars/netlib-native_system-linux-armhf-1.1-natives.jar">
@@ -154,7 +154,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_system-linux-i686">
 			<revision name="1.1" status="release" pubdate="20131011163027" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="26">
-				<metadata-artifact status="successful" details="" size="4869" time="213" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-i686/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-i686/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_system-linux-i686/1.1/netlib-native_system-linux-i686-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="4869" time="237" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-i686/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-i686/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_system-linux-i686/1.1/netlib-native_system-linux-i686-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
 					<artifact name="netlib-native_system-linux-i686" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="435365" time="0" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-i686/jars/netlib-native_system-linux-i686-1.1-natives.jar">
@@ -165,7 +165,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_system-linux-x86_64">
 			<revision name="1.1" status="release" pubdate="20131011162927" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="25">
-				<metadata-artifact status="successful" details="" size="3930" time="398" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-x86_64/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-x86_64/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_system-linux-x86_64/1.1/netlib-native_system-linux-x86_64-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="3930" time="225" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-x86_64/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-x86_64/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_system-linux-x86_64/1.1/netlib-native_system-linux-x86_64-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
 					<artifact name="netlib-native_system-linux-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="458605" time="0" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-x86_64/jars/netlib-native_system-linux-x86_64-1.1-natives.jar">
@@ -176,7 +176,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_system-osx-x86_64">
 			<revision name="1.1" status="release" pubdate="20131011154035" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="23">
-				<metadata-artifact status="successful" details="" size="3912" time="205" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-osx-x86_64/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-osx-x86_64/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_system-osx-x86_64/1.1/netlib-native_system-osx-x86_64-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="3912" time="308" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-osx-x86_64/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-osx-x86_64/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_system-osx-x86_64/1.1/netlib-native_system-osx-x86_64-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
 					<artifact name="netlib-native_system-osx-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="553993" time="0" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-osx-x86_64/jars/netlib-native_system-osx-x86_64-1.1-natives.jar">
@@ -187,7 +187,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="native_system-java">
 			<revision name="1.1" status="release" pubdate="20131011153956" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, runtime, compile(*), runtime(*), master(compile), master" position="24">
-				<metadata-artifact status="successful" details="" size="3988" time="438" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/native_system-java/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/native_system-java/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/native_system-java/1.1/native_system-java-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="3988" time="261" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/native_system-java/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/native_system-java/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/native_system-java/1.1/native_system-java-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_system-linux-armhf" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_system-linux-i686" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_system-osx-x86_64" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
@@ -203,7 +203,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-linux-armhf">
 			<revision name="1.1" status="release" pubdate="20131011161624" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="22">
-				<metadata-artifact status="successful" details="" size="3897" time="248" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-armhf/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-armhf/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_ref-linux-armhf/1.1/netlib-native_ref-linux-armhf-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="3897" time="368" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-armhf/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-armhf/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_ref-linux-armhf/1.1/netlib-native_ref-linux-armhf-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
 					<artifact name="netlib-native_ref-linux-armhf" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1208080" time="0" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-armhf/jars/netlib-native_ref-linux-armhf-1.1-natives.jar">
@@ -214,7 +214,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-win-i686">
 			<revision name="1.1" status="release" pubdate="20131011153716" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="21">
-				<metadata-artifact status="successful" details="" size="4471" time="268" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-i686/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-i686/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_ref-win-i686/1.1/netlib-native_ref-win-i686-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="4471" time="256" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-i686/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-i686/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_ref-win-i686/1.1/netlib-native_ref-win-i686-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
 					<artifact name="netlib-native_ref-win-i686" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1826785" time="0" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-i686/jars/netlib-native_ref-win-i686-1.1-natives.jar">
@@ -225,7 +225,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-win-x86_64">
 			<revision name="1.1" status="release" pubdate="20131011153904" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="20">
-				<metadata-artifact status="successful" details="" size="4378" time="205" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-x86_64/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-x86_64/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_ref-win-x86_64/1.1/netlib-native_ref-win-x86_64-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="4378" time="314" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-x86_64/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-x86_64/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_ref-win-x86_64/1.1/netlib-native_ref-win-x86_64-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
 					<artifact name="netlib-native_ref-win-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="2305169" time="0" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-x86_64/jars/netlib-native_ref-win-x86_64-1.1-natives.jar">
@@ -236,7 +236,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-linux-i686">
 			<revision name="1.1" status="release" pubdate="20131011161458" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="19">
-				<metadata-artifact status="successful" details="" size="3739" time="264" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-i686/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-i686/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_ref-linux-i686/1.1/netlib-native_ref-linux-i686-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="3739" time="485" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-i686/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-i686/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_ref-linux-i686/1.1/netlib-native_ref-linux-i686-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
 					<artifact name="netlib-native_ref-linux-i686" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1489507" time="0" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-i686/jars/netlib-native_ref-linux-i686-1.1-natives.jar">
@@ -247,7 +247,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-linux-x86_64">
 			<revision name="1.1" status="release" pubdate="20131011161310" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="18">
-				<metadata-artifact status="successful" details="" size="3309" time="210" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-x86_64/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-x86_64/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_ref-linux-x86_64/1.1/netlib-native_ref-linux-x86_64-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="3309" time="397" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-x86_64/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-x86_64/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_ref-linux-x86_64/1.1/netlib-native_ref-linux-x86_64-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
 					<artifact name="netlib-native_ref-linux-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1749371" time="0" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-x86_64/jars/netlib-native_ref-linux-x86_64-1.1-natives.jar">
@@ -258,7 +258,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-osx-x86_64">
 			<revision name="1.1" status="release" pubdate="20131011153537" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="15">
-				<metadata-artifact status="successful" details="" size="3620" time="206" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-osx-x86_64/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-osx-x86_64/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_ref-osx-x86_64/1.1/netlib-native_ref-osx-x86_64-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="3620" time="266" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-osx-x86_64/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-osx-x86_64/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/netlib-native_ref-osx-x86_64/1.1/netlib-native_ref-osx-x86_64-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="all" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1.2"/>
 				<artifacts>
 					<artifact name="netlib-native_ref-osx-x86_64" type="jar" ext="jar" extra-classifier="natives" status="no" details="" size="1839499" time="0" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-osx-x86_64/jars/netlib-native_ref-osx-x86_64-1.1-natives.jar">
@@ -269,7 +269,7 @@
 		</module>
 		<module organisation="com.github.fommil.netlib" name="native_ref-java">
 			<revision name="1.1" status="release" pubdate="20131011153421" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="compile, runtime, compile(*), runtime(*), master(compile), master" position="16">
-				<metadata-artifact status="successful" details="" size="3973" time="221" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/native_ref-java/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/native_ref-java/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/native_ref-java/1.1/native_ref-java-1.1.pom"/>
+				<metadata-artifact status="successful" details="" size="3973" time="386" location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/native_ref-java/ivy-1.1.xml" searched="true" original-local-location="/Users/innovation/.ivy2/cache/com.github.fommil.netlib/native_ref-java/ivy-1.1.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/github/fommil/netlib/native_ref-java/1.1/native_ref-java-1.1.pom"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_ref-linux-armhf" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_ref-linux-x86_64" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>
 				<caller organisation="com.github.fommil.netlib" name="netlib-native_ref-win-i686" conf="compile, runtime" rev="1.1" rev-constraint-default="1.1" rev-constraint-dynamic="1.1" callerrev="1.1"/>

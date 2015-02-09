@@ -14,6 +14,7 @@ object HelloWorld {
     println(A_mini)
     println(b_mini)
     println(my_function(A_mini, A_mini))
+    quickF = MyFunction
     println("===========================")
   }
 }
