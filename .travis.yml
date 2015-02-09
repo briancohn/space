@@ -1,5 +1,8 @@
 language: scala
+sbt_args: 
+   -sbt-version 0.13.0
 scala:
+   - 2.11.6
    - 2.11.5
 script:
   - sbt stage
