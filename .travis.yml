@@ -5,7 +5,6 @@ scala:
    - 2.11.6
    - 2.11.5
 script:
-  - sbt stage
   - sbt compile
   - sbt test
   - sbt run

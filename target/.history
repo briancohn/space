@@ -3,3 +3,5 @@ compile
 build
 ~run
 ~test
+run
+test
