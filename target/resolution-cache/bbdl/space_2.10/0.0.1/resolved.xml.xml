@@ -4,7 +4,7 @@
 		module="space_2.10"
 		revision="0.0.1"
 		status="integration"
-		publication="20150208161019"
+		publication="20150209130515"
 	>
 		<description>
 		space
@@ -44,5 +44,7 @@
 			<artifact name="scalacheck_2.10" type="src" ext="jar" conf="sources" e:classifier="sources"/>
 			<artifact name="scalacheck_2.10" type="jar" ext="jar" conf="*"/>
 		</dependency>
+		<dependency org="org.scalanlp" name="breeze_2.10" rev="0.10" conf="compile->default(compile)"/>
+		<dependency org="org.scalanlp" name="breeze-natives_2.10" rev="0.10" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>

@@ -1,39 +1,15 @@
 [0m[[0mdebug[0m] [0m[0m
 [0m[[0mdebug[0m] [0mInitial source changes: [0m
 [0m[[0mdebug[0m] [0m	removed:Set()[0m
-[0m[[0mdebug[0m] [0m	added: Set(/Users/innovation/Documents/space/src/test/scala/HelloWorldSpec.scala)[0m
+[0m[[0mdebug[0m] [0m	added: Set()[0m
 [0m[[0mdebug[0m] [0m	modified: Set()[0m
 [0m[[0mdebug[0m] [0mRemoved products: Set()[0m
 [0m[[0mdebug[0m] [0mExternal API changes: API Changes: Set()[0m
 [0m[[0mdebug[0m] [0mModified binary dependencies: Set()[0m
-[0m[[0mdebug[0m] [0mInitial directly invalidated sources: Set(/Users/innovation/Documents/space/src/test/scala/HelloWorldSpec.scala)[0m
+[0m[[0mdebug[0m] [0mInitial directly invalidated sources: Set()[0m
 [0m[[0mdebug[0m] [0m[0m
 [0m[[0mdebug[0m] [0mSources indirectly invalidated by:[0m
 [0m[[0mdebug[0m] [0m	product: Set()[0m
 [0m[[0mdebug[0m] [0m	binary dep: Set()[0m
 [0m[[0mdebug[0m] [0m	external source: Set()[0m
-[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set(/Users/innovation/Documents/space/src/test/scala/HelloWorldSpec.scala)[0m
-[0m[[0mdebug[0m] [0mRecompiling all 1 sources: invalidated sources (1) exceeded 50.0% of all sources[0m
-[0m[[0minfo[0m] [0mCompiling 1 Scala source to /Users/innovation/Documents/space/target/scala-2.10/test-classes...[0m
-[0m[[0mdebug[0m] [0mGetting compiler-interface from component compiler for Scala 2.10.4[0m
-[0m[[0mdebug[0m] [0mGetting compiler-interface from component compiler for Scala 2.10.4[0m
-[0m[[0mdebug[0m] [0mRunning cached compiler 72b7b831, interfacing (CompilerInterface) with Scala compiler version 2.10.4[0m
-[0m[[0mdebug[0m] [0mCalling Scala compiler with arguments  (CompilerInterface):[0m
-[0m[[0mdebug[0m] [0m	-bootclasspath[0m
-[0m[[0mdebug[0m] [0m	/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsfd.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Frameworks/JavaRuntimeSupport.framework/Resources/Java/JavaRuntimeSupport.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/ui.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/laf.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/sunrsasign.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsse.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/charsets.jar:/Users/innovation/.sbt/boot/scala-2.10.4/lib/scala-library.jar[0m
-[0m[[0mdebug[0m] [0m	-classpath[0m
-[0m[[0mdebug[0m] [0m	/Users/innovation/Documents/space/target/scala-2.10/test-classes:/Users/innovation/Documents/space/target/scala-2.10/classes:/Users/innovation/.ivy2/cache/org.scalatest/scalatest_2.10/jars/scalatest_2.10-2.2.1.jar:/Users/innovation/.sbt/boot/scala-2.10.4/lib/scala-reflect.jar:/Users/innovation/.ivy2/cache/org.scalacheck/scalacheck_2.10/jars/scalacheck_2.10-1.12.1.jar:/Users/innovation/.ivy2/cache/org.scala-sbt/test-interface/jars/test-interface-1.0.jar[0m
-[0m[[0mdebug[0m] [0mScala compilation took 2.391896 s[0m
-[0m[[0mdebug[0m] [0mInvalidating /Users/innovation/Documents/space/src/test/scala/HelloWorldSpec.scala...[0m
-[0m[[0mdebug[0m] [0mInvalidating (transitively) by inheritance from /Users/innovation/Documents/space/src/test/scala/HelloWorldSpec.scala...[0m
-[0m[[0mdebug[0m] [0mInitial set of included nodes: Set(/Users/innovation/Documents/space/src/test/scala/HelloWorldSpec.scala)[0m
-[0m[[0mdebug[0m] [0mInvalidated by transitive inheritance dependency: Set(/Users/innovation/Documents/space/src/test/scala/HelloWorldSpec.scala)[0m
-[0m[[0mdebug[0m] [0mThe /Users/innovation/Documents/space/src/test/scala/HelloWorldSpec.scala source file has the following implicit definitions changed:[0m
-[0m[[0mdebug[0m] [0m	unconstrainedEquality, convertToEqualizer.[0m
-[0m[[0mdebug[0m] [0mAll member reference dependencies will be considered within this context.[0m
-[0m[[0mdebug[0m] [0mNew invalidations:[0m
-[0m[[0mdebug[0m] [0m	Set()[0m
-[0m[[0mdebug[0m] [0mInitial set of included nodes: Set()[0m
-[0m[[0mdebug[0m] [0mPreviously invalidated, but (transitively) depend on new invalidations:[0m
-[0m[[0mdebug[0m] [0m	Set()[0m
-[0m[[0mdebug[0m] [0mAll newly invalidated sources after taking into account (previously) recompiled sources:Set()[0m
+[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set()[0m

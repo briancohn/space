@@ -1,7 +1,7 @@
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.HelloWorldSpec, org.scalatest.tools.Framework$$anon$1@72e797db, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.HelloWorldSpec, org.scalatest.tools.Framework$$anon$1@274909bc, false, [SuiteSelector])[0m
 [0m[[0mdebug[0m] [0mSummary for ScalaCheck not available.[0m
 [0m[[0minfo[0m] [0mScalaTest[0m
-[0m[[0minfo[0m] [0m[36mRun completed in 238 milliseconds.[0m[0m
+[0m[[0minfo[0m] [0m[36mRun completed in 197 milliseconds.[0m[0m
 [0m[[0minfo[0m] [0m[36mTotal number of tests run: 1[0m[0m
 [0m[[0minfo[0m] [0m[36mSuites: completed 1, aborted 0[0m[0m
 [0m[[0minfo[0m] [0m[36mTests: succeeded 1, failed 0, canceled 0, ignored 0, pending 0[0m[0m
