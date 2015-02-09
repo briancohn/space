@@ -4,7 +4,7 @@ organization := "bbdl"
 
 version := "0.0.1"
 
-scalaVersion := "2.11.5"
+scalaVersion := "2.10.4"
 
 libraryDependencies ++= Seq(
   "org.scalatest" % "scalatest_2.10" % "2.2.1" % "test" withSources() withJavadoc(),
