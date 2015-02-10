@@ -32,7 +32,7 @@ class HelloWorldSpec extends FunSpec {
 // }
 
 
-input: [2,3,4; 8, 7, 3] output [1,2]
+// input: [2,3,4; 8, 7, 3] output [1,2]
 
 
 
