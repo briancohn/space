@@ -1,4 +1,5 @@
 # space
+[![Build Status](https://travis-ci.org/bcohn12/space.svg?branch=master)](https://travis-ci.org/bcohn12/space)
 ####Problem statement:
 We don't know how the brain picks the <strong>optimal</strong> strategy to coordinate its muscles and limbs to generate motion.
 ####Why we are researching this:
