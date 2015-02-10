@@ -20,3 +20,9 @@ compile
 run
 ~run
 ~test
+test
+~test
+compile
+run
+test
+~run

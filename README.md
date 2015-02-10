@@ -43,14 +43,6 @@ When you have `n` muscles controlling the force at an endpoint, and you want to 
 ###Visualization with a Feasible Activation Set (FAS)
 What does the 'solution space' look like?
 
-number of muscles | activation set representation
----------- | -------------
-R1		| Point
-R2		| Line
-R3		| Plane
-...	|	...
-Rn		  	| R<sub>n-1</sub>
-
 Every point within the Feasible Activation Set will produce the desired force output. The dimensionality of the FAS is highly dependent on the number of muscles and whether there are any other constraints on the system (to be discussed in another post).
 ##Example
 If you had 4 muscles in your system, the feasible activaiton space could look like this:
