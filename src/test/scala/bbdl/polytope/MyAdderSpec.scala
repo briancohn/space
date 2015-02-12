@@ -1,5 +1,7 @@
 package bbdl.polytope
 import org.scalatest._
+import breeze.linalg._
+import breeze.numerics._
 class MyAdderSpec extends FlatSpec with Matchers {
 	behavior of "MyAdder"
 
