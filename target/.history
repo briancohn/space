@@ -53,3 +53,7 @@ run
 test
 update
 compile
+~compile
+test
+~compile
+~test

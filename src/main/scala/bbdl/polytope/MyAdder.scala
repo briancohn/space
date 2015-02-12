@@ -19,12 +19,7 @@ object extract_right_square {
 		val row_num = M.rows //m
 		val col_num = M.cols //n
 		val start_col = col_num-row_num
-		var output = M(::, start_col)
-		for( col <- start_col+1 to col_num-1) {
-			var new_generated_col = M(::, col)
-			output = DenseMatrix.horzcat(output.toDenseVector,new_generated_col.toDenseVector)
-		}
-		println(output)
+		var output = M(::, start_col to -1)
 		output
 		}
 }
@@ -50,10 +45,10 @@ class basis{
 		var current_col_to_insert = 0 
 		val list = List.range(0, col_num-row_num-1) 
 		for(i  <- list) {
-			val right_square = extract_right_square(generators)
-			val current_col = generators(::,i)
+			val right_square = extract_right_square(generators).toDenseMatrix
+			val current_col = generators(::,i).toDenseMatrix
 			val x = right_square \ -current_col
-			val current_solutions = x(1 to -1) //exclude the first element, which we know is a one.
+			val current_solutions = x.toDenseVector(1 to -1) //exclude the first element, which we know is a one.
 			basis_solutions = insert_col(basis_solutions, current_solutions, current_col_to_insert)
 			current_col_to_insert = current_col_to_insert + 1
 		}
