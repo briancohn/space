@@ -36,16 +36,16 @@ class GetRandomDirectionSpec extends FlatSpec with Matchers {
 }
 
 class BasisSpec extends FlatSpec with Matchers {
-	behavior of "GenerateBasis"
+	behavior of "Basis"
 	it should "take in a matrix of size (4,2) (generators)" in {
 	  val A = DenseMatrix((1.0,1.0,1.0,1.0), (2.0,1.0,1.0,1.0))
-	  val basis = GenerateBasis(A)
+	  val basis = Basis(A)
 	  val ExpectedBasis = DenseMatrix((0.0,0.0),(-1.0,-1.0), (1.0,0.0), (0.0, 1.0))
 	  basis should be ExpectedBasis
 	}
 	it should "take in a matrix of size (2,4) generators" in {
 	  val A = DenseMatrix((0.0,0.0,1.0,1.0,1.0), (1.0,1.0,1.0,0.0,1.0), (2.0,1.0,1.0,1.0,0.0))
-	  val basis = GenerateBasis(A)
+	  val basis = Basis(A)
 	  val ExpectedBasis = DenseMatrix((-1,1),(2, -1),(-1, -1),(1,0),(0,1))
 	  basis should be ExpectedBasis
 	}

@@ -1,6 +1,8 @@
 package bbdl.polytope
 import breeze.linalg._
 import breeze.numerics._
+import scala.util.Random._
+
 
 class MyAdder extends Function2[Double, Double, Double] {
 	def apply(a: Double, b: Double) = {
@@ -14,10 +16,6 @@ class GetRandomDirection {
 	}
 
 }
-
-
-
-
 
 // @return B DenseMatrix[Double] basis vectors matrix, with each column representing a basis vector.
 class Basis{
@@ -71,4 +69,18 @@ class Ortho {
 		}
 		b
 	} 
+}
+
+class GetRandomDirection{
+	def apply(A: DenseMatrix[Double]) = {
+		NumRows = A.rows
+		NumCols = A.cols
+		for( i <- 0 to NumCols-1 ) {
+			val rand = new Random(seed=1)
+			val lambda = nextGaussian()
+			val x = lambda * A(::, i)
+			val q = q + x
+		}
+		q
+	}
 }
