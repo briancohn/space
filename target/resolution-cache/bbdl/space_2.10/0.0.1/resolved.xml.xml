@@ -4,7 +4,7 @@
 		module="space_2.10"
 		revision="0.0.1"
 		status="integration"
-		publication="20150209173809"
+		publication="20150211152849"
 	>
 		<description>
 		space
@@ -32,8 +32,8 @@
 		<artifact name="space_2.10" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
 	</publications>
 	<dependencies>
-		<dependency org="org.scala-lang" name="scala-compiler" rev="2.10.4" conf="scala-tool->default,optional(default)"/>
-		<dependency org="org.scala-lang" name="scala-library" rev="2.10.4" conf="scala-tool->default,optional(default);compile->default(compile)"/>
+		<dependency org="org.scala-lang" name="scala-compiler" rev="2.10.3" conf="scala-tool->default,optional(default)"/>
+		<dependency org="org.scala-lang" name="scala-library" rev="2.10.3" conf="scala-tool->default,optional(default);compile->default(compile)"/>
 		<dependency org="org.scalatest" name="scalatest_2.10" rev="2.2.1" conf="test->default(compile)">
 			<artifact name="scalatest_2.10" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
 			<artifact name="scalatest_2.10" type="src" ext="jar" conf="sources" e:classifier="sources"/>

@@ -29,3 +29,27 @@ test
 compile
 test
 run
+test
+~run
+run
+compile
+console
+set scalaVersion := "2.10.3" // or 2.11.3
+set libraryDependencies += "org.scalanlp" %% "breeze" % "0.10"
+set resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
+run
+compile
+update
+compile
+run
+compile
+run
+compile
+~compile
+run
+test
+~compile
+run
+test
+update
+compile

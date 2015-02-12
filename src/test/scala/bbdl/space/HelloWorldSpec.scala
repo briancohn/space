@@ -12,15 +12,15 @@ class HelloWorldSpec extends FunSpec {
 // v = desired_force_output
 // generators = DenseMatrix[]
 
-// next_random_point(
-// 	random_point_on_line_segment(
-// 		get_endpoints( //
-// 			get_random_direction( // may will make unit tests
-// 				get_basis(generators, v)), //may will make unit tests
-// 			get_first_inner_point(generators, v) //brian will make unit tests
-// 		)
-// 	)
-// )
+		// next_random_point(
+		// 	random_point_on_line_segment(
+		// 		get_endpoints( //
+		// 			get_random_direction( // may will make unit tests
+		// 				get_basis(generators, v)), //may will make unit tests
+		// 			get_first_inner_point(generators, v) //brian will make unit tests
+		// 		)
+		// 	)
+		// )
 
 
 // def next_random_point(
