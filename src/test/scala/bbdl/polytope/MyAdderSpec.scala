@@ -18,6 +18,7 @@ class MyAdderSpec extends FlatSpec with Matchers {
 class get_random_direction_spec extends FlatSpec with Matchers {
 	behavior of "get_random_direction"
 	it should "Get a random direction for all positive inputs" in {
+	val get_random_direction = new get_random_direction()
 	  val B = DenseMatrix((1.0,0.0), (0.0,1.0), (0.0, 0.0))
 	  val v = DenseVector(0.1,0.2)
 	  val random_direction = get_random_direction(B,v)

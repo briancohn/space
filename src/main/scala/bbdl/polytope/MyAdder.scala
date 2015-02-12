@@ -8,7 +8,7 @@ class MyAdder extends Function2[Double, Double, Double] {
 	}
 }
 
-class get_random_direction {
+object get_random_direction {
 	def apply(B: DenseMatrix[Double], v: DenseVector[Double]) = {
 		0
 	}
