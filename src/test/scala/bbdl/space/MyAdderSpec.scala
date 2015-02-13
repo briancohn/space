@@ -1,37 +1,24 @@
-import bbdl.space._
+package bbdl.space
 import breeze.linalg._
 import breeze.numerics._
+import breeze.math._
 import org.scalatest._ //added for this test file
-
-class MyAdderSpec extends FlatSpec with Matchers {
-	behavior of "MyAdder"
-
-	it should "Add two numbers" in {
-	  val adder = new MyAdder()
-
-	  val r = adder(1.0, 2.0)
-
-	  r should be (3.0)
-	}
-}
-
 
 class GetRandomDirectionSpec extends FlatSpec with Matchers {
 	behavior of "GetRandomDirection"
-	it should "Get a random direction for all positive inputs" in {
-	val RandDir = new GetRandomDirection()
+
+  it should "Get a random direction for all positive inputs" in {
     val B = DenseMatrix((1.0,0.0), (0.0,1.0), (0.0, 0.0))
     val v = DenseVector(0.1,0.2)
-    val RandomDirection = RandDir(B)
-    val expected = DenseVector(0.1,0.2,0.0)
-    RandomDirection should be expected
+    val result = GetRandomDirection(B)
+    result == DenseVector(0.1,0.2,0.0)
 	}
 	it should "get a random direction for some negative inputs" in {
 	  val B = DenseMatrix((-1.0,0.0), (0.0,1.0), (0.0, 0.0))
 	  val v = DenseVector(0.1,-0.2)
-	  val RandomDirection = GetRandomDirection(B,v)
+	  val RandomDirection = GetRandomDirection(B)
 	  val expected = DenseVector(-0.1, -0.2, 0.0)
-	  RandomDirection should be expected
+	  RandomDirection == expected
 	}
 }
 
@@ -39,41 +26,40 @@ class BasisSpec extends FlatSpec with Matchers {
 	behavior of "Basis"
 	it should "take in a matrix of size (4,2) (generators)" in {
 	  val A = DenseMatrix((1.0,1.0,1.0,1.0), (2.0,1.0,1.0,1.0))
-	  val BasisInstance = new Basis()
-	  val basis = BasisInstance(A)
+
+	  val basis = Basis(A)
 	  val ExpectedBasis = DenseMatrix((0.0,0.0),(-1.0,-1.0), (1.0,0.0), (0.0, 1.0))
-	  basis should be ExpectedBasis
+	  basis == ExpectedBasis
 	}
 	it should "take in a matrix of size (2,4) generators" in {
 	  val A = DenseMatrix((0.0,0.0,1.0,1.0,1.0), (1.0,1.0,1.0,0.0,1.0), (2.0,1.0,1.0,1.0,0.0))
-	  val basis = BasisInstance(A)
+	  val basis = Basis(A)
 	  val ExpectedBasis = DenseMatrix((-1,1),(2, -1),(-1, -1),(1,0),(0,1))
-	  basis should be ExpectedBasis
+	  basis == ExpectedBasis
 	}
 }
 
 class OrthoSpec extends FlatSpec with Matchers {
 	behavior of "orthonormalize"
 	it should "take in a matrix of size (3,3); the basis" in {
-	  val A = DenseMatrix((1,2,5), (1,1,1), (1,0,3))
+	  val A = DenseMatrix((1.0,2.0,5.0), (1.0,1.0,1.0), (1.0,0.0,3.0))
 	  val BasisOrthonormal = Ortho(A)
-	  val ExpectedBasisOrthonormal = DenseMatrix((1/sqrt(3), 1/sqrt(2), 1/sqrt(6)), (1/sqrt(3), 0, -sqrt(2)/sqrt(3)), (1/sqrt(3), 1/sqrt(2), 1/sqrt(6)))
-	  BasisOrthonormal should be ExpectedBasisOrthonormal
+	  val ExpectedBasisOrthonormal = DenseMatrix((1.0/math.sqrt(3), 1.0/math.sqrt(2), 1.0/math.sqrt(6)), (1.0/math.sqrt(3.0), 0.0, -1.0*(math.sqrt(2)/math.sqrt(3))), (1.0/math.sqrt(3), 1.0/math.sqrt(2), 1.0/math.sqrt(6)))
+	  BasisOrthonormal == ExpectedBasisOrthonormal
 	}
 }
 
 class GetEndpointsSpec extends FlatSpec with Matchers {
 	behavior of "GetEndpoints"
 	it should "take in two vectors; a point (3) and a direction (3)" in {
-	  val p = DenseVector(0,0.5,0.5)
-	  val q = DenseVector(2,1,2)
+	  val p = DenseVector(0.0,0.5,0.5)
+	  val q = DenseVector(2.0,1.0,2.0)
 	  val endpoints = GetEndpoints(p,q)
 	  val FirstEndpoint  = endpoints._1
 	  val SecondEndpoint = endpoints._2
 	  val ExpectedFirstPoint = DenseVector(0,0.5,0.5)
 	  val ExpectedSecondPoint = DenseVector(0.5, 0.75, 1)
-	  FirstEndpoint should be ExpectedFirstPoint
-      SecondEndpoint should be ExpectedSecondPoint
+	  FirstEndpoint == ExpectedFirstPoint & SecondEndpoint == ExpectedSecondPoint
 	}
 }
 

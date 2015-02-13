@@ -89,3 +89,8 @@ clean
 update
 compile
 test
+compile
+test
+compile
+test
+console

@@ -1,17 +1,18 @@
 package bbdl.space
 import breeze.linalg._
 import breeze.numerics._
+import breeze.math._
 import scala.util._
 
 
-class MyAdder extends Function2[Double, Double, Double] {
+object MyAdder extends Function2[Double, Double, Double] {
 	def apply(a: Double, b: Double) = {
 		a + b
 	}
 }
 
 // @return B DenseMatrix[Double] basis vectors matrix, with each column representing a basis vector.
-class Basis extends Function1[DenseMatrix[Double], DenseMatrix[Double]]{
+object Basis extends Function1[DenseMatrix[Double], DenseMatrix[Double]]{
 	def ExtractRightSquare(M: DenseMatrix[Double]) = {
 		val RowNum = M.rows //m
 		val ColNum = M.cols //n
@@ -49,7 +50,7 @@ class Basis extends Function1[DenseMatrix[Double], DenseMatrix[Double]]{
 	
 
 
-class Ortho {
+object Ortho extends Function[DenseMatrix[Double], DenseMatrix[Double]]{
 	def apply(a: DenseMatrix[Double]) = {
 		val m = a.rows
 		val n = a.cols
@@ -64,7 +65,7 @@ class Ortho {
 	} 
 }
 
-class GetRandomDirection{
+object GetRandomDirection{
 	def apply(A: DenseMatrix[Double]) = {
 		val NumRows = A.rows
 		val NumCols = A.cols
@@ -78,4 +79,14 @@ class GetRandomDirection{
 		}
 		q_dir
 	}
+}
+
+
+
+object GetEndpoints{
+  def apply(p: DenseVector[Double], q: DenseVector[Double]) = {
+    val dimensions = p.length
+    val fakeresult = DenseVector.ones[Double](dimensions)
+    (fakeresult, fakeresult)
+  }
 }
