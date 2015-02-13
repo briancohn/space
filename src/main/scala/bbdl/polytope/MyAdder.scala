@@ -68,12 +68,13 @@ class GetRandomDirection{
 	def apply(A: DenseMatrix[Double]) = {
 		val NumRows = A.rows
 		val NumCols = A.cols
-		var q_dir = DenseVector.zeros()
+		// Initiate an output vector (starting with zeros)
+		var q_dir = DenseVector.zeros[Double](NumCols)
 		for( i <- 0 to NumCols-1 ) {
 			val rand = new Random(seed=1)
 			val lambda = rand.nextGaussian()
 			val x = A(::, i) :* lambda
-			var q_dir = q_dir :+ x.toDenseVector
+			q_dir := x
 		}
 		q_dir
 	}
