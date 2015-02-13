@@ -1,4 +1,4 @@
-package bbdl.polytope
+import bbdl.space._
 import breeze.linalg._
 import breeze.numerics._
 import org.scalatest._ //added for this test file
@@ -19,12 +19,12 @@ class MyAdderSpec extends FlatSpec with Matchers {
 class GetRandomDirectionSpec extends FlatSpec with Matchers {
 	behavior of "GetRandomDirection"
 	it should "Get a random direction for all positive inputs" in {
-	val GetRandomDirection = new GetRandomDirection()
-	  val B = DenseMatrix((1.0,0.0), (0.0,1.0), (0.0, 0.0))
-	  val v = DenseVector(0.1,0.2)
-	  val RandomDirection = GetRandomDirection(B,v)
-	  val expected = DenseVector(0.1,0.2,0.0)
-	  RandomDirection should be expected
+	val RandDir = new GetRandomDirection()
+    val B = DenseMatrix((1.0,0.0), (0.0,1.0), (0.0, 0.0))
+    val v = DenseVector(0.1,0.2)
+    val RandomDirection = RandDir(B)
+    val expected = DenseVector(0.1,0.2,0.0)
+    RandomDirection should be expected
 	}
 	it should "get a random direction for some negative inputs" in {
 	  val B = DenseMatrix((-1.0,0.0), (0.0,1.0), (0.0, 0.0))
@@ -39,13 +39,14 @@ class BasisSpec extends FlatSpec with Matchers {
 	behavior of "Basis"
 	it should "take in a matrix of size (4,2) (generators)" in {
 	  val A = DenseMatrix((1.0,1.0,1.0,1.0), (2.0,1.0,1.0,1.0))
-	  val basis = Basis(A)
+	  val BasisInstance = new Basis()
+	  val basis = BasisInstance(A)
 	  val ExpectedBasis = DenseMatrix((0.0,0.0),(-1.0,-1.0), (1.0,0.0), (0.0, 1.0))
 	  basis should be ExpectedBasis
 	}
 	it should "take in a matrix of size (2,4) generators" in {
 	  val A = DenseMatrix((0.0,0.0,1.0,1.0,1.0), (1.0,1.0,1.0,0.0,1.0), (2.0,1.0,1.0,1.0,0.0))
-	  val basis = Basis(A)
+	  val basis = BasisInstance(A)
 	  val ExpectedBasis = DenseMatrix((-1,1),(2, -1),(-1, -1),(1,0),(0,1))
 	  basis should be ExpectedBasis
 	}

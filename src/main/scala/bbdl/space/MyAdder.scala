@@ -1,4 +1,4 @@
-package bbdl.polytope
+package bbdl.space
 import breeze.linalg._
 import breeze.numerics._
 import scala.util._
@@ -11,7 +11,7 @@ class MyAdder extends Function2[Double, Double, Double] {
 }
 
 // @return B DenseMatrix[Double] basis vectors matrix, with each column representing a basis vector.
-class Basis{
+class Basis extends Function1[DenseMatrix[Double], DenseMatrix[Double]]{
 	def ExtractRightSquare(M: DenseMatrix[Double]) = {
 		val RowNum = M.rows //m
 		val ColNum = M.cols //n
@@ -69,7 +69,7 @@ class GetRandomDirection{
 		val NumRows = A.rows
 		val NumCols = A.cols
 		// Initiate an output vector (starting with zeros)
-		var q_dir = DenseVector.zeros[Double](NumCols)
+		var q_dir = DenseVector.zeros[Double](NumRows)
 		for( i <- 0 to NumCols-1 ) {
 			val rand = new Random(seed=1)
 			val lambda = rand.nextGaussian()
