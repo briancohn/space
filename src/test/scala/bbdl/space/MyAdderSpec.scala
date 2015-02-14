@@ -24,29 +24,62 @@ class GetRandomDirectionSpec extends FlatSpec with Matchers {
 
 class BasisSpec extends FlatSpec with Matchers {
 	behavior of "Basis"
-	it should "take in a matrix of size (4,2) (generators)" in {
-	  val A = DenseMatrix((1.0,1.0,1.0,1.0), (2.0,1.0,1.0,1.0))
-	  val basis = Basis(A)
-	  val ExpectedBasis = DenseMatrix((0.0,0.0),(-1.0,-1.0), (1.0,0.0), (0.0, 1.0))
+	it should "take in a matrix of size (2,5), and output a (5,2) basis" in {
+    import bbdl.space.Basis
+    import breeze.linalg._
+    val A = DenseMatrix(
+      (1.0, 1.0, 0.0, 0.0, 1.0),
+      (0.0, 1.0, 1.0, 1.0, 1.0),
+      (1.0, 0.0, 2.0, 1.0, 1.0)
+    )
+    val basis = Basis(A)
+    val ExpectedBasis = DenseMatrix((1,0),(0,1), (-1,1),(2, -1),(-1, -1))
     assert(basis == ExpectedBasis)
 	}
-	it should "take in a matrix of size (2,4) generators" in {
-	  val A = DenseMatrix((0.0,0.0,1.0,1.0,1.0), (1.0,1.0,1.0,0.0,1.0), (2.0,1.0,1.0,1.0,0.0))
-	  val basis = Basis(A)
-	  val ExpectedBasis = DenseMatrix((-1,1),(2, -1),(-1, -1),(1,0),(0,1))
-    assert(basis == ExpectedBasis)
-	}
+  it should "take in a matrix of size(2,4) and output a (4,2) basis" in {
+    val A = DenseMatrix(
+      (1.0, 1.0, 1.0, 1.0),
+      (1.0, 1.0, 2.0, 1.0)
+    )
+    val basis=Basis(A)
+    val ExpectedBasis = DenseMatrix(
+      (1.0, 0.0),
+      (0.0,1.0),
+      (0.0,0.0),
+      (-1.0,-1.0)
+    )
+    assert(basis === ExpectedBasis)
+  }
 }
 
 class OrthoSpec extends FlatSpec with Matchers {
 	behavior of "orthonormalize"
 	it should "take in a matrix of size (3,3); the basis" in {
-	  val A = DenseMatrix((1.0,2.0,5.0), (1.0,1.0,1.0), (1.0,0.0,3.0))
-	  val BasisOrthonormal = Ortho(A)
-	  val ExpectedBasisOrthonormal = DenseMatrix((1.0/math.sqrt(3), 1.0/math.sqrt(2), 1.0/math.sqrt(6)), (1.0/math.sqrt(3.0), 0.0, -1.0*(math.sqrt(2)/math.sqrt(3))), (1.0/math.sqrt(3), 1.0/math.sqrt(2), 1.0/math.sqrt(6)))
+    val BasisOrthonormal = Ortho( DenseMatrix((1.0,1.0),(0.0,1.0)) )
+	  val ExpectedBasisOrthonormal = DenseMatrix((1.0,0.0), (0.0,1.0))
 	  assert(BasisOrthonormal === ExpectedBasisOrthonormal)
+
 	}
+  it should "take in a matrix of size (3,3); the basis" in {
+    val BasisOrthonormal = Ortho( DenseMatrix(
+      (1.0,2.0,5.0),
+      (1.0,1.0,1.0),
+      (1.0,0.0,3.0)
+    )
+    )
+
+
+  }
 }
+
+
+class IsOrthogonalSpec extends FlatSpec with Matchers {
+  behavior of "IsOrthogonal"
+  it should "verify that an identity matrix is orthogonal" in {
+    assert(IsOrthogonal(DenseMatrix((1.0, 0.0), (0.0, 1.0))), true)
+  }
+}
+
 
 class GetEndpointsSpec extends FlatSpec with Matchers {
 	behavior of "GetEndpoints"
