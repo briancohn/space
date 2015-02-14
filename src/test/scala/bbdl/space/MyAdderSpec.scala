@@ -10,14 +10,16 @@ class GetRandomDirectionSpec extends FlatSpec with Matchers {
   it should "Get a random direction for all positive inputs" in {
     val B = DenseMatrix((1.0,0.0), (0.0,1.0), (0.0, 0.0))
     val v = DenseVector(0.1,0.2)
-    val result = GetRandomDirection(B)
-    assert(result == DenseVector(0.1,0.2,0.0))
+    val seed = 10
+    val result = GetRandomDirection(B, seed)
+    assert(result == DenseVector(0.0,0.8746788966462123,0.0))
 	}
 	it should "get a random direction for some negative inputs" in {
 	  val B = DenseMatrix((-1.0,0.0), (0.0,1.0), (0.0, 0.0))
 	  val v = DenseVector(0.1,-0.2)
-	  val RandomDirection = GetRandomDirection(B)
-	  val expected = DenseVector(-0.1, -0.2, 0.0)
+    val seed = 10
+	  val RandomDirection = GetRandomDirection(B, seed)
+	  val expected = DenseVector(0.0, 0.8746788966462123, 0.0)
     assert(RandomDirection == expected)
 	}
 }
@@ -60,25 +62,10 @@ class OrthoSpec extends FlatSpec with Matchers {
 	  assert(BasisOrthonormal === ExpectedBasisOrthonormal)
 
 	}
-  it should "take in a matrix of size (3,3); the basis" in {
-    val BasisOrthonormal = Ortho( DenseMatrix(
-      (1.0,2.0,5.0),
-      (1.0,1.0,1.0),
-      (1.0,0.0,3.0)
-    )
-    )
-
-
-  }
 }
 
 
-class IsOrthogonalSpec extends FlatSpec with Matchers {
-  behavior of "IsOrthogonal"
-  it should "verify that an identity matrix is orthogonal" in {
-    assert(IsOrthogonal(DenseMatrix((1.0, 0.0), (0.0, 1.0))), true)
-  }
-}
+
 
 
 class GetEndpointsSpec extends FlatSpec with Matchers {

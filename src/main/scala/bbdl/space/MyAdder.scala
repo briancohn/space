@@ -72,13 +72,13 @@ object Ortho extends Function[DenseMatrix[Double], DenseMatrix[Double]]{
 }
 
 object GetRandomDirection{
-	def apply(A: DenseMatrix[Double]) = {
+	def apply(A: DenseMatrix[Double], seed: Int) = {
 		val NumRows = A.rows
 		val NumCols = A.cols
 		// Initiate an output vector (starting with zeros)
 		var q_dir = DenseVector.zeros[Double](NumRows)
 		for( i <- 0 to NumCols-1 ) {
-			val rand = new Random(seed=1)
+			val rand = new Random(seed=seed)
 			val lambda = rand.nextGaussian()
 			val x = A(::, i) :* lambda
 			q_dir := x
