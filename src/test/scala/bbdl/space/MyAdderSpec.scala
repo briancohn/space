@@ -11,14 +11,14 @@ class GetRandomDirectionSpec extends FlatSpec with Matchers {
     val B = DenseMatrix((1.0,0.0), (0.0,1.0), (0.0, 0.0))
     val v = DenseVector(0.1,0.2)
     val result = GetRandomDirection(B)
-    result == DenseVector(0.1,0.2,0.0)
+    assert(result == DenseVector(0.1,0.2,0.0))
 	}
 	it should "get a random direction for some negative inputs" in {
 	  val B = DenseMatrix((-1.0,0.0), (0.0,1.0), (0.0, 0.0))
 	  val v = DenseVector(0.1,-0.2)
 	  val RandomDirection = GetRandomDirection(B)
 	  val expected = DenseVector(-0.1, -0.2, 0.0)
-	  RandomDirection == expected
+    assert(RandomDirection == expected)
 	}
 }
 
@@ -26,16 +26,15 @@ class BasisSpec extends FlatSpec with Matchers {
 	behavior of "Basis"
 	it should "take in a matrix of size (4,2) (generators)" in {
 	  val A = DenseMatrix((1.0,1.0,1.0,1.0), (2.0,1.0,1.0,1.0))
-
 	  val basis = Basis(A)
 	  val ExpectedBasis = DenseMatrix((0.0,0.0),(-1.0,-1.0), (1.0,0.0), (0.0, 1.0))
-	  basis == ExpectedBasis
+    assert(basis == ExpectedBasis)
 	}
 	it should "take in a matrix of size (2,4) generators" in {
 	  val A = DenseMatrix((0.0,0.0,1.0,1.0,1.0), (1.0,1.0,1.0,0.0,1.0), (2.0,1.0,1.0,1.0,0.0))
 	  val basis = Basis(A)
 	  val ExpectedBasis = DenseMatrix((-1,1),(2, -1),(-1, -1),(1,0),(0,1))
-	  basis == ExpectedBasis
+    assert(basis == ExpectedBasis)
 	}
 }
 
@@ -45,7 +44,7 @@ class OrthoSpec extends FlatSpec with Matchers {
 	  val A = DenseMatrix((1.0,2.0,5.0), (1.0,1.0,1.0), (1.0,0.0,3.0))
 	  val BasisOrthonormal = Ortho(A)
 	  val ExpectedBasisOrthonormal = DenseMatrix((1.0/math.sqrt(3), 1.0/math.sqrt(2), 1.0/math.sqrt(6)), (1.0/math.sqrt(3.0), 0.0, -1.0*(math.sqrt(2)/math.sqrt(3))), (1.0/math.sqrt(3), 1.0/math.sqrt(2), 1.0/math.sqrt(6)))
-	  BasisOrthonormal == ExpectedBasisOrthonormal
+	  assert(BasisOrthonormal === ExpectedBasisOrthonormal)
 	}
 }
 
@@ -59,7 +58,7 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
 	  val SecondEndpoint = endpoints._2
 	  val ExpectedFirstPoint = DenseVector(0,0.5,0.5)
 	  val ExpectedSecondPoint = DenseVector(0.5, 0.75, 1)
-	  FirstEndpoint == ExpectedFirstPoint & SecondEndpoint == ExpectedSecondPoint
+    assert(FirstEndpoint == ExpectedFirstPoint & SecondEndpoint == ExpectedSecondPoint)
 	}
 }
 

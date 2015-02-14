@@ -28,4 +28,5 @@ resolvers ++= Seq(
 )
 
 // Scala 2.9.2 is still supported for 0.2.1, but is dropped afterwards.
-scalaVersion := "2.11.1" // or 2.10.3 or later
+//scalaVersion := "2.11.1" // or 2.10.3 or later
+libraryDependencies += "org.apache.spark" %% "spark-core" % "1.2.0"

@@ -94,3 +94,14 @@ test
 compile
 test
 console
+compile
+run
+test
+~test
+test
+test:test
+test
+clear
+test
+console
+test
