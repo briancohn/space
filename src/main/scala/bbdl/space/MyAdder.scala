@@ -2,6 +2,7 @@ package bbdl.space
 import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
+import breeze.optimize.linear.LinearProgram
 import scala.util._
 
 
@@ -79,6 +80,7 @@ object GetRandomDirection{
 		var q_dir = DenseVector.zeros[Double](NumRows)
 		for( i <- 0 to NumCols-1 ) {
 			val rand = new Random(seed=seed)
+
 			val lambda = rand.nextGaussian()
 			val x = A(::, i) :* lambda
 			q_dir := x
@@ -120,3 +122,23 @@ object GetEndpoints{
 //     //if you get through all combinations and could only find orthogonal pairs
 //  }
 //}
+
+object Simplex {
+  def apply(A: DenseMatrix[Double], b: DenseVector[Double]): DenseVector[Double] ={
+    import breeze.optimize.linear._
+    val lp = new LinearProgram()
+    import lp._
+
+    val xs = Array.fill(3)(Real())
+
+    val lpp = (
+      (for( (x, a) <- xs zip Array(1,2,3)) yield (x * a)).reduce(_ + _)
+        subjectTo( (for( (x, a) <- xs zip Array(-1,1,1)) yield (x * a)).reduce(_ + _)  <= 20)
+        subjectTo( (for( (x, a) <- xs zip Array(1,-3,1)) yield (x * a)).reduce(_ + _)  <= 30)
+        subjectTo( (for( (x, a) <- xs zip Array(1,0,0)) yield (x * a)).reduce(_ + _)  <= 40)
+      )
+
+    val x = maximize(lpp)
+    x.result
+  }
+}

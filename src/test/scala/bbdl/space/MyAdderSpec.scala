@@ -79,7 +79,8 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
 	  val ExpectedFirstPoint = DenseVector(0,0.5,0.5)
 	  val ExpectedSecondPoint = DenseVector(0.5, 0.75, 1)
     assert(FirstEndpoint == ExpectedFirstPoint & SecondEndpoint == ExpectedSecondPoint)
-	}
+    }
 }
+
 
 
