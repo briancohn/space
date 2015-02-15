@@ -100,58 +100,6 @@ object GetEndpoints{
   }
 }
 
-
-//object IsOrthogonal{
-//
-//  def AreOrthogonal(v1: DenseVector[Double], v2: DenseVector[Double]) ={
-//    val res = v1 dot v2
-//    res
-//  }
-//  def apply(M: DenseMatrix[Double]) {
-//    val combinations = (for {
-//      i <- 1 to M.cols
-//      j <- 1 until i
-//      if j!=i
-//    } yield (i,j))
-//    val FalseList = combinations.filter((x: List[Int,Int]) AreOrthogonal(M(;;,x._1), M(;;,x._2)))
-//    if (FalseList.length > 0) {
-//      false
-//
-//    }else{
-//      true
-//    }
-//     //if you get through all combinations and could only find orthogonal pairs
-//  }
-//}
-//
-//object Simplex {
-//  def apply(A: DenseMatrix[Double], b: DenseVector[Double]): DenseVector[Double] = {
-//    val ColNum = A.cols
-//    val RowNum = A.rows
-//    val lp = new breeze.optimize.linear.LinearProgram()
-//
-//    val xs = Array.fill(3)(Real())
-//    val B = Array(20, 30, 40)
-//    var A = Array.ofDim[Double](3, 3)
-//
-//    A(0) = Array(-1, 1, 1)
-//    A(1) = Array(1, -3, 1)
-//    A(2) = Array(1, 0, 0)
-//    var Constraints = new Array[lp.Constraint](3)
-//    for (i <- 0 to 2) {
-//      Constraints(i) = (for ((x, a) <- xs zip A(i)) yield (x * a)).reduce(_ + _) <= B(i)
-//    }
-//
-//    val lpp = (
-//      (for ((x, a) <- xs zip Array(1, 2, 3)) yield (x * a)).reduce(_ + _)
-//        subjectTo (Constraints: _*)
-//      )
-//
-//    lp.maximize(lpp)
-//
-//  }
-//}
-
 object LowLevelSimplex{
   def apply(A_input: DenseMatrix[Double], b_input: DenseVector[Double], c_input: DenseVector[Double]): DenseVector[Double] = {
     val lp = new breeze.optimize.linear.LinearProgram()
@@ -177,4 +125,57 @@ object LowLevelSimplex{
 }
 }
 
+object GenStartingPoint{
+	//@param A DenseMatrix[Double] of a linear constraint system
+	//@return ABlock DenseMatrix[Double] with A, -A, zeros, zeros in the top left, bottom left, top right, and bottom right quadrants of a (2m,2n) matrix.
+	def GenABlock(A: DenseMatrix[Double]): DenseMatrix[Double] = {
+		val NumCols = A.cols
+		val NumRows = A.rows
+		val AMatricies = DenseMatrix.vertcat(A, -A)
 
+		val ZeroMat = DenseMatrix.zeros[Double](NumRows,NumCols)
+		val ZeroMatricies = DenseMatrix.vertcat(ZeroMat, ZeroMat)
+
+		DenseMatrix.horzcat(AMatricies, ZeroMatricies)
+	}
+	//Generates a (2n,2n) sized square matrix, where all 
+	//quadrants are eye, except for the top left corner, which is -eye.
+	//@param n RowLen of an A Matrix.
+	//@return M DenseMatrix[Double] with Q1 -eye(n), and all other quadrants eye(n)
+	def GenEyeBlock(NumCols: Int):  DenseMatrix[Double] ={
+		val Eye_n = DenseMatrix.eye[Double](NumCols)
+		val TopEye = DenseMatrix.horzcat(-Eye_n, Eye_n)
+		val BottomEye = DenseMatrix.horzcat(Eye_n, Eye_n)
+		DenseMatrix.vertcat(TopEye, BottomEye)
+	}
+	//@param A The Linear constraints matrix to expand
+	//@return AExpanded DenseMatrix[Double] expanded to full block form.
+	def ExpandAMatrix(A: DenseMatrix[Double]): DenseMatrix[Double] = {
+		DenseMatrix.vertcat(GenABlock(A), GenEyeBlock(A.cols))		
+	}
+	//@param b The linear programming inequality value, b
+	//@param ColNum The linear programming constraints A.cols
+	//@return Expandedb a DenseVector[Double] with length (4n), with b, -b, zeros(n), ones(n)
+	def ExpandbVector(b: DenseVector[Double], ColNum: Int) = {
+		val n = ColNum
+		DenseVector.vertcat(b, -b, DenseVector.zeros[Double](n), DenseVector.ones[Double](n))
+	}
+	//@param A Linear programmming constraint matrix
+	//@return c a set of solutions.
+	def GencVector(A: DenseMatrix[Double]) = {
+		val NumCols = A.cols
+		DenseVector.vertcat(DenseVector.zeros[Double](NumCols),
+							DenseVector.ones[Double](NumCols))
+	}
+	//@param A Linear programming constraints in a DenseMatrix[Double].
+	//@param b Linear programming DenseVector[Double], strictly less than its companion row in A.
+	//@return x DenseVector[Double] centrally-maximized solution for inner point.
+	def apply(A: DenseMatrix[Double], b: DenseVector[Double]) = {
+		val ColNum = A.cols
+		val AExpanded = ExpandAMatrix(A)
+		val bExpanded = ExpandbVector(b, A.cols)
+		val c = GencVector(A)
+		val x = LowLevelSimplex(AExpanded, bExpanded, c)
+		x
+	}
+}
