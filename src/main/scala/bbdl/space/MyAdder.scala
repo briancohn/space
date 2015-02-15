@@ -3,6 +3,7 @@ import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
 import breeze.optimize.linear.LinearProgram
+import spire.math.Real
 import scala.util._
 
 
@@ -122,23 +123,75 @@ object GetEndpoints{
 //     //if you get through all combinations and could only find orthogonal pairs
 //  }
 //}
+//
+//object Simplex {
+//  def apply(A: DenseMatrix[Double], b: DenseVector[Double]): DenseVector[Double] = {
+//    val ColNum = A.cols
+//    val RowNum = A.rows
+//    val lp = new breeze.optimize.linear.LinearProgram()
+//
+//    val xs = Array.fill(3)(Real())
+//    val B = Array(20, 30, 40)
+//    var A = Array.ofDim[Double](3, 3)
+//
+//    A(0) = Array(-1, 1, 1)
+//    A(1) = Array(1, -3, 1)
+//    A(2) = Array(1, 0, 0)
+//    var Constraints = new Array[lp.Constraint](3)
+//    for (i <- 0 to 2) {
+//      Constraints(i) = (for ((x, a) <- xs zip A(i)) yield (x * a)).reduce(_ + _) <= B(i)
+//    }
+//
+//    val lpp = (
+//      (for ((x, a) <- xs zip Array(1, 2, 3)) yield (x * a)).reduce(_ + _)
+//        subjectTo (Constraints: _*)
+//      )
+//
+//    lp.maximize(lpp)
+//
+//  }
+//}
 
-object Simplex {
-  def apply(A: DenseMatrix[Double], b: DenseVector[Double]): DenseVector[Double] ={
-    import breeze.optimize.linear._
-    val lp = new LinearProgram()
-    import lp._
+object LowLevelSimplex{
+  def apply(A_input: DenseMatrix[Double], b_input: DenseVector[Double], c_input: DenseVector[Double]): DenseVector[Double] = {
+    val lp = new breeze.optimize.linear.LinearProgram()
+    import breeze.linalg._
+    import breeze.numerics._
+    import breeze.util.JavaArrayOps
+//    import lp._
 
-    val xs = Array.fill(3)(Real())
+    //val b =
 
+//    val A_input = DenseMatrix(
+//      (-1.0,1.0,1.0),
+//      (1.0,-3.0,1.0),
+//      (1.0,0.0,0.0))
+//
+//    val b_input = DenseVector(20.0,30.0,40.0)
+//    val c_input = DenseVector(1.0,2.0,3.0)
+    val ColNum = A_input.cols //ColNum = the number of variables
+    val xs = Array.fill(ColNum)(lp.Real()) //xs is the number of variables in an array. If x_0 to x_n, ColNum defines n
+    val b = JavaArrayOps.dvDToArray(b_input)
+    val RowNum = b.length
+    val A = JavaArrayOps.dmDToArray2(A_input)
+    val c = JavaArrayOps.dvDToArray(c_input) //the objective function
+
+
+    //var A = Array.ofDim[Double](3,3)
+    //
+    //A(0) = Array(-1,1,1)//the set of constraints
+    //A(1) = Array(1,-3,1)
+    //A(2) = Array(1,0,0)
+    var Constraints = new Array[lp.Constraint](3)
+    for (i <- 0 to RowNum-1) {
+    Constraints(i) = (for( (x, a) <- xs zip A(i)) yield (x * a)).reduce(_ + _)  <= b(i)
+    }
     val lpp = (
-      (for( (x, a) <- xs zip Array(1,2,3)) yield (x * a)).reduce(_ + _)
-        subjectTo( (for( (x, a) <- xs zip Array(-1,1,1)) yield (x * a)).reduce(_ + _)  <= 20)
-        subjectTo( (for( (x, a) <- xs zip Array(1,-3,1)) yield (x * a)).reduce(_ + _)  <= 30)
-        subjectTo( (for( (x, a) <- xs zip Array(1,0,0)) yield (x * a)).reduce(_ + _)  <= 40)
-      )
-
-    val x = maximize(lpp)
-    x.result
-  }
+    (for( (x, a) <- xs zip c) yield (x * a)).reduce(_ + _)
+    subjectTo( Constraints:_* )
+    )
+    lp.maximize(lpp).result
 }
+}
+
+
