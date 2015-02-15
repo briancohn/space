@@ -155,20 +155,8 @@ object GetEndpoints{
 object LowLevelSimplex{
   def apply(A_input: DenseMatrix[Double], b_input: DenseVector[Double], c_input: DenseVector[Double]): DenseVector[Double] = {
     val lp = new breeze.optimize.linear.LinearProgram()
-    import breeze.linalg._
-    import breeze.numerics._
     import breeze.util.JavaArrayOps
-//    import lp._
 
-    //val b =
-
-//    val A_input = DenseMatrix(
-//      (-1.0,1.0,1.0),
-//      (1.0,-3.0,1.0),
-//      (1.0,0.0,0.0))
-//
-//    val b_input = DenseVector(20.0,30.0,40.0)
-//    val c_input = DenseVector(1.0,2.0,3.0)
     val ColNum = A_input.cols //ColNum = the number of variables
     val xs = Array.fill(ColNum)(lp.Real()) //xs is the number of variables in an array. If x_0 to x_n, ColNum defines n
     val b = JavaArrayOps.dvDToArray(b_input)
@@ -176,13 +164,7 @@ object LowLevelSimplex{
     val A = JavaArrayOps.dmDToArray2(A_input)
     val c = JavaArrayOps.dvDToArray(c_input) //the objective function
 
-
-    //var A = Array.ofDim[Double](3,3)
-    //
-    //A(0) = Array(-1,1,1)//the set of constraints
-    //A(1) = Array(1,-3,1)
-    //A(2) = Array(1,0,0)
-    var Constraints = new Array[lp.Constraint](3)
+    var Constraints = new Array[lp.Constraint](RowNum)
     for (i <- 0 to RowNum-1) {
     Constraints(i) = (for( (x, a) <- xs zip A(i)) yield (x * a)).reduce(_ + _)  <= b(i)
     }
@@ -190,7 +172,8 @@ object LowLevelSimplex{
     (for( (x, a) <- xs zip c) yield (x * a)).reduce(_ + _)
     subjectTo( Constraints:_* )
     )
-    lp.maximize(lpp).result
+    val x = lp.maximize(lpp).result
+    x
 }
 }
 
