@@ -107,4 +107,25 @@ console
 test
 console
 run
+<<<<<<< HEAD
+=======
+console
+compile
+run
+test
+compile
+test
+compile
+run
+test
+compile
+run
+test
+console
+test
+stop at MyAdder.scala:129
+clean
+compile
+run
+>>>>>>> e95b030858b528ab4bed7c94e367471c022143c3
 test

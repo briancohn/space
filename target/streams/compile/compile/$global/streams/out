@@ -2,6 +2,7 @@
 [0m[[0mdebug[0m] [0mInitial source changes: [0m
 [0m[[0mdebug[0m] [0m	removed:Set()[0m
 [0m[[0mdebug[0m] [0m	added: Set()[0m
+<<<<<<< HEAD
 [0m[[0mdebug[0m] [0m	modified: Set(/Users/innovation/Documents/space/src/main/scala/bbdl/space/MyAdder.scala, /Users/innovation/Documents/space/src/main/scala/bbdl/space/package.scala)[0m
 [0m[[0mdebug[0m] [0mRemoved products: Set(/Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/Basis$$anonfun$apply$1.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/GetRandomDirection.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/Basis$$anonfun$InsertCol$1.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/MyAdder.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/Basis$.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/MainClass/package$.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/GetRandomDirection$$anonfun$apply$3.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/Ortho.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/GetEndpoints.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/GetRandomDirection$.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/GetEndpoints$.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/Ortho$.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/MainClass/package.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/MyAdder$.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/Ortho$$anonfun$apply$2.class, /Users/innovation/Documents/space/target/scala-2.10/classes/bbdl/space/Basis.class)[0m
 [0m[[0mdebug[0m] [0mExternal API changes: API Changes: Set()[0m
@@ -37,3 +38,16 @@
 [0m[[0mdebug[0m] [0mPreviously invalidated, but (transitively) depend on new invalidations:[0m
 [0m[[0mdebug[0m] [0m	Set()[0m
 [0m[[0mdebug[0m] [0mAll newly invalidated sources after taking into account (previously) recompiled sources:Set()[0m
+=======
+[0m[[0mdebug[0m] [0m	modified: Set()[0m
+[0m[[0mdebug[0m] [0mRemoved products: Set()[0m
+[0m[[0mdebug[0m] [0mExternal API changes: API Changes: Set()[0m
+[0m[[0mdebug[0m] [0mModified binary dependencies: Set()[0m
+[0m[[0mdebug[0m] [0mInitial directly invalidated sources: Set()[0m
+[0m[[0mdebug[0m] [0m[0m
+[0m[[0mdebug[0m] [0mSources indirectly invalidated by:[0m
+[0m[[0mdebug[0m] [0m	product: Set()[0m
+[0m[[0mdebug[0m] [0m	binary dep: Set()[0m
+[0m[[0mdebug[0m] [0m	external source: Set()[0m
+[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set()[0m
+>>>>>>> e95b030858b528ab4bed7c94e367471c022143c3
