@@ -1,41 +1,21 @@
-<<<<<<< HEAD
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.OrthoSpec, org.scalatest.tools.Framework$$anon$1@39a42605, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetRandomDirectionSpec, org.scalatest.tools.Framework$$anon$1@39a42605, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.BasisSpec, org.scalatest.tools.Framework$$anon$1@39a42605, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetEndpointsSpec, org.scalatest.tools.Framework$$anon$1@39a42605, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.BasisSpec, org.scalatest.tools.Framework$$anon$1@d1b9cfd, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GenStartingPointSpec, org.scalatest.tools.Framework$$anon$1@d1b9cfd, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetEndpointsSpec, org.scalatest.tools.Framework$$anon$1@d1b9cfd, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.OrthoSpec, org.scalatest.tools.Framework$$anon$1@d1b9cfd, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetRandomDirectionSpec, org.scalatest.tools.Framework$$anon$1@d1b9cfd, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.LowLevelSimplexSpec, org.scalatest.tools.Framework$$anon$1@d1b9cfd, false, [SuiteSelector])[0m
 [0m[[0mdebug[0m] [0mSummary for ScalaCheck not available.[0m
 [0m[[0minfo[0m] [0mScalaTest[0m
-[0m[[0minfo[0m] [0m[36mRun completed in 1 second, 261 milliseconds.[0m[0m
-[0m[[0minfo[0m] [0m[36mTotal number of tests run: 6[0m[0m
-[0m[[0minfo[0m] [0m[36mSuites: completed 4, aborted 0[0m[0m
-[0m[[0minfo[0m] [0m[36mTests: succeeded 5, failed 1, canceled 0, ignored 0, pending 0[0m[0m
-[0m[[0minfo[0m] [0m[31m*** 1 TEST FAILED ***[0m[0m
-[0m[[31merror[0m] [0mFailed: Total 6, Failed 1, Errors 0, Passed 5[0m
-[0m[[0mdebug[0m] [0mPassed tests:[0m
-[0m[[0mdebug[0m] [0m	bbdl.space.OrthoSpec[0m
-[0m[[0mdebug[0m] [0m	bbdl.space.BasisSpec[0m
-[0m[[0mdebug[0m] [0m	bbdl.space.GetRandomDirectionSpec[0m
-[0m[[31merror[0m] [0mFailed tests:[0m
-[0m[[31merror[0m] [0m	bbdl.space.GetEndpointsSpec[0m
-[0m[[31merror[0m] [0m(test:[31mtest[0m) sbt.TestsFailedException: Tests unsuccessful[0m
-=======
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.LowLevelSimplexSpec, org.scalatest.tools.Framework$$anon$1@f07966, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.OrthoSpec, org.scalatest.tools.Framework$$anon$1@f07966, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GenStartingPointSpec, org.scalatest.tools.Framework$$anon$1@f07966, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetRandomDirectionSpec, org.scalatest.tools.Framework$$anon$1@f07966, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.BasisSpec, org.scalatest.tools.Framework$$anon$1@f07966, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mSummary for ScalaCheck not available.[0m
-[0m[[0minfo[0m] [0mScalaTest[0m
-[0m[[0minfo[0m] [0m[36mRun completed in 2 seconds, 247 milliseconds.[0m[0m
-[0m[[0minfo[0m] [0m[36mTotal number of tests run: 9[0m[0m
-[0m[[0minfo[0m] [0m[36mSuites: completed 5, aborted 0[0m[0m
-[0m[[0minfo[0m] [0m[36mTests: succeeded 9, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0minfo[0m] [0m[36mRun completed in 1 second, 765 milliseconds.[0m[0m
+[0m[[0minfo[0m] [0m[36mTotal number of tests run: 16[0m[0m
+[0m[[0minfo[0m] [0m[36mSuites: completed 6, aborted 0[0m[0m
+[0m[[0minfo[0m] [0m[36mTests: succeeded 16, failed 0, canceled 0, ignored 0, pending 0[0m[0m
 [0m[[0minfo[0m] [0m[32mAll tests passed.[0m[0m
-[0m[[0minfo[0m] [0mPassed: Total 9, Failed 0, Errors 0, Passed 9[0m
+[0m[[0minfo[0m] [0mPassed: Total 16, Failed 0, Errors 0, Passed 16[0m
 [0m[[0mdebug[0m] [0mPassed tests:[0m
 [0m[[0mdebug[0m] [0m	bbdl.space.GenStartingPointSpec[0m
 [0m[[0mdebug[0m] [0m	bbdl.space.GetRandomDirectionSpec[0m
 [0m[[0mdebug[0m] [0m	bbdl.space.BasisSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.GetEndpointsSpec[0m
 [0m[[0mdebug[0m] [0m	bbdl.space.LowLevelSimplexSpec[0m
 [0m[[0mdebug[0m] [0m	bbdl.space.OrthoSpec[0m
->>>>>>> e95b030858b528ab4bed7c94e367471c022143c3

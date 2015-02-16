@@ -129,3 +129,12 @@ compile
 run
 >>>>>>> e95b030858b528ab4bed7c94e367471c022143c3
 test
+reload
+clean
+compile
+run
+test
+~test
+test
+~test
+test

@@ -114,10 +114,40 @@ object GetEndpoints{
   		Inf
   	}
   }
+  def GetUpperBoundVector(p: DenseVector[Double], q: DenseVector[Double]): DenseVector[Double]={
+    val len = p.length
+    var UpperBounds = DenseVector.ones[Double](len)*(Inf)
+    for (i <- 0 to len-1) {
+      UpperBounds(i) = UpperboundVal(p(i),q(i))
+    }
+    UpperBounds
+  }
+  def GetLowerBoundVector(p: DenseVector[Double], q: DenseVector[Double]): DenseVector[Double]={
+    val len = p.length
+    var LowerBounds = DenseVector.ones[Double](len)*(Inf)
+    for (i <- 0 to len-1) {
+      LowerBounds(i) = LowerboundVal(p(i),q(i))
+    }
+    LowerBounds
+  }
+  def GetBoundLimits(UpperBounds: DenseVector[Double], LowerBounds: DenseVector[Double]): Tuple2[Double,Double]= {
+    val MinOfUpperBounds = UpperBounds.min
+    val MaxOfLowerBounds = LowerBounds.max
+    Tuple2(MinOfUpperBounds, MaxOfLowerBounds)
+  }
   //@param pq a Tuple of two doubles, first is the point, second is the direction value for a given dimension.
   //@return upperbound value for that dimension
   def UpperboundValTuple(pq: Tuple2[Double, Double]): Double={
   	UpperboundVal(pq._1, pq._2)
+  }
+  //@param p DenseVector[Double], The starting point of length n
+  //@param p  DenseVector[Double], The direction, of length n
+  //@param UpperBoundInner Double, The min of the upper bound
+  //@param LowerBoundInner Double, The max of the lower bound
+  def FindEndpoints(p: DenseVector[Double], q: DenseVector[Double], UpperBoundInner: Double, LowerBoundInner:Double) = {
+  	val FirstEndpoint = p + q*LowerBoundInner
+  	val SecondEndpoint = p + q*UpperBoundInner
+  	(FirstEndpoint, SecondEndpoint)
   }
 
   def apply(p: DenseVector[Double], q: DenseVector[Double]) = {
@@ -129,9 +159,7 @@ object GetEndpoints{
   	val ArrayQ = JavaArrayOps.dvDToArray(q)
   	val PQPairs = ArrayP.zip(ArrayQ)
   	val up = PQPairs.map(UpperboundValTuple)
-    val dimensions = p.length
-    val fakeresult = DenseVector.ones[Double](dimensions)
-    (fakeresult, fakeresult)
+    up
   }
 }
 
