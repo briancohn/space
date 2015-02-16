@@ -139,3 +139,11 @@ test
 ~test
 test
 ~test
+clean
+last *:projectDescriptors
+compile
+run
+test
+~test
+tasks
+doc
