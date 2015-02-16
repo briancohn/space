@@ -91,9 +91,44 @@ object GetRandomDirection{
 }
 
 
-
+//@param p The point cordinate, DenseVector[Double] of length n
+//@param q The direction, DenseVector[Double] of length n
 object GetEndpoints{
+  //@TODO Describe what each case means mathematically
+  def LowerboundVal(p_val: Double, q_val: Double) = {
+  	if(q_val > 0){
+  		-(p_val/q_val)
+  	} else if (q_val < 0){
+  		(1-p_val)/q_val
+  	} else {
+  		-Inf
+  	}
+  }
+  //@TODO Describe what each case means mathematically
+  def UpperboundVal(p_val: Double, q_val: Double) = {
+  	if(q_val > 0 ){
+  		(1-p_val)/q_val
+  	} else if (q_val < 0) {
+  		-(p_val/q_val)
+  	} else {
+  		Inf
+  	}
+  }
+  //@param pq a Tuple of two doubles, first is the point, second is the direction value for a given dimension.
+  //@return upperbound value for that dimension
+  def UpperboundValTuple(pq: Tuple2[Double, Double]): Double={
+  	UpperboundVal(pq._1, pq._2)
+  }
+
   def apply(p: DenseVector[Double], q: DenseVector[Double]) = {
+    import breeze.util.JavaArrayOps
+    val LenVec = p.length
+  	val UpperBounds = DenseVector.ones[Double](LenVec)*(Inf)
+  	val LowerBounds = DenseVector.ones[Double](LenVec)*(-Inf)
+  	val ArrayP = JavaArrayOps.dvDToArray(p)
+  	val ArrayQ = JavaArrayOps.dvDToArray(q)
+  	val PQPairs = ArrayP.zip(ArrayQ)
+  	val up = PQPairs.map(UpperboundValTuple)
     val dimensions = p.length
     val fakeresult = DenseVector.ones[Double](dimensions)
     (fakeresult, fakeresult)
@@ -179,3 +214,4 @@ object GenStartingPoint{
 		x
 	}
 }
+

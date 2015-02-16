@@ -69,17 +69,19 @@ class OrthoSpec extends FlatSpec with Matchers {
 
 
 // class GetEndpointsSpec extends FlatSpec with Matchers {
-// 	behavior of "GetEndpoints"
-// 	it should "take in two vectors; a point (3) and a direction (3)" in {
-// 	  val p = DenseVector(0.0,0.5,0.5)
-// 	  val q = DenseVector(2.0,1.0,2.0)
-// 	  val endpoints = GetEndpoints(p,q)
-// 	  val FirstEndpoint  = endpoints._1
-// 	  val SecondEndpoint = endpoints._2
-// 	  val ExpectedFirstPoint = DenseVector(0,0.5,0.5)
-// 	  val ExpectedSecondPoint = DenseVector(0.5, 0.75, 1)
-//     assert(FirstEndpoint == ExpectedFirstPoint & SecondEndpoint == ExpectedSecondPoint)
-//     }
+//   behavior of "Get Endpoints"
+//   it should ""
+	// behavior of "GetEndpoints"
+	// it should "take in two vectors; a point (3) and a direction (3)" in {
+	//   val p = DenseVector(0.0,0.5,0.5)
+	//   val q = DenseVector(2.0,1.0,2.0)
+	//   val endpoints = GetEndpoints(p,q)
+	//   val FirstEndpoint  = endpoints._1
+	//   val SecondEndpoint = endpoints._2
+	//   val ExpectedFirstPoint = DenseVector(0,0.5,0.5)
+	//   val ExpectedSecondPoint = DenseVector(0.5, 0.75, 1)
+ //    assert(FirstEndpoint == ExpectedFirstPoint & SecondEndpoint == ExpectedSecondPoint)
+ //    }
 // }
 
 

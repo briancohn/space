@@ -119,3 +119,10 @@ test
 compile
 run
 test
+console
+test
+stop at MyAdder.scala:129
+clean
+compile
+run
+test
