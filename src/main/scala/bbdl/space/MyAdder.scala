@@ -49,9 +49,12 @@ object GenStartingPoint{
 		DenseVector.vertcat(DenseVector.zeros[Double](NumCols),
 							DenseVector.ones[Double](NumCols))
 	}
-	//@param A Linear programming constraints in a DenseMatrix[Double].
-	//@param b Linear programming DenseVector[Double], strictly less than its companion row in A.
-	//@return x DenseVector[Double] centrally-maximized solution for inner point.
+
+	/** Generation of a central starting point within the solution space.
+  		* @param A Linear programming constraints in a DenseMatrix[Double]. 
+  		* @param b Linear programming DenseVector[Double], strictly less than its companion row in A.
+  		* @return x DenseVector[Double] centrally-maximized solution for inner point.
+  	*/
 	def apply(A: DenseMatrix[Double], b: DenseVector[Double]) = {
 		val ColNum = A.cols
 		val AExpanded = ExpandAMatrix(A)
