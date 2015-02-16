@@ -150,18 +150,21 @@ object GetEndpoints{
   	(FirstEndpoint, SecondEndpoint)
   }
 
-  def apply(p: DenseVector[Double], q: DenseVector[Double]) = {
-    import breeze.util.JavaArrayOps
-    val LenVec = p.length
-  	val UpperBounds = DenseVector.ones[Double](LenVec)*(Inf)
-  	val LowerBounds = DenseVector.ones[Double](LenVec)*(-Inf)
-  	val ArrayP = JavaArrayOps.dvDToArray(p)
-  	val ArrayQ = JavaArrayOps.dvDToArray(q)
-  	val PQPairs = ArrayP.zip(ArrayQ)
-  	val up = PQPairs.map(UpperboundValTuple)
-    up
+  def apply(p: DenseVector[Double], q: DenseVector[Double]): Tuple2[DenseVector[Double], DenseVector[Double]] = {
+	val Bounds = GetBoundLimits(GetUpperBoundVector(p,q), GetLowerBoundVector(p,q))
+	FindEndpoints(p,q, Bounds._1, Bounds._2)
   }
 }
+//@param E1 Vector of coordinates for the second point
+//@param E2 Vector of coordinates for the second point
+//@param seed Int defining the random number seed for point generation.
+object RandomPointBetween {
+	def apply(E1: DenseVector[Double], E2: DenseVector[Double], seed: Int) = {
+		val lambda = new Random(seed).nextDouble()
+		E1 + (E2-E1)*lambda
+	}
+}
+
 
 object LowLevelSimplex{
   def apply(A_input: DenseMatrix[Double], b_input: DenseVector[Double], c_input: DenseVector[Double]): DenseVector[Double] = {

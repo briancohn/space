@@ -65,10 +65,23 @@ class OrthoSpec extends FlatSpec with Matchers {
 }
 
 
-
-
-
 class GetEndpointsSpec extends FlatSpec with Matchers {
+  "GetEndpoints" should "Get endpoints for a point and a positive direction" in {
+    val p = DenseVector(0.5,0.5,0.5)
+    val q = DenseVector(-1.0,-2.0,1.0)
+    val Endpoints = GetEndpoints(p,q)
+    val ExpectedEndpoints = (DenseVector(0.75,1.0,0.25), DenseVector(0.25,0.0,0.75))
+    assert(Endpoints === ExpectedEndpoints)
+  }
+
+  "GetEndpoints" should "Get endpoints for a point and a negative direction" in {
+    val p = DenseVector(0.0,0.5,0.5)
+    val q = DenseVector(2.0,1.0,2.0)
+    val Endpoints = GetEndpoints(p,q)
+    val ExpectedEndpoints = (DenseVector(0.0,0.5,0.5), DenseVector(0.5,0.75,1.0))
+    assert(Endpoints === ExpectedEndpoints)
+  }
+
   behavior of "UpperboundVal"
   it should "take in a 3d point and positive 3d direction, and output a 3d upperbound vector" in {
     val p = DenseVector(0.0,0.5,0.5)
@@ -117,7 +130,7 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
   }
 
   
-  "FindEndpoints" should "use the p,negative direction q, and bound information to assemble two endpoints" in {
+  "FindEndpoints" should "use the p, negative direction q, and bound information to assemble two endpoints" in {
     val p = DenseVector(0.5,0.5,0.5)
     val q = DenseVector(-1.0,-2.0,1.0)
     val LowerBoundInner = -0.25
@@ -127,6 +140,16 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
     println(Endpoints)
     assert(Endpoints === ExpectedEndpoints)
   }
+  it should "use the p, positive direction q, and bound information to assemble two endpoints" in {
+    val p = DenseVector(0.0,0.5,0.5)
+    val q = DenseVector(2.0,1.0,2.0)
+    val LowerBoundInner = 0.0
+    val UpperBoundInner = 0.25
+    val Endpoints = GetEndpoints.FindEndpoints(p,q, UpperBoundInner,LowerBoundInner)
+    val ExpectedEndpoints = (DenseVector(0.0,0.5,0.5), DenseVector(0.5,0.75,1.0))
+    assert(Endpoints === ExpectedEndpoints)
+  }
+
 
 
 
@@ -200,4 +223,39 @@ class GenStartingPointSpec() extends FlatSpec with Matchers {
 
   
 }
+
+class RandomPointBetweenSpec() extends FlatSpec with Matchers {
+  behavior of "RandomPointBetween"
+  it should "Take in two points and return a point on the line between them. An example with a zero in both" in {
+    val E1 = DenseVector(0.75,0.5,0)
+    val E2 = DenseVector(0.6,0,0.2)
+    val MyPoint = RandomPointBetween(E1,E2,seed=7)
+    val ExpectedPoint = DenseVector(0.6403951436909937, 0.13465047896997895, 0.14613980841200844)
+    assert(MyPoint === ExpectedPoint)
+  }
+  "Randpt" should "Take in two points and return a point on the line between them. Example with no zero" in {
+    val E1 = DenseVector(0.5,0.2,0.7)
+    val E2 = DenseVector(0.1,0.8,0.9)
+    val MyPoint = RandomPointBetween(E1,E2,seed=7)
+    val ExpectedPoint = DenseVector(0.20772038317598313, 0.6384194252360254, 0.8461398084120084)
+    assert(MyPoint === ExpectedPoint)
+  }
+  "Randpt" should "Take in two points and return a point on the line between them. Example with ones" in {
+    val E1 = DenseVector(1.0,0.2,0.7)
+    val E2 = DenseVector(0.1,0.8,1.0)
+    val MyPoint = RandomPointBetween(E1,E2,seed=7)
+    val ExpectedPoint = DenseVector(0.34237086214596213, 0.6384194252360254, 0.9192097126180127)
+    assert(MyPoint === ExpectedPoint)
+  }
+  
+}
+
+
+
+
+
+
+
+
+
 
