@@ -7,9 +7,58 @@ import spire.math.Real
 import scala.util._
 
 
-object MyAdder extends Function2[Double, Double, Double] {
-	def apply(a: Double, b: Double) = {
-		a + b
+object GenStartingPoint{
+	//@param A DenseMatrix[Double] of a linear constraint system
+	//@return ABlock DenseMatrix[Double] with A, -A, zeros, zeros in the top left, bottom left, top right, and bottom right quadrants of a (2m,2n) matrix.
+	def GenABlock(A: DenseMatrix[Double]): DenseMatrix[Double] = {
+		val NumCols = A.cols
+		val NumRows = A.rows
+		val AMatricies = DenseMatrix.vertcat(A, -A)
+
+		val ZeroMat = DenseMatrix.zeros[Double](NumRows,NumCols)
+		val ZeroMatricies = DenseMatrix.vertcat(ZeroMat, ZeroMat)
+
+		DenseMatrix.horzcat(AMatricies, ZeroMatricies)
+	}
+	//Generates a (2n,2n) sized square matrix, where all 
+	//quadrants are eye, except for the top left corner, which is -eye.
+	//@param n RowLen of an A Matrix.
+	//@return M DenseMatrix[Double] with Q1 -eye(n), and all other quadrants eye(n)
+	def GenEyeBlock(NumCols: Int):  DenseMatrix[Double] ={
+		val Eye_n = DenseMatrix.eye[Double](NumCols)
+		val TopEye = DenseMatrix.horzcat(-Eye_n, Eye_n)
+		val BottomEye = DenseMatrix.horzcat(Eye_n, Eye_n)
+		DenseMatrix.vertcat(TopEye, BottomEye)
+	}
+	//@param A The Linear constraints matrix to expand
+	//@return AExpanded DenseMatrix[Double] expanded to full block form.
+	def ExpandAMatrix(A: DenseMatrix[Double]): DenseMatrix[Double] = {
+		DenseMatrix.vertcat(GenABlock(A), GenEyeBlock(A.cols))		
+	}
+	//@param b The linear programming inequality value, b
+	//@param ColNum The linear programming constraints A.cols
+	//@return Expandedb a DenseVector[Double] with length (4n), with b, -b, zeros(n), ones(n)
+	def ExpandbVector(b: DenseVector[Double], ColNum: Int) = {
+		val n = ColNum
+		DenseVector.vertcat(b, -b, DenseVector.zeros[Double](n), DenseVector.ones[Double](n))
+	}
+	//@param A Linear programmming constraint matrix
+	//@return c a set of solutions.
+	def GencVector(A: DenseMatrix[Double]) = {
+		val NumCols = A.cols
+		DenseVector.vertcat(DenseVector.zeros[Double](NumCols),
+							DenseVector.ones[Double](NumCols))
+	}
+	//@param A Linear programming constraints in a DenseMatrix[Double].
+	//@param b Linear programming DenseVector[Double], strictly less than its companion row in A.
+	//@return x DenseVector[Double] centrally-maximized solution for inner point.
+	def apply(A: DenseMatrix[Double], b: DenseVector[Double]) = {
+		val ColNum = A.cols
+		val AExpanded = ExpandAMatrix(A)
+		val bExpanded = ExpandbVector(b, A.cols)
+		val c = GencVector(A)
+		val x = LowLevelSimplex(AExpanded, bExpanded, c)
+		x
 	}
 }
 
@@ -191,58 +240,10 @@ object LowLevelSimplex{
 }
 }
 
-object GenStartingPoint{
-	//@param A DenseMatrix[Double] of a linear constraint system
-	//@return ABlock DenseMatrix[Double] with A, -A, zeros, zeros in the top left, bottom left, top right, and bottom right quadrants of a (2m,2n) matrix.
-	def GenABlock(A: DenseMatrix[Double]): DenseMatrix[Double] = {
-		val NumCols = A.cols
-		val NumRows = A.rows
-		val AMatricies = DenseMatrix.vertcat(A, -A)
 
-		val ZeroMat = DenseMatrix.zeros[Double](NumRows,NumCols)
-		val ZeroMatricies = DenseMatrix.vertcat(ZeroMat, ZeroMat)
-
-		DenseMatrix.horzcat(AMatricies, ZeroMatricies)
-	}
-	//Generates a (2n,2n) sized square matrix, where all 
-	//quadrants are eye, except for the top left corner, which is -eye.
-	//@param n RowLen of an A Matrix.
-	//@return M DenseMatrix[Double] with Q1 -eye(n), and all other quadrants eye(n)
-	def GenEyeBlock(NumCols: Int):  DenseMatrix[Double] ={
-		val Eye_n = DenseMatrix.eye[Double](NumCols)
-		val TopEye = DenseMatrix.horzcat(-Eye_n, Eye_n)
-		val BottomEye = DenseMatrix.horzcat(Eye_n, Eye_n)
-		DenseMatrix.vertcat(TopEye, BottomEye)
-	}
-	//@param A The Linear constraints matrix to expand
-	//@return AExpanded DenseMatrix[Double] expanded to full block form.
-	def ExpandAMatrix(A: DenseMatrix[Double]): DenseMatrix[Double] = {
-		DenseMatrix.vertcat(GenABlock(A), GenEyeBlock(A.cols))		
-	}
-	//@param b The linear programming inequality value, b
-	//@param ColNum The linear programming constraints A.cols
-	//@return Expandedb a DenseVector[Double] with length (4n), with b, -b, zeros(n), ones(n)
-	def ExpandbVector(b: DenseVector[Double], ColNum: Int) = {
-		val n = ColNum
-		DenseVector.vertcat(b, -b, DenseVector.zeros[Double](n), DenseVector.ones[Double](n))
-	}
-	//@param A Linear programmming constraint matrix
-	//@return c a set of solutions.
-	def GencVector(A: DenseMatrix[Double]) = {
-		val NumCols = A.cols
-		DenseVector.vertcat(DenseVector.zeros[Double](NumCols),
-							DenseVector.ones[Double](NumCols))
-	}
-	//@param A Linear programming constraints in a DenseMatrix[Double].
-	//@param b Linear programming DenseVector[Double], strictly less than its companion row in A.
-	//@return x DenseVector[Double] centrally-maximized solution for inner point.
-	def apply(A: DenseMatrix[Double], b: DenseVector[Double]) = {
-		val ColNum = A.cols
-		val AExpanded = ExpandAMatrix(A)
-		val bExpanded = ExpandbVector(b, A.cols)
-		val c = GencVector(A)
-		val x = LowLevelSimplex(AExpanded, bExpanded, c)
-		x
-	}
-}
-
+ object HitAndRun {
+ 	def apply(A: DenseMatrix[Double], b: DenseVector[Double], Seed: Int) = {
+ 		
+ 	}
+ 	
+ }
