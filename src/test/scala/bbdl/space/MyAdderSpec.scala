@@ -56,6 +56,14 @@ class GetRandomDirectionSpec extends FlatSpec with Matchers {
   it should "produce a gaussian distribution with SD 1 with a very large matrix" in {
     assert(abs(Sigma - 1.0) < 0.05)
   }
+  "GetNewPoint" should "Produce a new random point when given a point and random direction" in {
+    val Seed = 10
+    val p = DenseVector(0.5,0.5,0.5)
+    val q = DenseVector(-1.0,-2.0,1.0)
+    val g = GetNewPoint(p,q,Seed)
+    val ExpectedPoint = DenseVector(0.3847848516282864, 0.2695697032565728, 0.6152151483717136)
+    assert(g === ExpectedPoint)
+  }
 }
 
 class BasisSpec extends FlatSpec with Matchers {
