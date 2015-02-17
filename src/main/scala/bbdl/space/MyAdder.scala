@@ -61,7 +61,7 @@ object GenStartingPoint{
 		val bExpanded = ExpandbVector(b, A.cols)
 		val c = GencVector(A)
 		val x = LowLevelSimplex(AExpanded, bExpanded, c)
-		x
+		x(0 to ColNum-1)
 	}
 }
 
@@ -228,7 +228,7 @@ object GetNewPoint{
 //@param seed Int defining the random number seed for point generation.
 object RandomPointBetween {
 	def apply(E1: DenseVector[Double], E2: DenseVector[Double], seed: Int) = {
-		val lambda = new Random(seed).nextDouble()
+		val lambda = new Random(seed).nextDouble() //between 0 and 1 by default
 		E1 + (E2-E1)*lambda
 	}
 }
@@ -262,8 +262,21 @@ object LowLevelSimplex{
 
  object HitAndRun {
  	def apply(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], Seed: Int) = {
- 		val RandomDirection = GetRandomDirection(OrthonormalBasis, Seed)
-
- 	}
- 	
+ 		val RandomDirection = GetRandomDirection(OrthonormalBasis, Seed) //has a random step in gaussian distribution
+    val NewPoint = GetNewPoint(StartingPoint, RandomDirection, Seed) //has a random step in uniform distribution
+    NewPoint
+  }
  }
+object PrepareLinearSystem{
+  def apply(A: DenseMatrix[Double], v: DenseVector[Double], Seed: Int, n: Int) = {
+    val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
+    var CurrentPoint = GenStartingPoint(A, v)
+    println(CurrentPoint)
+    var Seed = 0
+    for (i <- 0 to n) {
+      println(CurrentPoint)
+      CurrentPoint = HitAndRun(OrthonormalBasis,CurrentPoint,Seed)
+      Seed = Seed + 1
+    }
+  }
+}
