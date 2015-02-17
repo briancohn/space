@@ -1,67 +1,23 @@
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.BasisSpec, org.scalatest.tools.Framework$$anon$1@11ccf9ad, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.RandomPointBetweenSpec, org.scalatest.tools.Framework$$anon$1@11ccf9ad, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.OrthoSpec, org.scalatest.tools.Framework$$anon$1@11ccf9ad, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetEndpointsSpec, org.scalatest.tools.Framework$$anon$1@11ccf9ad, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetRandomDirectionSpec, org.scalatest.tools.Framework$$anon$1@11ccf9ad, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.LowLevelSimplexSpec, org.scalatest.tools.Framework$$anon$1@11ccf9ad, false, [SuiteSelector])[0m
-org.scalatest.exceptions.DuplicateTestNameException: Duplicate test name: GetRandomDirection should take in an identity matrix, and output a vector whose values are distributed gauss-normally
-	at org.scalatest.SuperEngine.registerTest(Engine.scala:667)
-	at org.scalatest.FlatSpecLike$class.org$scalatest$FlatSpecLike$$registerTestToRun(FlatSpecLike.scala:124)
-	at org.scalatest.FlatSpecLike$ItVerbString.in(FlatSpecLike.scala:359)
-	at bbdl.space.GetRandomDirectionSpec.<init>(MyAdderSpec.scala:30)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
-	at java.lang.Class.newInstance0(Class.java:357)
-	at java.lang.Class.newInstance(Class.java:310)
-	at org.scalatest.tools.Framework$ScalaTestTask.execute(Framework.scala:641)
-	at sbt.TestRunner.runTest$1(TestFramework.scala:76)
-	at sbt.TestRunner.run(TestFramework.scala:85)
-	at sbt.TestFramework$$anon$2$$anonfun$$init$$1$$anonfun$apply$8.apply(TestFramework.scala:202)
-	at sbt.TestFramework$$anon$2$$anonfun$$init$$1$$anonfun$apply$8.apply(TestFramework.scala:202)
-	at sbt.TestFramework$.sbt$TestFramework$$withContextLoader(TestFramework.scala:185)
-	at sbt.TestFramework$$anon$2$$anonfun$$init$$1.apply(TestFramework.scala:202)
-	at sbt.TestFramework$$anon$2$$anonfun$$init$$1.apply(TestFramework.scala:202)
-	at sbt.TestFunction.apply(TestFramework.scala:207)
-	at sbt.Tests$$anonfun$9.apply(Tests.scala:216)
-	at sbt.Tests$$anonfun$9.apply(Tests.scala:216)
-	at sbt.std.Transform$$anon$3$$anonfun$apply$2.apply(System.scala:44)
-	at sbt.std.Transform$$anon$3$$anonfun$apply$2.apply(System.scala:44)
-	at sbt.std.Transform$$anon$4.work(System.scala:63)
-	at sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:226)
-	at sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:226)
-	at sbt.ErrorHandling$.wideConvert(ErrorHandling.scala:17)
-	at sbt.Execute.work(Execute.scala:235)
-	at sbt.Execute$$anonfun$submit$1.apply(Execute.scala:226)
-	at sbt.Execute$$anonfun$submit$1.apply(Execute.scala:226)
-	at sbt.ConcurrentRestrictions$$anon$4$$anonfun$1.apply(ConcurrentRestrictions.scala:159)
-	at sbt.CompletionService$$anon$2.call(CompletionService.scala:28)
-	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
-	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
-	at java.lang.Thread.run(Thread.java:695)
-[0m[[31merror[0m] [0mCould not run test bbdl.space.GetRandomDirectionSpec: org.scalatest.exceptions.DuplicateTestNameException: Duplicate test name: GetRandomDirection should take in an identity matrix, and output a vector whose values are distributed gauss-normally[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GenStartingPointSpec, org.scalatest.tools.Framework$$anon$1@11ccf9ad, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetRandomDirectionSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.RandomPointBetweenSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.BasisSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetNewPointSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GenStartingPointSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.OrthoSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.LowLevelSimplexSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
 [0m[[0mdebug[0m] [0mSummary for ScalaCheck not available.[0m
 [0m[[0minfo[0m] [0mScalaTest[0m
-[0m[[0minfo[0m] [0m[36mRun completed in 843 milliseconds.[0m[0m
-[0m[[0minfo[0m] [0m[36mTotal number of tests run: 20[0m[0m
-[0m[[0minfo[0m] [0m[36mSuites: completed 6, aborted 0[0m[0m
-[0m[[0minfo[0m] [0m[36mTests: succeeded 20, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0minfo[0m] [0m[36mRun completed in 908 milliseconds.[0m[0m
+[0m[[0minfo[0m] [0m[36mTotal number of tests run: 27[0m[0m
+[0m[[0minfo[0m] [0m[36mSuites: completed 7, aborted 0[0m[0m
+[0m[[0minfo[0m] [0m[36mTests: succeeded 27, failed 0, canceled 0, ignored 0, pending 0[0m[0m
 [0m[[0minfo[0m] [0m[32mAll tests passed.[0m[0m
-[0m[[31merror[0m] [0mError: Total 20, Failed 0, Errors 0, Passed 20[0m
+[0m[[0minfo[0m] [0mPassed: Total 27, Failed 0, Errors 0, Passed 27[0m
 [0m[[0mdebug[0m] [0mPassed tests:[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.GetNewPointSpec[0m
 [0m[[0mdebug[0m] [0m	bbdl.space.GenStartingPointSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.GetRandomDirectionSpec[0m
 [0m[[0mdebug[0m] [0m	bbdl.space.RandomPointBetweenSpec[0m
 [0m[[0mdebug[0m] [0m	bbdl.space.BasisSpec[0m
-[0m[[0mdebug[0m] [0m	bbdl.space.GetEndpointsSpec[0m
 [0m[[0mdebug[0m] [0m	bbdl.space.LowLevelSimplexSpec[0m
 [0m[[0mdebug[0m] [0m	bbdl.space.OrthoSpec[0m
-[0m[[31merror[0m] [0mError during tests:[0m
-[0m[[31merror[0m] [0m	bbdl.space.GetRandomDirectionSpec[0m
-[0m[[31merror[0m] [0m(test:[31mtest[0m) sbt.TestsFailedException: Tests unsuccessful[0m

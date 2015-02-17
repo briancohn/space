@@ -153,7 +153,7 @@ object GetRandomDirection{
 
 //@param p The point cordinate, DenseVector[Double] of length n
 //@param q The direction, DenseVector[Double] of length n
-object GetEndpoints{
+object GetNewPoint{
   //@TODO Describe what each case means mathematically
   def LowerboundVal(p_val: Double, q_val: Double) = {
   	if(q_val > 0){
@@ -209,14 +209,18 @@ object GetEndpoints{
   	val SecondEndpoint = p + q*UpperBoundInner
   	(FirstEndpoint, SecondEndpoint)
   }
-
+  def GetEndpoints(p:DenseVector[Double], q: DenseVector[Double]) = {
+    val Bounds = GetBoundLimits(GetUpperBoundVector(p,q), GetLowerBoundVector(p,q))
+    FindEndpoints(p,q, Bounds._1, Bounds._2)
+  }
+  //Get New Point from p and q
   //@param p densevector of the point
   //@param q Densevector of the random direction
-  //@param BoundTuple, with bound limits in double form
-  def apply(p: DenseVector[Double], q: DenseVector[Double], Seed: Int) {
+  def apply(p: DenseVector[Double], q: DenseVector[Double], Seed: Int) = {
 	  val Bounds = GetBoundLimits(GetUpperBoundVector(p,q), GetLowerBoundVector(p,q))
 	  val Points = FindEndpoints(p,q, Bounds._1, Bounds._2)
-    RandomPointBetween(Points._1, Points._2, Seed)
+      val res = RandomPointBetween(Points._1, Points._2, Seed)
+      res
   }
 }
 //@param E1 Vector of coordinates for the second point

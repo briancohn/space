@@ -159,3 +159,10 @@ val g = GetRandomDirection(breeze.linalg.DenseMatrix.eye[Double](100),7)
 test
 console
 test
+console
+update
+compile
+run
+test
+GetNewPoint
+console

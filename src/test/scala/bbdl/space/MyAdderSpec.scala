@@ -99,12 +99,12 @@ class OrthoSpec extends FlatSpec with Matchers {
 }
 
 
-class GetEndpointsSpec extends FlatSpec with Matchers {
+class GetNewPointSpec extends FlatSpec with Matchers {
   val Seed = 10
   "GetEndpoints" should "Get endpoints for a point and a positive direction" in {
     val p = DenseVector(0.5,0.5,0.5)
     val q = DenseVector(-1.0,-2.0,1.0)
-    val Endpoints = GetEndpoints(p,q, Seed)
+    val Endpoints = GetNewPoint.GetEndpoints(p,q)
     val ExpectedEndpoints = (DenseVector(0.75,1.0,0.25), DenseVector(0.25,0.0,0.75))
     assert(Endpoints === ExpectedEndpoints)
   }
@@ -112,7 +112,7 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
   "GetEndpoints" should "Get endpoints for a point and a negative direction" in {
     val p = DenseVector(0.0,0.5,0.5)
     val q = DenseVector(2.0,1.0,2.0)
-    val Endpoints = GetEndpoints(p,q, Seed)
+    val Endpoints = GetNewPoint.GetEndpoints(p,q)
     val ExpectedEndpoints = (DenseVector(0.0,0.5,0.5), DenseVector(0.5,0.75,1.0))
     assert(Endpoints === ExpectedEndpoints)
   }
@@ -121,7 +121,7 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
   it should "take in a 3d point and positive 3d direction, and output a 3d upperbound vector" in {
     val p = DenseVector(0.0,0.5,0.5)
     val q = DenseVector(2.0,1.0,2.0)
-    val UpperBounds = GetEndpoints.GetUpperBoundVector(p,q)
+    val UpperBounds = GetNewPoint.GetUpperBoundVector(p,q)
     val ExpectedUpperBounds = DenseVector(0.5,0.5,0.25)
     assert(UpperBounds === ExpectedUpperBounds)
   }
@@ -129,7 +129,7 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
   it should "take in a 3d point and positive 3d direction, and output a 3d LowerBound vector" in {
     val p = DenseVector(0.0,0.5,0.5)
     val q = DenseVector(2.0,1.0,2.0)
-    val UpperBounds = GetEndpoints.GetLowerBoundVector(p,q)
+    val UpperBounds = GetNewPoint.GetLowerBoundVector(p,q)
     val ExpectedUpperBounds = DenseVector(0.0,-0.5,-0.25)
     assert(UpperBounds === ExpectedUpperBounds)
   }
@@ -137,7 +137,7 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
   it should "take in a 3d point and negative 3d direction, and output a 3d upperbound vector" in {
     val p = DenseVector(0.5,0.5,0.5)
     val q = DenseVector(-1.0,-2.0,1.0)
-    val UpperBounds = GetEndpoints.GetUpperBoundVector(p,q)
+    val UpperBounds = GetNewPoint.GetUpperBoundVector(p,q)
     val ExpectedUpperBounds = DenseVector(0.5,0.25,0.5)
     assert(UpperBounds === ExpectedUpperBounds)
   }
@@ -145,7 +145,7 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
   it should "take in a 3d point and negative 3d direction, and output a 3d LowerBound vector" in {
     val p = DenseVector(0.5,0.5,0.5)
     val q = DenseVector(-1.0,-2.0,1.0)
-    val UpperBounds = GetEndpoints.GetLowerBoundVector(p,q)
+    val UpperBounds = GetNewPoint.GetLowerBoundVector(p,q)
     val ExpectedUpperBounds = DenseVector(-0.5,-0.25,-0.5)
     assert(UpperBounds === ExpectedUpperBounds)
     assert(UpperBounds === ExpectedUpperBounds)
@@ -156,7 +156,7 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
 
   val Lowers = DenseVector(-1.0,-6.0,-4.0,-5.0,-3.0,-5.0)
   val Uppers = DenseVector(8.0,7.0,9.0,8.0,9.0,10.0)
-  val PositiveBounds = GetEndpoints.GetBoundLimits(Uppers, Lowers)
+  val PositiveBounds = GetNewPoint.GetBoundLimits(Uppers, Lowers)
   "GetBoundLimits" should "Return the max value within the lower bounds vector " in {
     assert(PositiveBounds._2 === -1.0)
   }
@@ -170,7 +170,7 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
     val q = DenseVector(-1.0,-2.0,1.0)
     val LowerBoundInner = -0.25
     val UpperBoundInner = 0.25
-    val Endpoints = GetEndpoints.FindEndpoints(p,q, UpperBoundInner,LowerBoundInner)
+    val Endpoints = GetNewPoint.FindEndpoints(p,q, UpperBoundInner,LowerBoundInner)
     val ExpectedEndpoints = (DenseVector(0.75,1.0,0.25), DenseVector(0.25,0.0,0.75))
     println(Endpoints)
     assert(Endpoints === ExpectedEndpoints)
@@ -180,7 +180,7 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
     val q = DenseVector(2.0,1.0,2.0)
     val LowerBoundInner = 0.0
     val UpperBoundInner = 0.25
-    val Endpoints = GetEndpoints.FindEndpoints(p,q, UpperBoundInner,LowerBoundInner)
+    val Endpoints = GetNewPoint.FindEndpoints(p,q, UpperBoundInner,LowerBoundInner)
     val ExpectedEndpoints = (DenseVector(0.0,0.5,0.5), DenseVector(0.5,0.75,1.0))
     assert(Endpoints === ExpectedEndpoints)
   }
