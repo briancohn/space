@@ -9,19 +9,53 @@ class GetRandomDirectionSpec extends FlatSpec with Matchers {
 
   it should "Get a random direction for all positive inputs" in {
     val B = DenseMatrix((1.0,0.0), (0.0,1.0), (0.0, 0.0))
-    val v = DenseVector(0.1,0.2)
     val seed = 10
     val result = GetRandomDirection(B, seed)
-    assert(result == DenseVector(0.0,0.8746788966462123,0.0))
+    assert(result === DenseVector(0.8746788966462123, -0.9193443348656242, 0.0))
 	}
 	it should "get a random direction for some negative inputs" in {
 	  val B = DenseMatrix((-1.0,0.0), (0.0,1.0), (0.0, 0.0))
-	  val v = DenseVector(0.1,-0.2)
     val seed = 10
 	  val RandomDirection = GetRandomDirection(B, seed)
-	  val expected = DenseVector(0.0, 0.8746788966462123, 0.0)
-    assert(RandomDirection == expected)
+	  val expected = DenseVector(-0.8746788966462123, -0.9193443348656242, 0.0)
+    assert(RandomDirection === expected)
 	}
+  it should "take in an identity matrix, and output a vector whose values are distributed gauss-normally" in{
+    val n = 10
+    val Seed = 10
+    val IdentityMatrix = DenseMatrix.eye[Double](n)
+    val RandomDirection = GetRandomDirection(IdentityMatrix,Seed)
+    assert(RandomDirection === DenseVector(0.8746788966462123, -0.9193443348656242, 1.1329921492850181, -0.4598256884904446, 0.7338090601305023, 0.4427877081455783, -0.23610812307264825, 0.4619622460418042, -0.19304784617121043, -0.02331125940413))
+  }
+  it should "take in an identity matrix with an extra row of zeros at the bottom, and output a vector whose values are distributed gauss-normally" in{
+    val n = 10
+    val Seed = 10
+    val IdentityMatrix = DenseMatrix.eye[Double](n)
+    val TallerMatrix = DenseMatrix.vertcat(IdentityMatrix, DenseMatrix.zeros[Double](1,n))
+    val RandomDirection = GetRandomDirection(TallerMatrix,Seed)
+    assert(RandomDirection == DenseVector(0.8746788966462123, -0.9193443348656242, 1.1329921492850181, -0.4598256884904446, 0.7338090601305023, 0.4427877081455783, -0.23610812307264825, 0.4619622460418042, -0.19304784617121043, -0.02331125940413, 0.0))
+  }
+
+
+  it should "produce a gauss-distribution with mean 0 and standard deviation 1 on an identity matrix" in {
+    val x = GetRandomDirection(breeze.linalg.DenseMatrix.eye[Double](10), 7)
+    assert(x === DenseVector(0.8452060657049847, 0.9128761787534405, -0.2870786364749953, 0.7518594314874758, 1.335473668231534, -0.9499789372646104, 0.599049892177836, 1.204570743449295, 2.4820093995603614, -0.7539501059617072))
+  }
+  import bbdl.space.GetRandomDirection
+  import breeze.linalg.DenseMatrix
+  val n = 1000
+  val Seed = 10
+  val Mat = DenseMatrix.eye[Double](n)
+  val Direction = GetRandomDirection(Mat, Seed)
+  val Mu = breeze.stats.mean(Direction)
+  val Sigma = breeze.stats.stddev(Direction)
+
+  it should "produce a gaussian distribution with mean 0 with a very large matrix" in {
+    assert(abs(Mu) < 0.10)
+  }
+  it should "produce a gaussian distribution with SD 1 with a very large matrix" in {
+    assert(abs(Sigma - 1.0) < 0.05)
+  }
 }
 
 class BasisSpec extends FlatSpec with Matchers {
@@ -66,10 +100,11 @@ class OrthoSpec extends FlatSpec with Matchers {
 
 
 class GetEndpointsSpec extends FlatSpec with Matchers {
+  val Seed = 10
   "GetEndpoints" should "Get endpoints for a point and a positive direction" in {
     val p = DenseVector(0.5,0.5,0.5)
     val q = DenseVector(-1.0,-2.0,1.0)
-    val Endpoints = GetEndpoints(p,q)
+    val Endpoints = GetEndpoints(p,q, Seed)
     val ExpectedEndpoints = (DenseVector(0.75,1.0,0.25), DenseVector(0.25,0.0,0.75))
     assert(Endpoints === ExpectedEndpoints)
   }
@@ -77,7 +112,7 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
   "GetEndpoints" should "Get endpoints for a point and a negative direction" in {
     val p = DenseVector(0.0,0.5,0.5)
     val q = DenseVector(2.0,1.0,2.0)
-    val Endpoints = GetEndpoints(p,q)
+    val Endpoints = GetEndpoints(p,q, Seed)
     val ExpectedEndpoints = (DenseVector(0.0,0.5,0.5), DenseVector(0.5,0.75,1.0))
     assert(Endpoints === ExpectedEndpoints)
   }
@@ -150,21 +185,6 @@ class GetEndpointsSpec extends FlatSpec with Matchers {
     assert(Endpoints === ExpectedEndpoints)
   }
 
-
-
-
-
-//	behavior of "GetEndpoints"
-//	it should "take in two vectors; a point (3) and a direction (3)" in {
-//	   val p = DenseVector(0.0,0.5,0.5)
-//	   val q = DenseVector(2.0,1.0,2.0)
-//	   val endpoints = GetEndpoints(p,q)
-//	   val FirstEndpoint  = endpoints._1
-//	   val SecondEndpoint = endpoints._2
-//	   val ExpectedFirstPoint = DenseVector(0,0.5,0.5)
-//	   val ExpectedSecondPoint = DenseVector(0.5, 0.75, 1)
-//     assert(FirstEndpoint == ExpectedFirstPoint & SecondEndpoint == ExpectedSecondPoint)
-//     }
 }
 
 

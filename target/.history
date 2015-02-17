@@ -148,3 +148,14 @@ test
 tasks
 doc
 test
+~test
+console
+test
+console
+run
+~run
+console
+val g = GetRandomDirection(breeze.linalg.DenseMatrix.eye[Double](100),7)
+test
+console
+test

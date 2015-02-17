@@ -125,21 +125,29 @@ object Ortho extends Function[DenseMatrix[Double], DenseMatrix[Double]]{
 	} 
 }
 
+//TODO Write more tests for this
+/*
+*by default the gaussian distribution is set to mean 0, sd 1
+ */
 object GetRandomDirection{
-	def apply(A: DenseMatrix[Double], seed: Int) = {
-		val NumRows = A.rows
-		val NumCols = A.cols
-		// Initiate an output vector (starting with zeros)
-		var q_dir = DenseVector.zeros[Double](NumRows)
-		for( i <- 0 to NumCols-1 ) {
-			val rand = new Random(seed=seed)
-
-			val lambda = rand.nextGaussian()
-			val x = A(::, i) :* lambda
-			q_dir := x
-		}
-		q_dir
+	def apply(A: DenseMatrix[Double], Seed:Int) = {
+		val Rand = new scala.util.Random(Seed)
+		val Lambdas = for (i <- 0 to A.cols-1) yield Rand.nextGaussian() //by default set to mean 0, sd 1
+		val LambdaVec = DenseVector(Lambdas.toArray)
+		A * LambdaVec //matrix multiplication means that it multiplies and adds all the rows up.
 	}
+	// def apply(A: DenseMatrix[Double], seed: Int) = {
+	// 	val NumRows = A.rows
+	// 	val NumCols = A.cols
+	// 	// Initiate an output vector (starting with zeros)
+	// 	var x = DenseVector.zeros[Double](NumRows)
+	// 	for( i <- 0 to NumCols-1 ) {
+	// 		var rand = new Random(seed=seed)
+	// 		var lambda = rand.nextGaussian()
+	// 		x = x + A(::, i) :* lambda
+	// 	}
+	// 	x
+	// }
 }
 
 
@@ -202,9 +210,13 @@ object GetEndpoints{
   	(FirstEndpoint, SecondEndpoint)
   }
 
-  def apply(p: DenseVector[Double], q: DenseVector[Double]): Tuple2[DenseVector[Double], DenseVector[Double]] = {
-	val Bounds = GetBoundLimits(GetUpperBoundVector(p,q), GetLowerBoundVector(p,q))
-	FindEndpoints(p,q, Bounds._1, Bounds._2)
+  //@param p densevector of the point
+  //@param q Densevector of the random direction
+  //@param BoundTuple, with bound limits in double form
+  def apply(p: DenseVector[Double], q: DenseVector[Double], Seed: Int) {
+	  val Bounds = GetBoundLimits(GetUpperBoundVector(p,q), GetLowerBoundVector(p,q))
+	  val Points = FindEndpoints(p,q, Bounds._1, Bounds._2)
+    RandomPointBetween(Points._1, Points._2, Seed)
   }
 }
 //@param E1 Vector of coordinates for the second point
@@ -245,8 +257,9 @@ object LowLevelSimplex{
 
 
  object HitAndRun {
- 	def apply(A: DenseMatrix[Double], b: DenseVector[Double], Seed: Int) = {
- 		
+ 	def apply(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], Seed: Int) = {
+ 		val RandomDirection = GetRandomDirection(OrthonormalBasis, Seed)
+
  	}
  	
  }
