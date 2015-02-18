@@ -1,18 +1,18 @@
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetRandomDirectionSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.RandomPointBetweenSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.BasisSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetNewPointSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GenStartingPointSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.OrthoSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.LowLevelSimplexSpec, org.scalatest.tools.Framework$$anon$1@952b025, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.BasisSpec, org.scalatest.tools.Framework$$anon$1@4d4acd0b, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.RandomPointBetweenSpec, org.scalatest.tools.Framework$$anon$1@4d4acd0b, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.OrthoSpec, org.scalatest.tools.Framework$$anon$1@4d4acd0b, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.LowLevelSimplexSpec, org.scalatest.tools.Framework$$anon$1@4d4acd0b, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GenStartingPointSpec, org.scalatest.tools.Framework$$anon$1@4d4acd0b, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetNewPointSpec, org.scalatest.tools.Framework$$anon$1@4d4acd0b, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetRandomDirectionSpec, org.scalatest.tools.Framework$$anon$1@4d4acd0b, false, [SuiteSelector])[0m
 [0m[[0mdebug[0m] [0mSummary for ScalaCheck not available.[0m
 [0m[[0minfo[0m] [0mScalaTest[0m
-[0m[[0minfo[0m] [0m[36mRun completed in 908 milliseconds.[0m[0m
-[0m[[0minfo[0m] [0m[36mTotal number of tests run: 27[0m[0m
+[0m[[0minfo[0m] [0m[36mRun completed in 1 second, 77 milliseconds.[0m[0m
+[0m[[0minfo[0m] [0m[36mTotal number of tests run: 29[0m[0m
 [0m[[0minfo[0m] [0m[36mSuites: completed 7, aborted 0[0m[0m
-[0m[[0minfo[0m] [0m[36mTests: succeeded 27, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0minfo[0m] [0m[36mTests: succeeded 29, failed 0, canceled 0, ignored 0, pending 0[0m[0m
 [0m[[0minfo[0m] [0m[32mAll tests passed.[0m[0m
-[0m[[0minfo[0m] [0mPassed: Total 27, Failed 0, Errors 0, Passed 27[0m
+[0m[[0minfo[0m] [0mPassed: Total 29, Failed 0, Errors 0, Passed 29[0m
 [0m[[0mdebug[0m] [0mPassed tests:[0m
 [0m[[0mdebug[0m] [0m	bbdl.space.GetNewPointSpec[0m
 [0m[[0mdebug[0m] [0m	bbdl.space.GenStartingPointSpec[0m

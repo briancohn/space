@@ -132,8 +132,8 @@ object Ortho extends Function[DenseMatrix[Double], DenseMatrix[Double]]{
 object GetRandomDirection{
 	def apply(A: DenseMatrix[Double], Seed:Int) = {
 		val Rand = new scala.util.Random(Seed)
-		val Lambdas = for (i <- 0 to A.cols-1) yield Rand.nextGaussian() //by default set to mean 0, sd 1
-		val LambdaVec = DenseVector(Lambdas.toArray)
+		val Lambdas = for (i <- 1 to A.cols) yield Rand.nextGaussian() //by default set to mean 0, sd 1
+   	val LambdaVec = DenseVector(Lambdas.toArray)
 		A * LambdaVec //matrix multiplication means that it multiplies and adds all the rows up.
 	}
 	// def apply(A: DenseMatrix[Double], seed: Int) = {
@@ -267,12 +267,12 @@ object LowLevelSimplex{
     NewPoint
   }
  }
-object PrepareLinearSystem{
+
+object SampleLinearSystem{
   def apply(A: DenseMatrix[Double], v: DenseVector[Double], Seed: Int, n: Int) = {
     val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
     var CurrentPoint = GenStartingPoint(A, v)
-    println(CurrentPoint)
-    var Seed = 0
+    var Seed = 10
     for (i <- 0 to n) {
       println(CurrentPoint)
       CurrentPoint = HitAndRun(OrthonormalBasis,CurrentPoint,Seed)

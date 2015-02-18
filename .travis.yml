@@ -4,6 +4,8 @@ sbt_args:
 scala:
    - 2.11.6
    - 2.11.5
+   - 2.11.4
+   - 2.10.4
 script:
   - sbt compile
   - sbt test

@@ -166,3 +166,17 @@ run
 test
 GetNewPoint
 console
+clean
+update
+clean
+compile
+run
+test
+update &&build
+build
+update
+test
+compile
+run
+test
+build

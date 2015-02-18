@@ -94,6 +94,19 @@ class BasisSpec extends FlatSpec with Matchers {
     )
     assert(basis === ExpectedBasis)
   }
+  it should "take in a matrix of size(1,3) and output a (3,2) basis" in
+    { val A = DenseMatrix(
+      (10.0/3.0, -53.0/15.0, 2.0)
+    )
+      val basis=Basis(A)
+      val ExpectedBasis = DenseMatrix(
+        (1.0, 0.0),
+        (0.0,1.0),
+        (-5.0/3.0,53.0/30.0)
+      )
+      assert(basis === ExpectedBasis)
+    }
+
 }
 
 class OrthoSpec extends FlatSpec with Matchers {
@@ -104,6 +117,7 @@ class OrthoSpec extends FlatSpec with Matchers {
 	  assert(BasisOrthonormal === ExpectedBasisOrthonormal)
 
 	}
+
 }
 
 
