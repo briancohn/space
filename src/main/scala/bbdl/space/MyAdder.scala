@@ -133,6 +133,7 @@ object GetRandomDirection{
 	def apply(A: DenseMatrix[Double], Seed:Int) = {
 		val Rand = new scala.util.Random(Seed)
 		val Lambdas = for (i <- 1 to A.cols) yield Rand.nextGaussian() //by default set to mean 0, sd 1
+    println(Lambdas)
    	val LambdaVec = DenseVector(Lambdas.toArray)
 		A * LambdaVec //matrix multiplication means that it multiplies and adds all the rows up.
 	}
@@ -291,7 +292,7 @@ object SampleLinearSystem{
     var CurrentPoint = GenStartingPoint(A, v)
     var Seed = 10
     for (i <- 0 to n) {
-      println(CurrentPoint)
+//      println(CurrentPoint)
       CurrentPoint = HitAndRun(OrthonormalBasis,CurrentPoint,Seed)
       Seed = Seed + 1
     }
