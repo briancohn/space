@@ -117,6 +117,24 @@ class OrthoSpec extends FlatSpec with Matchers {
 	  assert(BasisOrthonormal === ExpectedBasisOrthonormal)
 
 	}
+  it should "take in a matrix of size (3,2) and output a (3,2) orthogonal basis" in {
+    val A = DenseMatrix(
+    (1.0, 0.0),
+    (0.0,1.0),
+    (-5.0/3.0,53.0/30.0)
+    )
+    val Orthobasis = Ortho(A)
+    import breeze.linalg.{DenseVector, norm, DenseMatrix}
+    val a = norm(DenseVector(53.0/68.0, 1.0, 159.0/340.0))
+    val ExpectedOrthoBasis = DenseMatrix(
+      (3.0/sqrt(34.0), 53.0/(68.0*a)),
+      (0.0,1.0/a),
+      (-5.0/sqrt(34.0),159.0/(340.0*a))
+    )
+    val AbsError = ElementwiseAbsoluteDifference(Orthobasis, ExpectedOrthoBasis)
+    assert(AbsError < 1E-14)
+  }
+
 
 }
 
@@ -292,7 +310,18 @@ class RandomPointBetweenSpec() extends FlatSpec with Matchers {
   
 }
 
-
+class SampleLinearSystemSpec() extends FlatSpec with Matchers{
+  behavior of "Sample Linear System"
+  it should "take in a (1,3) matrix and output a set of points within the feasible soln space." in {
+    val NumberToGenerate = 2
+    val Seed = 10
+    val A = DenseMatrix(
+      (10.0/3.0, -53.0/15.0, 2.0)
+    )
+    val v = DenseVector(1.0)
+    SampleLinearSystem(A,v,Seed,NumberToGenerate)
+  }
+}
 
 
 

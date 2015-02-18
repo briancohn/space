@@ -234,6 +234,23 @@ object RandomPointBetween {
 }
 
 
+//Just matrices for now
+object ElementwiseAbsoluteDifference{
+  def apply(A: DenseMatrix[Double], B: DenseMatrix[Double]): Double = {
+    if (A.cols == B.cols && A.rows == A.rows) {
+      var AbsDiff = 0.0
+      for (col <- 0 to A.cols-1){
+        for (row <- 0 to A.rows-1){
+          AbsDiff = AbsDiff + abs(A(row,col) - B(row, col))
+        }
+      }
+      AbsDiff
+    } else {
+      99999999999.0 //TODO change this to an error
+    }
+  }
+}
+
 object LowLevelSimplex{
   def apply(A_input: DenseMatrix[Double], b_input: DenseVector[Double], c_input: DenseVector[Double]): DenseVector[Double] = {
     val lp = new breeze.optimize.linear.LinearProgram()
