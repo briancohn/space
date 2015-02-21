@@ -131,16 +131,12 @@ object Ortho extends Function[DenseMatrix[Double], DenseMatrix[Double]]{
  */
 object GetRandomDirection{
 
-	def apply(A: DenseMatrix[Double], Seed: Int, UseSeed: Boolean) = {
-    var Rand = new scala.util.Random(Seed)
-    if (!UseSeed){
-      var Rand = new scala.util.Random()
-    }
+	def apply(A: DenseMatrix[Double], RandomObject: scala.util.Random) = {
     var Lambdas = DenseVector.zeros[Double](A.cols)
     for (i <- 0 to A.cols - 1){
-      Lambdas(i) = Rand.nextGaussian()
+      Lambdas(i) = RandomObject.nextGaussian()
     }
-    println(Lambdas)
+//    println(Lambdas)
    	val LambdaVec = DenseVector(Lambdas.toArray)
 		A * LambdaVec //matrix multiplication means that it multiplies and adds all the rows up.
 	}
@@ -224,10 +220,10 @@ object GetNewPoint{
   //Get New Point from p and q
   //@param p densevector of the point
   //@param q Densevector of the random direction
-  def apply(p: DenseVector[Double], q: DenseVector[Double], Seed: Int) = {
+  def apply(p: DenseVector[Double], q: DenseVector[Double], RandomObject: scala.util.Random) = {
 	  val Bounds = GetBoundLimits(GetUpperBoundVector(p,q), GetLowerBoundVector(p,q))
 	  val Points = FindEndpoints(p,q, Bounds._1, Bounds._2)
-      val res = RandomPointBetween(Points._1, Points._2, Seed)
+      val res = RandomPointBetween(Points._1, Points._2, RandomObject)
       res
   }
 }
@@ -235,9 +231,10 @@ object GetNewPoint{
 //@param E2 Vector of coordinates for the second point
 //@param seed Int defining the random number seed for point generation.
 object RandomPointBetween {
-	def apply(E1: DenseVector[Double], E2: DenseVector[Double], seed: Int) = {
-		val lambda = new Random(seed).nextDouble() //between 0 and 1 by default
-		E1 + (E2-E1)*lambda
+	def apply(E1: DenseVector[Double], E2: DenseVector[Double], RandomObject: scala.util.Random) = {
+		val lambda = RandomObject.nextDouble() //between 0 and 1 by default
+//		println(lambda)
+    E1 + (E2-E1)*lambda
 	}
 }
 
@@ -286,22 +283,55 @@ object LowLevelSimplex{
 
 
  object HitAndRun {
- 	def apply(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], Seed: Int) = {
- 		val RandomDirection = GetRandomDirection(OrthonormalBasis, Seed, false) //has a random step in gaussian distribution
-    val NewPoint = GetNewPoint(StartingPoint, RandomDirection, Seed) //has a random step in uniform distribution
+ 	def apply(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], RandomObject: scala.util.Random) = {
+ 		val RandomDirection = GetRandomDirection(OrthonormalBasis, RandomObject) //has a random step in gaussian distribution
+    val NewPoint = GetNewPoint(StartingPoint, RandomDirection, RandomObject) //has a random step in uniform distribution
     NewPoint
   }
  }
 
 object SampleLinearSystem{
-  def apply(A: DenseMatrix[Double], v: DenseVector[Double], Seed: Int, n: Int) = {
+  def apply(A: DenseMatrix[Double], v: DenseVector[Double], RandomObject: scala.util.Random, n: Int) = {
     val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
     var CurrentPoint = GenStartingPoint(A, v)
-
+    val Seed = 10
+    val RandomObject = new scala.util.Random(Seed)
+    var PointDatabase = DenseMatrix.zeros[Double](A.cols, n)
     for (i <- 0 to n) {
-//      println(CurrentPoint)
-      CurrentPoint = HitAndRun(OrthonormalBasis,CurrentPoint,Seed)
+      CurrentPoint = HitAndRun(OrthonormalBasis,CurrentPoint,RandomObject)
+    }
+    PointDatabase
+  }
+}
 
+object RandomLogGenerator extends App {
+  val random = new Random()
+
+  val props = new Properties()
+  props ++= Map(
+    "serializer.class" -> "com.chimpler.sparkstreaminglogaggregation.ImpressionLogEncoder",
+    "metadata.broker.list" -> "127.0.0.1:9093"
+  )
+
+  val config = new ProducerConfig(props)
+  val producer = new Producer[String, ImpressionLog](config)
+
+  println("Sending messages...")
+  var i = 0
+  // infinite loop
+  while(true) {
+    val timestamp = System.currentTimeMillis()
+    val publisher = Publishers(random.nextInt(NumPublishers))
+    val advertiser = Advertisers(random.nextInt(NumAdvertisers))
+    val website = s"website_${random.nextInt(Constants.NumWebsites)}.com"
+    val cookie = s"cookie_${random.nextInt(Constants.NumCookies)}"
+    val geo = Geos(random.nextInt(Geos.size))
+    val bid = math.abs(random.nextDouble()) % 1
+    val log = ImpressionLog(timestamp, publisher, advertiser, website, geo, bid, cookie)
+    producer.send(new KeyedMessage[String, ImpressionLog](Constants.KafkaTopic, log))
+    i = i + 1
+    if (i % 10000 == 0) {
+      println(s"Sent $i messages!")
     }
   }
 }

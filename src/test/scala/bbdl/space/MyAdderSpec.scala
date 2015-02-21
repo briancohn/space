@@ -2,51 +2,52 @@ package bbdl.space
 import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
-import org.scalatest._ //added for this test file
+import org.scalatest._
+
+import scala.util.Random
+
+//added for this test file
 
 class GetRandomDirectionSpec extends FlatSpec with Matchers {
 	behavior of "GetRandomDirection"
-
+  val Seed = 10
+  val RandomObject = new scala.util.Random(Seed)
   it should "Get a random direction for all positive inputs" in {
     val B = DenseMatrix((1.0,0.0), (0.0,1.0), (0.0, 0.0))
-    val seed = 10
-    val result = GetRandomDirection(B, seed, true)
+
+    val result = GetRandomDirection(B, RandomObject)
     assert(result === DenseVector(0.8746788966462123, -0.9193443348656242, 0.0))
 	}
 	it should "get a random direction for some negative inputs" in {
 	  val B = DenseMatrix((-1.0,0.0), (0.0,1.0), (0.0, 0.0))
-    val seed = 10
-	  val RandomDirection = GetRandomDirection(B, seed, true)
+	  val RandomDirection = GetRandomDirection(B, RandomObject)
 	  val expected = DenseVector(-0.8746788966462123, -0.9193443348656242, 0.0)
     assert(RandomDirection === expected)
 	}
   it should "take in an identity matrix, and output a vector whose values are distributed gauss-normally" in{
     val n = 10
-    val Seed = 10
     val IdentityMatrix = DenseMatrix.eye[Double](n)
-    val RandomDirection = GetRandomDirection(IdentityMatrix,Seed, true)
+    val RandomDirection = GetRandomDirection(IdentityMatrix, RandomObject)
     assert(RandomDirection === DenseVector(0.8746788966462123, -0.9193443348656242, 1.1329921492850181, -0.4598256884904446, 0.7338090601305023, 0.4427877081455783, -0.23610812307264825, 0.4619622460418042, -0.19304784617121043, -0.02331125940413))
   }
   it should "take in an identity matrix with an extra row of zeros at the bottom, and output a vector whose values are distributed gauss-normally" in{
     val n = 10
-    val Seed = 10
     val IdentityMatrix = DenseMatrix.eye[Double](n)
     val TallerMatrix = DenseMatrix.vertcat(IdentityMatrix, DenseMatrix.zeros[Double](1,n))
-    val RandomDirection = GetRandomDirection(TallerMatrix,Seed, true)
-    assert(RandomDirection == DenseVector(0.8746788966462123, -0.9193443348656242, 1.1329921492850181, -0.4598256884904446, 0.7338090601305023, 0.4427877081455783, -0.23610812307264825, 0.4619622460418042, -0.19304784617121043, -0.02331125940413, 0.0))
+    val RandomDirection = GetRandomDirection(TallerMatrix, RandomObject)
+    assert(ElementwiseAbsoluteDifference(RandomDirection.toDenseMatrix, DenseVector(0.8746788966462123, -0.9193443348656242, 1.1329921492850181, -0.4598256884904446, 0.7338090601305023, 0.4427877081455783, -0.23610812307264825, 0.4619622460418042, -0.19304784617121043, -0.02331125940413, 0.0).toDenseMatrix) < 1E-14)
   }
 
-
+  val RandomObject7 = new scala.util.Random(7)
   it should "produce a gauss-distribution with mean 0 and standard deviation 1 on an identity matrix" in {
-    val x = GetRandomDirection(breeze.linalg.DenseMatrix.eye[Double](10), 7, true)
+    val x = GetRandomDirection(breeze.linalg.DenseMatrix.eye[Double](10), RandomObject7)
     assert(x === DenseVector(0.8452060657049847, 0.9128761787534405, -0.2870786364749953, 0.7518594314874758, 1.335473668231534, -0.9499789372646104, 0.599049892177836, 1.204570743449295, 2.4820093995603614, -0.7539501059617072))
   }
   import bbdl.space.GetRandomDirection
   import breeze.linalg.DenseMatrix
   val n = 1000
-  val Seed = 10
   val Mat = DenseMatrix.eye[Double](n)
-  val Direction = GetRandomDirection(Mat, Seed, true)
+  val Direction = GetRandomDirection(Mat, RandomObject)
   val Mu = breeze.stats.mean(Direction)
   val Sigma = breeze.stats.stddev(Direction)
 
@@ -57,10 +58,10 @@ class GetRandomDirectionSpec extends FlatSpec with Matchers {
     assert(abs(Sigma - 1.0) < 0.05)
   }
   "GetNewPoint" should "Produce a new random point when given a point and random direction" in {
-    val Seed = 10
+    val RandomObject = new Random(10)
     val p = DenseVector(0.5,0.5,0.5)
     val q = DenseVector(-1.0,-2.0,1.0)
-    val g = GetNewPoint(p,q,Seed)
+    val g = GetNewPoint(p,q,RandomObject)
     val ExpectedPoint = DenseVector(0.3847848516282864, 0.2695697032565728, 0.6152151483717136)
     assert(g === ExpectedPoint)
   }
@@ -286,24 +287,25 @@ class GenStartingPointSpec() extends FlatSpec with Matchers {
 
 class RandomPointBetweenSpec() extends FlatSpec with Matchers {
   behavior of "RandomPointBetween"
+  val RandomObject7 = new scala.util.Random(7)
   it should "Take in two points and return a point on the line between them. An example with a zero in both" in {
     val E1 = DenseVector(0.75,0.5,0)
     val E2 = DenseVector(0.6,0,0.2)
-    val MyPoint = RandomPointBetween(E1,E2,seed=7)
+    val MyPoint = RandomPointBetween(E1,E2,RandomObject7)
     val ExpectedPoint = DenseVector(0.6403951436909937, 0.13465047896997895, 0.14613980841200844)
     assert(MyPoint === ExpectedPoint)
   }
   "Randpt" should "Take in two points and return a point on the line between them. Example with no zero" in {
     val E1 = DenseVector(0.5,0.2,0.7)
     val E2 = DenseVector(0.1,0.8,0.9)
-    val MyPoint = RandomPointBetween(E1,E2,seed=7)
+    val MyPoint = RandomPointBetween(E1,E2,RandomObject7)
     val ExpectedPoint = DenseVector(0.20772038317598313, 0.6384194252360254, 0.8461398084120084)
     assert(MyPoint === ExpectedPoint)
   }
   "Randpt" should "Take in two points and return a point on the line between them. Example with ones" in {
     val E1 = DenseVector(1.0,0.2,0.7)
     val E2 = DenseVector(0.1,0.8,1.0)
-    val MyPoint = RandomPointBetween(E1,E2,seed=7)
+    val MyPoint = RandomPointBetween(E1,E2,RandomObject7)
     val ExpectedPoint = DenseVector(0.34237086214596213, 0.6384194252360254, 0.9192097126180127)
     assert(MyPoint === ExpectedPoint)
   }
@@ -313,13 +315,14 @@ class RandomPointBetweenSpec() extends FlatSpec with Matchers {
 class SampleLinearSystemSpec() extends FlatSpec with Matchers{
   behavior of "Sample Linear System"
   it should "take in a (1,3) matrix and output a set of points within the feasible soln space." in {
-    val NumberToGenerate = 2
+    val NumberToGenerate = 200
     val Seed = 10
+    val RandomObject = new scala.util.Random(Seed)
     val A = DenseMatrix(
       (10.0/3.0, -53.0/15.0, 2.0)
     )
     val v = DenseVector(1.0)
-    SampleLinearSystem(A,v,Seed,NumberToGenerate)
+    SampleLinearSystem(A,v,RandomObject,NumberToGenerate)
   }
 }
 
