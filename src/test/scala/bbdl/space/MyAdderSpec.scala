@@ -315,7 +315,7 @@ class RandomPointBetweenSpec() extends FlatSpec with Matchers {
 class SampleLinearSystemSpec() extends FlatSpec with Matchers{
   behavior of "Sample Linear System"
   it should "take in a (1,3) matrix and output a set of points within the feasible soln space." in {
-    val NumberToGenerate = 200
+    val NumberToGenerate = 2000
     val Seed = 10
     val RandomObject = new scala.util.Random(Seed)
     val A = DenseMatrix(
@@ -326,10 +326,15 @@ class SampleLinearSystemSpec() extends FlatSpec with Matchers{
   }
 }
 
-
-
-
-
-
+class UpdateMeanSpec() extends FlatSpec with Matchers{
+  behavior of "UpdateMean"
+  it should "take in a prior mean (and an n) and update the running mean with a new value" in {
+    val n = 5.0
+    val PriorMean = 100.0
+    val NewValue = 200.0
+    val result = UpdateMean(NewValue, PriorMean, n)
+    assert(result == 120.0)
+  }
+}
 
 

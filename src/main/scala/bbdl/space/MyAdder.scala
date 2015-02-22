@@ -291,47 +291,27 @@ object LowLevelSimplex{
  }
 
 object SampleLinearSystem{
-  def apply(A: DenseMatrix[Double], v: DenseVector[Double], RandomObject: scala.util.Random, n: Int) = {
+  def apply(A: DenseMatrix[Double], v: DenseVector[Double], RandomObject: scala.util.Random, Samples: Int) = {
     val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
     var CurrentPoint = GenStartingPoint(A, v)
     val Seed = 10
     val RandomObject = new scala.util.Random(Seed)
-    var PointDatabase = DenseMatrix.zeros[Double](A.cols, n)
+    var PointDatabase = DenseMatrix.zeros[Double](Samples, A.cols)
+    var RunningMean = CurrentPoint(0)
     for (i <- 0 to n) {
+      RunningMean = UpdateMean(CurrentPoint(0),RunningMean, i.toDouble+2.0)
+      println(RunningMean)
       CurrentPoint = HitAndRun(OrthonormalBasis,CurrentPoint,RandomObject)
     }
     PointDatabase
   }
 }
 
-object RandomLogGenerator extends App {
-  val random = new Random()
-
-  val props = new Properties()
-  props ++= Map(
-    "serializer.class" -> "com.chimpler.sparkstreaminglogaggregation.ImpressionLogEncoder",
-    "metadata.broker.list" -> "127.0.0.1:9093"
-  )
-
-  val config = new ProducerConfig(props)
-  val producer = new Producer[String, ImpressionLog](config)
-
-  println("Sending messages...")
-  var i = 0
-  // infinite loop
-  while(true) {
-    val timestamp = System.currentTimeMillis()
-    val publisher = Publishers(random.nextInt(NumPublishers))
-    val advertiser = Advertisers(random.nextInt(NumAdvertisers))
-    val website = s"website_${random.nextInt(Constants.NumWebsites)}.com"
-    val cookie = s"cookie_${random.nextInt(Constants.NumCookies)}"
-    val geo = Geos(random.nextInt(Geos.size))
-    val bid = math.abs(random.nextDouble()) % 1
-    val log = ImpressionLog(timestamp, publisher, advertiser, website, geo, bid, cookie)
-    producer.send(new KeyedMessage[String, ImpressionLog](Constants.KafkaTopic, log))
-    i = i + 1
-    if (i % 10000 == 0) {
-      println(s"Sent $i messages!")
-    }
+object UpdateMean{
+  def apply(NewValue: Double, PriorMean: Double, n: Double): Double = {
+    val NConstant = (n-1.0)/n
+    val WeightedNewValue = (NewValue/n)
+    val PriorWeight = NConstant*PriorMean
+    PriorWeight + WeightedNewValue
   }
 }

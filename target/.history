@@ -180,3 +180,8 @@ compile
 run
 test
 build
+compile
+update
+compile
+run
+test
