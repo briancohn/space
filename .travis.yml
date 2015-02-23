@@ -7,8 +7,12 @@ scala:
    - 2.11.4
    - 2.10.4
 script:
+  - sbt clean
+  - sbt update
   - sbt compile
   - sbt test
   - sbt run
 jdk:
   - oraclejdk8
+  - oraclejdk7
+  - openjdk6
