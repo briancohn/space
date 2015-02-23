@@ -16,26 +16,26 @@ class GetRandomDirectionSpec extends FlatSpec with Matchers {
     val B = DenseMatrix((1.0,0.0), (0.0,1.0), (0.0, 0.0))
 
     val result = GetRandomDirection(B, RandomObject)
-    assert(result === DenseVector(0.8746788966462123, -0.9193443348656242, 0.0))
+    assert(result === DenseVector(1.6882124514042414, -0.8414172955978727, 0.0))
 	}
 	it should "get a random direction for some negative inputs" in {
 	  val B = DenseMatrix((-1.0,0.0), (0.0,1.0), (0.0, 0.0))
 	  val RandomDirection = GetRandomDirection(B, RandomObject)
-	  val expected = DenseVector(-0.8746788966462123, -0.9193443348656242, 0.0)
+	  val expected = DenseVector(0.32113532510702947, -0.23661697576709095, 0.0)
     assert(RandomDirection === expected)
 	}
   it should "take in an identity matrix, and output a vector whose values are distributed gauss-normally" in{
     val n = 10
     val IdentityMatrix = DenseMatrix.eye[Double](n)
     val RandomDirection = GetRandomDirection(IdentityMatrix, RandomObject)
-    assert(RandomDirection === DenseVector(0.8746788966462123, -0.9193443348656242, 1.1329921492850181, -0.4598256884904446, 0.7338090601305023, 0.4427877081455783, -0.23610812307264825, 0.4619622460418042, -0.19304784617121043, -0.02331125940413))
+    assert(RandomDirection === DenseVector(-0.5241639211111205, -0.34602233612988537, 1.1638138842834067, -1.662967347612762, -0.5866125475069541, 1.3084986313549418, -0.7113249308260786, -0.9384431706369464, 0.005116309664665023, 0.3555017051770467))
   }
   it should "take in an identity matrix with an extra row of zeros at the bottom, and output a vector whose values are distributed gauss-normally" in{
     val n = 10
     val IdentityMatrix = DenseMatrix.eye[Double](n)
     val TallerMatrix = DenseMatrix.vertcat(IdentityMatrix, DenseMatrix.zeros[Double](1,n))
     val RandomDirection = GetRandomDirection(TallerMatrix, RandomObject)
-    assert(ElementwiseAbsoluteDifference(RandomDirection.toDenseMatrix, DenseVector(0.8746788966462123, -0.9193443348656242, 1.1329921492850181, -0.4598256884904446, 0.7338090601305023, 0.4427877081455783, -0.23610812307264825, 0.4619622460418042, -0.19304784617121043, -0.02331125940413, 0.0).toDenseMatrix) < 1E-14)
+    assert(ElementwiseAbsoluteDifference(RandomDirection.toDenseMatrix, DenseVector(0.6685391145389219, 0.6327216675776454, -0.9424452549137063, -0.009898782433063143, 1.8021608700963798, 1.8765599210333714, 0.5111602993013169, 0.8418645608663314, -0.8955260348019763, -0.4938850345409942, 0.0).toDenseMatrix) < 1E-14)
   }
 
   val RandomObject7 = new scala.util.Random(7)
@@ -299,14 +299,14 @@ class RandomPointBetweenSpec() extends FlatSpec with Matchers {
     val E1 = DenseVector(0.5,0.2,0.7)
     val E2 = DenseVector(0.1,0.8,0.9)
     val MyPoint = RandomPointBetween(E1,E2,RandomObject7)
-    val ExpectedPoint = DenseVector(0.20772038317598313, 0.6384194252360254, 0.8461398084120084)
+    val ExpectedPoint = DenseVector(0.20033215874654675, 0.6495017618801799, 0.8498339206267267)
     assert(MyPoint === ExpectedPoint)
   }
   "Randpt" should "Take in two points and return a point on the line between them. Example with ones" in {
     val E1 = DenseVector(1.0,0.2,0.7)
     val E2 = DenseVector(0.1,0.8,1.0)
     val MyPoint = RandomPointBetween(E1,E2,RandomObject7)
-    val ExpectedPoint = DenseVector(0.34237086214596213, 0.6384194252360254, 0.9192097126180127)
+    val ExpectedPoint = DenseVector(0.6865212672718688, 0.4089858218187542, 0.804492910909377)
     assert(MyPoint === ExpectedPoint)
   }
   

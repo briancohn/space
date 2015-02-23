@@ -298,7 +298,7 @@ object SampleLinearSystem{
     val RandomObject = new scala.util.Random(Seed)
     var PointDatabase = DenseMatrix.zeros[Double](Samples, A.cols)
     var RunningMean = CurrentPoint(0)
-    for (i <- 0 to n) {
+    for (i <- 0 to Samples) {
       RunningMean = UpdateMean(CurrentPoint(0),RunningMean, i.toDouble+2.0)
       println(RunningMean)
       CurrentPoint = HitAndRun(OrthonormalBasis,CurrentPoint,RandomObject)
