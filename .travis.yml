@@ -4,9 +4,6 @@ sbt_args:
 scala:
    - 2.11.6
    - 2.11.5
-   - 2.11.4
-   - 2.11.1
-   - 2.10.4
 script:
   - sbt clean
   - sbt update
@@ -14,6 +11,4 @@ script:
   - sbt test
   - sbt run
 jdk:
-  - oraclejdk8
   - oraclejdk7
-  - openjdk6
