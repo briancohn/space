@@ -413,9 +413,10 @@ object RangeExcursion{
   }
 }
 object Output {
-  def TimestampCSVName(prefix: String) = {
+  def TimestampCSVName(prefix: String): String = {
     var timestamp = (System.currentTimeMillis).toString()
     var dateStr = prefix + timestamp + ".csv"
+    dateStr
   }
 }
 object PointStream {
@@ -465,8 +466,8 @@ object PointStream {
     } else {
         val NewPt = generator(OrthonormalBasis, CurrentPoint, RandomObject)
         if (acc.rows == 10000) {
-          val FileName = Output.TimestampCSVName("output/")
-          val MyFile = new File(FileName)
+          val FileName = Output.TimestampCSVName("output/").toString()
+          val MyFile = new java.io.File(FileName)
           println("Saving to " + FileName)
           csvwrite(MyFile, acc)
         fill(OrthonormalBasis, NewPt, RandomObject, Predicate, NewPt.toDenseMatrix) //start over
