@@ -185,3 +185,6 @@ update
 compile
 run
 test
+compile
+run
+test

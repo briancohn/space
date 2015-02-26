@@ -1,10 +1,92 @@
 package bbdl.space
+
+import java.io.File
+import java.util.Date
+
 import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
 import breeze.optimize.linear.LinearProgram
 import spire.math.Real
 import scala.util._
+
+/*
+Set of functions for generating upper and lower bounds of each lambda from i to A.cols (n).
+ */
+object Bounds{
+  /*
+  Takes in an A Matrix, and connects a negative copy below it
+   */
+  def GenABlock(A: DenseMatrix[Double]) = {
+    DenseMatrix.vertcat(A, -A)
+  }
+  /*
+  Takes in the col num (Int) for the A matrix, and outputs a negative eye and positive eye (vertically concatenated)
+   */
+  def GenEyeBlock(n: Int) = {
+    val eye = DenseMatrix.eye[Double](n)
+    DenseMatrix.vertcat(-eye,eye)
+  }
+  /*
+  Takes in the A DenseMatrix and outputs A, -A, -eye, eye. - all vertically concatenated.
+   */
+  def ExpandedMatrix(A: DenseMatrix[Double]) = {
+    DenseMatrix.vertcat(GenABlock(A), GenEyeBlock(A.cols))
+  }
+  /*
+  Takes in the cols of A, and the b vector to generate v, -v, zeros(A.cols), ones(A.cols) to set the constraints for each col.
+   */
+  def ExpandedVector(ACols: Int, b: DenseVector[Double]) = {
+    DenseVector.vertcat(b,-b,DenseVector.zeros[Double](ACols),DenseVector.ones[Double](ACols))
+
+  }
+  /*
+  @param Number an integer which will be inserted among zeros
+  @param len the length of the vector to return
+  @param NumberIndex the index of the vector which you want equal to the number
+   */
+  def NumberAmongZeros(Number: Double, len: Int, NumberIndex: Int): DenseVector[Double] = {
+    var v = DenseVector.zeros[Double](len)
+    v(NumberIndex) = Number
+    v
+  }
+  /*
+  Extracts one upper or lower bound from the system of A and b.
+  @param Col The lambda you want to get an upperbound or lowerbound from (in Double format)
+   */
+  def ColBound(A: DenseMatrix[Double], b: DenseVector[Double], Col: Int, UpperOrLower: String): Double = {
+    val c = NumberAmongZeros(1.0,A.cols,Col)
+    val A_new = ExpandedMatrix(A)
+    val b_new = ExpandedVector(A.cols, b)
+    if (UpperOrLower == "Upper") {
+      LowLevelSimplex(A_new,b_new,  c)(Col)
+    } else {
+      LowLevelSimplex(A_new,b_new, -c)(Col)
+    }
+  }
+  /*
+  Takes in an A matrix and a b vector (representing an Ax <=b linear system) and outputs the upperbounds for each column of A [each lambda].)
+   */
+  def ComputeUppers(A: DenseMatrix[Double], b: DenseVector[Double]) = {
+    var res = DenseVector.zeros[Double](A.cols)
+    for (i <- 0 to A.cols-1) {
+      res(i) = ColBound(A,b,i, "Upper")
+    }
+    res
+  }
+  /*
+Takes in an A matrix and a b vector (representing an Ax <=b linear system) and outputs the lowerbounds for each column of A [each lambda].)
+ */
+
+  def ComputeLowers(A: DenseMatrix[Double], b: DenseVector[Double]) = {
+    var res = DenseVector.zeros[Double](A.cols)
+    for (i <- 0 to A.cols-1) {
+      res(i) = ColBound(A,b,i, "Lower")
+    }
+    res
+  }
+}
+
 
 
 object GenStartingPoint{
@@ -20,6 +102,7 @@ object GenStartingPoint{
 
 		DenseMatrix.horzcat(AMatricies, ZeroMatricies)
 	}
+
 	//Generates a (2n,2n) sized square matrix, where all 
 	//quadrants are eye, except for the top left corner, which is -eye.
 	//@param n RowLen of an A Matrix.
@@ -33,14 +116,17 @@ object GenStartingPoint{
 	//@param A The Linear constraints matrix to expand
 	//@return AExpanded DenseMatrix[Double] expanded to full block form.
 	def ExpandAMatrix(A: DenseMatrix[Double]): DenseMatrix[Double] = {
-		DenseMatrix.vertcat(GenABlock(A), GenEyeBlock(A.cols))		
+		val AWithoutEpsilonBounds = DenseMatrix.vertcat(GenABlock(A), GenEyeBlock(A.cols))
+    val n = AWithoutEpsilonBounds.cols/2
+    val EpsilonBounds = DenseMatrix.horzcat(DenseMatrix.zeros[Double](n, n), -DenseMatrix.eye[Double](n))
+    DenseMatrix.vertcat(AWithoutEpsilonBounds, EpsilonBounds)
 	}
 	//@param b The linear programming inequality value, b
 	//@param ColNum The linear programming constraints A.cols
 	//@return Expandedb a DenseVector[Double] with length (4n), with b, -b, zeros(n), ones(n)
 	def ExpandbVector(b: DenseVector[Double], ColNum: Int) = {
 		val n = ColNum
-		DenseVector.vertcat(b, -b, DenseVector.zeros[Double](n), DenseVector.ones[Double](n))
+		DenseVector.vertcat(b, -b, DenseVector.zeros[Double](n), DenseVector.ones[Double](n), DenseVector.zeros[Double](n))
 	}
 	//@param A Linear programmming constraint matrix
 	//@return c a set of solutions.
@@ -290,7 +376,7 @@ object LowLevelSimplex{
   }
  }
 
-object SampleLinearSystem{
+object SampleLinearSystem {
   def apply(A: DenseMatrix[Double], v: DenseVector[Double], RandomObject: scala.util.Random, Samples: Int) = {
     val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
     var CurrentPoint = GenStartingPoint(A, v)
@@ -298,15 +384,18 @@ object SampleLinearSystem{
     val RandomObject = new scala.util.Random(Seed)
     var PointDatabase = DenseMatrix.zeros[Double](Samples, A.cols)
     var RunningMean = CurrentPoint(0)
-    for (i <- 0 to Samples) {
-      RunningMean = UpdateMean(CurrentPoint(0),RunningMean, i.toDouble+2.0)
-      println(RunningMean)
-      CurrentPoint = HitAndRun(OrthonormalBasis,CurrentPoint,RandomObject)
+    for (i <- 0 to Samples - 1) {
+      RunningMean = UpdateMean(CurrentPoint(0), RunningMean, i.toDouble + 2.0)
+      //      println(RunningMean)
+      //      (i.toDouble*0.2).toInt
+      CurrentPoint = HitAndRun(OrthonormalBasis, CurrentPoint, RandomObject)
+      PointDatabase(i, ::) := CurrentPoint.t
+      //TODO add points into the database
     }
     PointDatabase
+
   }
 }
-
 object UpdateMean{
   def apply(NewValue: Double, PriorMean: Double, n: Double): Double = {
     val NConstant = (n-1.0)/n
@@ -315,3 +404,81 @@ object UpdateMean{
     PriorWeight + WeightedNewValue
   }
 }
+/*
+
+ */
+object RangeExcursion{
+  def ValueOutsideRange(v: DenseVector[Double], range: Double):  Boolean ={
+    max(v) - min(v) > range
+  }
+}
+object Output {
+  def TimestampCSVName(prefix: String) = {
+    var timestamp = (System.currentTimeMillis).toString()
+    var dateStr = prefix + timestamp + ".csv"
+  }
+}
+object PointStream {
+  //returns true when it's time to stop
+  /*
+  @param BeginIndex It will only compute the means once this number of rows have been sampled.
+   */
+  def MeanChaser(acc: DenseMatrix[Double]): Boolean ={
+    val PointNum = acc.rows
+    val BeginIndex=10000
+    if (PointNum<BeginIndex) {
+      if (PointNum%1000 == 0) println("False at " + PointNum)
+      false
+
+    } else {
+//      val SampleDouble = PointNum*0.20
+      val SampleNum = 2000
+      val subset = acc(PointNum - SampleNum to PointNum-1, ::).toDenseMatrix.data
+      false
+    }
+  }
+  /*
+  Never stops it
+   */
+  def AlwaysTrue(acc: DenseMatrix[Double]): Boolean = {
+    true
+  }
+  /*
+  This stops it once it samples 1m points.
+   */
+  def HardCodedStop(acc:DenseMatrix[Double]): Boolean = {
+    if (acc.rows >= 1000000) {
+      true //stop!
+    } else {
+      false //keep going
+    }
+  }
+
+
+  def generator(OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random): DenseVector[Double] = {
+    HitAndRun(OrthonormalBasis,CurrentPoint,RandomObject)
+  }
+  def fill(OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random, Predicate: DenseMatrix[Double]=>Boolean, acc: DenseMatrix[Double]):DenseMatrix[Double] ={
+    if (Predicate(acc)){
+      println("stop")
+      acc
+    } else {
+        val NewPt = generator(OrthonormalBasis, CurrentPoint, RandomObject)
+        if (acc.rows == 10000) {
+          val FileName = Output.TimestampCSVName("output/")
+          val MyFile = new File(FileName)
+          println("Saving to " + FileName)
+          csvwrite(MyFile, acc)
+        }
+        fill(OrthonormalBasis, NewPt, RandomObject, Predicate, NewPt.toDenseMatrix) //start over
+        } else {
+        fill(OrthonormalBasis, NewPt, RandomObject, Predicate, DenseMatrix.vertcat(acc, NewPt.toDenseMatrix))
+      }
+    }
+  }
+  def start(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], RandomObject: scala.util.Random, Predicate: DenseMatrix[Double]=>Boolean): Unit = {
+    fill(OrthonormalBasis, StartingPoint, RandomObject, Predicate, StartingPoint.toDenseMatrix)
+  }
+
+}
+

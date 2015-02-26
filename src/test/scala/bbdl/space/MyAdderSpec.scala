@@ -1,4 +1,7 @@
 package bbdl.space
+
+import java.io.File
+
 import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
@@ -314,16 +317,104 @@ class RandomPointBetweenSpec() extends FlatSpec with Matchers {
 
 class SampleLinearSystemSpec() extends FlatSpec with Matchers{
   behavior of "Sample Linear System"
-  it should "take in a (1,3) matrix and output a set of points within the feasible soln space." in {
-    val NumberToGenerate = 2000
+  it should "take in a (1,3) matrix and output a set of 50 points using May's simple 3 variable example." in {
+    val NumberToGenerate = 20
     val Seed = 10
     val RandomObject = new scala.util.Random(Seed)
     val A = DenseMatrix(
       (10.0/3.0, -53.0/15.0, 2.0)
     )
     val v = DenseVector(1.0)
-    SampleLinearSystem(A,v,RandomObject,NumberToGenerate)
+    val solutions = SampleLinearSystem(A,v,RandomObject,NumberToGenerate)
+    val expectedSolutions = DenseMatrix(
+      (0.5331051701610331, 	0.7524377270512136, 	0.9407980341887554   ),
+      (0.44279704205455184, 	0.3444940732667327, 	0.37061112601364143  ),
+      (0.26875228352361274, 	0.25439227355582095, 	0.5015058774092624   ),
+      (0.11511534912591137, 	0.07728892296784273, 	0.44468484870000335  ),
+      (0.1855853677879575, 	0.1873927291818172, 	0.521751541907948    ),
+      (0.5269493268380042, 	0.4863598454140634, 	0.4809868488348383   ),
+      (0.48781857407151524, 	0.32258699016344317, 	0.2568727258362242   ),
+      (0.8195848076010065, 	0.5559180110010715, 	0.11614714010021537  ),
+      (0.586313872886115, 	0.5593802131705827, 	0.5110485884578376   ),
+      (0.5692621666652598, 	0.37852341524562416, 	0.21995442249183628  ),
+      (0.7682818796024014, 	0.6490392716982926, 	0.36616624732964764  ),
+      (0.6671552196273187, 	0.6012638499417942, 	0.45030743551830493  ),
+      (0.7110334512041154, 	0.6706667673202662, 	0.49978887025894414  ),
+      (0.41506878818916493, 	0.3230120667630799, 	0.3788733376328327   ),
+      (0.40131727898178654, 	0.25123996890112654, 	0.274995146755679    ),
+      (0.41661899912685474, 	0.27506898793279144, 	0.29159021346983993  ),
+      (0.3718091057776773, 	0.27693078755754513, 	0.36956254838886726  ),
+      (0.3900685757439571, 	0.21350751863950776, 	0.22708232335653494  ),
+      (0.034511957769654794, 	0.029094128868510573, 	0.4938796980516105   ),
+      (0.3850201715024376, 	0.11398690398706118, 	0.05967657787307851  ))
+
+    assert(solutions == expectedSolutions)
   }
+  behavior of "Sample Finger Linear System"
+  it should "take in a 7dim finger matrix model and output a set" in {
+    val NumberToGenerate = 25000
+    val Seed = 10
+    val RandomObject = new scala.util.Random(Seed)
+    val JR = DenseMatrix(
+      (-0.08941, -0.0447, 0.2087, -0.2138, -0.009249, 0.1421, 0.03669),
+      (-0.04689, -0.1496, 0.0, 0.0248, 0.052, 0.0248, 0.052),
+      (0.06472, 0.001953, 0.0568, 0.2067, -0.1518, 0.2919, -0.1518),
+      (0.003081, -0.002352, 0.0001578, -0.000685, -0.0001649, -0.0004483, -0.0001649)
+    )
+    val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
+    val A = JR*diag(Fm)
+    println(A)
+    val v = DenseVector(1.0,1.0,1.0,0.0)
+    val solutions = SampleLinearSystem(A,v,RandomObject,NumberToGenerate)
+    val MyFile = new File("7dof.csv")
+    csvwrite(MyFile,solutions)
+}
+//  behavior of "Sample Finger Linear System"
+//  it should "take in a cat leg matrix model and output a set" in {
+//    val NumberToGenerate = 20000
+//    val Seed = 10
+//    val RandomObject = new scala.util.Random(Seed)
+//    val CatJ = DenseMatrix(
+//      (0.2235,    0.0084,   -0.0147,    0.1471,   -0.0038,   -0.0706,   -0.0183),
+//      (-0.0284,   -0.0096,   -0.0078,   -0.0901,   -0.0017,    0.0095,   -0.0090),
+//      (    0.0,   -0.1494,   -0.1686,   -0.0158,   -0.0358,    0.0008,   -0.0743),
+//      (    0.0,    0.7522,    0.6588,    0.1909,   -0.2869,   -0.0128,    0.9108),
+//      (    0.0,    0.6590,   -0.7520,    0.1414,   -0.9549,   -0.0136,   -0.3723),
+//      ( 1.0000,         0.0,   -0.0226,    0.9714,    0.0764,   -0.9998,   -0.178)
+//    )
+//    val CatFm = DenseVector(99.853, 11.062, 44.494, 160.94, 20.784, 19.524, 101.81, 11.747, 88.595, 4.052, 29.564, 95.845, 81.742, 32.657, 10.377, 15.794, 72.705, 118.93, 15.597, 25.443, 38.687, 118.45, 19.677, 75.673, 19.885, 86.344, 25.404, 38.435, 39.611, 136.92, 56.911)
+////    val CatR = DenseMatrix(7, 31, List(-0.0278350,-0.0188290,-0.0286830,-0.0307170,0.0000000,0.0000000,0.0000000,-0.0020837,0.0003486,0.0014568,-0.0292740,0.0000000,0.0000000,0.0000000,-0.0092456,0.0000000,0.0000000,0.0039358,0.0000000,0.0008967,-0.0071435,0.0037420,0.0228300,-0.0276120,0.0000000,-0.0358220,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,0.0039910,0.0066489,-0.0006356,-0.0015485,0.0000000,0.0000000,0.0000000,-0.0028456,-0.0071797,-0.0052183,0.0058436,0.0000000,0.0000000,0.0000000,0.0017835,0.0000000,0.0000000,0.0015483,0.0000000,-0.0088983,-0.0040605,-0.0012275,0.0149200,0.0010194,0.0000000,-0.0026231,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,0.0031579,0.0006709,0.0021240,0.0042832,0.0000000,0.0000000,0.0000000,-0.0086436,-0.0150550,-0.0155080,0.0016880,0.0000000,0.0000000,0.0000000,0.0003057,0.0000000,0.0000000,-0.0012821,0.0000000,0.0011985,0.0077211,0.0003367,-0.0010192,-0.0018145,0.0000000,-0.0028371,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,-0.0338020,0.0021471,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,-0.0281250,-0.0079683,-0.0087790,0.0000000,0.0000000,0.0000000,-0.0085280,0.0000000,0.0000000,0.0000000,0.0000000,0.0097753,0.0000000,-0.0043720,0.0000000,-0.0342250,0.0000000,0.0000000,0.0091027,0.0088521,0.0089962,0.0000000,0.0000000,0.0000000,0.0124140,-0.0054230,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,-0.0014051,-0.0041060,0.0011166,0.0000000,0.0000000,0.0000000,-0.0051443,0.0000000,0.0000000,0.0000000,0.0000000,-0.0047712,0.0000000,-0.0051087,0.0000000,-0.0066722,0.0000000,0.0000000,-0.0032677,-0.0019441,-0.0071063,0.0000000,0.0000000,0.0000000,0.0000000,-0.0097320,0.0015661,0.0043282,0.0000000,0.0000000,0.0000000,0.0000000,0.0096824,0.0114020,0.0011901,0.0000000,0.0007996,0.0145900,0.0000000,0.0005580,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,0.0106080,0.0000000,-0.0086770,0.0002877,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,-0.0033325,0.0099560,0.0014359,0.0000000,0.0000000,0.0000000,0.0000000,0.0044028,0.0028491,-0.0022826,0.0000000,-0.0059687,0.0050729,0.0000000,-0.0028017,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,0.0043114,0.0000000,-0.0019022,0.0097350,0.0000000,0.0000000,0.0000000))
+//
+//    val A = CatJ*CatR*diag(CatFm)
+//    println(A)
+//    val v = DenseVector(1.0,1.0,1.0,0.0,0.0,0.0)
+//    val solutions = SampleLinearSystem(A,v,RandomObject,NumberToGenerate)
+//    val MyFile = new File("7dof.csv")
+//    csvwrite(MyFile,solutions)
+    //    val expectedSolutions = DenseMatrix(
+    //      (0.5331051701610331, 	0.7524377270512136, 	0.9407980341887554   ),
+    //      (0.44279704205455184, 	0.3444940732667327, 	0.37061112601364143  ),
+    //      (0.26875228352361274, 	0.25439227355582095, 	0.5015058774092624   ),
+    //      (0.11511534912591137, 	0.07728892296784273, 	0.44468484870000335  ),
+    //      (0.1855853677879575, 	0.1873927291818172, 	0.521751541907948    ),
+    //      (0.5269493268380042, 	0.4863598454140634, 	0.4809868488348383   ),
+    //      (0.48781857407151524, 	0.32258699016344317, 	0.2568727258362242   ),
+    //      (0.8195848076010065, 	0.5559180110010715, 	0.11614714010021537  ),
+    //      (0.586313872886115, 	0.5593802131705827, 	0.5110485884578376   ),
+    //      (0.5692621666652598, 	0.37852341524562416, 	0.21995442249183628  ),
+    //      (0.7682818796024014, 	0.6490392716982926, 	0.36616624732964764  ),
+    //      (0.6671552196273187, 	0.6012638499417942, 	0.45030743551830493  ),
+    //      (0.7110334512041154, 	0.6706667673202662, 	0.49978887025894414  ),
+    //      (0.41506878818916493, 	0.3230120667630799, 	0.3788733376328327   ),
+    //      (0.40131727898178654, 	0.25123996890112654, 	0.274995146755679    ),
+    //      (0.41661899912685474, 	0.27506898793279144, 	0.29159021346983993  ),
+    //      (0.3718091057776773, 	0.27693078755754513, 	0.36956254838886726  ),
+    //      (0.3900685757439571, 	0.21350751863950776, 	0.22708232335653494  ),
+    //      (0.034511957769654794, 	0.029094128868510573, 	0.4938796980516105   ),
+    //      (0.3850201715024376, 	0.11398690398706118, 	0.05967657787307851  ))
+    //
+    //    assert(solutions == expectedSolutions)
+//  }
 }
 
 class UpdateMeanSpec() extends FlatSpec with Matchers{
@@ -337,4 +428,107 @@ class UpdateMeanSpec() extends FlatSpec with Matchers{
   }
 }
 
+class BoundsSpec() extends FlatSpec with Matchers{
+  "Bounds.Expanded Matrix" should "Properly form an expanded matrix from a 2,3 example" in {
+    val A = DenseMatrix(
+      (2.0,1.0,2.0),
+      (1.0,1.0,3.0)
+    )
+    val res = Bounds.ExpandedMatrix(A)
+    val expected = DenseMatrix(
+      (2.0, 1.0, 2.0),
+      (1.0, 1.0, 3.0),
+      (-2.0, -1.0, -2.0),
+      (-1.0, -1.0, -3.0),
+      (-1.0, 0.0, 0.0),
+      (0.0, -1.0, 0.0),
+      (0.0, 0.0, -1.0),
+      (1.0, 0.0, 0.0),
+      (0.0, 1.0, 0.0),
+      (0.0, 0.0, 1.0)
+    )
 
+    assert(res == expected)
+  }
+  "Bounds.ExpandedVector" should "Properly form an expanded vector from a 4 element example" in {
+    val v = DenseVector(1.0,4.0,3.0)
+    val ACols = 3
+    val res = Bounds.ExpandedVector(ACols, v)
+    val expected = DenseVector(1.0,4.0,3.0,-1.0,-4.0,-3.0, 0.0,0.0,0.0,1.0,1.0,1.0)
+    assert(res == expected)
+  }
+  "Bounds.NumberAmongOnes" should "add a 1.0 between a bunch of zeros for a 5 element vector" in {
+    assert(Bounds.NumberAmongZeros(1.0,5,2) == DenseVector(0.0,0.0,1.0,0.0,0.0))
+  }
+  val A = DenseMatrix(
+    (10.0/3.0, -53.0/15.0, 2.0)
+  )
+  val v = DenseVector(1.0)
+  "Bounds.ColBound" should "Be 1 for upperbound for a 1D output, 3D input, simple example" in {
+    assert(Bounds.ColBound(A,v,0, "Upper") == 1.0)
+    assert(Bounds.ColBound(A,v,1, "Upper") == 1.0)
+    assert(Bounds.ColBound(A,v,2, "Upper") == 1.0)
+  }
+  "Bounds.ColBound" should "Be 0 for lowerbound for a 1D output, 3d,input, simple example" in {
+    assert(Bounds.ColBound(A,v,0,"Lower") == 0.0)
+    assert(Bounds.ColBound(A,v,1, "Lower") == 0.0)
+    assert(Bounds.ColBound(A,v,2, "Lower") == 0.0)
+  }
+  "Bounds.ColBound" should "Be one value from"
+  "Bounds.ComputeUppers" should "Computer the Upperbounds of 111 for the simple 3dinput,1D output example" in {
+    assert(Bounds.ComputeUppers(A,v)== DenseVector(1.0,1.0,1.0))
+  }
+  "Bounds.ComputeLowers" should "Compute the Lowerbounds of 000 for the simple 3dinput, 1D output example" in {
+    assert(Bounds.ComputeLowers(A,v)== DenseVector(0.0,0.0,0.0))
+  }
+}
+
+
+class PointStreamSpec() extends FlatSpec with Matchers{
+  behavior of "PointStream"
+  it should "stream until the predicate is met" in {
+    import bbdl.space._
+    import breeze.linalg._
+    import breeze.numerics._
+    import breeze.stats._
+    val Seed = 10
+    val RandomObject = new scala.util.Random(Seed)
+    val A = DenseMatrix(
+      (10.0/3.0, -53.0/15.0, 2.0)
+    )
+    val v = DenseVector(1.0)
+    val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
+    var CurrentPoint = GenStartingPoint(A, v)
+    val res  = PointStream.start(OrthonormalBasis, CurrentPoint, RandomObject, PointStream.HardCodedStop)
+    println(res)
+  }
+  "PointStream" should "stream until the predicate is met for the 7dim finger model" in {
+    import bbdl.space._
+    import breeze.linalg._
+    import breeze.numerics._
+    import breeze.stats._
+    val Seed = 10
+    val RandomObject = new scala.util.Random(Seed)
+    val JR = DenseMatrix(
+      (-0.08941, -0.0447, 0.2087, -0.2138, -0.009249, 0.1421, 0.03669),
+      (-0.04689, -0.1496, 0.0, 0.0248, 0.052, 0.0248, 0.052),
+      (0.06472, 0.001953, 0.0568, 0.2067, -0.1518, 0.2919, -0.1518),
+      (0.003081, -0.002352, 0.0001578, -0.000685, -0.0001649, -0.0004483, -0.0001649)
+    )
+    val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
+    val A = JR*diag(Fm)
+    println(A)
+    val v = DenseVector(1.0,1.0,1.0,0.0)
+
+
+    val Upperbounds = Bounds.ComputeUppers(A,v)
+    val Lowerbounds = Bounds.ComputeLowers(A,v)
+    println(Upperbounds)
+    println(Lowerbounds)
+
+    val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
+    var CurrentPoint = GenStartingPoint(A, v)
+    val res  = PointStream.start(OrthonormalBasis, CurrentPoint, RandomObject, PointStream.HardCodedStop)
+    println(res)
+  }
+}
