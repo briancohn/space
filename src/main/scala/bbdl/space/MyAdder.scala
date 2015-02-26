@@ -469,7 +469,6 @@ object PointStream {
           val MyFile = new File(FileName)
           println("Saving to " + FileName)
           csvwrite(MyFile, acc)
-        }
         fill(OrthonormalBasis, NewPt, RandomObject, Predicate, NewPt.toDenseMatrix) //start over
         } else {
         fill(OrthonormalBasis, NewPt, RandomObject, Predicate, DenseMatrix.vertcat(acc, NewPt.toDenseMatrix))
