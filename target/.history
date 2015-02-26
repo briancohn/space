@@ -188,3 +188,5 @@ test
 compile
 run
 test
+compile
+test

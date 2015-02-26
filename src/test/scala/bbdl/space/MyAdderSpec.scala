@@ -254,16 +254,22 @@ class GenStartingPointSpec() extends FlatSpec with Matchers {
     val A = DenseMatrix((1.0,2.0,3.0),(4.0,5.0,6.0))
     // val G = DenseMatrix((1.0,2.0), (3.0,4.0))
 
-    val AExpected = DenseMatrix((1.0,2.0,3.0,0.0,0.0,0.0),
-                                (4.0,5.0,6.0,0.0,0.0,0.0),
-                                (-1.0,-2.0,-3.0,0.0,0.0,0.0),
-                                (-4.0,-5.0,-6.0,0.0,0.0,0.0),
-                                (-1.0,0.0,0.0,1.0,0.0,0.0),
-                                (0.0,-1.0,0.0,0.0,1.0,0.0),
-                                (0.0,0.0,-1.0,0.0,0.0,1.0),
-                                (1.0,0.0,0.0,1.0,0.0,0.0),
-                                (0.0,1.0,0.0,0.0,1.0,0.0),
-                                (0.0,0.0,1.0,0.0,0.0,1.0))
+    val AExpected = DenseMatrix(
+      (1.0,2.0,3.0,0.0,0.0,0.0),
+      (4.0,5.0,6.0,0.0,0.0,0.0),
+      (-1.0,-2.0,-3.0,0.0,0.0,0.0),
+      (-4.0,-5.0,-6.0,0.0,0.0,0.0),
+      (-1.0,0.0,0.0,1.0,0.0,0.0),
+      (0.0,-1.0,0.0,0.0,1.0,0.0),
+      (0.0,0.0,-1.0,0.0,0.0,1.0),
+      (1.0,0.0,0.0,1.0,0.0,0.0),
+      (0.0,1.0,0.0,0.0,1.0,0.0),
+      (0.0,0.0,1.0,0.0,0.0,1.0),
+      (0.0,   0.0,   0.0,   -1.0,  -0.0,  -0.0),
+      (0.0,   0.0,   0.0,   -0.0,  -1.0,  -0.0),
+      (0.0,   0.0,   0.0,   -0.0,  -0.0,  -1.0) 
+)
+
     val myA = GenStartingPoint.ExpandAMatrix(A)
     assert(myA == AExpected)
   }
@@ -273,7 +279,7 @@ class GenStartingPointSpec() extends FlatSpec with Matchers {
     val ColNum = A.cols
     val b = DenseVector(7.0,8.0)
     val ExpandedbVector = GenStartingPoint.ExpandbVector(b, ColNum)
-    val Expectedb= DenseVector(7.0,8.0,-7.0,-8.0,0.0,0.0,0.0,1.0,1.0,1.0)
+    val Expectedb= DenseVector(7.0,8.0,-7.0,-8.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.0,0.0)
     assert(ExpandedbVector == Expectedb)
   }
   behavior of "GencVector"
