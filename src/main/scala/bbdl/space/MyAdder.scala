@@ -161,7 +161,7 @@ object Basis extends Function1[DenseMatrix[Double], DenseMatrix[Double]]{
 		output
 	}
 	def InsertCol(M: DenseMatrix[Double], v: DenseVector[Double], k: Int) = {
-		for( RowNum <- 0 to M.rows) {
+		for( RowNum<- 0 to M.rows) {
 			M(RowNum, k) = v(RowNum)
 		}
 		M
@@ -419,6 +419,17 @@ object Output {
     dateStr
   }
 }
+
+object MixingTime {
+  def BoundBreak(Points: DenseMatrix[Double], tol: Double): Boolean = {
+    if (max(Points) - min(Points) > tol) {
+      true //the bounds have been broken by too much range
+    } else {
+      false
+    }
+  }
+}
+
 object PointStream {
   //returns true when it's time to stop
   /*
@@ -438,6 +449,7 @@ object PointStream {
       false
     }
   }
+
   /*
   Never stops it
    */
@@ -448,7 +460,7 @@ object PointStream {
   This stops it once it samples 1m points.
    */
   def HardCodedStop(acc:DenseMatrix[Double]): Boolean = {
-    if (acc.rows >= 1000000) {
+    if (acc.rows >= 50000) {
       true //stop!
     } else {
       false //keep going
@@ -465,7 +477,7 @@ object PointStream {
       acc
     } else {
         val NewPt = generator(OrthonormalBasis, CurrentPoint, RandomObject)
-        if (acc.rows == 1000000) {
+        if (acc.rows == 10000) {
           val FileName = Output.TimestampCSVName("output/").toString()
           val MyFile = new java.io.File(FileName)
           println("Saving to " + FileName)
@@ -479,6 +491,9 @@ object PointStream {
   def start(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], RandomObject: scala.util.Random, Predicate: DenseMatrix[Double]=>Boolean): Unit = {
     fill(OrthonormalBasis, StartingPoint, RandomObject, Predicate, StartingPoint.toDenseMatrix)
   }
-
+  def iteratorApproach(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], RandomObject: scala.util.Random) ={
+    val myIter = Iterator.iterate(StartingPoint)(x => generator(OrthonormalBasis,x,RandomObject))
+    myIter
+  }
 }
 

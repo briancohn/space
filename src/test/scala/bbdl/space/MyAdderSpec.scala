@@ -537,4 +537,33 @@ class PointStreamSpec() extends FlatSpec with Matchers{
     val res  = PointStream.start(OrthonormalBasis, CurrentPoint, RandomObject, PointStream.HardCodedStop)
     println(res)
   }
+  "PointStream" should "stream until the predicate is met for the cat hindlimb model" in {
+    import bbdl.space._
+    import breeze.linalg._
+    import breeze.numerics._
+    import breeze.stats._
+    val Seed = 10
+    val RandomObject = new scala.util.Random(Seed)
+    val CatAMatrix = Array(Array(-0.62250,-0.04600,-0.28690,-1.92510,0.02250,-0.00570,-0.03380,-0.00430,0.02110,0.00210,-0.31490,-0.18410,-0.17600,-0.00140,-0.02130,0.00080,-0.17140,0.10840,0.00020,0.00270,-0.06750,0.26980,0.10320,-0.51150,-0.01650,-1.12220,0.01640,-0.00760,0.05350,0.17940,0.07690),
+      Array(0.07250,0.00510,0.03570,0.62410,-0.00510,-0.00150,0.00290,0.00180,0.01560,0.00050,0.09750,0.07460,0.07130,0.00100,0.00250,0.00100,0.06330,-0.01390,0.00050,0.00130,0.00700,-0.11490,-0.01540,0.09010,0.00120,0.35920,-0.00170,-0.00330,-0.03230,-0.10880,-0.04550),
+      Array(-0.11270,-0.01220,-0.01170,-0.06460,0.00830,-0.01440,-0.01050,0.02210,0.31990,0.01380,-0.01960,-0.00450,-0.00850,0.00560,-0.00330,0.00700,-0.00340,-0.00180,0.00330,0.02870,-0.02690,0.01700,-0.04050,0.03070,-0.00620,0.14250,0.00340,-0.02780,-0.00110,-0.00960,0.00640),
+      Array(0.50750,0.06020,0.04100,-1.34510,-0.01960,0.17670,0.12750,-0.09200,-1.35720,-0.05730,0.01600,0.33950,0.03700,-0.06840,0.01600,-0.08600,0.31120,0.03800,-0.03990,-0.15020,0.07860,0.30010,0.20760,0.01530,0.07540,-0.73070,-0.04120,0.34070,0.10600,0.30780,0.21380),
+      Array(0.02550,0.04290,-0.08970,-3.35960,0.14250,-0.07280,-0.06040,0.05430,0.58380,0.03330,-0.00160,0.09810,-0.28800,0.02720,0.00980,0.03490,0.11780,0.23600,0.01610,-0.17210,-0.32810,0.57760,0.20850,0.47650,-0.03480,0.16720,0.02100,-0.13940,0.17460,0.42560,0.45860),
+      Array(-2.78650,-0.20850,-1.27840,-10.09050,0.24930,-0.06530,-0.46660,-0.02220,0.06110,0.00730,-1.67750,-1.77510,-1.66350,-0.02560,-0.09600,0.00420,-1.75730,0.47150,-0.00090,0.02210,-0.28310,1.52380,0.44970,-2.43730,-0.22620,-6.00200,0.22900,-0.07780,0.34040,1.15700,0.46640))
+    val v = DenseVector(0.1,0.0,0.0,0.0,0.0,0.0)
+    val A = breeze.util.JavaArrayOps.array2DToDm(CatAMatrix)
+    val Upperbounds = Bounds.ComputeUppers(A,v)
+    val Lowerbounds = Bounds.ComputeLowers(A,v)
+
+    val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
+    var CurrentPoint = GenStartingPoint(A, v)
+//    val res  = PointStream.start(OrthonormalBasis, CurrentPoint, RandomObject, PointStream.HardCodedStop)
+//    val res1 = PointStream.iteratorApproach(OrthonormalBasis, CurrentPoint, RandomObject)
+    val res1 = PointStream.iteratorApproach(OrthonormalBasis, CurrentPoint, RandomObject).take(1000).toList
+    println(res1)
+  }
 }
+
+
+
+
