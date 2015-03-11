@@ -226,18 +226,6 @@ object GetRandomDirection{
    	val LambdaVec = DenseVector(Lambdas.toArray)
 		A * LambdaVec //matrix multiplication means that it multiplies and adds all the rows up.
 	}
-	// def apply(A: DenseMatrix[Double], seed: Int) = {
-	// 	val NumRows = A.rows
-	// 	val NumCols = A.cols
-	// 	// Initiate an output vector (starting with zeros)
-	// 	var x = DenseVector.zeros[Double](NumRows)
-	// 	for( i <- 0 to NumCols-1 ) {
-	// 		var rand = new Random(seed=seed)
-	// 		var lambda = rand.nextGaussian()
-	// 		x = x + A(::, i) :* lambda
-	// 	}
-	// 	x
-	// }
 }
 
 
