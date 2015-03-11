@@ -1,6 +1,7 @@
 .idea
 .idea_modules
-project/project
+project/
+target/
 target
 .DS_Store
 ._.DS_Store
