@@ -12,6 +12,11 @@ T.~S.~Blyth E.~F.~Robertson.
 \newblock {\em Basic Linear Algebra}.
 \newblock Springer, 2002.
 
+\bibitem{Ge}
+C.~Ge, F.~Ma, and J.~Zhang.
+\newblock A fast and practical method to estimate volumes of convex polytopes.
+\newblock {\em Preprint: arXiv:1401.0120}, 2013.
+
 \bibitem{Lovasz}
 L.~Lov{\'a}sz.
 \newblock Hit-and-run mixes fast.
