@@ -11,7 +11,7 @@ Uppers <- c(0.31791515939146464, 0.14050552684500817, 0.5742125648636693, 0.4427
 Lowers <- c(0.019536449497745724, 0.0, 0.0, 0.0053061443199450865, 0.0, 0.0, 0.0)
 
 
-
+pdf('raw_histograms.pdf')
 
 par(mfrow=c(4,2))
 for (i in 1:length(db[1,])) {
@@ -26,4 +26,17 @@ for (i in 1:length(db[1,])) {
 }
 
 
-plot3d(db[,1],db[,2],db[,3])
+dev.off()
+pdf('raw_barplots.pdf')
+
+boxplot(
+	db[,1],
+	db[,2],
+	db[,3],
+	db[,4],
+	db[,5],
+	db[,6],
+	db[,7] )
+dev.off()
+
+# plot3d(db[,1],db[,2],db[,3])
