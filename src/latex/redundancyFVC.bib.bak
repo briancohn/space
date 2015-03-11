@@ -535,15 +535,6 @@
   note = {\htmladdnormallink{http://www.springerlink.com/content/r552751m4081506l/}{http://www.springerlink.com/content/r552751m4081506l/}}
 }
 
-@ARTICLE{Ge,
-  author = {C. Ge and F. Ma and J. Zhang},
-  title = {A Fast and Practical Method to Estimate Volumes of Convex Polytopes},
-  journal = {Preprint: arXiv:1401.0120},
-  year = {2013},
-  owner = {May},
-  timestamp = {2015.03.10}
-}
-
 @ARTICLE{g-rfsacc-02,
   author = {B. G{\"a}rtner},
   title = {The {Random-Facet} simplex algorithm on combinatorial cubes},
