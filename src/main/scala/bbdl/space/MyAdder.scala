@@ -9,6 +9,24 @@ import breeze.math._
 import breeze.optimize.linear.LinearProgram
 import spire.math.Real
 import scala.util._
+object MaximumOutput {
+    /*
+  Takes in an A Matrix, and b vector, and returns the maximum output vector in direction b
+  @return Tuple of the force vector, and the activation vector
+   */
+  def apply(A: DenseMatrix[Double], b:DenseVector[Double]): Tuple2[DenseVector[Double], DenseVector[Double]] = {
+    val ExpandedAMatrix = DenseMatrix.vertcat(Bounds.GenABlock(A) , Bounds.GenEyeBlock(A.cols))
+    val ExpandedRightCol = DenseVector.vertcat(-b, b, DenseVector.zeros[Double](2*A.cols)).toDenseMatrix
+      val FinalAMatrix = DenseMatrix.horzcat(ExpandedAMatrix, ExpandedRightCol.t)
+      val ExpandedbVector = DenseVector.vertcat(DenseVector.zeros[Double](2*A.rows + A.cols), DenseVector.ones[Double](A.cols))
+    val CVector = DenseVector.vertcat(DenseVector.zeros[Double](A.cols), DenseVector(1.0) ) //add a one to the end too, for the lambda
+    //x is the maximum activation, and an extra entry for lambda (the parameter that scales b)
+    val x = LowLevelSimplex(FinalAMatrix, ExpandedbVector, CVector)
+    val Fmax = b*x(-1).toDouble //the last entry of the list is lambda.
+    Tuple2(Fmax, x(0 to -2))
+  }
+}
+
 
 /*
 Set of functions for generating upper and lower bounds of each lambda from i to A.cols (n).
@@ -190,8 +208,6 @@ object Basis extends Function1[DenseMatrix[Double], DenseMatrix[Double]]{
 		DenseMatrix.vertcat(DiagonalMat,BasisSolutions)
 	}
 }
-	
-
 
 object Ortho extends Function[DenseMatrix[Double], DenseMatrix[Double]]{
 	def apply(a: DenseMatrix[Double]) = {
@@ -211,7 +227,6 @@ object Ortho extends Function[DenseMatrix[Double], DenseMatrix[Double]]{
 	} 
 }
 
-//TODO Write more tests for this
 /*
 *by default the gaussian distribution is set to mean 0, sd 1
  */
@@ -227,7 +242,6 @@ object GetRandomDirection{
 		A * LambdaVec //matrix multiplication means that it multiplies and adds all the rows up.
 	}
 }
-
 
 //@param p The point cordinate, DenseVector[Double] of length n
 //@param q The direction, DenseVector[Double] of length n
@@ -312,8 +326,12 @@ object RandomPointBetween {
 	}
 }
 
-
-//Just matrices for now
+/*
+The matrices must be of the same dimensions
+@param A DenseMatrix
+@param B DenseMatrix
+@return absolute difference, a double value representing how different the two matrices are.
+ */
 object ElementwiseAbsoluteDifference{
   def apply(A: DenseMatrix[Double], B: DenseMatrix[Double]): Double = {
     if (A.cols == B.cols && A.rows == A.rows) {
@@ -352,10 +370,13 @@ object LowLevelSimplex{
     )
     val x = lp.maximize(lpp).result
     x
+  }
 }
-}
-
-
+/*
+@param OthonormalBasis
+@param StartingPoint
+@param RandomObject Instance fof a scala.util.Random, with a seed already set internally.
+ */
  object HitAndRun {
  	def apply(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], RandomObject: scala.util.Random) = {
  		val RandomDirection = GetRandomDirection(OrthonormalBasis, RandomObject) //has a random step in gaussian distribution
@@ -433,7 +454,7 @@ object PointStream {
     } else {
 //      val SampleDouble = PointNum*0.20
       val SampleNum = 2000
-      val subset = acc(PointNum - SampleNum to PointNum-1, ::).toDenseMatrix.data
+      val subset = acc(PointNum - SampleNum to PointNum-1,::).toDenseMatrix.data
       false
     }
   }
@@ -484,4 +505,3 @@ object PointStream {
     myIter
   }
 }
-

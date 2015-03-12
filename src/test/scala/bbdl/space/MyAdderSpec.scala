@@ -11,6 +11,62 @@ import scala.util.Random
 
 //added for this test file
 
+class MaximumOutputSpec extends FlatSpec with Matchers {
+  behavior of "Maximum Output Spec"
+    val A = DenseMatrix(
+      (10.0/3.0, -53.0/15.0, 2.0)
+    )
+    val b = DenseVector(1.0)
+    val MaxInfo = MaximumOutput(A,b)
+    val FOutputVector = MaxInfo._1
+    val ActivationVec = MaxInfo._2
+  it should "Get correct maximum force vector" in {
+//    16.0/3.0 is 5.333333333333334
+    assert(FOutputVector == DenseVector(5.333333333333334))
+  }
+  it should "Get correct activation vector" in {
+    assert(ActivationVec == DenseVector(1.0,0.0,1.0))
+  }
+  //set up the A matrix for the index finger in 7 d
+  val JRIndex = DenseMatrix(
+    (-0.08941, -0.0447, 0.2087, -0.2138, -0.009249, 0.1421, 0.03669),
+    (-0.04689, -0.1496, 0.0, 0.0248, 0.052, 0.0248, 0.052),
+    (0.06472, 0.001953, 0.0568, 0.2067, -0.1518, 0.2919, -0.1518),
+    (0.003081, -0.002352, 0.0001578, -0.000685, -0.0001649, -0.0004483, -0.0001649)
+  )
+  val FmIndex = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
+  val AIndex = JRIndex*diag(FmIndex)
+  val bIndex_y = DenseVector(0.0,1.0,0.0,0.0)//this is the direction we will maximize into.
+  val IndexMaxInfo = MaximumOutput(AIndex, bIndex_y)
+  val FOutputVectorIndex = IndexMaxInfo._1
+  val IndexAVec = IndexMaxInfo._2
+  it should "Get correct maximum force vector where y is maximized on the FVC index finger. in 7d" in {
+    assert(FOutputVectorIndex === DenseVector(0.0, 6.757881713139706, 0.0, 0.0))//pasted output - test generated for sustainability tracking
+  }
+  it should "Get correct activation vector where y is maximized on the FVC index finger in 7D." in {
+    assert(IndexAVec === DenseVector(0.14390467823812347, 0.0, 0.1724420617559178, 0.3293781199403045, 1.0, 1.0, 1.0))
+  }
+  it should "Generate force when using the a solution and the Fm matrix" in {
+    val ExpF = AIndex*IndexAVec
+    val AbsError = ElementwiseAbsoluteDifference(ExpF.toDenseMatrix, FOutputVectorIndex.toDenseMatrix)
+    assert(AbsError < 1E-14)
+  }
+  it should "Get correct maximum force vector where z is maximized on the FVC index finger in 7d" in {
+    val bIndex_z = DenseVector(0.0,0.0,1.0,0.0)
+    val IndexMaxInfo_z = MaximumOutput(AIndex, bIndex_z)
+    assert(IndexMaxInfo_z._1 == DenseVector(0.0, 0.0, 40.28419614785415, 0.0))
+    assert(IndexMaxInfo_z._2 == DenseVector(0.27027228376106427, 0.05927684709966398, 1.0, 0.922552974363257, 0.0, 1.0, 0.0))
+  }
+  it should "Get correct maximum force vector where y and z is maximized on the FVC index finger in 7d" in {
+    val bIndex_yz = DenseVector(0.0,1.0,1.0,0.0)
+    val IndexMaxInfo_yz = MaximumOutput(AIndex, bIndex_yz)
+    assert(IndexMaxInfo_yz._1 == DenseVector(0.0, 7.195388104572386, 7.195388104572386, 0.0))
+    assert(IndexMaxInfo_yz._2 == DenseVector(0.17866959252521905, 0.0, 0.3982986123112096, 0.5278834439011518, 1.0, 1.0, 0.9999999999999999))
+  }
+
+
+}
+
 class GetRandomDirectionSpec extends FlatSpec with Matchers {
 	behavior of "GetRandomDirection"
   val Seed = 10
@@ -138,10 +194,7 @@ class OrthoSpec extends FlatSpec with Matchers {
     val AbsError = ElementwiseAbsoluteDifference(Orthobasis, ExpectedOrthoBasis)
     assert(AbsError < 1E-14)
   }
-
-
 }
-
 
 class GetNewPointSpec extends FlatSpec with Matchers {
   val Seed = 10
@@ -228,9 +281,7 @@ class GetNewPointSpec extends FlatSpec with Matchers {
     val ExpectedEndpoints = (DenseVector(0.0,0.5,0.5), DenseVector(0.5,0.75,1.0))
     assert(Endpoints === ExpectedEndpoints)
   }
-
 }
-
 
 class LowLevelSimplexSpec() extends FlatSpec with Matchers {
   behavior of "LowLevelSimplex"
@@ -245,7 +296,6 @@ class LowLevelSimplexSpec() extends FlatSpec with Matchers {
     val x_expected = DenseVector(0.0,2.0)
     assert(LowLevelSimplex(A,b,c) == x_expected)
   }
-  
 }
 
 class GenStartingPointSpec() extends FlatSpec with Matchers {
@@ -268,7 +318,7 @@ class GenStartingPointSpec() extends FlatSpec with Matchers {
       (0.0,   0.0,   0.0,   -1.0,  -0.0,  -0.0),
       (0.0,   0.0,   0.0,   -0.0,  -1.0,  -0.0),
       (0.0,   0.0,   0.0,   -0.0,  -0.0,  -1.0) 
-)
+      )
 
     val myA = GenStartingPoint.ExpandAMatrix(A)
     assert(myA == AExpected)
@@ -290,8 +340,6 @@ class GenStartingPointSpec() extends FlatSpec with Matchers {
     val Expectedc= DenseVector(0.0,0.0,0.0,1.0,1.0,1.0)
     assert(TestC == Expectedc)
   }
-
-  
 }
 
 class RandomPointBetweenSpec() extends FlatSpec with Matchers {
@@ -318,7 +366,6 @@ class RandomPointBetweenSpec() extends FlatSpec with Matchers {
     val ExpectedPoint = DenseVector(0.6865212672718688, 0.4089858218187542, 0.804492910909377)
     assert(MyPoint === ExpectedPoint)
   }
-  
 }
 
 class SampleLinearSystemSpec() extends FlatSpec with Matchers{
