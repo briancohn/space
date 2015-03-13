@@ -652,13 +652,18 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     )
     val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
     val A = JR*diag(Fm)
-    val v = DenseVector(1.0,1.0,0.0,0.0) //xy direction
-    val vPrime = VectorScale(v,0.5)
+    val v = DenseVector(1.0,1.0,1.0,0.0) //xy direction
+    val vPrime = VectorScale(v,0.999)
     val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
     val CurrentPoint = GenStartingPoint(A, vPrime)
     val db = PointStream.generate(10,OrthonormalBasis,CurrentPoint,RandomObject)
     assert(db.cols==7)
     assert(db.rows==10)
+    val FileName = Output.TimestampCSVName("output/XYZoneoneone").toString()
+    val MyFile = new java.io.File(FileName)
+    println("Saving to " + FileName)
+    csvwrite(MyFile, db)
+
   }
   "PointStream" should "generate n points in a direction progression where alpha is increasing (10 quick points)" in {
     import bbdl.space._

@@ -10,12 +10,17 @@ marchPlot <- function(
 	db <- db[c(2,1,5,7,6,3,4,8,9,10,11,12)] #reorganize
 	#for each alpha make a set of 'num_muscles' histograms
 	plot.new()
-	par(mfrow=c(9,7))
+	par(mfcol=c(9,7))
 	par(mar=c(1,1,1,1))
-	for (i in seq(0.1,0.9,by=0.1)) {
-		for (j in seq(1, NumMuscles)) {
+	for (j in seq(1, NumMuscles)) {
+		for (i in seq(0.1,0.9,by=0.1)) {
 			sample <- db[which(db$alpha-i <0.001),]
-			hist(sample[,j], xlab="Activation", ylab="Points", col="darkgreen", main="", cex=0.1, xlim = c(0.0,1.0))	
+			YMAX <- 20000
+			print(summary(sample[,j]))
+			hist(sample[,j], xlab="Activation", ylab="Points", cex = 0.2, ylim = c(0.0,YMAX),col="darkgreen", main="", cex=0.1, xlim = c(0.0,1.0), breaks=10)	
+			# //Plot observed bounds
+			abline(v=max(db[,j]),col="purple")
+			abline(v=min(db[,j]),col="purple")
 		}
 	}
 }
