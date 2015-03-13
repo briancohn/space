@@ -526,6 +526,7 @@ object PointStream {
     val AlphaVals = VectorsA._2
     val PointDB = ForceProgressions.map(
       x => {
+        println(x)
         val Points = PointStream.generate(n,OrthonormalBasis.toDenseMatrix,GenStartingPoint(AInput,x),RandomObject)
         val Vectors = ExtrudeVector(x,n)
         DenseMatrix.horzcat(Points,Vectors)

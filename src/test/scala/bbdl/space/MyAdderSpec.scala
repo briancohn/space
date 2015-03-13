@@ -665,7 +665,7 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     csvwrite(MyFile, db)
 
   }
-  "PointStream" should "generate n points in a direction progression where alpha is increasing (10 quick points)" in {
+  "PointStream" should "generate n points in a direction progression where alpha is increasing (2 quick points)" in {
     import bbdl.space._
     import breeze.linalg._
     import breeze.numerics._
@@ -680,11 +680,11 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     )
     val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
     val A = JR*diag(Fm)
-    val v = DenseVector(1.0,1.0,0.0,0.0) //xy direction
+    val v = DenseVector(1.0,1.0,1.0,0.0) //xy direction
     val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
-    val db = PointStream.alphaGenerate(10, Tuple2(0.0, 0.9),10, v, A, OrthonormalBasis, RandomObject)
+    val db = PointStream.alphaGenerate(2, Tuple2(0.0, 0.9),10, v, A, OrthonormalBasis, RandomObject)
     db.cols should equal (12) // lambdas+v_i's+alpha
-    db.rows should equal (100)
+    db.rows should equal (20)
     println(db(::,11))
   }
   "PointStream" should "generate 10000 points( per alpha) in a direction progression where alpha is increasing in the xyz direction." in {
@@ -714,6 +714,29 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     val MyFile = new java.io.File(FileName)
     println("Saving to " + FileName)
     csvwrite(MyFile, db)
+  }
+  "PointStream" should "generate the same result as a direct hit and run computation (given v)" in {
+    import bbdl.space._
+    import breeze.linalg._
+    import breeze.numerics._
+    import breeze.stats._
+    val Seed = 10
+    val RandomObject = new scala.util.Random(Seed)
+    val JR = DenseMatrix(
+      (-0.08941, -0.0447, 0.2087, -0.2138, -0.009249, 0.1421, 0.03669),
+      (-0.04689, -0.1496, 0.0, 0.0248, 0.052, 0.0248, 0.052),
+      (0.06472, 0.001953, 0.0568, 0.2067, -0.1518, 0.2919, -0.1518),
+      (0.003081, -0.002352, 0.0001578, -0.000685, -0.0001649, -0.0004483, -0.0001649)
+    )
+    val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
+    val A = JR*diag(Fm)
+    val v = DenseVector(2.865986, 2.865986, 2.865986, 0.0) //xy direction
+    val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
+    val DirectHitandRunPoints = PointStream.generate(1000,OrthonormalBasis,GenStartingPoint(A,v),RandomObject)
+    val FileName = Output.TimestampCSVName("output/direct_points286").toString()
+    val MyFile = new java.io.File(FileName)
+    println("Saving to " + FileName)
+    csvwrite(MyFile, DirectHitandRunPoints)
   }
 }
 
