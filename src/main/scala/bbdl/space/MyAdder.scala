@@ -210,7 +210,7 @@ object Basis extends Function1[DenseMatrix[Double], DenseMatrix[Double]]{
 }
 
 object Ortho extends Function[DenseMatrix[Double], DenseMatrix[Double]]{
-	def apply(a: DenseMatrix[Double]) = {
+	def apply(a: DenseMatrix[Double]): DenseMatrix[Double] = {
 		val m = a.rows
 		val n = a.cols
 		var BasisVector = a(::, 0)
@@ -476,10 +476,20 @@ object PointStream {
     }
   }
 
-
   def generator(OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random): DenseVector[Double] = {
     HitAndRun(OrthonormalBasis,CurrentPoint,RandomObject)
   }
+  /*
+  @param n the number of points to calculate
+   */
+  def generate(n: Int, OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random): DenseMatrix[Double] = {
+    var db = CurrentPoint.toDenseMatrix
+    for (i <- 1 to n-1) {
+      db = DenseMatrix.vertcat(db, generator(OrthonormalBasis, CurrentPoint, RandomObject).toDenseMatrix) //add another row for each point
+    }
+    db
+  }
+
   def fill(OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random, Predicate: DenseMatrix[Double]=>Boolean, acc: DenseMatrix[Double]):DenseMatrix[Double] ={
     if (Predicate(acc)){
       println("stop")
@@ -503,5 +513,72 @@ object PointStream {
   def iteratorApproach(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], RandomObject: scala.util.Random) ={
     val myIter = Iterator.iterate(StartingPoint)(x => generator(OrthonormalBasis,x,RandomObject))
     myIter
+  }
+  /*
+  Wparam lengthOut The number of steps from 0.0 to 1.0 that will be taken.
+  @param v direction in output space; the force will march towards the Fmax.
+  @return db columns are muscles, force vector, alpha
+   */
+  def alphaGenerate(n: Int, alphaBounds: Tuple2[Double,Double],lengthOut: Int, v: DenseVector[Double], AInput: DenseMatrix[Double], OrthonormalBasis: DenseMatrix[Double], RandomObject: scala.util.Random): DenseMatrix[Double] = {
+    val MaxForce = MaximumOutput(AInput,v)._1 //do not need activations here
+    val VectorsA = VectorScale.ScaleProgression(MaxForce, alphaBounds._1, alphaBounds._2,lengthOut)
+    val ForceProgressions = VectorsA._1
+    val AlphaVals = VectorsA._2
+    val PointDB = ForceProgressions.map(
+      x => {
+        val Points = PointStream.generate(n,OrthonormalBasis.toDenseMatrix,GenStartingPoint(AInput,x),RandomObject)
+        val Vectors = ExtrudeVector(x,n)
+        DenseMatrix.horzcat(Points,Vectors)
+    }
+    )
+    val DBseq = PointDB.toArray.toSeq
+    val DB = DenseMatrix.vertcat(DBseq:_* )
+    val AlphaCol = VectorRepeat(AlphaVals, n).toDenseMatrix.t
+    DenseMatrix.horzcat(DB, AlphaCol)
+
+//    PointDB.foldLeft[DenseMatrix[Double]]((x,y) => DenseMatrix.vertcat(x,y))
+  }
+}
+
+object VectorRepeat {
+  def apply(v: DenseVector[Double], n: Int):DenseVector[Double] = {
+    val SeqVecs = v.map(x => DenseVector.fill[Double](n) {x}).toArray.toSeq
+    DenseVector.vertcat(SeqVecs:_* )
+  }
+}
+object VectorScale {
+  def ScaleProgression(vector: DenseVector[Double], from: Double, to:Double, length: Int): Tuple2[DenseVector[DenseVector[Double]], DenseVector[Double]] = {
+    val AlphaVals = linspace(from,to,length)
+    val ForceProgressions = AlphaVals.map(x => VectorScale(vector,x))
+    (ForceProgressions, AlphaVals)
+  }
+  /*
+  @param vector Given n dimensional vector
+  @param scale constant
+   */
+  def apply(vector: DenseVector[Double], scale: Double): DenseVector[Double] ={
+    vector*scale
+  }
+}
+
+//object Cost {
+//  def apply(v:DenseVector[Double]):Unit ={
+//    5
+//  }
+//}
+
+object ExtrudeVector {
+  /*
+  Takes in a vector an an integer, and makes n rows of the vector. returns a vertically concatenated matrix as a result, of size (n, v.length)
+  @param n Number of rows to generate
+  @param v Input vector to turn into a row vector
+  @return Mat DenseMatrix[Double]
+   */
+  def apply(v: DenseVector[Double], n: Int): DenseMatrix[Double] = {
+    val Mat = DenseMatrix.zeros[Double](n, v.length)
+    for (i <- 0 to v.length-1) {
+      Mat(::,i) := DenseVector.fill(n){v(i)}
+    }
+    Mat
   }
 }

@@ -6,6 +6,7 @@ import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
 import org.scalatest._
+import Matchers._
 
 import scala.util.Random
 
@@ -536,8 +537,14 @@ class BoundsSpec() extends FlatSpec with Matchers{
   }
 }
 
+class VectorScaleSpec() extends FlatSpec with Matchers{
+  "VectorScale.apply" should "scale by fifty percent for a simple xy vector" in {
+    val ScaledVector = VectorScale(DenseVector(1.0,0.0),0.5)
+    assert(ScaledVector == DenseVector(0.5,0.0))
+  }
+}
 
-class PointStreamSpec() extends FlatSpec with Matchers{
+class PointStreamSpec() extends FlatSpec with Matchers {
   behavior of "PointStream"
   it should "stream until the predicate is met" in {
     import bbdl.space._
@@ -609,8 +616,122 @@ class PointStreamSpec() extends FlatSpec with Matchers{
     val res1 = PointStream.iteratorApproach(OrthonormalBasis, CurrentPoint, RandomObject).take(1000).toList
     println(res1)
   }
+  "PointStream" should "generate n points when using PointStream.generate(n)" in {
+    import bbdl.space._
+    import breeze.linalg._
+    import breeze.numerics._
+    import breeze.stats._
+    val Seed = 10
+    val RandomObject = new scala.util.Random(Seed)
+    val JR = DenseMatrix(
+      (-0.08941, -0.0447, 0.2087, -0.2138, -0.009249, 0.1421, 0.03669),
+      (-0.04689, -0.1496, 0.0, 0.0248, 0.052, 0.0248, 0.052),
+      (0.06472, 0.001953, 0.0568, 0.2067, -0.1518, 0.2919, -0.1518),
+      (0.003081, -0.002352, 0.0001578, -0.000685, -0.0001649, -0.0004483, -0.0001649)
+    )
+    val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
+    val A = JR*diag(Fm)
+    val v = DenseVector(1.0,1.0,1.0,0.0)
+    val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
+    val CurrentPoint = GenStartingPoint(A, v)
+    val db = PointStream.generate(10,OrthonormalBasis,CurrentPoint,RandomObject)
+    assert(db.rows == 10)
+  }
+  "PointStream" should "generate n points in a certain direction, where alpha is 0.5" in {
+    import bbdl.space._
+    import breeze.linalg._
+    import breeze.numerics._
+    import breeze.stats._
+    val Seed = 10
+    val RandomObject = new scala.util.Random(Seed)
+    val JR = DenseMatrix(
+      (-0.08941, -0.0447, 0.2087, -0.2138, -0.009249, 0.1421, 0.03669),
+      (-0.04689, -0.1496, 0.0, 0.0248, 0.052, 0.0248, 0.052),
+      (0.06472, 0.001953, 0.0568, 0.2067, -0.1518, 0.2919, -0.1518),
+      (0.003081, -0.002352, 0.0001578, -0.000685, -0.0001649, -0.0004483, -0.0001649)
+    )
+    val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
+    val A = JR*diag(Fm)
+    val v = DenseVector(1.0,1.0,0.0,0.0) //xy direction
+    val vPrime = VectorScale(v,0.5)
+    val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
+    val CurrentPoint = GenStartingPoint(A, vPrime)
+    val db = PointStream.generate(10,OrthonormalBasis,CurrentPoint,RandomObject)
+    assert(db.cols==7)
+    assert(db.rows==10)
+  }
+  "PointStream" should "generate n points in a direction progression where alpha is increasing (10 quick points)" in {
+    import bbdl.space._
+    import breeze.linalg._
+    import breeze.numerics._
+    import breeze.stats._
+    val Seed = 10
+    val RandomObject = new scala.util.Random(Seed)
+    val JR = DenseMatrix(
+      (-0.08941, -0.0447, 0.2087, -0.2138, -0.009249, 0.1421, 0.03669),
+      (-0.04689, -0.1496, 0.0, 0.0248, 0.052, 0.0248, 0.052),
+      (0.06472, 0.001953, 0.0568, 0.2067, -0.1518, 0.2919, -0.1518),
+      (0.003081, -0.002352, 0.0001578, -0.000685, -0.0001649, -0.0004483, -0.0001649)
+    )
+    val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
+    val A = JR*diag(Fm)
+    val v = DenseVector(1.0,1.0,0.0,0.0) //xy direction
+    val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
+    val db = PointStream.alphaGenerate(10, Tuple2(0.0, 0.9),10, v, A, OrthonormalBasis, RandomObject)
+    db.cols should equal (12) // lambdas+v_i's+alpha
+    db.rows should equal (100)
+    println(db(::,11))
+  }
+  "PointStream" should "generate 10000 points( per alpha) in a direction progression where alpha is increasing in the xyz direction." in {
+    import bbdl.space._
+    import breeze.linalg._
+    import breeze.numerics._
+    import breeze.stats._
+    val Seed = 10
+    val RandomObject = new scala.util.Random(Seed)
+    val JR = DenseMatrix(
+      (-0.08941, -0.0447, 0.2087, -0.2138, -0.009249, 0.1421, 0.03669),
+      (-0.04689, -0.1496, 0.0, 0.0248, 0.052, 0.0248, 0.052),
+      (0.06472, 0.001953, 0.0568, 0.2067, -0.1518, 0.2919, -0.1518),
+      (0.003081, -0.002352, 0.0001578, -0.000685, -0.0001649, -0.0004483, -0.0001649)
+    )
+    val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
+    val A = JR*diag(Fm)
+    val v = DenseVector(1.0,1.0,1.0,0.0) //xy direction
+    val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
+    val AlphaLenOut = 10
+    val PointsPerAlpha = 100000
+
+    val db = PointStream.alphaGenerate(PointsPerAlpha, Tuple2(0.0, 0.9),AlphaLenOut, v, A, OrthonormalBasis, RandomObject)
+    db.cols should equal (12)
+    db.rows should equal (1000000)
+    val FileName = Output.TimestampCSVName("output/X_alphaProgression").toString()
+    val MyFile = new java.io.File(FileName)
+    println("Saving to " + FileName)
+    csvwrite(MyFile, db)
+  }
 }
 
+class ExtrudeVectorSpec() extends FlatSpec with Matchers {
+  "ExtrudeVector" should "Make the right size and shape of matrix" in {
+    val v = DenseVector(1.0,1.0,2.0,0.0)
+    val n = 2
+    val res = ExtrudeVector(v,n)
+    res should be (DenseMatrix((1.0,1.0,2.0,0.0),(1.0,1.0,2.0,0.0)))
+  }
+}
 
-
-
+class VectorRepeatSpec() extends FlatSpec with Matchers {
+  "VectorRepeat" should "turn a short vector into a repeated by-element vector" in {
+    val v = DenseVector(0.2,0.4,0.6,0.8)
+    val n = 1
+    val res = VectorRepeat(v,n)
+    res should be (v)
+  }
+  "VectorRepeat" should "turn a long vector into a repeated by-element vector" in {
+    val v = DenseVector(0.2,0.4,0.6,0.8)
+    val n = 2
+    val res = VectorRepeat(v,n)
+    res should be (DenseVector(0.2,0.2,0.4,0.4,0.6,0.6,0.8,0.8))
+  }
+}
