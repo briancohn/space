@@ -1,4 +1,4 @@
-\section{Materials}
+\section{Materials and Methods}
 
 \subsection{Hit-and-Run}
 The Hit-and-Run algorithm used for sampling in a convex body $K$, was introduced by Smith in 1984 \cite{Smith}. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}.
@@ -89,7 +89,7 @@ A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and 
   \end{center}
 \end{figure}
 
-\subsection{Stopping Time}
+\subsection{Mixing and Stopping Time}
 In this section we discuss the stopping time of the Hit and Run algorithm. How many steps are necessary to reach an approximate uniform distribution? The theoretical bound $\mathcal{O}^*(n^2R^2/r^2)$ given in \cite{Lovasz} has a very large hidden coefficient which makes the algorithm almost infeasible in lower dimensions.
 
 These bounds hold for general convex sets. For convex polygons, as in our case, Ge et al.\ showed experimentally that up to about 40 dimensions, 10 million random points suffice to get a close to uniform discussion \cite{Ge}. 
@@ -97,3 +97,19 @@ For our case we generate 10 million points and also test whether the mean of eac
 In detail for the mean we see that it converges after ?? steps.
 For the upper and lower bounds of the activation we can solve two linear program for each coordinate of $\textbf{a}$ to find the upper and lower bounds of each $a_i$.
 We see that those theoretical bounds match the experimentally obtained bounds.
+
+\subsection{Starting Point}
+To find a starting point in 
+\[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
+we only need to find a feasible activation vector. For the hit and run algorithm to mix faster, we do not want the starting point to be in a vertex of the activation space. Therefore we solve the the following linear program.
+
+\begin{equation}\label{eq:LP_r}
+\begin{array}{lrcl}
+\mbox{maximize} & \sum_{i=1}^n \epsilon_i \\ 
+\mbox{subject to} & \textbf{f} &=& A\textbf{a}\\
+  & a_i &\in& [\epsilon_i, 1- \epsilon_i], \hspace{5mm} \forall i \in \{1,\dots,n\}  \\
+  & \epsilon_i &\geq& 0, \hspace{5mm} \forall i \in \{1,\dots,n\}.  
+\end{array}
+\end{equation}
+
+This approach can still fail in theory, but this method has the choose $\epsilon_i > 0$ and therefore $a_i \neq 0$ or $1$. Since for all vertices of the feasible activation space lie on the boundary of the $n$-cube, at least $n-m$ muscles must have activation $0$ or $1$. Documentation is included in our supplementary information.
