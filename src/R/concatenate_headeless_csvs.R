@@ -22,8 +22,8 @@ for (i in 1:length(db[1,])) {
 	abline(v=max(db[,i]),col="purple")
 	abline(v=min(db[,i]),col="purple")
 	# Plot the actual bounds
-	abline(v=Uppers[i],col="black")
-	abline(v=Lowers[i],col="black")
+	# abline(v=Uppers[i],col="black")
+	# abline(v=Lowers[i],col="black")
 
 }
 

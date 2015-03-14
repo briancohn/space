@@ -9,7 +9,6 @@ marchPlot <- function(
 	# FP, FS, EI, EC, Lum, DI, PI
 	db <- db[c(2,1,5,7,6,3,4,8,9,10,11,12)] #reorganize
 	#for each alpha make a set of 'num_muscles' histograms
-	plot.new()
 	par(mfcol=c(9,7))
 	par(mar=c(0.8,1,1,1))
 	for (j in seq(1, NumMuscles)) {
@@ -22,7 +21,7 @@ marchPlot <- function(
 				cex=0.05, 
 				xlim = c(0.0,1.0), 
 				freq=FALSE)
-			lines(d, col="brown3")
+			lines(d, col="brown3", xlim= c(0.0,1.0))
 			# //Plot observed bounds
 			abline(v=max(db[,j]),col="purple")
 			abline(v=min(db[,j]),col="purple")
@@ -31,4 +30,8 @@ marchPlot <- function(
 }
 
 datafolder_path = "~/Documents/dev/space/output/"
-marchPlot(paste0(datafolder_path, "X_alphaProgression1426209965993.csv"))
+pdf('~/Documents/dev/space/src/latex/figs/mypdf.pdf')
+	marchPlot(paste0(datafolder_path, "XY_alphaProgression1426215248933.csv"))
+	marchPlot(paste0(datafolder_path, "Y_alphaProgression1426215236083.csv"))
+	marchPlot(paste0(datafolder_path, "X_alphaProgression1426215214528.csv"))
+dev.off()

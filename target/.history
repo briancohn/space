@@ -209,9 +209,3 @@ test-only GetRandomDirectionSpec
 test
 compile
 test
-test-only bbdl.space.MaximumOutputSpec
-~test
-test-only bbdl.space.PointStream "stream until the predicate is met for the 7dim finger model"
-test-only bbdl.space.PointStream.stream until the predicate is met for the 7dim finger model
-test-only bbdl.space.PointStream.{stream until the predicate is met for the 7dim finger model}
-test-only bbdl.space.PointStream
