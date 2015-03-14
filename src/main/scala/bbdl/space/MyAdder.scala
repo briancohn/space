@@ -496,7 +496,7 @@ object PointStream {
       acc
     } else {
         val NewPt = generator(OrthonormalBasis, CurrentPoint, RandomObject)
-        if (acc.rows == 10000) {
+        if (acc.rows == 100000) {
           val FileName = Output.TimestampCSVName("output/").toString()
           val MyFile = new java.io.File(FileName)
           println("Saving to " + FileName)

@@ -209,3 +209,12 @@ test-only GetRandomDirectionSpec
 test
 compile
 test
+test-only PointStreamSpec should generate 10000000 points( per alpha) in a direction progression where alpha is increasing in the xy direction.
+test-only PointStreamSpec.PointStream should generate 10000000 points( per alpha) in a direction progression where alpha is increasing in the xy direction.
+test-only PointStreamSpec.PointStreamXY
+test
+test-only PointStreamSpec.PointStreamXY
+test-only bbdl.space.PointStreamSpec.PointStreamXY
+test-only bbdl.space
+test-only bbdl.space.PointStreamSpec
+test
