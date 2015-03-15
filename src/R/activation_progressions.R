@@ -21,17 +21,24 @@ marchPlot <- function(
 				cex=0.05, 
 				xlim = c(0.0,1.0), 
 				freq=FALSE)
-			lines(d, col="brown3", xlim= c(0.0,1.0))
+			# lines(d, col="brown3", xlim= c(0.0,1.0))
 			# //Plot observed bounds
-			abline(v=max(db[,j]),col="purple")
-			abline(v=min(db[,j]),col="purple")
+			abline(v=max(sample[,j]),col="purple")
+			abline(v=min(sample[,j]),col="purple")
 		}
 	}
 }
 
 datafolder_path = "~/Documents/dev/space/output/"
-pdf('~/Documents/dev/space/src/latex/figs/mypdf.pdf')
+
+pdf('~/Documents/dev/space/src/latex/figs/XY_alphaProgression.pdf')
 	marchPlot(paste0(datafolder_path, "XY_alphaProgression1426215248933.csv"))
+dev.off()
+
+pdf('~/Documents/dev/space/src/latex/figs/Y_alphaProgression.pdf')
 	marchPlot(paste0(datafolder_path, "Y_alphaProgression1426215236083.csv"))
+dev.off()
+
+pdf('~/Documents/dev/space/src/latex/figs/X_alphaProgression.pdf')
 	marchPlot(paste0(datafolder_path, "X_alphaProgression1426215214528.csv"))
 dev.off()
