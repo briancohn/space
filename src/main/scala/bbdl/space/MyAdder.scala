@@ -562,30 +562,38 @@ object VectorScale {
   }
 }
 /*
-v = lambdas (e.g. activations)
-w = weights (e.g. Fmax vector)
-A. Unweighted lambda norms (e.g. neural drive cost functions)
-1. l1 norm(v)
-2. l2 norm(v*v)
-3. l3 norm(v*v*v)
-B. Weighted lambda norms: (e.g. metabolic cost functions)
-4. l1 norm(w*v)
-5. l2 norm(w*v * w*v)
-6. l3 norm(w*v * w*v * w*v)
+warning- only works with positive numbers
  */
 object Cost {
-  def L1Norm(v:DenseVector[Double]): Double = norm(v)
-  def L1WeightedNorm(v:DenseVector[Double],weights:DenseVector[Double]): Double = norm(v :* weights) //apply the weights to the lambdas
-  def L2Norm(v:DenseVector[Double]): Double = norm(v :* v) //sum of all elements squared
+  def L1Norm(v:DenseVector[Double]): Double = sum(v)
+
+  def L1WeightedNorm(v:DenseVector[Double],weights:DenseVector[Double]): Double = sum(v :* weights) //apply the weights to the lambdas
+
+  def L2Norm(v:DenseVector[Double]): Double = norm(v) //sum of all elements squared
+
   def L2WeightedNorm(v:DenseVector[Double], weights:DenseVector[Double]): Double = {
     val WeightedSquaredVec = v :* weights
-    norm(WeightedSquaredVec :* WeightedSquaredVec)
+    norm(WeightedSquaredVec)
   }
-  def L3Norm(v:DenseVector[Double]): Double = norm(v :* (v :* v))
+
+  def L3Norm(v:DenseVector[Double]): Double = cbrt(sum(v :* (v :* v)))
+
   def L3WeightedNorm(v:DenseVector[Double], weights:DenseVector[Double]): Double = {
     val WeightedSquaredVec = v :* weights
-    norm(WeightedSquaredVec :* (WeightedSquaredVec :* WeightedSquaredVec))
+    cbrt(sum(WeightedSquaredVec :* (WeightedSquaredVec :* WeightedSquaredVec)))
   }
+  def CostVec(a:DenseVector[Double], Fm: DenseVector[Double]): DenseVector[Double] = {
+    DenseVector(
+      Cost.L1Norm(a),
+      Cost.L2Norm(a),
+      Cost.L3Norm(a),
+      Cost.L1WeightedNorm(a, Fm),
+      Cost.L2WeightedNorm(a, Fm),
+      Cost.L3WeightedNorm(a, Fm)
+    )
+  }
+
+
 }
 
 object ExtrudeVector {

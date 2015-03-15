@@ -404,25 +404,26 @@ class SampleLinearSystemSpec() extends FlatSpec with Matchers{
 
     assert(solutions == expectedSolutions)
   }
-  behavior of "Sample Finger Linear System"
-  it should "take in a 7dim finger matrix model and output a set" in {
-    val NumberToGenerate = 25000
-    val Seed = 10
-    val RandomObject = new scala.util.Random(Seed)
-    val JR = DenseMatrix(
-      (-0.08941, -0.0447, 0.2087, -0.2138, -0.009249, 0.1421, 0.03669),
-      (-0.04689, -0.1496, 0.0, 0.0248, 0.052, 0.0248, 0.052),
-      (0.06472, 0.001953, 0.0568, 0.2067, -0.1518, 0.2919, -0.1518),
-      (0.003081, -0.002352, 0.0001578, -0.000685, -0.0001649, -0.0004483, -0.0001649)
-    )
-    val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
-    val A = JR*diag(Fm)
-    println(A)
-    val v = DenseVector(1.0,1.0,1.0,0.0)
-    val solutions = SampleLinearSystem(A,v,RandomObject,NumberToGenerate)
-    val MyFile = new File("7dof.csv")
-    csvwrite(MyFile,solutions)
-}
+//   behavior of "Sample Finger Linear System"
+//   it should "take in a 7dim finger matrix model and output a set" in {
+//     val NumberToGenerate = 250
+//     val Seed = 10
+//     val RandomObject = new scala.util.Random(Seed)
+//     val JR = DenseMatrix(
+//       (-0.08941, -0.0447, 0.2087, -0.2138, -0.009249, 0.1421, 0.03669),
+//       (-0.04689, -0.1496, 0.0, 0.0248, 0.052, 0.0248, 0.052),
+//       (0.06472, 0.001953, 0.0568, 0.2067, -0.1518, 0.2919, -0.1518),
+//       (0.003081, -0.002352, 0.0001578, -0.000685, -0.0001649, -0.0004483, -0.0001649)
+//     )
+//     val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
+//     val A = JR*diag(Fm)
+//     println(A)
+//     val v = DenseVector(1.0,1.0,1.0,0.0)
+//     val solutions = SampleLinearSystem(A,v,RandomObject,NumberToGenerate)
+//     val MyFile = new File("7dof.csv")
+//     csvwrite(MyFile,solutions)
+//     //TODO add test
+// }
 //  behavior of "Sample Finger Linear System"
 //  it should "take in a cat leg matrix model and output a set" in {
 //    val NumberToGenerate = 20000
@@ -819,6 +820,42 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     println("Saving to " + FileName)
     csvwrite(MyFile, DirectHitandRunPoints)
   }
+  "PointStream" should "generate 1000 points( per alpha) WITH COSTS in a direction progression where alpha is increasing in the x direction." in {
+    import bbdl.space._
+    import breeze.linalg._
+    import breeze.numerics._
+    import breeze.stats._
+    val Seed = 10
+    val RandomObject = new scala.util.Random(Seed)
+    val JR = DenseMatrix(
+      (-0.08941, -0.0447, 0.2087, -0.2138, -0.009249, 0.1421, 0.03669),
+      (-0.04689, -0.1496, 0.0, 0.0248, 0.052, 0.0248, 0.052),
+      (0.06472, 0.001953, 0.0568, 0.2067, -0.1518, 0.2919, -0.1518),
+      (0.003081, -0.002352, 0.0001578, -0.000685, -0.0001649, -0.0004483, -0.0001649)
+    )
+    val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
+    val A = JR*diag(Fm)
+    val v = DenseVector(1.0,0.0,0.0,0.0) //xy direction
+    val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
+    val AlphaLenOut = 10
+    val PointsPerAlpha = 1000
+    val db = PointStream.alphaGenerate(PointsPerAlpha, Tuple2(0.0, 0.9), AlphaLenOut, v, A, OrthonormalBasis, RandomObject)
+    var CostDB = new Array[Array[Double]](db.rows)
+    for (i <- 0 to db.rows-1) {
+      var RowI = db(i,::)
+      CostDB(i) = Cost.CostVec(RowI.inner.toDenseVector.slice(0,A.cols), Fm).toArray
+    }
+    val DBwithCosts = DenseMatrix.horzcat(db,breeze.util.JavaArrayOps.array2ToDm(CostDB))
+
+    db.cols should equal (12)
+    db.rows should equal (10000)
+
+
+    val FileName = Output.TimestampCSVName("output/X_alphaProgression").toString()
+    val MyFile = new java.io.File(FileName)
+    println("Saving to " + FileName)
+    csvwrite(MyFile, DBwithCosts)
+  }
 }
 
 class ExtrudeVectorSpec() extends FlatSpec with Matchers {
@@ -842,5 +879,46 @@ class VectorRepeatSpec() extends FlatSpec with Matchers {
     val n = 2
     val res = VectorRepeat(v,n)
     res should be (DenseVector(0.2,0.2,0.4,0.4,0.6,0.6,0.8,0.8))
+  }
+}
+
+class CostSpec() extends  FlatSpec with Matchers {
+  behavior of "L1"
+  val ExpV  = DenseVector(0.227166716,	0.110954506,	0.19195692,	0.134892534,	0.137534494,	0.805810655,	0.820020392)
+  val ExpW = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
+  it should "return the simple sum of a vector of numbers" in {
+    assert(Cost.L1Norm(DenseVector(1.0,2.0))==3.0)
+    assert(Cost.L1Norm(DenseVector(1.0,2.0,3.0))==6.0)
+    assert(Cost.L1Norm(DenseVector(1.0,8.0))==9.0)
+  }
+  "L2" should "get the pythagorean magnitude of the vector" in {
+    assert(Cost.L2Norm(DenseVector(1.0,3.0,2.0))==sqrt(14))
+  }
+  "L3" should "multiply each element of the vector by its weight" in {
+    assert(Cost.L3Norm(DenseVector(1.0,2.0,3.0))==cbrt(1.0+8.0+27.0))
+  }
+  "L1weighted" should "multiply each element of the vector by its weight" in {
+    val v = DenseVector(1.0,2.0,3.0) //vector
+    val w = DenseVector(2.0,2.0,1.0) //weightings array
+    assert(Cost.L1WeightedNorm(v,w) == 9.0)
+  }
+  "L2weighted" should "multiply each element of the vector by its weight" in {
+    val v = DenseVector(1.0,2.0,3.0) //vector
+    val w = DenseVector(2.0,2.0,1.0) //weightings array
+    assert(Cost.L2WeightedNorm(v,w) == sqrt(29.0))
+  }
+  "L3weighted" should "multiply each element of the vector by its weight" in {
+    val v = DenseVector(1.0,2.0,3.0) //vector
+    val w = DenseVector(2.0,2.0,1.0) //weightings array
+    assert(Cost.L3WeightedNorm(v,w)== cbrt(99.0))
+  }
+  "L1-3 weighted and nonweighted" should "Work on experimental index finger data" in {
+    val res = DenseVector(2.428336216,	1.208155232,	1.032237834,	189.547831,	90.68331237,	78.63872848)
+    assert(Cost.L1Norm(ExpV)-res(0) < 1E-6)
+    assert(Cost.L2Norm(ExpV)-res(1)< 1E-6)
+    assert(Cost.L3Norm(ExpV)-res(2)< 1E-6)
+    assert(Cost.L1WeightedNorm(ExpV,ExpW)- res(3)< 1E-6)
+    assert(Cost.L2WeightedNorm(ExpV,ExpW)- res(4)< 1E-6)
+    assert(Cost.L3WeightedNorm(ExpV,ExpW)- res(5)< 1E-6)
   }
 }
