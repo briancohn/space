@@ -1,7 +1,7 @@
 marchPlot <- function(
 	filename, 
 	NumMuscles = 7,
-	m_names= c("fp", "fs", "di","pi","ei","lum","ec", "x", "y", "z", "tx", "alpha")
+	m_names= c("fp", "fs", "di","pi","ei","lum","ec", "fx", "fy", "fz", "tx", "alpha")
 	)
 {
 	db <- read.csv(filename, header=FALSE)
@@ -16,29 +16,36 @@ marchPlot <- function(
 			sample <- db[which(abs(db$alpha-i) <0.001),]
 			d <- density(sample[,j])
 			hist(sample[,j], xlab="", ylab="",
-				col="aliceblue", 
-				main="", 
-				cex=0.05, 
+				col="#A13F25", 
+				main=paste(colnames(db)[j], "a=", i), 
+				cex.axis=0.5, 
 				xlim = c(0.0,1.0), 
-				freq=FALSE)
+				bty="n",
+				lty="blank",
+				freq=FALSE,
+				breaks=seq(0,1,length.out=50))
 			# lines(d, col="brown3", xlim= c(0.0,1.0))
 			# //Plot observed bounds
-			abline(v=max(sample[,j]),col="purple")
-			abline(v=min(sample[,j]),col="purple")
+			abline(v=max(sample[,j]),col="#3F4878")
+			abline(v=min(sample[,j]),col="#3F4878")
 		}
 	}
 }
+make_alpha_progression_pdfs <- function(csvlist, datafolder_path="~/Documents/dev/space/output/"){
+	print('Computing Pages of Activation Progression Histograms')
+	for (i in 1:length(csvlist)){
+		#plot three separate alpha progressions- one page for each direction that is being marched along.
+		pdf(paste0('~/Documents/dev/space/src/latex/figs/', csvlist[i], '.pdf'), width=7.5, height=8.5 , pointsize=8)
+			marchPlot(paste0(datafolder_path,csvlist[i], '.csv'))
+		dev.off()
+	}
+}
 
-datafolder_path = "~/Documents/dev/space/output/"
 
-pdf('~/Documents/dev/space/src/latex/figs/XY_alphaProgression.pdf')
-	marchPlot(paste0(datafolder_path, "XY_alphaProgression1426215248933.csv"))
-dev.off()
+csvlist = c(
+"XY_alphaProgression1426215248933",
+"Y_alphaProgression1426215236083",
+"X_alphaProgression1426215214528"
+)
 
-pdf('~/Documents/dev/space/src/latex/figs/Y_alphaProgression.pdf')
-	marchPlot(paste0(datafolder_path, "Y_alphaProgression1426215236083.csv"))
-dev.off()
-
-pdf('~/Documents/dev/space/src/latex/figs/X_alphaProgression.pdf')
-	marchPlot(paste0(datafolder_path, "X_alphaProgression1426215214528.csv"))
-dev.off()
+make_alpha_progression_pdfs(csvlist)
