@@ -1,4 +1,5 @@
 \section{Materials and Methods}
+Exact volume calculations for polygons can only be done in reasonable time in up to 10 dimensions \cite{Dyer2, Khachiyan, Khachiyan2}. We therefore use the so called Hit-and-Run approach, which samples points in a given polygon uniformly at random. Given the points for a feasibale activation space, this method gives us a deeper understanding of its underlying structure. In this section we introduce
 
 \subsection{Hit-and-Run}
 The Hit-and-Run algorithm used for sampling in a convex body $K$, was introduced by Smith in 1984 \cite{Smith}. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}.
@@ -25,31 +26,57 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \begin{enumerate}
 \item Find a given starting point $\textbf{p}$ of $P$ (Figure \ref{fig_hr1}) .
 \item Generate a random direction through $\textbf{p}$ (uniformly at random over all directions) (Figure \ref{fig_hr2}).
-\item Choose the next point of the sampling algorithm uniformly at random from the segment of the line in $P$ (Figure \ref{fig_hr3}). 
-\item Repeat from $(b)$ the above steps with the new point as the starting point (Figure \ref{fig_hr4}).
+\item Find the intersection points of the random direction with the $n$-unit cube (Figure \ref{fig_hr3}).
+\item Choose the next point of the sampling algorithm uniformly at random from the segment of the line in $P$ (Figure \ref{fig_hr4}). 
+\item Repeat from $(b)$ the above steps with the new point as the starting point .
 \end{enumerate}
 
 
-\begin{figure}[ht]
-   \begin{center}
-    \includegraphics[width=0.25\textwidth]{HR1.png}
-      \caption{Inner Point}
-      \label{fig_hr1}
-    \includegraphics[width=0.25\textwidth]{HR2.png}
-    \caption{Direction}
-      \label{fig_hr2}
-    \includegraphics[width=0.25\textwidth]{HR3.png}
-    \caption{Endpoints}
-      \label{fig_hr3}
-    \includegraphics[width=0.25\textwidth]{HR4.png}
-    \caption{New Point}
-      \label{fig_hr4}
-  \end{center}
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.25\textwidth}
+                \includegraphics[width=\textwidth]{HR2.png}
+                 \caption{Inner Point}
+      						\label{fig_hr1}
+        \end{subfigure} \hspace{0.5cm}
+        \begin{subfigure}[b]{0.25\textwidth}
+                \includegraphics[width=\textwidth]{HR3.png}
+                \caption{Direction}
+      					\label{fig_hr2}
+        \end{subfigure} \\
+        \begin{subfigure}[b]{0.25\textwidth}
+                \includegraphics[width=\textwidth]{HR4.png}
+                 \caption{Endpoints}
+      					\label{fig_hr3}
+        \end{subfigure} \hspace{0.5cm}
+        \begin{subfigure}[b]{0.25\textwidth}
+                \includegraphics[width=\textwidth]{HR5.png}
+                \caption{New Point}
+      				 \label{fig_hr4}
+        \end{subfigure}
+        \caption{Hit-and-Run Step}\label{fig:animals}
 \end{figure}
+
+%\begin{figure}[ht]
+%   \begin{center}
+%    \includegraphics[width=0.25\textwidth]{HR1.png}
+%      \caption{Inner Point}
+%      \label{fig_hr1}
+%    \includegraphics[width=0.25\textwidth]{HR2.png}
+%    \caption{Direction}
+%      \label{fig_hr2}
+%    \includegraphics[width=0.25\textwidth]{HR3.png}
+%    \caption{Endpoints}
+%      \label{fig_hr3}
+%    \includegraphics[width=0.25\textwidth]{HR4.png}
+%    \caption{New Point}
+%      \label{fig_hr4}
+%  \end{center}
+%\end{figure}
 
 \begin{figure}[ht]
    \begin{center}
-    \includegraphics[width=0.25\textwidth]{HR5.png}
+    \includegraphics[width=0.25\textwidth]{uniform.png}
       \caption{Uniform Distribution}
       \label{fig_hr5}
   \end{center}
@@ -78,16 +105,22 @@ $\sum_{i=1}^r \lambda_i b_i$ is a u.a.r.\ direction.
 A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and it is orthonormal if the vectors are pairwise orthogonal (perpendicular) and have unit length. Using basic linear algebra one can find a basis for $V = \{A\textbf{q} = 0\}$ and orthogonalize it with the well known Gram-Schmidt method (for details see e.g.\ \cite{Robertson}). Note that in order to get the desired u.a.r.\ distribution the basis needs to be orthonormal. For the limb case we can safely assume that the rows of $A$ are linearly independent and hence the number of basis vectors is $n-m$.
 
 
-\begin{figure}[ht]
-   \begin{center}
-    \includegraphics[width=0.25\textwidth]{somebasis.png}
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.25\textwidth}
+                \includegraphics[width=\textwidth]{somebasis.png}
       \caption{Some Basis}
       \label{fig_somebasis}
-    \includegraphics[width=0.25\textwidth]{orthobasis.png}
-    \caption{Direction}
-      \label{Orthonormal Basis}
-  \end{center}
+              \end{subfigure} \hspace{0.5cm}
+        \begin{subfigure}[b]{0.25\textwidth}
+                \includegraphics[width=\textwidth]{orthobasis.png}
+     \caption{Direction}
+      \label{Orthonormal Basis}        
+      \end{subfigure}
+      \caption{Find Orthonormal Basis}\label{fig_basis} 
 \end{figure}
+
 
 \subsection{Mixing and Stopping Time}
 In this section we discuss the stopping time of the Hit and Run algorithm. How many steps are necessary to reach an approximate uniform distribution? The theoretical bound $\mathcal{O}^*(n^2R^2/r^2)$ given in \cite{Lovasz} has a very large hidden coefficient which makes the algorithm almost infeasible in lower dimensions.
@@ -113,3 +146,25 @@ we only need to find a feasible activation vector. For the hit and run algorithm
 \end{equation}
 
 This approach can still fail in theory, but this method has the choose $\epsilon_i > 0$ and therefore $a_i \neq 0$ or $1$. Since for all vertices of the feasible activation space lie on the boundary of the $n$-cube, at least $n-m$ muscles must have activation $0$ or $1$. Documentation is included in our supplementary information.
+
+\subsection{Parallel Coordinates: Visualization of the Feasible Activation Space}
+Citation
+A common way to visualize higher dimensional data is using parallel coordinates. To show our sample set of points in the feasible activation space we draw $n$ parallel lines, which representing the activations of the $n$ muscles. Each point is then represented by connecting their coordinates by $n-1$ lines.
+
+\textit{How many points do we use?}
+
+\begin{figure}[ht]
+   \begin{center}
+    \includegraphics[width=0.5\textwidth]{pc.png}
+  \end{center}
+  \caption{Feasible Activation}
+  \label{fig_pc}
+\end{figure}
+
+Using an interactive surface one can now restrict each muscle function to any desired interval, e.g., figure ??.
+
+\textbf{NICE FIGURE OF RESTRICTED PARALLEL COORDINATES}
+
+For the $l_1$, $l_2$ and $l_3$ norm respectively, we added an additional line to represent the corresponding weight. E.g.\ for a given point $\textbf{a} \in \mathbb{R}^n$ we are interested in $\sum_{i=1}^n a_i$, $\sqrt{\sum_{i=1}^n a_i^2}$ and $\sqrt[3]{\sum_{i=1}^n a_i^3}$. As for the muscles one can restrict the intervals of the weight functions, to explore the corresponding feasible activation space. 
+
+\textbf{NICE PICTURE WITH WEIGHTS INCLUDED}

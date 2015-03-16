@@ -1,1 +1,5 @@
 \section{Introduction}
+Described in a mathematical way the feasible activation set is expressed as follows. For a given force vector $f \in \mathbb{R}^m$, which are the activations that satisfy
+\[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n?\]
+In our 7-dimensional example $m =4$ and $n =7$, typically $n$ is much larger than $m$.
+The constraint $\textbf{a} \in [0,1]^n$ describes that the feasible activation space lies in the $n$-dimensional unit cube (also called the $n$-cube). Each row of the constraint $\textbf{f} = A\textbf{a}$ is a $n-1$ dimensional hyperplane. Assuming that the rows in $A$ are linearly independent (which is a safe assumption in the muscle system case), the intersection of all $m$ equality constraints constraints is a $(n-m)$-dimensional hyperplane. Hence the feasible activation set is the polytope given by the intersection of the $n$-cube and the $(n-m)$-dimensional hyperplane. Note that this intersection is empty in the case where the force $f$ can not be generated.

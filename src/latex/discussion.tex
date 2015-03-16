@@ -1,5 +1,19 @@
 \section{Discussion}
 Mostly to be written by Brian
+\subsection{Distributions}
+
+\begin{itemize}
+	\item Bounding box away from $0$ and $1$ means muscle is really needed $\rightarrow$ Already known from the bounding boxes
+	\item High density $\rightarrow$ most solutions in that area
+\end{itemize}
+
+\subsection{Parallel Coordinates}
+\begin{itemize}
+	\item Parallel lines in PC indicate opposite direction of muscles
+	\item Crossing lines indicate similar direction
+
+\end{itemize}
+
 \subsection{Running Time}
 The step of the algorithm which are time consuming are finding a starting point, which solves a linear program and can take exponential running time in worst case. For each fixed force vector we only have to find a starting point and an orthonormal basis once, and are hence not of concern for the running time.
 
