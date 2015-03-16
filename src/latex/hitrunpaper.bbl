@@ -7,6 +7,11 @@ M.~Dyer, A.~Frieze, and R.~Kannan.
 \newblock {\em Proc. of the 21st annual ACM Symposium of Theory of Computing},
   pages 375--381, 1989.
 
+\bibitem{Dyer2}
+M.~Dyer and M.~Frieze.
+\newblock On the complexity of computing the volume of a polyhedron.
+\newblock {\em SIAM Journal on Computing}, 17:967--974, 1988.
+
 \bibitem{Robertson}
 T.~S.~Blyth E.~F.~Robertson.
 \newblock {\em Basic Linear Algebra}.
@@ -16,6 +21,16 @@ T.~S.~Blyth E.~F.~Robertson.
 C.~Ge, F.~Ma, and J.~Zhang.
 \newblock A fast and practical method to estimate volumes of convex polytopes.
 \newblock {\em Preprint: arXiv:1401.0120}, 2013.
+
+\bibitem{Khachiyan}
+L.G. Khachiyan.
+\newblock On the complexity of computing the volume of a polytope.
+\newblock {\em Izvestia Akad. Nauk SSSR Tekhn. Kibernet}, 216217, 1988.
+
+\bibitem{Khachiyan2}
+L.G. Khachiyan.
+\newblock The problem of computing the volume of polytopes is np-hard.
+\newblock {\em Uspekhi Mat. Nauk 44}, 179180, 1989.
 
 \bibitem{Lovasz}
 L.~Lov{\'a}sz.

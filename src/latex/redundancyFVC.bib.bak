@@ -242,6 +242,17 @@
   timestamp = {2015.02.20}
 }
 
+@ARTICLE{Dyer2,
+  author = {M. Dyer and M. Frieze},
+  title = {On the complexity of computing the volume of a polyhedron},
+  journal = {SIAM Journal on Computing},
+  year = {1988},
+  volume = {17},
+  pages = {967-974},
+  owner = {May},
+  timestamp = {2015.03.12}
+}
+
 @BOOK{Robertson,
   title = {Basic Linear Algebra},
   publisher = {Springer},
@@ -535,6 +546,15 @@
   note = {\htmladdnormallink{http://www.springerlink.com/content/r552751m4081506l/}{http://www.springerlink.com/content/r552751m4081506l/}}
 }
 
+@ARTICLE{Ge,
+  author = {C. Ge and F. Ma and J. Zhang},
+  title = {A Fast and Practical Method to Estimate Volumes of Convex Polytopes},
+  journal = {Preprint: arXiv:1401.0120},
+  year = {2013},
+  owner = {May},
+  timestamp = {2015.03.10}
+}
+
 @ARTICLE{g-rfsacc-02,
   author = {B. G{\"a}rtner},
   title = {The {Random-Facet} simplex algorithm on combinatorial cubes},
@@ -608,6 +628,27 @@
   volume = {28},
   pages = {958--966},
   url = {http://www.vvz.ethz.ch/Vorlesungsverzeichnis/lerneinheitPre.do?lerneinheitId=89196&semkez=2014S&lang=en}
+}
+
+@ARTICLE{,
+  author = {L.G. Khachiyan},
+  title = {On the complexity of computing the volume of a polytope},
+  journal = {Izvestia Akad. Nauk SSSR Tekhn. Kibernet},
+  year = {1988},
+  volume = {216217},
+  pages = {Khachiyan},
+  owner = {May},
+  timestamp = {2015.03.12}
+}
+
+@ARTICLE{Khachiyan2,
+  author = {L.G. Khachiyan.},
+  title = {The problem of computing the volume of polytopes is NP-hard},
+  journal = {Uspekhi Mat. Nauk 44},
+  year = {1989},
+  volume = {179180},
+  owner = {May},
+  timestamp = {2015.03.12}
 }
 
 @ARTICLE{klee-minty-simplex,
