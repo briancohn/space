@@ -526,7 +526,6 @@ object PointStream {
     val AlphaVals = VectorsA._2
     val PointDB = ForceProgressions.map(
       x => {
-        println(x)
         val Points = PointStream.generate(n,OrthonormalBasis.toDenseMatrix,GenStartingPoint(AInput,x),RandomObject)
         val Vectors = ExtrudeVector(x,n)
         DenseMatrix.horzcat(Points,Vectors)
@@ -591,6 +590,18 @@ object Cost {
       Cost.L2WeightedNorm(a, Fm),
       Cost.L3WeightedNorm(a, Fm)
     )
+  }
+  /*
+  Generates the cost for every row of muscle activations. Returns a concatenated database with new columns for each cost function's result
+   */
+  def GenCosts(db: DenseMatrix[Double], NumMuscles: Int, Fm: DenseVector[Double]): DenseMatrix[Double] = {
+    var CostDB = new Array[Array[Double]](db.rows)
+    for (i <- 0 to db.rows-1) {
+      var RowI = db(i,::)
+      CostDB(i) = Cost.CostVec(RowI.inner.toDenseVector.slice(0,NumMuscles), Fm).toArray
+    }
+    val DBwithCosts = DenseMatrix.horzcat(db,breeze.util.JavaArrayOps.array2ToDm(CostDB))
+    DBwithCosts
   }
 
 

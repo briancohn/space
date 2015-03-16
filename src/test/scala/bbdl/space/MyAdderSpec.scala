@@ -820,7 +820,7 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     println("Saving to " + FileName)
     csvwrite(MyFile, DirectHitandRunPoints)
   }
-  "PointStream" should "generate 1000 points( per alpha) WITH COSTS in a direction progression where alpha is increasing in the x direction." in {
+  "PointStream" should "generate 1000 points( per alpha) WITH COSTS, per direction progression where alpha is increasing in the x direction." in {
     import bbdl.space._
     import breeze.linalg._
     import breeze.numerics._
@@ -840,17 +840,9 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     val AlphaLenOut = 10
     val PointsPerAlpha = 1000
     val db = PointStream.alphaGenerate(PointsPerAlpha, Tuple2(0.0, 0.9), AlphaLenOut, v, A, OrthonormalBasis, RandomObject)
-    var CostDB = new Array[Array[Double]](db.rows)
-    for (i <- 0 to db.rows-1) {
-      var RowI = db(i,::)
-      CostDB(i) = Cost.CostVec(RowI.inner.toDenseVector.slice(0,A.cols), Fm).toArray
-    }
-    val DBwithCosts = DenseMatrix.horzcat(db,breeze.util.JavaArrayOps.array2ToDm(CostDB))
-
+    val DBwithCosts = Cost.GenCosts(db, A.cols, Fm)
     db.cols should equal (12)
     db.rows should equal (10000)
-
-
     val FileName = Output.TimestampCSVName("output/X_alphaProgression").toString()
     val MyFile = new java.io.File(FileName)
     println("Saving to " + FileName)
