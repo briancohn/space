@@ -482,18 +482,29 @@ object PointStream {
   /*
   @param n the number of points to calculate
    */
+//  def generate(n: Int, OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random): DenseMatrix[Double] = {
+//    var db = CurrentPoint.toDenseMatrix
+//    var HitAndRunCurrentPoint = CurrentPoint
+//    for (i <- 1 to (n*100)-1) {
+//      HitAndRunCurrentPoint = generator(OrthonormalBasis, HitAndRunCurrentPoint, RandomObject)
+//      if (i%100==99) {
+//        db = DenseMatrix.vertcat(db, HitAndRunCurrentPoint.toDenseMatrix)
+//      } //add another row for each point
+//    }
+//    val transposedDB = db.t
+//    val DBfinal = transposedDB(::,1 to -1).t
+//    DBfinal
+//  }
+
+  /*
+@param n the number of points to calculate
+ */
   def generate(n: Int, OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random): DenseMatrix[Double] = {
     var db = CurrentPoint.toDenseMatrix
-    var HitAndRunCurrentPoint = CurrentPoint
-    for (i <- 1 to (n*100)-1) {
-      HitAndRunCurrentPoint = generator(OrthonormalBasis, HitAndRunCurrentPoint, RandomObject)
-      if (i%100==99) {
-        db = DenseMatrix.vertcat(db, HitAndRunCurrentPoint.toDenseMatrix)
-      } //add another row for each point
+    for (i <- 1 to n-1) {
+      db = DenseMatrix.vertcat(db, generator(OrthonormalBasis, CurrentPoint, RandomObject).toDenseMatrix) //add another row for each point
     }
-    val transposedDB = db.t
-    val DBfinal = transposedDB(::,1 to -1).t
-    DBfinal
+    db
   }
 
   def fill(OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random, Predicate: DenseMatrix[Double]=>Boolean, acc: DenseMatrix[Double]):DenseMatrix[Double] ={

@@ -232,3 +232,5 @@ test
 run 1000
 run 10000
 run 100
+compile
+run 10000
