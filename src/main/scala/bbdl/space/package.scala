@@ -11,14 +11,17 @@ package object MainClass {
     println("Hello, world!")
     val PointsPerAlpha = args(0).toInt
     println("Currently Pointpicking")
-    PointsFor(PointsPerAlpha, DenseVector(1.0,0.0,0.0,0.0), "X") //x direction
-    println("done w x")
-    PointsFor(PointsPerAlpha, DenseVector(0.0,1.0,0.0,0.0), "Y") //y direction
-    println("done w y")
-    PointsFor(PointsPerAlpha, DenseVector(1.0,1.0,0.0,0.0), "XY") //xy direction
-    println("done w xy")
+   println("starting x")
+   PointsFor(PointsPerAlpha, DenseVector(1.0,0.0,0.0,0.0), "X", 10, Tuple2(0.0,0.9)) //x direction
+   println("done w x")
+//    println("starting y")
+//    PointsFor(PointsPerAlpha, DenseVector(0.0,1.0,0.0,0.0), "Y") //y direction
+//    println("done w y")
+    // println("starting xy")
+    // PointsFor(PointsPerAlpha, DenseVector(1.0,1.0,0.0,0.0), "XY") //xy direction
+    // println("done w xy")
   }
-  def PointsFor(PointsPerAlpha: Int, v:DenseVector[Double], direction: String): Unit ={
+  def PointsFor(PointsPerAlpha: Int, v:DenseVector[Double], direction: String, AlphaLenOut:Int, AlphaLim: Tuple2[Double,Double]): Unit ={
     import bbdl.space._
     import breeze.linalg._
     import breeze.numerics._
@@ -34,8 +37,7 @@ package object MainClass {
     val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
     val A = JR*diag(Fm)
     val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
-    val AlphaLenOut = 10
-    val db = PointStream.alphaGenerate(PointsPerAlpha, Tuple2(0.0, 0.9), AlphaLenOut, v, A, OrthonormalBasis, RandomObject)
+    val db = PointStream.alphaGenerate(PointsPerAlpha, AlphaLim, AlphaLenOut, v, A, OrthonormalBasis, RandomObject)
     val DBwithCosts = Cost.GenCosts(db, A.cols, Fm)
     val FileName = Output.TimestampCSVName("output/"+ direction + "_alphaProgression").toString()
     val MyFile = new java.io.File(FileName)
