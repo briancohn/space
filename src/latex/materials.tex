@@ -1,12 +1,10 @@
 \section{Materials and Methods}
-Exact volume calculations for polygons can only be done in reasonable time in up to 10 dimensions \cite{Dyer2, Khachiyan, Khachiyan2}. We therefore use the so called Hit-and-Run approach, which samples points in a given polygon uniformly at random. Given the points for a feasibale activation space, this method gives us a deeper understanding of its underlying structure. In this section we introduce
-
+Exact volume calculations for polygons can only be done in reasonable time in up to 10 dimensions \cite{Dyer2, Khachiyan, Khachiyan2}. We therefore use the so called Hit-and-Run approach, which samples a series of points in a given polygon. Given the points for a feasibale activation space, this method gives us a deeper understanding of its underlying structure. 
 \subsection{Hit-and-Run}
-The Hit-and-Run algorithm used for sampling in a convex body $K$, was introduced by Smith in 1984 \cite{Smith}. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}.
+In this section we introduce the Hit-and-Run algorithm used for uniform sampling in a convex body $K$, was introduced by Smith in 1984 \cite{Smith}. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps of the Hit-and-Run algorithm we are at a uniformly at random point in the convex body. 
 In the case of the muscles of a limb, we are interested in the polygon $P$ that is given by the set of all possible activations $\textbf{a} \in \mathbb{R}^n$ that satisfy
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
 where $\textbf{f} \in \mathbb{R}^m$ is a fixed force vector and $A = J^{-T}RF_m \in \mathbb{R}^{m \times n}$. $P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are bounded by 0 and 1 from below, above respectively.
-
 Consider the following $1 \times 3$ example.
 \begin{align*}
 &1 = \frac{10}{3}a_1 - \frac{53}{15}a_2 + 2a_3 \\
@@ -102,7 +100,7 @@ Choose $(\lambda_1, \dots, \lambda_r) \in \mathcal{N}(0,1)^n$ (from the Gaussian
 $\sum_{i=1}^r \lambda_i b_i$ is a u.a.r.\ direction.
 \end{enumerate}
 
-A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and it is orthonormal if the vectors are pairwise orthogonal (perpendicular) and have unit length. Using basic linear algebra one can find a basis for $V = \{A\textbf{q} = 0\}$ and orthogonalize it with the well known Gram-Schmidt method (for details see e.g.\ \cite{Robertson}). Note that in order to get the desired u.a.r.\ distribution the basis needs to be orthonormal. For the limb case we can safely assume that the rows of $A$ are linearly independent and hence the number of basis vectors is $n-m$.
+A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and it is orthonormal if the vectors are pairwise orthogonal (perpendicular) and have unit length. Using basic linear algebra one can find a basis for $V = \{A\textbf{q} = 0\}$ and orthogonalize it with the well known Gram-Schmidt method (for details see e.g.\ \cite{Robertson}). Note that in order to get the desired u.a.r.\ sample the basis needs to be orthonormal. For the limb case we can safely assume that the rows of $A$ are linearly independent and hence the number of basis vectors is $n-m$.
 
 
 
@@ -122,19 +120,25 @@ A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and 
 \end{figure}
 
 
-\subsection{Mixing and Stopping Time}
-In this section we discuss the stopping time of the Hit and Run algorithm. How many steps are necessary to reach an approximate uniform distribution? The theoretical bound $\mathcal{O}^*(n^2R^2/r^2)$ given in \cite{Lovasz} has a very large hidden coefficient which makes the algorithm almost infeasible in lower dimensions.
+\subsection{Mixing Time}
+How many steps are necessary to reach a uniformly at random point in the polytope? The theoretical bound $\mathcal{O}^*(n^2R^2/r^2)$ given in \cite{Lovasz} has a very large hidden coefficient ($10^30$) which makes the algorithm almost infeasible in lower dimensions.
 
-These bounds hold for general convex sets. For convex polygons, as in our case, Ge et al.\ showed experimentally that up to about 40 dimensions, 10 million random points suffice to get a close to uniform discussion \cite{Ge}. 
-For our case we generate 10 million points and also test whether the mean of each coordinate converges and whether the upper and lower bounds for each coordinate are met. 
-In detail for the mean we see that it converges after ?? steps.
-For the upper and lower bounds of the activation we can solve two linear program for each coordinate of $\textbf{a}$ to find the upper and lower bounds of each $a_i$.
-We see that those theoretical bounds match the experimentally obtained bounds.
+These bounds hold for general convex sets. For convex polygons in higher dimensions, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient. In particular Emiris and Fisikopoulos paper suggest that $(10 + 10\frac{n})n$ steps are enough to have a close to uniform distribution \cite{Emiris}. In all cases tested, sampling more point did not make accuarcy significantly higher. 
+
+Ge et al.\ showed experimentally that up to about 40 dimensions, ??? random points seem to suffice to get a close to uniform discussion \cite{Ge}. 
+
+Therfore for given output force we execute the Hit-and-Run algorithm 1000 times on 100 points. The experimental results propose that those 1000 points are uniformly distributed on the polygon.
+
+As a additional control, for each muscle we observe that the theoretical upper and lower bound of the feasible activation match the observed corresponding bounds (difference max ??). To find the theoretical upperbound (lowerbound) of a given muscle activation we solve two linear programs maximizing (minimizing)  $a_i$ over the polytope.
+
+
+%For the upper and lower bounds of the activation we can solve two linear program for each coordinate of $\textbf{a}$ to find the upper and lower bounds of each $a_i$.
+%We see that those theoretical bounds match the experimentally obtained bounds.
 
 \subsection{Starting Point}
 To find a starting point in 
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
-we only need to find a feasible activation vector. For the hit and run algorithm to mix faster, we do not want the starting point to be in a vertex of the activation space. Therefore we solve the the following linear program.
+we only need to find a feasible activation vector. For the hit and run algorithm to mix faster, we do not want the starting point to be in a vertex of the activation space. We use the following standard trick using slack variables $\epsilon_i$.
 
 \begin{equation}\label{eq:LP_r}
 \begin{array}{lrcl}
@@ -151,7 +155,6 @@ This approach can still fail in theory, but this method has the choose $\epsilon
 Citation
 A common way to visualize higher dimensional data is using parallel coordinates. To show our sample set of points in the feasible activation space we draw $n$ parallel lines, which representing the activations of the $n$ muscles. Each point is then represented by connecting their coordinates by $n-1$ lines.
 
-\textit{How many points do we use?}
 
 \begin{figure}[ht]
    \begin{center}

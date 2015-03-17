@@ -630,13 +630,12 @@
   url = {http://www.vvz.ethz.ch/Vorlesungsverzeichnis/lerneinheitPre.do?lerneinheitId=89196&semkez=2014S&lang=en}
 }
 
-@ARTICLE{,
+@ARTICLE{Khachiyan,
   author = {L.G. Khachiyan},
   title = {On the complexity of computing the volume of a polytope},
   journal = {Izvestia Akad. Nauk SSSR Tekhn. Kibernet},
   year = {1988},
   volume = {216217},
-  pages = {Khachiyan},
   owner = {May},
   timestamp = {2015.03.12}
 }
