@@ -1,15 +1,41 @@
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.BoundsSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.MaximumOutputSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetRandomDirectionSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GenStartingPointSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.ExtrudeVectorSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.LowLevelSimplexSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetNewPointSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.VectorRepeatSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.SampleLinearSystemSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.UpdateMeanSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.VectorScaleSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.RandomPointBetweenSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.PointStreamSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.BasisSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
-[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.OrthoSpec, org.scalatest.tools.Framework$$anon$1@74ee0a10, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.ExtrudeVectorSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.LowLevelSimplexSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GenStartingPointSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.VectorRepeatSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.UpdateMeanSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.CostSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.BoundsSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.OrthoSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.BasisSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.MaximumOutputSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetRandomDirectionSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.GetNewPointSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.PointStreamSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.RandomPointBetweenSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mRunning TaskDef(bbdl.space.VectorScaleSpec, org.scalatest.tools.Framework$$anon$1@551451fe, false, [SuiteSelector])[0m
+[0m[[0mdebug[0m] [0mSummary for ScalaCheck not available.[0m
+[0m[[0minfo[0m] [0mScalaTest[0m
+[0m[[0minfo[0m] [0m[36mRun completed in 4 seconds, 643 milliseconds.[0m[0m
+[0m[[0minfo[0m] [0m[36mTotal number of tests run: 65[0m[0m
+[0m[[0minfo[0m] [0m[36mSuites: completed 15, aborted 0[0m[0m
+[0m[[0minfo[0m] [0m[36mTests: succeeded 61, failed 4, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0minfo[0m] [0m[31m*** 4 TESTS FAILED ***[0m[0m
+[0m[[31merror[0m] [0mFailed: Total 65, Failed 4, Errors 0, Passed 61[0m
+[0m[[0mdebug[0m] [0mPassed tests:[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.UpdateMeanSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.GetNewPointSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.GenStartingPointSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.CostSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.VectorRepeatSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.ExtrudeVectorSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.GetRandomDirectionSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.RandomPointBetweenSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.VectorScaleSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.PointStreamSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.BasisSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.BoundsSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.LowLevelSimplexSpec[0m
+[0m[[0mdebug[0m] [0m	bbdl.space.OrthoSpec[0m
+[0m[[31merror[0m] [0mFailed tests:[0m
+[0m[[31merror[0m] [0m	bbdl.space.MaximumOutputSpec[0m
+[0m[[31merror[0m] [0m(test:[31mtest[0m) sbt.TestsFailedException: Tests unsuccessful[0m

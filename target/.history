@@ -222,3 +222,13 @@ run 100
 run 10
 compile
 run 10000000
+run 100
+compile
+run 100
+run 1000
+run 10000
+run 1000
+test
+run 1000
+run 10000
+run 100

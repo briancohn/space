@@ -14,12 +14,12 @@ package object MainClass {
    println("starting x")
    PointsFor(PointsPerAlpha, DenseVector(1.0,0.0,0.0,0.0), "X", 10, Tuple2(0.0,0.9)) //x direction
    println("done w x")
-//    println("starting y")
-//    PointsFor(PointsPerAlpha, DenseVector(0.0,1.0,0.0,0.0), "Y") //y direction
-//    println("done w y")
-    // println("starting xy")
-    // PointsFor(PointsPerAlpha, DenseVector(1.0,1.0,0.0,0.0), "XY") //xy direction
-    // println("done w xy")
+   println("starting y")
+   PointsFor(PointsPerAlpha, DenseVector(0.0,1.0,0.0,0.0), "Y", 10, Tuple2(0.0,0.9)) //y direction
+   println("done w y")
+    println("starting xy")
+    PointsFor(PointsPerAlpha, DenseVector(1.0,1.0,0.0,0.0), "XY", 10, Tuple2(0.0,0.9)) //xy direction
+    println("done w xy")
   }
   def PointsFor(PointsPerAlpha: Int, v:DenseVector[Double], direction: String, AlphaLenOut:Int, AlphaLim: Tuple2[Double,Double]): Unit ={
     import bbdl.space._

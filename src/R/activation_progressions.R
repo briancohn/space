@@ -41,11 +41,7 @@ make_alpha_progression_pdfs <- function(csvlist, datafolder_path="~/Documents/de
 	}
 }
 
-
-csvlist = c(
-"XY_alphaProgression1426215248933",
-"Y_alphaProgression1426215236083",
-"X_alphaProgression1426215214528"
-)
+activation_progressions<- function(csvlist){
 
 make_alpha_progression_pdfs(csvlist)
+}
