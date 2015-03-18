@@ -5,9 +5,10 @@ source('activation_progressions.R')
 
 # @The third element in the list of csv's will be the X direction, and will be used for the fixed 0.8 histogram.
 csvlist = c(
-"XY_alphaProgression1426555016140.csv",
-"X_alphaProgression1426555010738.csv",
-"Y_alphaProgression1426555013471.csv"
+"XY_alphaProgression1426556273055.csv",
+# "X_alphaProgression1426555010738.csv",
+"100sampled_X_alphaProgression1426556261274.csv",
+"Y_alphaProgression1426556267348.csv"
 )
 
 cutoff_dotCSV<- function(filename){
