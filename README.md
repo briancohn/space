@@ -81,3 +81,20 @@ We will generate queries with constraints upon one or more muscles, to identify 
 Query example:
 "How does muscle 1 activate when muscle 0's activation is limited to 50%?"
 `SELECT m1 FROM POINTS_TABLE WHERE m0 < 0.5`
+
+
+#Installation of Scala and SBT
+```bash
+sudo apt-get update
+sudo apt-get install scala
+wget https://dl.bintray.com/sbt/debian/sbt-0.13.7.deb
+sudo apt-get update
+sudo dpkg -i sbt-0.13.7.deb
+```
+#Running the project
+```bash
+ cd ~/your/path/to/space
+ mkdir output
+ sbt run 100
+```
+This will generate 100 uniformly distributed points within a 7-muscle index finger model, and put the results CSVs in the output folder.
