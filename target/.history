@@ -235,3 +235,4 @@ run 100
 compile
 run 10000
 run 1000000
+run 100000
