@@ -1,4 +1,10 @@
 \section{Materials and Methods}
+
+
+
+
+
+\subsection{Polytope representation of the feasible activation space}
 Exact volume calculations for polygons can only be done in reasonable time in up to 10 dimensions \cite{Dyer2, Khachiyan, Khachiyan2}. We therefore use the so called Hit-and-Run approach, which samples a series of points in a given polygon. Given the points for a feasibale activation space, this method gives us a deeper understanding of its underlying structure. 
 \subsection{Hit-and-Run}
 In this section we introduce the Hit-and-Run algorithm used for uniform sampling in a convex body $K$, was introduced by Smith in 1984 \cite{Smith}. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps of the Hit-and-Run algorithm we are at a uniformly at random point in the convex body. 

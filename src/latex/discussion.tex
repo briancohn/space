@@ -18,3 +18,7 @@ Mostly to be written by Brian
 The step of the algorithm which are time consuming are finding a starting point, which solves a linear program and can take exponential running time in worst case. For each fixed force vector we only have to find a starting point and an orthonormal basis once, and are hence not of concern for the running time.
 
 Running one loop of the hit and run algorithm only needs linear time, therefore the method will extend to higher dimesions with only linear factor of additinal running time needed.
+
+TODO: add part on how we didn't deal with a dynamical system, but the feasible force space still exists, just with constraints on muscle activations instantaneously, and the momentums present in each of the limbs about their joints.
+
+TODO: discuss how the FAS is an overestimate of the total number of possible activation solutions, because of synergies. Our mathematical approach considers 100 percent independent control of every muscle, with no correlations or inverse correlations between muscle activations. Then slightly discuss how synergies can limit activation capabilities.
