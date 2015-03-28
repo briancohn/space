@@ -1,0 +1,7 @@
+Space - 2nd Release
+
+Ideas:
+
+May
+Bernd emailed me and we have a meeting tomorrow morning. So the game plan would be to say that we want to do the discrete movement over time with different matrices A and then look at activations over time yes? And that would be the abstract of what Francisco sent? And we would like to do it in May or June because after that we are both busy (mainly me :p)
+
