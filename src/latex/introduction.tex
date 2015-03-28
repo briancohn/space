@@ -1,19 +1,23 @@
 \section{Introduction}
 
-Optimal control of a musculoskeletal system is intrinsically related to mechanical constraints. An endpoint's end effector forces are highly dependent upon tendon force ranges, the leverage of each tendon insertion point across each joint, and the planes of motion each degree of freedom (DOF). In spite of the complexity of alpha-gamma neuromuscular drive models, every system exists under limitations intrinsic to any moving system. 
-As such, limbs have been modeled to behave under these constraints with stunning realism[cite], and have been accurate in predicting kinetics when different muscles are activated [todorov's mujoco]. 
-Some attention has been given to the constraints that physical systems impart on control itself ['nice try' citations]. 
-As limbs exist under physical constraints, neuromuscular control must strategize within the same laws of physics. 
+Optimal control of a musculoskeletal system is intrinsically related to mechanical constraints. 
+An endpoint's end effector forces are highly dependent upon tendon force ranges, the leverage of each tendon insertion point across each joint, and the planes of motion each degree of freedom (DOF), with these physical relationships defining the capabilities of the system.
+In spite of the complexity of alpha-gamma neuromuscular drive models, every system exists under limitations intrinsic to physical mechanics, and as such, limbs have been modeled to behave under these constraints with stunning realism [cite]. With increasingly accurate and faceted models, a great body of research has been tasked with predicting kinetics, while being sensitive to subtle changes in muscle activation [todorov's mujoco], skeletal weight distributions, neural synergies, and spatiotemporal variables[Kornelius and FVC, Racz FVC].
+While many of these models highlight their accuracy , and attribute it to nonlinear dynamic modeling, linear approximation has long-remained a viable way to interpret the actions of physical limb systems, in the context of a well-understood mathematical framework.
+As limbs exist under physical constraints, neuromuscular control must strategize within the generic Newtonian laws of physics, in the realm of linear statics and dynamics.
+While some would argue that linear approximation of a musculoskeletal system is a blunt instrument in researching what is considered a 'non-linear' system, linear approximation can offer a 'big picture view' of the system.
+Some attention has been given to the constraints that physical systems impart on control itself ['nice try' citations], with many placing emphasis on non-linear synergies between motor units, for instance, between the \textit{vastus lateralis} and \textit{vastus medialis} muscles of the leg.
 A breadth of modeling techniques have been applied to physical systems to model and understand CNS control under the constaints of a given task, and many have been able to visualize some of the limitations animals must abide by in optimization.
 
-Optimal control theory must be implemented in a way such that it is computationally tractable. Control systems of designed (robotic) and evolved (neurophysiologic) origins can afford only a small measure of latency. Identifying how optimal control works within the framework of constraints could bring rise to more efficient algorithms, and this contextual understanding could introduce new ways to visualize how neuromuscular systems learn to improve over training.
-
-
+Optimal control theory must be implemented in a way such that it is computationally tractable. Control systems of designed (robotic) and evolved (neurophysiologic) origins can afford only a small measure of latency.
+Identifying how optimal control works within the framework of constraints could bring rise to more efficient algorithms, and this contextual understanding could introduce new ways to visualize how neuromuscular systems learn to improve over training.
 In dynamic systems we have seen <do research on this>[cite].
 
-In a static system, every possible combination of independent muscle activations exists within the unit-n-cube, where N is set to however many independently-controlled muscles a system has. Prior work has highlighted the relationship between the feasible force space and the set of all activation solutions.[cite papers in the last 10 years] In effect, adding constraints on the FFS (e.g. requiring only force in a given plane) adds constraints to the FAS
+In a static system, every possible combination of independent muscle activations exists within the unit-n-cube, where N is set to however many independently-controlled muscles a system has.
+Prior work has highlighted the relationship between the feasible force space and the set of all activation solutions.[cite papers in the last 10 years]
+In effect, adding constraints on the FFS (e.g. requiring only force in a given plane) adds constraints to the FAS
 
-The effect of each muscle on each joint has been represented by the moment arm matrix [citations], the relationship of each DOF on end-effector output directions 
+The effect of each muscle on each joint has been represented by the moment arm matrix [citations], the relationship of each DOF on end-effector output directions .
 The feasible force set (described in detail in [cite]) is an M-dimensional polytope containing all possible force vectors an endpoint can output.
 
 neurons do alot of stuff, and much work has been put into understanding how neural drive results in force, motion, and kinetics. 
@@ -35,6 +39,9 @@ Described in a mathematical way the feasible activation set is expressed as foll
 In our 7-dimensional example $m =4$ and $n =7$, typically $n$ is much larger than $m$.
 The constraint $\textbf{a} \in [0,1]^n$ describes that the feasible activation space lies in the $n$-dimensional unit cube (also called the $n$-cube). Each row of the constraint $\textbf{f} = A\textbf{a}$ is a $n-1$ dimensional hyperplane. Assuming that the rows in $A$ are linearly independent (which is a safe assumption in the muscle system case), the intersection of all $m$ equality constraints constraints is a $(n-m)$-dimensional hyperplane. Hence the feasible activation set is the polytope given by the intersection of the $n$-cube and an $(n-m)$-dimensional hyperplane. Note that this intersection is empty in the case where the force $f$ can not be generated.
 
+
+Issues with volume computations:
+As realistic musculoskeletal systems has many more muscles, it's important for polytope calculation to be scalable to higher dimensions.
 
 
 We first describe the stochastic method of hit-and-run, and illustrate its use on a fabricated 3-muscle, 1-DOF system with a desired force output of 1N. We designed this schematic (but mathematically viable) linear system of constraints to help readers understand the mechanics of hit-and-run mathematics. Our index-finger model has too many dimensions to show how the process works, so we hope this will help readers understand what is going on in n dimensions (7 in the case of the index-finger model). We also used this model to perform unit tests on our code in thoroughly validating our hit-and-run implementation.
