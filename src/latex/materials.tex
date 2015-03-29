@@ -12,17 +12,25 @@
 
 
 \subsection{Data and Samples}
-We began with an index finger of a healthy human (male) right hand, which was taken from []. Dissected by []. Experimental forces from []. IUPAC licenses and other important facts. Measurements were made with a ruler, with $\pm x$.
-The moment arm matrix, $R$, which contains the leverage of each tendon's insertion points across each joint, was measured by doing [], [] ,and then []. The Jacobian, $J$, which represents the effect of rotation at each DOF on each component of endpoint wrench, was measured with a [], by [], with precision of $\pm x$. The force-naught vector, $F_0$, which contains the tendon force at maximal isometric contration (MIC) for each muscle, was taken in the [same or different] posture, with a [] measuring device, with precision of $\pm x$.
+We began with an index finger of a healthy human (male) right hand, which was taken from []. The hand size, finger lengths, and weight was []. Dissected by []. Experimental forces from [].
+All procedures were performed under protocol of the [] university standards, and the study was approved by []. 
+The moment arm matrix, $R$, which contains the leverage of each tendon's insertion points across each joint, was measured by doing [], [] ,and then [].
+The Jacobian, $J$, which represents the effect of rotation at each DOF on each component of endpoint wrench [cite jacobian usage], was measured with a [], by [], with precision of $\pm x$.
+The force-naught vector, $F_0$, which contains the tendon force at maximal isometric contration (MIC)[cite method used] for each muscle, was taken in the [same or different] posture, with a [] measuring device, with precision of $\pm x$.
+
+
 
 \subsection{Polytope representation of the feasible activation space}
 Exact volume calculations for polygons can only be done in reasonable time in up to 10 dimensions \cite{Dyer2, Khachiyan, Khachiyan2}. We therefore use the so called Hit-and-Run approach, which samples a series of points in a given polygon. Given the points for a feasibale activation space, this method gives us a deeper understanding of its underlying structure. 
+
+
+
 \subsection{Hit-and-Run}
 In this section we introduce the Hit-and-Run algorithm used for uniform sampling in a convex body $K$, was introduced by Smith in 1984 \cite{Smith}. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps of the Hit-and-Run algorithm we are at a uniformly at random point in the convex body. 
 In the case of the muscles of a limb, we are interested in the polygon $P$ that is given by the set of all possible activations $\textbf{a} \in \mathbb{R}^n$ that satisfy
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
 where $\textbf{f} \in \mathbb{R}^m$ is a fixed force vector and $A = J^{-T}RF_m \in \mathbb{R}^{m \times n}$. $P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are bounded by 0 and 1 from below, above respectively.
-Consider the following $1 \times 3$ example.
+Consider the following $1 \times 3$ fabricated example.
 \begin{align*}
 &1 = \frac{10}{3}a_1 - \frac{53}{15}a_2 + 2a_3 \\
 &a_1, a_2, a_3 \in [0,1],
