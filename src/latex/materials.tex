@@ -174,11 +174,11 @@ we only need to find a feasible activation vector. For the hit and run algorithm
 \end{array}
 \end{equation}
 
-This approach can still fail in theory, but this method has the choose $\epsilon_i > 0$ and therefore $a_i \neq 0$ or $1$. Since for all vertices of the feasible activation space lie on the boundary of the $n$-cube, at least $n-m$ muscles must have activation $0$ or $1$. Documentation is included in our supplementary information.
+This approach can still fail in theory, but this method has the choose $\epsilon_i > 0$ and therefore $a_i \neq 0$ or $1$. Since for all vertices of the feasible activation space lie on the boundary of the $n$-cube, at least $n-m$ muscles must have activation $0$ or $1$. Documentation is included in our supplementary information, and all code is available at [Journal Link].
 
 \subsection{Parallel Coordinates: Visualization of the Feasible Activation Space}
 Citation
-A common way to visualize higher dimensional data is using parallel coordinates. To show our sample set of points in the feasible activation space we draw $n$ parallel lines, which representing the activations of the $n$ muscles. Each point is then represented by connecting their coordinates by $n-1$ lines.
+A common way to visualize higher dimensional data is using parallel coordinates[citations]. To show our sample set of points in the feasible activation space we draw $n$ parallel lines for each of the $n$ muscles. With the axis labels of the line set between 0 and 1, each point is then represented by connecting their coordinates by $n-1$ lines.
 
 
 \begin{figure}[ht]
@@ -192,7 +192,29 @@ A common way to visualize higher dimensional data is using parallel coordinates.
 Using an interactive surface one can now restrict each muscle function to any desired interval, e.g., figure ??.
 
 \textbf{NICE FIGURE OF RESTRICTED PARALLEL COORDINATES}
+\subsection{Integration of muscle-metabolic and neural drive cost functions} % (fold)
 
-For the $l_1$, $l_2$ and $l_3$ norm respectively, we added an additional line to represent the corresponding weight. E.g.\ for a given point $\textbf{a} \in \mathbb{R}^n$ we are interested in $\sum_{i=1}^n a_i$, $\sqrt{\sum_{i=1}^n a_i^2}$ and $\sqrt[3]{\sum_{i=1}^n a_i^3}$. As for the muscles one can restrict the intervals of the weight functions, to explore the corresponding feasible activation space. 
+For every solution collected, we used popularly-used cost functions: we computed activation $l_1$, $l_2$ and $l_3$ norms, and the tendon-force $l_1$, $l_2$ and $l_3$ norms. Six additional vertical lines were added to the parallel coordinates plot to represent each cost function. With the same framework as developed with muscle activation coordinates, we can restrict and subset solutions which fall into desired cost-function ranges, thereby masking sub-optimal solutions, and highlighting only those that meet the custom query's criteria.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Name} & \textbf{Cost function} & \textbf{Reference} \\ \midrule
+$l_1$            & $\sum_{i=1}^n a_i$                     & REF                \\
+$l_2$            & $\sqrt{\sum_{i=1}^n a_i^2}$                     & REF                \\
+$l_3$            & $\sqrt[3]{\sum_{i=1}^n a_i^3}$                     & REF                \\
+$(weighted)l_1$            & $\sum_{i=1}^n a_i Fo_i$                     & REF                \\
+$(weighted)l_2$            & $\sqrt{\sum_{i=1}^n (a_i Fo_i)^2}$                     & REF                \\
+$(weighted)l_3$            & $\sqrt[3]{\sum_{i=1}^n (a_i Fo_i)^3}$                     & REF                \\ \bottomrule
+\end{tabular}
+
+\caption{Table X. Cost functions and their usage, where $a_i$ and $Fo_i$ represent a muscle's activation in a given solution, and that muscles MIC, respectively.}
+\label{cost_function_tabls}
+
+\end{table}
+
+For a given point $\textbf{a} \in \mathbb{R}^n$ we are interested in the associated cost of every solution collected through Hit and Run.
+% subsection computing_cost_across_all_collected_solutions (end)
 
 \textbf{NICE PICTURE WITH WEIGHTS INCLUDED}
