@@ -24,5 +24,4 @@ fixed_alpha_muscle_histograms <- function (filename, fixedl_alpha_val){
 	}
 
 	dev.off()
-	browser()
 }
