@@ -598,30 +598,29 @@ object Cost {
     val WeightedSquaredVec = v :* weights
     cbrt(sum(WeightedSquaredVec :* (WeightedSquaredVec :* WeightedSquaredVec)))
   }
-  def CostVec(a:DenseVector[Double], Fm: DenseVector[Double]): DenseVector[Double] = {
-    DenseVector(
-      Cost.L1Norm(a),
-      Cost.L2Norm(a),
-      Cost.L3Norm(a),
-      Cost.L1WeightedNorm(a, Fm),
-      Cost.L2WeightedNorm(a, Fm),
-      Cost.L3WeightedNorm(a, Fm)
-    )
-  }
+
+  val costFunctions: List[(DenseVector[Double], DenseVector[Double]) => Double] = List(
+    noWeights(L1Norm), noWeights(L2Norm), noWeights(L3Norm), L1WeightedNorm, L2WeightedNorm, L3WeightedNorm
+  )
+
+  def noWeights(f: DenseVector[Double] => Double): (DenseVector[Double], DenseVector[Double]) => Double = { (x, y) => f(x) }
+
+  def CostVec(a:DenseVector[Double], Fm: DenseVector[Double]): DenseVector[Double] =
+    DenseVector(costFunctions.map(x => x(a, Fm)):_*)
+
   /*
   Generates the cost for every row of muscle activations. Returns a concatenated database with new columns for each cost function's result
    */
-  def GenCosts(db: DenseMatrix[Double], NumMuscles: Int, Fm: DenseVector[Double]): DenseMatrix[Double] = {
-    var CostDB = new Array[Array[Double]](db.rows)
-    for (i <- 0 to db.rows-1) {
-      var RowI = db(i,::)
-      CostDB(i) = Cost.CostVec(RowI.inner.toDenseVector.slice(0,NumMuscles), Fm).toArray
-    }
-    val DBwithCosts = DenseMatrix.horzcat(db,breeze.util.JavaArrayOps.array2ToDm(CostDB))
-    DBwithCosts
-  }
+  def GenCosts(db: DenseMatrix[Double], NumMuscles: Int, Fm: DenseVector[Double]): DenseMatrix[Double] =
+    DenseMatrix.horzcat(db,breeze.util.JavaArrayOps.array2ToDm(doThing(db, NumMuscles, Fm)))
 
 
+  def doThing(db: DenseMatrix[Double], NumMuscles: Int, Fm: DenseVector[Double]) =
+    rowsFor(db).map(x => Cost.CostVec(x.inner.toDenseVector.slice(0,NumMuscles), Fm).toArray)
+
+
+  def rowsFor[T](db: DenseMatrix[T]): Array[Transpose[DenseVector[T]]] =
+    Range(0, db.rows).toArray.map(db(_, ::))
 }
 
 object ExtrudeVector {
@@ -632,10 +631,7 @@ object ExtrudeVector {
   @return Mat DenseMatrix[Double]
    */
   def apply(v: DenseVector[Double], n: Int): DenseMatrix[Double] = {
-    val Mat = DenseMatrix.zeros[Double](n, v.length)
-    for (i <- 0 to v.length-1) {
-      Mat(::,i) := DenseVector.fill(n){v(i)}
-    }
-    Mat
+    val k = v.toArray
+    DenseMatrix(Range(0,n).map(x => k):_*)
   }
 }
