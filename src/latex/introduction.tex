@@ -3,9 +3,9 @@
 The problem the brain solves is: Which set of muscle activations will proficiently achieve the desired kinetics?[citations]
 With a multi-link joint system, an end effector can produce force and torque each in 3 dimensions, but the question of how muscle redundancy affects this output is still puzzling in neuroscience.
 In effect, the brain chooses an activation 'solution', from a the set of all possible coordination strategies; we refer to this space as referred to as the Feasible Activation Space (FFS) [FVC citations].
+\\
 
-
-Consider a model of a human index finger, with 7 muscles arculating 4 Degrees of Freedom (DOFs), resulting in 3 forces and one torque in the x_ plane. When in a static position, if we define a task as a 4D wrench at the fingertip, we can constrain the solution space.
+Consider a model of a human index finger, with 7 muscles arculating 4 Degrees of Freedom (DOFs), resulting in 3 forces and one torque in the xY[??Fco?] plane. When in a static position, if we define a task as a 4D wrench at the fingertip, we can constrain the solution space.
 We aim to explore what the solution space looks like, and uncover the structure of the feasible activation space for a given static force task.
 
 
@@ -20,20 +20,18 @@ Hence the feasible activation set is the polytope given by the intersection of t
 Note that this intersection is empty in the case where the force $f$ can not be generated.
 
 
-###
-for the previous section,
-MAYTODO: define what a hyperplane 
-MAYTODO: define what a unit cube is in the context of muscles 
-###
+###\\
+for the previous section,\\
+MAYTODO: define what a hyperplane \\
+MAYTODO: define what a unit cube is in the context of muscles \\
+###\\
 A convex shape has been used to represent the set of all feasible forces the end effector can generate, and this has been visualized in many different ways[cite JOB paper, cite mckay and ting, cite josh paper].
 
-
+\\
 Optimal control of a musculoskeletal system is intrinsically related to mechanical constraints of the system and the task. 
 An endpoint's end effector forces are highly dependent upon tendon force ranges, the leverage of each tendon insertion point across each joint, and the planes of motion each degree of freedom (DOF), with these physical relationships defining the capabilities of the system.
 In spite of the nonlinearity of alpha-gamma neuromuscular drive, every system exists under limitations intrinsic to physical mechanics, and as such, limbs have been modeled to behave under these constraints with stunning realism [cite]. With increasingly accurate and faceted models, a great body of research has been tasked with predicting kinetics, while being sensitive to subtle changes in muscle activation [todorov's mujoco], skeletal weight distributions, neural synergies, and spatiotemporal variables[Kornelius and FVC, Racz FVC].
-While many of these models highlight their accuracy, and attribute it to nonlinear dynamic modeling, linear approximation has long-remained a viable way to interpret the actions of physical limb systems, in the context of a well-understood mathematical framework.
-
-Consider a 
+While many of these models highlight their accuracy, and attribute it to nonlinear dynamic modeling, linear approximation has long-remained a viable way to interpret the actions of physical limb systems, in the context of a well-understood mathematical framework.\\
 
 As limbs exist under physical constraints, neuromuscular control must strategize within the generic Newtonian laws of physics, in the realm of linear statics and dynamics.
 While some would argue that linear approximation of a musculoskeletal system is a blunt instrument in researching what is considered a 'non-linear' system, linear approximation can offer a different view, in showing the bounds of feasible system behavior.
@@ -61,11 +59,11 @@ We designed this schematic (but mathematically viable) linear system of constrai
 
 Below are the key ideas and findings we present with this paper:\\
 
--We found that a hit-and-run algorithm to explore the solution space is computationally tractable. (Section X)
--Our approach provides a more granular context to the space within which the central nervous system optimizes. (Section X)
--Relatively few hit-and-run points were required to uncover the distributions. (Section X)
--For some muscles, we found that the bounding box exceptionally misconstrues the actual shape of the feasible activation space. (Section X)
--The hit and run algorithm is cost-agnostic. Therefore, we can provide spatial context to where 'optimal' solutions lie within the space; this approach can be used to view where local optima exist. (Section X)
--As our approach is cost-agnostic, we can compare cost functions side-by-side and identify the subspace when COST is a constraint. We designed an interactive parallel coordinates plot for visualizing and manipulating constraints to the solution space, such as muscle dysfunction, muscle hyperactivity, as well as constraining the upper and lower bounds for six different cost functions. (Section X)
+-We found that a hit-and-run algorithm to explore the solution space is computationally tractable. (Section X)\\
+-Our approach provides a more granular context to the space within which the central nervous system optimizes. (Section X)\\
+-Relatively few hit-and-run points were required to uncover the distributions. (Section X)\\
+-For some muscles, we found that the bounding box exceptionally misconstrues the actual shape of the feasible activation space. (Section X)\\
+-The hit and run algorithm is cost-agnostic. Therefore, we can provide spatial context to where 'optimal' solutions lie within the space; this approach can be used to view where local optima exist. (Section X)\\
+-As our approach is cost-agnostic, we can compare cost functions side-by-side and identify the subspace when COST is a constraint. We designed an interactive parallel coordinates plot for visualizing and manipulating constraints to the solution space, such as muscle dysfunction, muscle hyperactivity, as well as constraining the upper and lower bounds for six different cost functions. (Section X)\\
 
 In comparison to traditional bounding-box representations, our application of hit-and-run in this context is decisively superior in capability for meaningful visualization, value in extracting associations between solutions, and computational tractability, in addition to being veritable of the true solution distributions within the FAS.
