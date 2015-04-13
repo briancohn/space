@@ -36,11 +36,10 @@ In our 7-dimensional example $m =4$ and $n =7$, typically $n$ is much larger tha
 The constraint $\textbf{a} \in [0,1]^n$ describes that the feasible activation space lies in the $n$-dimensional unit cube (also called the $n$-cube). Each row of the constraint $\textbf{f} = A\textbf{a}$ is a $n-1$ dimensional hyperplane. Assuming that the rows in $A$ are linearly independent (which is a safe assumption in the muscle system case), the intersection of all $m$ equality constraints constraints is a $(n-m)$-dimensional hyperplane. Hence the feasible activation set is the polytope given by the intersection of the $n$-cube and an $(n-m)$-dimensional hyperplane. Note that this intersection is empty in the case where the force $f$ can not be generated.
 
 
-Issues with volume computations:
-As realistic musculoskeletal systems has many more muscles, it's important for polytope calculation to be scalable to higher dimensions.
+Here are the key ideas we present with this paper:\\
+First, we first describe the stochastic method of hit-and-run, and illustrate its use on a fabricated 3-muscle, 1-DOF system with a desired force output of 1N. We designed this schematic (but mathematically viable) linear system of constraints to help readers understand the mechanics of hit-and-run mathematics. Our index-finger model has too many dimensions to show how the process works, so we hope this will help readers understand what is going on in n dimensions (7 in the case of the index-finger model). We also used this model to perform unit tests on our code in thoroughly validating our hit-and-run implementation.
 
-
-We first describe the stochastic method of hit-and-run, and illustrate its use on a fabricated 3-muscle, 1-DOF system with a desired force output of 1N. We designed this schematic (but mathematically viable) linear system of constraints to help readers understand the mechanics of hit-and-run mathematics. Our index-finger model has too many dimensions to show how the process works, so we hope this will help readers understand what is going on in n dimensions (7 in the case of the index-finger model). We also used this model to perform unit tests on our code in thoroughly validating our hit-and-run implementation.
+Second, we apply our 
 
 We investigated the distributions of the feasible activation set across each muscle.
 State the purpose of the work in the form of the hypothesis, question, or problem you investigated; and,

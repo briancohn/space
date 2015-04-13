@@ -20,8 +20,12 @@ MAYTODOS: (try to answer each one with 2-4 brief sentences, and include citation
 	2. defend why we did the 'every hundredth' point instead of more points//
 	3. discuss other approaches to exploring multidimensional spaces//
 	4. discuss other ways that people have tried to visualize high dimensional spaces (projections onto n-1 dimensions, etc)//
-	explore and discuss which variables could affect the hit-and-run distributions the most if they were stochastically permuted (parametrically) the Jacobian$J^{-T}$, Moment arm matrix$R$, maximal tendon forces ($F_o$).//
+	explore and discuss which variables could affect the hit-and-run distributions the most if they were stochastically permuted (parametrically) the Jacobian$J^{-T}$, Moment arm matrix $R$, maximal tendon forces ($F_o$).//
 	5. briefly explain the bounds of how much the bounding box could feasibly be overestimating the volume of the solution-space polytope. e.g. when would the bounding box be a good approximation? when would the bounding box be misrepresentative of the space?//
+	6. fill out the section below on issues with volume computations. Essentially, describe how volume computations have been used in the past, and why we did not use them in our analysis this time. Discuss how, if volume computations were quicker, we could have forseeeably used volume computations. Mention how real-life systems are often way more than 7 dimensions (make a note to cite my vectormap paper), and highlight how the math field feels about the level of computational complexity that hit-and-run computations (ie. would other people agree with us that hit and run is a good approach? if so, cite away!)
+	Issues with volume computations:
+
+As realistic musculoskeletal systems has many more muscles, it's important for polytope calculation to be scalable to higher dimensions.
 
 \subsection{Running Time}
 The step of the algorithm which are time consuming are finding a starting point, which solves a linear program and can take exponential running time in worst case. For each fixed force vector we only have to find a starting point and an orthonormal basis once, and are hence not of concern for the running time.
