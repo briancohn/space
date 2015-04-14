@@ -28,9 +28,7 @@ MAYTODOS: (try to answer each one with 2-4 brief sentences, and include citation
 As realistic musculoskeletal systems has many more muscles, it's important for polytope calculation to be scalable to higher dimensions.
 
 \subsection{Running Time}
-The step of the algorithm which are time consuming are finding a starting point, which solves a linear program and can take exponential running time in worst case. For each fixed force vector we only have to find a starting point and an orthonormal basis once, and are hence not of concern for the running time.
-
-Running one loop of the hit and run algorithm only needs linear time, therefore the method will extend to higher dimesions with only linear factor of additinal running time needed.
+However, for each fixed force vector we only have to find a starting point and an orthonormal basis once, and are hence not of concern for the running time. Running one loop of the hit and run algorithm only needs linear time, therefore the method will extend to higher dimesions with only linear factor of additional running time needed.
 
 TODO: add part on how we didn't deal with a dynamical system, but the feasible force space still exists, just with constraints on muscle activations instantaneously, and the momentums present in each of the limbs about their joints.
 
