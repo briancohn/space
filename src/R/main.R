@@ -1,22 +1,18 @@
 library(stringr)
-source('fixed_alpha_muscle_histograms.R')
-source('activation_progressions.R')
+source('src/R/fixed_alpha_muscle_histograms.R')
+source('src/R/activation_progressions.R')
+source('src/R/csv_helpers.R')
 
 
 # @The third element in the list of csv's will be the X direction, and will be used for the fixed 0.8 histogram.
 csvlist = c(
-"XY_alphaProgression1426556273055.csv",
-# "X_alphaProgression1426555010738.csv",
-"100sampled_X_alphaProgression1426556261274.csv",
-"Y_alphaProgression1426556267348.csv"
+"XY_alphaProgression1428961500565.csv",
+"Y_alphaProgression1428961490683.csv",
+"X_alphaProgression1428961481545.csv"
 )
-
-cutoff_dotCSV<- function(filename){
-	len <- nchar(filename)
-	return(str_sub(filename, 0, len-4))
-}
+columnNames = c("fdp", "fds", "eip", "edc", "lum", "di", "pi", "fx", "fy" , "fz", "tx", "alpha", "l1", "l2", "l3", "l1w", "l2w", "l3w")
 
 csvlist_cutoff<- cutoff_dotCSV(csvlist)
 print(paste(csvlist[3], "is being generated as raw_histograms.pdf"))
-fixed_alpha_muscle_histograms(csvlist[3], 0.8)
-activation_progressions(csvlist_cutoff)
+fixed_alpha_muscle_histograms(csvlist[3], 0.8, columnNames)
+activation_progressions(csvlist_cutoff, columnNames=columnNames)

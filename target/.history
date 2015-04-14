@@ -251,3 +251,6 @@ run
 run 100
 run 1000
 run 100
+run 5000
+run 10000
+run 60000

@@ -1,18 +1,16 @@
-fixed_alpha_muscle_histograms <- function (filename, fixedl_alpha_val){
+fixed_alpha_muscle_histograms <- function (filename, fixedl_alpha_val, columnNames){
 
 	print('Computing Activation distribution for a fixed alpha=0.8, and force in the X direction.')
 
-	datafolder_path = "~/Documents/dev/space/output/"
-	db <- read.csv(paste0(datafolder_path, filename), header=FALSE )
+	outputpath <- "output/"
+	db <- read.csv(paste0( outputpath,filename), header=FALSE )
 	num_muscles <- 7
-	m_names <- c("fp", "fs", "di","pi","ei","lum","ec", "fx", "fy" , "fz", "tx", "alpha", "l1", "l2", "l3", "l1w", "l2w", "l3w") #as in the input data from FVC dissertation
-	colnames(db) <- m_names
-	db <- db[c(2,1,5,7,6,3,4, 8,9,10,11,12,13,14,15,16,17,18)] #reorganize to 1998 FVC
+	colnames(db) <- columnNames
 
-	maskAlpha8<- abs(db['alpha']-fixedl_alpha_val) < 1E-6
+	maskAlpha8 <- abs(db['alpha']-fixedl_alpha_val) < 1E-6
 	db <- db[maskAlpha8,]
 
-	pdf('~/Documents/dev/space/src/latex/figs/raw_histograms.pdf')
+	pdf('src/latex/figs/raw_histograms.pdf')
 
 	par(mfrow=c(4,2))
 	for (i in 1:num_muscles) {

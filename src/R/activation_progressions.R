@@ -1,13 +1,12 @@
 marchPlot <- function(
 	filename, 
 	NumMuscles = 7,
-	m_names= c("fp", "fs", "di","pi","ei","lum","ec", "fx", "fy", "fz", "tx", "alpha")
+	m_names, ...
 	)
 {
-	db <- read.csv(filename, header=FALSE)
+	outputpath<- "output/"
+	db <- read.csv(paste0(outputpath, filename), header=FALSE)
 	colnames(db) <- m_names
-	# FP, FS, EI, EC, Lum, DI, PI
-	db <- db[c(2,1,5,7,6,3,4,8,9,10,11,12)] #reorganize
 	#for each alpha make a set of 'num_muscles' histograms
 	par(mfcol=c(9,7))
 	par(mar=c(0.8,1,1,1))
@@ -31,17 +30,16 @@ marchPlot <- function(
 		}
 	}
 }
-make_alpha_progression_pdfs <- function(csvlist, datafolder_path="~/Documents/dev/space/output/"){
+make_alpha_progression_pdfs <- function(csvlist, datafolder_path="", columnNames){
 	print('Computing Pages of Activation Progression Histograms')
 	for (i in 1:length(csvlist)){
 		#plot three separate alpha progressions- one page for each direction that is being marched along.
-		pdf(paste0('~/Documents/dev/space/src/latex/figs/', csvlist[i], '.pdf'), width=7.5, height=8.5 , pointsize=8)
-			marchPlot(paste0(datafolder_path,csvlist[i], '.csv'))
+		pdf(paste0('src/latex/figs/', csvlist[i], '.pdf'), width=7.5, height=8.5 , pointsize=8)
+			marchPlot(paste0(datafolder_path,csvlist[i], '.csv'), m_names = columnNames)
 		dev.off()
 	}
 }
 
-activation_progressions<- function(csvlist){
-
-make_alpha_progression_pdfs(csvlist)
+activation_progressions<- function(csvlist, ...){
+	make_alpha_progression_pdfs(csvlist, ...)
 }

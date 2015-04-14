@@ -29,12 +29,12 @@ package object MainClass {
     val Seed = 10
     val RandomObject = new scala.util.Random(Seed)
     val JR = DenseMatrix(
-      (-0.08941, -0.0447, 0.2087, -0.2138, -0.009249, 0.1421, 0.03669),
-      (-0.04689, -0.1496, 0.0, 0.0248, 0.052, 0.0248, 0.052),
-      (0.06472, 0.001953, 0.0568, 0.2067, -0.1518, 0.2919, -0.1518),
-      (0.003081, -0.002352, 0.0001578, -0.000685, -0.0001649, -0.0004483, -0.0001649)
+      (-0.08941, -0.0447, -0.009249, 0.03669, 0.1421, 0.2087, -0.2138),
+      (-0.04689, -0.1496, 0.052,0.052, 0.0248, 0.0, 0.0248),
+      (0.06472, 0.001953, -0.1518,-0.1518, 0.2919, 0.0568, 0.2067),
+      (0.003081, -0.002352, -0.0001649, -0.0001649, -0.0004483, 0.0001578, -0.000685)
     )
-    val Fm = DenseVector(123,219,124.8,129.6,23.52,21.6,91.74)
+    val Fm: DenseVector[Double] = DenseVector(123.0, 219.0,	23.52, 91.74,	21.6,	124.8,129.6)
     val A = JR*diag(Fm)
     val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
     val db = PointStream.alphaGenerate(PointsPerAlpha, AlphaLim, AlphaLenOut, v, A, OrthonormalBasis, RandomObject)
