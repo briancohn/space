@@ -19,7 +19,8 @@ fixed_alpha_muscle_histograms <- function (filename, fixedl_alpha_val, columnNam
 		# Plot the observed bounds
 		abline(v=max(db[,i]),col="#A13F25")
 		abline(v=min(db[,i]),col="#A13F25")
-		if (abline_vals!=NULL) {
+		if (class(abline_vals) != "NULL") {
+			print('solution lines added')
 			abline(v=abline_vals[i], col="orange")
 		}
 	}

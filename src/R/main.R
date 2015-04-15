@@ -16,5 +16,6 @@ columnNames = c("fdp", "fds", "eip", "edc", "lum", "di", "pi", "fx", "fy" , "fz"
 csvlist_cutoff<- cutoff_dotCSV(csvlist)
 print(paste(csvlist[3], "is being generated as raw_histograms.pdf"))
 max_alpha_solutions <- c(0.5,0.5,0.5,0.5,0.5,0.5,0.5)
+
 fixed_alpha_muscle_histograms(csvlist[4], 1.0, columnNames, abline_vals=max_alpha_solutions)
 activation_progressions(csvlist_cutoff, columnNames=columnNames)
