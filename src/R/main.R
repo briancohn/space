@@ -12,12 +12,32 @@ csvlist = c(
 "Y_alphaProgression1429065076877.csv",
 "Z_alphaProgression1429065090943.csv" 
 )
-columnNames <- c("fdp", "fds", "eip", "edc", "lum", "di", "pi", "fx", "fy" , "fz", "tx", "alpha", "l1", "l2", "l3", "l1w", "l2w", "l3w")
+# columnNames <- c("fdp", "fds", "eip", "edc", "lum", "di", "pi", "fx", "fy" , "fz", "tx", "alpha", "l1", "l2", "l3", "l1w", "l2w", "l3w")
+
+columnNames <- c(
+	"flexor digitorum profundus",
+	"flexor digitorum superficialis",
+	"extensor indicis proprius",
+	"extensor digitorum communis",
+	"lumbrical",
+	"dorsal interosseous",
+	"palmar interosseous",
+	"fx",
+	"fy",
+	"fz",
+	"tx",
+	"alpha",
+	"l1",
+	"l2",
+	"l3",
+	"l1w",
+	"l2w",
+	"l3w"
+  )
 num_muscles <- 7
 alpha_col <- match("alpha", columnNames)
 csvlist_cutoff<- cutoff_dotCSV(csvlist)
 print(paste(csvlist[3], "is being generated as raw_histograms.pdf"))
-max_alpha_solutions <- c(0.5,0.5,0.5,0.5,0.5,0.5,0.5)
 max_alpha_solutions <- get_max_alpha_solutions(paste0('output/',csvlist[4]), num_muscles=num_muscles, alpha_col)
 fixed_alpha_muscle_histograms(csvlist[4], 0.5, columnNames, abline_vals=max_alpha_solutions)
 activation_progressions(csvlist_cutoff, columnNames=columnNames)
