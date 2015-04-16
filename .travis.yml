@@ -5,6 +5,7 @@ scala:
    - 2.11.6
    - 2.11.5
 script:
+  - mkdir output
   - sbt clean
   - sbt update
   - sbt compile
