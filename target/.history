@@ -260,3 +260,7 @@ run 10000
 test
 ~test
 ~test-quick
+test
+clean
+coverage
+coverage test

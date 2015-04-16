@@ -3,9 +3,7 @@ name := "space"
 
 organization := "bbdl"
 
-version := "0.0.1"
-
-// scalaVersion := "2.10.4"
+version := "0.0.2"
 
 libraryDependencies ++= Seq(
   "org.scalatest" % "scalatest_2.10" % "2.2.1" % "test" withSources() withJavadoc(),
@@ -27,7 +25,5 @@ resolvers ++= Seq(
             "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
 )
 
-// Scala 2.9.2 is still supported for 0.2.1, but is dropped afterwards.
-//scalaVersion := "2.11.1" // or 2.10.3 or later
 libraryDependencies += "org.apache.spark" %% "spark-core" % "1.2.0"
 
