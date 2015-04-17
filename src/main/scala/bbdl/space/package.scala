@@ -9,7 +9,10 @@ import breeze.math._
 package object MainClass {
   def main(args: Array[String]) {
     println("Hello, world!")
-    val PointsPerAlpha = args(0).toInt
+    var PointsPerAlpha = 1000
+    if(args.length==1) {
+      PointsPerAlpha = args(0).toInt
+    }
     println("Currently Pointpicking")
    println("starting x")
    PointsFor(PointsPerAlpha, DenseVector(1.0,0.0,0.0,0.0), "X", 10, Tuple2(0.1,1.0)) //x direction

@@ -274,3 +274,6 @@ test
 test-quick
 ~test
 exit
+run 100
+run
+exit
