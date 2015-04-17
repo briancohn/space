@@ -381,8 +381,7 @@ class RandomPointBetweenSpec() extends FlatSpec with Matchers {
 }
 
 class UpdateMeanSpec() extends FlatSpec with Matchers{
-  behavior of "UpdateMean"
-  it should "take in a prior mean (and an n) and update the running mean with a new value" in {
+  "updateMean" should "take in a prior mean (and an n) and update the running mean with a new value" in {
     val n = 5.0
     val PriorMean = 100.0
     val NewValue = 200.0
