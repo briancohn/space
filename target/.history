@@ -264,3 +264,13 @@ test
 clean
 coverage
 coverage test
+clean compile test
+clean; compile
+update
+test
+~test
+exit
+test
+test-quick
+~test
+exit

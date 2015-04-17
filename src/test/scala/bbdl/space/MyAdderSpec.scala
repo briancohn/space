@@ -7,7 +7,6 @@ import breeze.numerics._
 import breeze.math._
 import org.scalatest._
 import Matchers._
-
 import scala.util.Random
 
 //added for this test file
@@ -42,30 +41,42 @@ class MaximumOutputSpec extends FlatSpec with Matchers {
   val FOutputVectorIndex = IndexMaxInfo._1
   val IndexAVec = IndexMaxInfo._2
   it should "Get correct maximum force vector where y is maximized on the FVC index finger. in 7d" in {
-    assert(FOutputVectorIndex === DenseVector(0.0, 6.757881713139706, 0.0, 0.0))//pasted output - test generated for sustainability tracking
+    val diff = AbsDiff.Vectors(FOutputVectorIndex, DenseVector(0.0, 6.757881713139706, 0.0, 0.0))
+    assert(diff < 1E-13)//pasted output - test generated for sustainability tracking
   }
   it should "Get correct activation vector where y is maximized on the FVC index finger in 7D." in {
-    assert(IndexAVec === DenseVector(0.14390467823812347, 0.0, 0.1724420617559178, 0.3293781199403045, 1.0, 1.0, 1.0))
+    val diff = AbsDiff.Vectors(IndexAVec, DenseVector(0.14390467823812347, 0.0, 0.1724420617559178, 0.3293781199403045, 1.0, 1.0, 1.0))
+    assert(diff < 1E-13)
   }
   it should "Generate force when using the a solution and the Fm matrix" in {
     val ExpF = AIndex*IndexAVec
-    val AbsError = ElementwiseAbsoluteDifference(ExpF.toDenseMatrix, FOutputVectorIndex.toDenseMatrix)
-    assert(AbsError < 1E-14)
+    val AbsError = AbsDiff.Matricies(ExpF.toDenseMatrix, FOutputVectorIndex.toDenseMatrix)
+    assert(AbsError < 1E-12)
   }
   it should "Get correct maximum force vector where z is maximized on the FVC index finger in 7d" in {
     val bIndex_z = DenseVector(0.0,0.0,1.0,0.0)
     val IndexMaxInfo_z = MaximumOutput(AIndex, bIndex_z)
-    assert(IndexMaxInfo_z._1 == DenseVector(0.0, 0.0, 40.28419614785415, 0.0))
-    assert(IndexMaxInfo_z._2 == DenseVector(0.27027228376106427, 0.05927684709966398, 1.0, 0.922552974363257, 0.0, 1.0, 0.0))
+    val diff = AbsDiff.Vectors(IndexMaxInfo_z._1, DenseVector(0.0, 0.0, 40.28419614785415, 0.0))
+    assert(diff < 1E-14)
+  }
+  it should "Get correct activation vector where z is maximized on the FVC index finger in 7d" in {
+    val bIndex_z = DenseVector(0.0,0.0,1.0,0.0)
+    val IndexMaxInfo_z = MaximumOutput(AIndex, bIndex_z)
+    val diff = AbsDiff.Vectors(IndexMaxInfo_z._2, DenseVector(0.27027228376106427, 0.05927684709966398, 1.0, 0.922552974363257, 0.0, 1.0, 0.0))
+    assert(diff <= 1E-14)
   }
   it should "Get correct maximum force vector where y and z is maximized on the FVC index finger in 7d" in {
     val bIndex_yz = DenseVector(0.0,1.0,1.0,0.0)
     val IndexMaxInfo_yz = MaximumOutput(AIndex, bIndex_yz)
-    assert(IndexMaxInfo_yz._1 == DenseVector(0.0, 7.195388104572386, 7.195388104572386, 0.0))
-    assert(IndexMaxInfo_yz._2 == DenseVector(0.17866959252521905, 0.0, 0.3982986123112096, 0.5278834439011518, 1.0, 1.0, 0.9999999999999999))
+    val diff = AbsDiff.Vectors(IndexMaxInfo_yz._1, DenseVector(0.0, 7.195388104572386, 7.195388104572386, 0.0))
+    assert(diff < 1E-14)
   }
-
-
+  it should "Get correct activation vector where y and z is maximized on the FVC index finger in 7d" in {
+    val bIndex_yz = DenseVector(0.0,1.0,1.0,0.0)
+    val IndexMaxInfo_yz = MaximumOutput(AIndex, bIndex_yz)
+    val diff = AbsDiff.Vectors(IndexMaxInfo_yz._2, DenseVector(0.17866959252521905, 0.0, 0.3982986123112096, 0.5278834439011518, 1.0, 1.0, 0.9999999999999999))
+    assert(diff < 1E-14)
+  }
 }
 
 class GetRandomDirectionSpec extends FlatSpec with Matchers {
@@ -95,7 +106,7 @@ class GetRandomDirectionSpec extends FlatSpec with Matchers {
     val IdentityMatrix = DenseMatrix.eye[Double](n)
     val TallerMatrix = DenseMatrix.vertcat(IdentityMatrix, DenseMatrix.zeros[Double](1,n))
     val RandomDirection = GetRandomDirection(TallerMatrix, RandomObject)
-    assert(ElementwiseAbsoluteDifference(RandomDirection.toDenseMatrix, DenseVector(0.6685391145389219, 0.6327216675776454, -0.9424452549137063, -0.009898782433063143, 1.8021608700963798, 1.8765599210333714, 0.5111602993013169, 0.8418645608663314, -0.8955260348019763, -0.4938850345409942, 0.0).toDenseMatrix) < 1E-14)
+    assert(AbsDiff.Matricies(RandomDirection.toDenseMatrix, DenseVector(0.6685391145389219, 0.6327216675776454, -0.9424452549137063, -0.009898782433063143, 1.8021608700963798, 1.8765599210333714, 0.5111602993013169, 0.8418645608663314, -0.8955260348019763, -0.4938850345409942, 0.0).toDenseMatrix) < 1E-14)
   }
 
   val RandomObject7 = new scala.util.Random(7)
@@ -192,7 +203,7 @@ class OrthoSpec extends FlatSpec with Matchers {
       (0.0,1.0/a),
       (-5.0/sqrt(34.0),159.0/(340.0*a))
     )
-    val AbsError = ElementwiseAbsoluteDifference(Orthobasis, ExpectedOrthoBasis)
+    val AbsError = AbsDiff.Matricies(Orthobasis, ExpectedOrthoBasis)
     assert(AbsError < 1E-14)
   }
 }

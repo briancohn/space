@@ -332,8 +332,8 @@ The matrices must be of the same dimensions
 @param B DenseMatrix
 @return absolute difference, a double value representing how different the two matrices are.
  */
-object ElementwiseAbsoluteDifference{
-  def apply(A: DenseMatrix[Double], B: DenseMatrix[Double]): Double = {
+object AbsDiff{
+  def Matricies(A: DenseMatrix[Double], B: DenseMatrix[Double]): Double = {
     if (A.cols == B.cols && A.rows == A.rows) {
       var AbsDiff = 0.0
       for (col <- 0 to A.cols-1){
@@ -345,6 +345,9 @@ object ElementwiseAbsoluteDifference{
     } else {
       99999999999.0 //TODO change this to an error
     }
+  }
+  def Vectors(A: DenseVector[Double], B: DenseVector[Double]): Double = {
+    Matricies(A.toDenseMatrix, B.toDenseMatrix)
   }
 }
 
@@ -516,7 +519,6 @@ object PointStream {
         if (acc.rows == 100000) {
           val FileName = Output.TimestampCSVName("output/").toString()
           val MyFile = new java.io.File(FileName)
-          println("Saving to " + FileName)
           csvwrite(MyFile, acc)
         fill(OrthonormalBasis, NewPt, RandomObject, Predicate, NewPt.toDenseMatrix) //start over
         } else {
