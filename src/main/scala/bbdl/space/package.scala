@@ -9,17 +9,17 @@ import breeze.math._
 package object MainClass {
   def main(args: Array[String]) {
     println("Hello, world!")
-    var PointsPerAlpha = 1000
+    var PointsPerAlpha = 1000 //default value
     if(args.length==1) {
       PointsPerAlpha = args(0).toInt
     }
     println("Currently Pointpicking")
-   println("starting x")
-   PointsFor(PointsPerAlpha, DenseVector(1.0,0.0,0.0,0.0), "X", 10, Tuple2(0.1,1.0)) //x direction
-   println("done w x")
-   println("starting y")
-   PointsFor(PointsPerAlpha, DenseVector(0.0,1.0,0.0,0.0), "Y", 10, Tuple2(0.1,1.0)) //y direction
-   println("done w y")
+    println("starting x")
+    PointsFor(PointsPerAlpha, DenseVector(1.0,0.0,0.0,0.0), "X", 10, Tuple2(0.1,1.0)) //x direction
+    println("done w x")
+    println("starting y")
+    PointsFor(PointsPerAlpha, DenseVector(0.0,1.0,0.0,0.0), "Y", 10, Tuple2(0.1,1.0)) //y direction
+    println("done w y")
     println("starting xy")
     PointsFor(PointsPerAlpha, DenseVector(1.0,1.0,0.0,0.0), "XY", 10, Tuple2(0.1,1.0)) //xy direction
     println("done w xy")
@@ -41,8 +41,7 @@ package object MainClass {
     )
     val Fm: DenseVector[Double] = DenseVector(123.0, 219.0,	23.52, 91.74,	21.6,	124.8,129.6)
     val A = JR*diag(Fm)
-    val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
-    val db = PointStream.alphaGenerate(PointsPerAlpha, AlphaLim, AlphaLenOut, v, A, OrthonormalBasis, RandomObject)
+    val db = PointStream.alphaGenerate(PointsPerAlpha, AlphaLim, AlphaLenOut, v, A, Ortho(Basis(A)), RandomObject)
     val DBwithCosts = Cost.GenCosts(db, A.cols, Fm)
     val FileName = Output.TimestampCSVName("output/"+ direction + "_alphaProgression").toString()
     val MyFile = new java.io.File(FileName)

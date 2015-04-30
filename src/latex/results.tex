@@ -15,6 +15,11 @@ Many nice figures
   \caption{Histogram for Fixed Force}
   \label{fig_rawhisto}
 \end{figure}
+Feasible activations for palmar submaximal force production (at X\percent) suggest very similar solution distributions across mslces 3,4,5. Also, they are not bounded by the task in activation; for each of these muscles, their activation can be maximal or zero, and the model finger can still generate the force.
+
+All of the muscles have a central peak between the bounds, suggesting that the activation space is not skewed, but is rather a broad shape. The peak refers to the slice of the activation space where the highest number of solutions exist. Said another way, the integral of that slice represents the solutionspace volume.
+
+
 
 
 \subsection{Changing Output Force in 3 Directions}
@@ -48,6 +53,14 @@ We discuss different forces into three different directions, which are given by 
 \end{comment}
 
 \subsection{Parallel Coordinates}
+The relationship between the histograms shown above, and the parallel coordinate interactive plots, is the measure of density across each muscle. Peak density areas of the histogram will appear as dark blue sections of the muscle histograms, as those regions are host to more solutions.
+
+Although we computed XXX solutions for each level of alpha, we generate 1000 feasible solution points. Although using higher numbers of points works in the parallell coordinates system, we elected to reduce sample size to provide realtime response rates for interactive constraining of muscles and cost functions.
+
+
+Typically, selecting solutions where one muscle is constrained to be lower activation results in one or multiple compensatory increases in activation for the other muscles; this is apparent when the bulk of the solutions moves up while constraining one muscle down. When we see many solution lines in parallel across two muscles, it suggests a consistent relationship between the two. Consistent slopes between the solutions suggest an antagonist relationship. When the slope appears close to zero, the two muscles are equal in effect in their angaonistic relationship; a negative slope suggests the first muscle is less influential in task generation, while a positive slope suggests higher influence.
+
+When two muscles have highly mixed slopes, it could suggest that these muscles do not have a geometric interdependency, and could have orthogonal contributions to output force. 
 
 \begin{figure}[ht]
    \begin{center}
@@ -57,6 +70,7 @@ We discuss different forces into three different directions, which are given by 
   \label{fig_low}
 \end{figure}
 
+When muscle1 was constrained to strictly equal to or lower than x percent of maximal contraction, that constraint reduced the number of solutions by X percent (Fig. fig_low). Along with this reduction,  we saw a shift in the density peak for muscles X, X and X, while muscles X and X didn't appear to change.
 
 \begin{figure}[ht]
    \begin{center}
@@ -65,6 +79,8 @@ We discuss different forces into three different directions, which are given by 
   \caption{Middle for Muscle 1}
   \label{fig_mid}
 \end{figure}
+
+
 
 \begin{figure}[ht]
    \begin{center}

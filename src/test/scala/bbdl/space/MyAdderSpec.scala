@@ -57,7 +57,7 @@ class MaximumOutputSpec extends FlatSpec with Matchers {
     val bIndex_z = DenseVector(0.0,0.0,1.0,0.0)
     val IndexMaxInfo_z = MaximumOutput(AIndex, bIndex_z)
     val diff = AbsDiff.Vectors(IndexMaxInfo_z._1, DenseVector(0.0, 0.0, 40.28419614785415, 0.0))
-    assert(diff < 1E-14)
+    assert(diff < 1E-13)
   }
   it should "Get correct activation vector where z is maximized on the FVC index finger in 7d" in {
     val bIndex_z = DenseVector(0.0,0.0,1.0,0.0)

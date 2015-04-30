@@ -16,6 +16,8 @@ marchPlot <- function(
 	for (j in seq(1, NumMuscles)) {
 		for (i in alphavals) {
 			sample <- db[which(abs(db$alpha-i) <0.001),]
+			print(paste('muscle',j, 'at alphaval', i ))
+			print(summary(sample[,j]))
 			d <- density(sample[,j])
 			hist(sample[,j], xlab="", ylab="",
 				col="#A13F25", 

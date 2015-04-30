@@ -1,0 +1,845 @@
+> source('src/R/main.r')
+[1] "Z_alphaProgression1429068338131.csv is being generated as raw_histograms.pdf"
+[1] "Computing Activation distribution for a fixed alpha, and force in one given direction."
+[1] "Computing Pages of Activation Progression Histograms"
+[1] "muscle 1 at alphaval 0.1"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.009839 0.228200 0.268800 0.251700 0.290900 0.333500 
+[1] "muscle 1 at alphaval 0.2"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.01505 0.21990 0.25970 0.24350 0.28160 0.32400 
+[1] "muscle 1 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.02323 0.18770 0.22450 0.21230 0.24260 0.31310 
+[1] "muscle 1 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.02984 0.14670 0.16660 0.17210 0.19740 0.30510 
+[1] "muscle 1 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0375  0.1233  0.1405  0.1525  0.1782  0.2959 
+[1] "muscle 1 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.04324 0.11710 0.13770 0.14900 0.17510 0.28450 
+[1] "muscle 1 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.04855 0.12110 0.14240 0.15070 0.17680 0.27620 
+[1] "muscle 1 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.05623 0.12740 0.14510 0.15120 0.17250 0.26550 
+[1] "muscle 1 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.06263 0.13220 0.14010 0.14490 0.15380 0.25070 
+[1] "muscle 1 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2044  0.2044  0.2044  0.2044  0.2044  0.2044 
+[1] "muscle 2 at alphaval 0.1"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.009193 0.112400 0.131700 0.123600 0.142200 0.162800 
+[1] "muscle 2 at alphaval 0.2"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.01559 0.11260 0.13150 0.12390 0.14200 0.16240 
+[1] "muscle 2 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.02476 0.10160 0.11910 0.11330 0.12760 0.16200 
+[1] "muscle 2 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.03126 0.08645 0.09584 0.09849 0.11050 0.16200 
+[1] "muscle 2 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.03878 0.07958 0.08776 0.09344 0.10560 0.16160 
+[1] "muscle 2 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.04601 0.08089 0.09066 0.09604 0.10830 0.16100 
+[1] "muscle 2 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.05250 0.08699 0.09708 0.10100 0.11330 0.16090 
+[1] "muscle 2 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.06027 0.09418 0.10260 0.10550 0.11550 0.16000 
+[1] "muscle 2 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.06798 0.10060 0.10430 0.10660 0.11080 0.15670 
+[1] "muscle 2 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.138   0.138   0.138   0.138   0.138   0.138 
+[1] "muscle 3 at alphaval 0.1"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.000033 0.380100 0.506600 0.512200 0.650900 1.000000 
+[1] "muscle 3 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000841 0.3832000 0.5063000 0.5135000 0.6498000 1.0000000 
+[1] "muscle 3 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000722 0.4037000 0.5014000 0.5078000 0.6126000 0.9999000 
+[1] "muscle 3 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000608 0.4119000 0.5033000 0.5107000 0.6107000 1.0000000 
+[1] "muscle 3 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000264 0.4222000 0.5054000 0.5179000 0.6190000 1.0000000 
+[1] "muscle 3 at alphaval 0.6"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0001682 0.4225000 0.5075000 0.5225000 0.6321000 1.0000000 
+[1] "muscle 3 at alphaval 0.7"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000456 0.4098000 0.5110000 0.5226000 0.6444000 1.0000000 
+[1] "muscle 3 at alphaval 0.8"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000635 0.4226000 0.5097000 0.5180000 0.6200000 1.0000000 
+[1] "muscle 3 at alphaval 0.9"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000229 0.4603000 0.5037000 0.5021000 0.5523000 0.9999000 
+[1] "muscle 3 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3232  0.3232  0.3232  0.3232  0.3232  0.3232 
+[1] "muscle 4 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0008765 0.7424000 0.8895000 0.8217000 0.9622000 1.0000000 
+[1] "muscle 4 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0008556 0.7465000 0.8901000 0.8260000 0.9626000 1.0000000 
+[1] "muscle 4 at alphaval 0.3"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.001901 0.660700 0.794900 0.748100 0.860100 1.000000 
+[1] "muscle 4 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.03898 0.54620 0.61720 0.63540 0.72750 1.00000 
+[1] "muscle 4 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1071  0.4936  0.5539  0.5969  0.6896  1.0000 
+[1] "muscle 4 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1663  0.5046  0.5772  0.6178  0.7132  1.0000 
+[1] "muscle 4 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1913  0.5526  0.6286  0.6583  0.7547  1.0000 
+[1] "muscle 4 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2777  0.6101  0.6732  0.6956  0.7741  1.0000 
+[1] "muscle 4 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3985  0.6634  0.6918  0.7106  0.7426  0.9999 
+[1] "muscle 4 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "muscle 5 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000204 0.3428000 0.4887000 0.4794000 0.6047000 0.9999000 
+[1] "muscle 5 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000151 0.3465000 0.4897000 0.4791000 0.6021000 1.0000000 
+[1] "muscle 5 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000062 0.3832000 0.4958000 0.4847000 0.5843000 1.0000000 
+[1] "muscle 5 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000027 0.3763000 0.4920000 0.4762000 0.5727000 1.0000000 
+[1] "muscle 5 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000241 0.3576000 0.4844000 0.4593000 0.5522000 1.0000000 
+[1] "muscle 5 at alphaval 0.6"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000058 0.3391000 0.4764000 0.4496000 0.5439000 1.0000000 
+[1] "muscle 5 at alphaval 0.7"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000636 0.3269000 0.4667000 0.4467000 0.5494000 0.9999000 
+[1] "muscle 5 at alphaval 0.8"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000407 0.3589000 0.4726000 0.4581000 0.5459000 1.0000000 
+[1] "muscle 5 at alphaval 0.9"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0003411 0.4439000 0.4892000 0.4973000 0.5277000 0.9998000 
+[1] "muscle 5 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "muscle 6 at alphaval 0.1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.02005 0.28220 0.35900 0.33580 0.39800 0.59480 
+[1] "muscle 6 at alphaval 0.2"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1257  0.3690  0.4450  0.4231  0.4834  0.6789 
+[1] "muscle 6 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2303  0.4304  0.4892  0.4759  0.5209  0.7625 
+[1] "muscle 6 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3417  0.4722  0.5067  0.5202  0.5604  0.8508 
+[1] "muscle 6 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.4502  0.5440  0.5759  0.5965  0.6352  0.9335 
+[1] "muscle 6 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.5559  0.6397  0.6744  0.6935  0.7297  0.9998 
+[1] "muscle 6 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.6693  0.7467  0.7792  0.7956  0.8304  1.0000 
+[1] "muscle 6 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.7738  0.8540  0.8826  0.8917  0.9238  1.0000 
+[1] "muscle 6 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.8820  0.9563  0.9693  0.9697  0.9839  1.0000 
+[1] "muscle 6 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "muscle 7 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000608 0.1812000 0.2366000 0.2170000 0.2674000 0.3827000 
+[1] "muscle 7 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000024 0.1619000 0.2170000 0.1988000 0.2476000 0.3622000 
+[1] "muscle 7 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000159 0.1185000 0.1642000 0.1517000 0.1871000 0.3427000 
+[1] "muscle 7 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000059 0.0598100 0.0857900 0.0959300 0.1268000 0.3240000 
+[1] "muscle 7 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+3.760e-06 2.606e-02 5.059e-02 6.658e-02 9.645e-02 3.012e-01 
+[1] "muscle 7 at alphaval 0.6"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+1.300e-07 1.548e-02 4.054e-02 5.566e-02 8.309e-02 2.708e-01 
+[1] "muscle 7 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.00000 0.01313 0.03657 0.04983 0.07568 0.20470 
+[1] "muscle 7 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.00000 0.01210 0.03246 0.04027 0.06328 0.13690 
+[1] "muscle 7 at alphaval 0.9"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.000000 0.006909 0.015780 0.017940 0.026880 0.068080 
+[1] "muscle 7 at alphaval 1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.000e+00 0.000e+00 0.000e+00 3.610e-18 0.000e+00 6.434e-17 
+[1] "muscle 1 at alphaval 0.1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.01138 0.21620 0.25620 0.23930 0.27830 0.32080 
+[1] "muscle 1 at alphaval 0.2"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.02259 0.19390 0.23410 0.21740 0.25620 0.29860 
+[1] "muscle 1 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.03419 0.17310 0.21210 0.19680 0.23400 0.27630 
+[1] "muscle 1 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.04658 0.15260 0.19000 0.17690 0.21190 0.25340 
+[1] "muscle 1 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.05843 0.13560 0.16950 0.15940 0.19000 0.23170 
+[1] "muscle 1 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.07124 0.12140 0.14940 0.14310 0.16830 0.20920 
+[1] "muscle 1 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.08356 0.11240 0.13220 0.12940 0.14720 0.18720 
+[1] "muscle 1 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.09557 0.10880 0.11870 0.11840 0.12730 0.16570 
+[1] "muscle 1 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1079  0.1105  0.1105  0.1111  0.1105  0.1434 
+[1] "muscle 1 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1226  0.1226  0.1226  0.1226  0.1226  0.1226 
+[1] "muscle 2 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+7.391e-05 9.667e-02 1.157e-01 1.077e-01 1.262e-01 1.468e-01 
+[1] "muscle 2 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+1.090e-06 8.030e-02 9.937e-02 9.150e-02 1.099e-01 1.303e-01 
+[1] "muscle 2 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+6.850e-06 6.456e-02 8.311e-02 7.588e-02 9.358e-02 1.141e-01 
+[1] "muscle 2 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+5.960e-06 4.906e-02 6.684e-02 6.065e-02 7.727e-02 9.747e-02 
+[1] "muscle 2 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+1.860e-06 3.516e-02 5.123e-02 4.653e-02 6.106e-02 8.132e-02 
+[1] "muscle 2 at alphaval 0.6"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+3.900e-07 2.264e-02 3.596e-02 3.296e-02 4.491e-02 6.470e-02 
+[1] "muscle 2 at alphaval 0.7"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+8.000e-08 1.253e-02 2.194e-02 2.063e-02 2.912e-02 4.831e-02 
+[1] "muscle 2 at alphaval 0.8"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+1.300e-07 5.037e-03 9.706e-03 9.623e-03 1.384e-02 3.251e-02 
+[1] "muscle 2 at alphaval 0.9"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000000 0.0000000 0.0000000 0.0003364 0.0000000 0.0159200 
+[1] "muscle 2 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      0       0       0       0       0       0 
+[1] "muscle 3 at alphaval 0.1"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.000033 0.381600 0.506600 0.512900 0.650900 1.000000 
+[1] "muscle 3 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000841 0.3829000 0.5063000 0.5140000 0.6513000 1.0000000 
+[1] "muscle 3 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000361 0.3829000 0.5060000 0.5125000 0.6471000 1.0000000 
+[1] "muscle 3 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000126 0.3884000 0.5064000 0.5139000 0.6450000 1.0000000 
+[1] "muscle 3 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000159 0.3964000 0.5060000 0.5157000 0.6394000 1.0000000 
+[1] "muscle 3 at alphaval 0.6"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000329 0.4097000 0.5044000 0.5165000 0.6268000 0.9999000 
+[1] "muscle 3 at alphaval 0.7"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000824 0.4324000 0.5043000 0.5220000 0.6074000 0.9999000 
+[1] "muscle 3 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.03342 0.46230 0.50200 0.52840 0.57030 0.99990 
+[1] "muscle 3 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.5098  0.5098  0.5098  0.5298  0.5098  0.9999 
+[1] "muscle 3 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "muscle 4 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0004224 0.7453000 0.8901000 0.8230000 0.9622000 1.0000000 
+[1] "muscle 4 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0008556 0.7447000 0.8898000 0.8235000 0.9625000 1.0000000 
+[1] "muscle 4 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1240  0.7500  0.8905  0.8293  0.9629  1.0000 
+[1] "muscle 4 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2487  0.7561  0.8911  0.8375  0.9625  1.0000 
+[1] "muscle 4 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3740  0.7749  0.8953  0.8539  0.9636  1.0000 
+[1] "muscle 4 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.4987  0.8050  0.9039  0.8750  0.9656  1.0000 
+[1] "muscle 4 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.6288  0.8524  0.9210  0.9044  0.9697  1.0000 
+[1] "muscle 4 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.7517  0.9162  0.9522  0.9436  0.9798  1.0000 
+[1] "muscle 4 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.8766  1.0000  1.0000  0.9975  1.0000  1.0000 
+[1] "muscle 4 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "muscle 5 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000204 0.3424000 0.4886000 0.4780000 0.6029000 0.9999000 
+[1] "muscle 5 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000151 0.3468000 0.4895000 0.4798000 0.6037000 1.0000000 
+[1] "muscle 5 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000122 0.3487000 0.4896000 0.4814000 0.6046000 1.0000000 
+[1] "muscle 5 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000014 0.3550000 0.4905000 0.4837000 0.6039000 0.9999000 
+[1] "muscle 5 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000277 0.3642000 0.4905000 0.4840000 0.5948000 1.0000000 
+[1] "muscle 5 at alphaval 0.6"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000455 0.3787000 0.4916000 0.4855000 0.5855000 0.9999000 
+[1] "muscle 5 at alphaval 0.7"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000636 0.4037000 0.4944000 0.4891000 0.5684000 0.9999000 
+[1] "muscle 5 at alphaval 0.8"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000407 0.4428000 0.4966000 0.4932000 0.5410000 0.9999000 
+[1] "muscle 5 at alphaval 0.9"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0001707 0.5000000 0.5000000 0.5005000 0.5000000 0.9995000 
+[1] "muscle 5 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "muscle 6 at alphaval 0.1"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.000044 0.211100 0.287400 0.265000 0.326300 0.523100 
+[1] "muscle 6 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000994 0.2247000 0.3014000 0.2786000 0.3400000 0.5355000 
+[1] "muscle 6 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000713 0.2421000 0.3156000 0.2940000 0.3538000 0.5481000 
+[1] "muscle 6 at alphaval 0.4"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.000008 0.259100 0.330000 0.310500 0.367500 0.572300 
+[1] "muscle 6 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.03869 0.28350 0.34640 0.33080 0.38140 0.58230 
+[1] "muscle 6 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.09878 0.31060 0.36460 0.35240 0.39500 0.58670 
+[1] "muscle 6 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1609  0.3443  0.3855  0.3773  0.4086  0.6006 
+[1] "muscle 6 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2212  0.3862  0.4094  0.4061  0.4225  0.6254 
+[1] "muscle 6 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3033  0.4374  0.4374  0.4389  0.4374  0.6301 
+[1] "muscle 6 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3723  0.3723  0.3723  0.3723  0.3723  0.3723 
+[1] "muscle 7 at alphaval 0.1"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.002143 0.204800 0.259800 0.240700 0.290400 0.405700 
+[1] "muscle 7 at alphaval 0.2"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.002374 0.207400 0.262800 0.243900 0.293600 0.408200 
+[1] "muscle 7 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.01073 0.21310 0.26660 0.24860 0.29660 0.41060 
+[1] "muscle 7 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.02065 0.21830 0.27010 0.25430 0.30000 0.42060 
+[1] "muscle 7 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.05977 0.22950 0.27510 0.26310 0.30350 0.42120 
+[1] "muscle 7 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1036  0.2439  0.2817  0.2731  0.3067  0.4197 
+[1] "muscle 7 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1516  0.2631  0.2915  0.2860  0.3107  0.4231 
+[1] "muscle 7 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1978  0.2888  0.3047  0.3021  0.3154  0.4326 
+[1] "muscle 7 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2410  0.3215  0.3215  0.3222  0.3215  0.4281 
+[1] "muscle 7 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2828  0.2828  0.2828  0.2828  0.2828  0.2828 
+[1] "muscle 1 at alphaval 0.1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.01351 0.21930 0.25860 0.24240 0.28040 0.32290 
+[1] "muscle 1 at alphaval 0.2"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.02685 0.19990 0.23880 0.22320 0.26050 0.30280 
+[1] "muscle 1 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.04058 0.18130 0.21900 0.20470 0.24050 0.28270 
+[1] "muscle 1 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0551  0.1627  0.1989  0.1866  0.2205  0.2619 
+[1] "muscle 1 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.06908 0.14690 0.18030 0.17040 0.20070 0.24240 
+[1] "muscle 1 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.08402 0.13430 0.16220 0.15590 0.18100 0.22200 
+[1] "muscle 1 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.09847 0.12730 0.14710 0.14430 0.16220 0.20210 
+[1] "muscle 1 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1126  0.1259  0.1357  0.1355  0.1444  0.1827 
+[1] "muscle 1 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1270  0.1297  0.1297  0.1303  0.1297  0.1626 
+[1] "muscle 1 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1439  0.1439  0.1439  0.1439  0.1439  0.1439 
+[1] "muscle 2 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+7.391e-05 9.717e-02 1.158e-01 1.081e-01 1.262e-01 1.468e-01 
+[1] "muscle 2 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+1.090e-06 8.107e-02 9.955e-02 9.221e-02 1.099e-01 1.303e-01 
+[1] "muscle 2 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+6.850e-06 6.543e-02 8.333e-02 7.660e-02 9.362e-02 1.141e-01 
+[1] "muscle 2 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+5.960e-06 4.981e-02 6.699e-02 6.119e-02 7.730e-02 9.747e-02 
+[1] "muscle 2 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+1.860e-06 3.546e-02 5.129e-02 4.671e-02 6.108e-02 8.132e-02 
+[1] "muscle 2 at alphaval 0.6"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+3.900e-07 2.267e-02 3.597e-02 3.298e-02 4.491e-02 6.470e-02 
+[1] "muscle 2 at alphaval 0.7"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+8.000e-08 1.253e-02 2.194e-02 2.063e-02 2.912e-02 4.831e-02 
+[1] "muscle 2 at alphaval 0.8"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+1.300e-07 5.037e-03 9.706e-03 9.623e-03 1.384e-02 3.251e-02 
+[1] "muscle 2 at alphaval 0.9"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000000 0.0000000 0.0000000 0.0003364 0.0000000 0.0159200 
+[1] "muscle 2 at alphaval 1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.000e+00 2.422e-18 6.786e-18 8.851e-18 1.383e-17 3.243e-17 
+[1] "muscle 3 at alphaval 0.1"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.000033 0.383300 0.506500 0.513300 0.649800 1.000000 
+[1] "muscle 3 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000841 0.3856000 0.5062000 0.5146000 0.6496000 1.0000000 
+[1] "muscle 3 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000361 0.3860000 0.5058000 0.5132000 0.6449000 1.0000000 
+[1] "muscle 3 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000126 0.3910000 0.5063000 0.5145000 0.6433000 1.0000000 
+[1] "muscle 3 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000159 0.3977000 0.5060000 0.5160000 0.6388000 1.0000000 
+[1] "muscle 3 at alphaval 0.6"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000329 0.4098000 0.5044000 0.5166000 0.6268000 0.9999000 
+[1] "muscle 3 at alphaval 0.7"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000824 0.4324000 0.5043000 0.5220000 0.6074000 0.9999000 
+[1] "muscle 3 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.03342 0.46230 0.50200 0.52840 0.57030 0.99990 
+[1] "muscle 3 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.5098  0.5098  0.5098  0.5298  0.5098  0.9999 
+[1] "muscle 3 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "muscle 4 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0004224 0.7490000 0.8908000 0.8261000 0.9624000 1.0000000 
+[1] "muscle 4 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0008556 0.7512000 0.8910000 0.8288000 0.9628000 1.0000000 
+[1] "muscle 4 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1240  0.7564  0.8920  0.8347  0.9632  1.0000 
+[1] "muscle 4 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2487  0.7617  0.8925  0.8414  0.9628  1.0000 
+[1] "muscle 4 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3740  0.7774  0.8960  0.8553  0.9637  1.0000 
+[1] "muscle 4 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.4987  0.8053  0.9040  0.8751  0.9657  1.0000 
+[1] "muscle 4 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.6288  0.8524  0.9210  0.9044  0.9697  1.0000 
+[1] "muscle 4 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.7517  0.9162  0.9522  0.9436  0.9798  1.0000 
+[1] "muscle 4 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.8766  1.0000  1.0000  0.9975  1.0000  1.0000 
+[1] "muscle 4 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "muscle 5 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000204 0.3427000 0.4887000 0.4771000 0.6009000 0.9999000 
+[1] "muscle 5 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000151 0.3469000 0.4896000 0.4778000 0.5999000 1.0000000 
+[1] "muscle 5 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000122 0.3487000 0.4896000 0.4786000 0.5996000 1.0000000 
+[1] "muscle 5 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000014 0.3550000 0.4905000 0.4808000 0.6003000 0.9999000 
+[1] "muscle 5 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000277 0.3642000 0.4905000 0.4827000 0.5938000 1.0000000 
+[1] "muscle 5 at alphaval 0.6"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000455 0.3787000 0.4916000 0.4854000 0.5854000 0.9999000 
+[1] "muscle 5 at alphaval 0.7"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000636 0.4037000 0.4944000 0.4891000 0.5684000 0.9999000 
+[1] "muscle 5 at alphaval 0.8"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000407 0.4428000 0.4966000 0.4932000 0.5410000 0.9999000 
+[1] "muscle 5 at alphaval 0.9"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0001707 0.5000000 0.5000000 0.5005000 0.5000000 0.9995000 
+[1] "muscle 5 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "muscle 6 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000413 0.1925000 0.2677000 0.2466000 0.3063000 0.5031000 
+[1] "muscle 6 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000877 0.1873000 0.2618000 0.2414000 0.3000000 0.4956000 
+[1] "muscle 6 at alphaval 0.3"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.000021 0.184600 0.256200 0.237100 0.293900 0.488100 
+[1] "muscle 6 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000062 0.1810000 0.2505000 0.2330000 0.2875000 0.4923000 
+[1] "muscle 6 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000194 0.1845000 0.2466000 0.2318000 0.2815000 0.4824000 
+[1] "muscle 6 at alphaval 0.6"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0002675 0.1907000 0.2447000 0.2326000 0.2751000 0.4668000 
+[1] "muscle 6 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.02102 0.20430 0.24550 0.23740 0.26870 0.46060 
+[1] "muscle 6 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.06126 0.22620 0.24940 0.24620 0.26260 0.46550 
+[1] "muscle 6 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1234  0.2575  0.2575  0.2590  0.2575  0.4502 
+[1] "muscle 6 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1724  0.1724  0.1724  0.1724  0.1724  0.1724 
+[1] "muscle 7 at alphaval 0.1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.01414 0.21060 0.26460 0.24660 0.29510 0.41040 
+[1] "muscle 7 at alphaval 0.2"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.03272 0.21860 0.27260 0.25530 0.30290 0.41750 
+[1] "muscle 7 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.05551 0.22900 0.28100 0.26490 0.31060 0.42460 
+[1] "muscle 7 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.08125 0.23860 0.28910 0.27470 0.31870 0.43930 
+[1] "muscle 7 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1085  0.2533  0.2985  0.2871  0.3268  0.4445 
+[1] "muscle 7 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1316  0.2718  0.3096  0.3011  0.3347  0.4477 
+[1] "muscle 7 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1842  0.2957  0.3241  0.3186  0.3433  0.4557 
+[1] "muscle 7 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2350  0.3260  0.3419  0.3394  0.3527  0.4698 
+[1] "muscle 7 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2829  0.3634  0.3634  0.3641  0.3634  0.4700 
+[1] "muscle 7 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3294  0.3294  0.3294  0.3294  0.3294  0.3294 
+[1] "muscle 1 at alphaval 0.1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0288  0.2625  0.3046  0.2852  0.3271  0.3697 
+[1] "muscle 1 at alphaval 0.2"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.05501 0.26010 0.30340 0.28510 0.32210 0.39520 
+[1] "muscle 1 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.08167 0.22320 0.25230 0.25240 0.28180 0.42120 
+[1] "muscle 1 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1099  0.2494  0.2790  0.2788  0.3078  0.4499 
+[1] "muscle 1 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1360  0.2757  0.3055  0.3042  0.3331  0.4764 
+[1] "muscle 1 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1629  0.2940  0.3282  0.3207  0.3479  0.4926 
+[1] "muscle 1 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1887  0.2889  0.3256  0.3172  0.3455  0.4554 
+[1] "muscle 1 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2156  0.2609  0.2728  0.2744  0.2820  0.3903 
+[1] "muscle 1 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2426  0.2763  0.2763  0.2782  0.2763  0.3295 
+[1] "muscle 1 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2703  0.2703  0.2703  0.2703  0.2703  0.2703 
+[1] "muscle 2 at alphaval 0.1"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.006444 0.117800 0.137700 0.128500 0.148400 0.169000 
+[1] "muscle 2 at alphaval 0.2"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.01234 0.10990 0.13040 0.12170 0.13920 0.17430 
+[1] "muscle 2 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.01816 0.08560 0.09942 0.09947 0.11340 0.18010 
+[1] "muscle 2 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.02387 0.09127 0.10530 0.10520 0.11900 0.18660 
+[1] "muscle 2 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.03053 0.09700 0.11110 0.11050 0.12430 0.19230 
+[1] "muscle 2 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.03596 0.09893 0.11510 0.11150 0.12450 0.19290 
+[1] "muscle 2 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.04191 0.08969 0.10700 0.10300 0.11650 0.16730 
+[1] "muscle 2 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.04771 0.06971 0.07537 0.07602 0.07974 0.13000 
+[1] "muscle 2 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.05339 0.06995 0.06995 0.07077 0.06995 0.09424 
+[1] "muscle 2 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.05928 0.05928 0.05928 0.05928 0.05928 0.05928 
+[1] "muscle 3 at alphaval 0.1"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.000033 0.375900 0.506800 0.511400 0.653600 1.000000 
+[1] "muscle 3 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000828 0.3912000 0.5014000 0.5053000 0.6226000 1.0000000 
+[1] "muscle 3 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000722 0.3785000 0.4996000 0.4994000 0.6205000 0.9999000 
+[1] "muscle 3 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000252 0.3794000 0.5001000 0.4998000 0.6192000 1.0000000 
+[1] "muscle 3 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000317 0.3787000 0.4992000 0.4971000 0.6160000 1.0000000 
+[1] "muscle 3 at alphaval 0.6"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000019 0.3768000 0.4966000 0.4867000 0.5924000 0.9998000 
+[1] "muscle 3 at alphaval 0.7"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000562 0.3437000 0.4822000 0.4660000 0.5762000 0.9999000 
+[1] "muscle 3 at alphaval 0.8"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000635 0.4122000 0.4917000 0.4663000 0.5318000 0.9999000 
+[1] "muscle 3 at alphaval 0.9"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000194 0.5000000 0.5000000 0.4815000 0.5000000 0.9006000 
+[1] "muscle 3 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      0       0       0       0       0       0 
+[1] "muscle 4 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0004224 0.7360000 0.8882000 0.8121000 0.9619000 1.0000000 
+[1] "muscle 4 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000096 0.6256000 0.7838000 0.7160000 0.8518000 1.0000000 
+[1] "muscle 4 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000702 0.3960000 0.5003000 0.5006000 0.6052000 0.9999000 
+[1] "muscle 4 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000213 0.3947000 0.4999000 0.4994000 0.6031000 1.0000000 
+[1] "muscle 4 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000287 0.3916000 0.4991000 0.4949000 0.5986000 1.0000000 
+[1] "muscle 4 at alphaval 0.6"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000227 0.3649000 0.4856000 0.4601000 0.5558000 0.9999000 
+[1] "muscle 4 at alphaval 0.7"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000099 0.2488000 0.3831000 0.3544000 0.4530000 0.9614000 
+[1] "muscle 4 at alphaval 0.8"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.000001 0.047330 0.089600 0.101000 0.123200 0.608500 
+[1] "muscle 4 at alphaval 0.9"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000000 0.0000000 0.0000000 0.0110500 0.0002626 0.2969000 
+[1] "muscle 4 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      0       0       0       0       0       0 
+[1] "muscle 5 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000204 0.3417000 0.4884000 0.4813000 0.6097000 0.9999000 
+[1] "muscle 5 at alphaval 0.2"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000199 0.3797000 0.4977000 0.4922000 0.6010000 1.0000000 
+[1] "muscle 5 at alphaval 0.3"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000062 0.3818000 0.4997000 0.5000000 0.6170000 1.0000000 
+[1] "muscle 5 at alphaval 0.4"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000028 0.3835000 0.4999000 0.4999000 0.6170000 1.0000000 
+[1] "muscle 5 at alphaval 0.5"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000399 0.3908000 0.5013000 0.5051000 0.6198000 1.0000000 
+[1] "muscle 5 at alphaval 0.6"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.000008 0.428100 0.511900 0.530700 0.638600 1.000000 
+[1] "muscle 5 at alphaval 0.7"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0002773 0.4802000 0.5552000 0.5832000 0.7034000 1.0000000 
+[1] "muscle 5 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1343  0.4928  0.5282  0.5785  0.6388  1.0000 
+[1] "muscle 5 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.5787  0.7815  0.7815  0.8055  0.7815  1.0000 
+[1] "muscle 5 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "muscle 6 at alphaval 0.1"
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0002052 0.3220000 0.4017000 0.3746000 0.4412000 0.6381000 
+[1] "muscle 6 at alphaval 0.2"
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.002206 0.416800 0.486100 0.461900 0.518400 0.768600 
+[1] "muscle 6 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1258  0.4541  0.5034  0.5037  0.5535  0.8955 
+[1] "muscle 6 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2407  0.5819  0.6322  0.6320  0.6818  0.9974 
+[1] "muscle 6 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3672  0.7099  0.7602  0.7571  0.8078  1.0000 
+[1] "muscle 6 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.4964  0.8218  0.8810  0.8635  0.9160  1.0000 
+[1] "muscle 6 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.6304  0.9007  0.9521  0.9332  0.9826  1.0000 
+[1] "muscle 6 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.7619  0.9500  0.9758  0.9645  0.9908  1.0000 
+[1] "muscle 6 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.8777  0.9999  1.0000  0.9950  1.0000  1.0000 
+[1] "muscle 6 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       1       1       1       1       1 
+[1] "muscle 7 at alphaval 0.1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.03896 0.30690 0.36420 0.34150 0.39540 0.51080 
+[1] "muscle 7 at alphaval 0.2"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.07737 0.38290 0.43670 0.41550 0.46050 0.62040 
+[1] "muscle 7 at alphaval 0.3"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.1811  0.4132  0.4502  0.4504  0.4877  0.7272 
+[1] "muscle 7 at alphaval 0.4"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2804  0.5205  0.5585  0.5583  0.5959  0.8211 
+[1] "muscle 7 at alphaval 0.5"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3882  0.6284  0.6664  0.6641  0.7018  0.8589 
+[1] "muscle 7 at alphaval 0.6"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.4967  0.7238  0.7688  0.7558  0.7945  0.8947 
+[1] "muscle 7 at alphaval 0.7"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.6076  0.7922  0.8316  0.8189  0.8563  0.9227 
+[1] "muscle 7 at alphaval 0.8"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.7193  0.8326  0.8486  0.8436  0.8596  0.9179 
+[1] "muscle 7 at alphaval 0.9"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.8183  0.8883  0.8883  0.8867  0.8883  0.9192 
+[1] "muscle 7 at alphaval 1"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.9226  0.9226  0.9226  0.9226  0.9226  0.9226 
+> 

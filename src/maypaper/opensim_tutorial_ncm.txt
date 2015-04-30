@@ -1,0 +1,30 @@
+vectormap with danny smith at ncm
+
+he put it in a position with minimal passive torque
+
+
+modify joint anlges in xml file
+change this line: <default_value>0</default_value> it is in radians
+
+
+in opensim x is looking forward, y is straight up, and z is to your right (in a standing position)
+pelvis is root body
+
+
+use neuromechanic to plug in activations and get forces (even when its a singular matrix)
+
+
+
+
+
+
+
+
+
+
+
+
+Steps:
+	use open sim tutorials:
+	use neuromechanic tutorials, check out the api
+
