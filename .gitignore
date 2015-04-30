@@ -1,19 +1,56 @@
+*.class
+*.log
+
+# sbt specific
+.cache
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+
+# IntelliJ
 .idea
 .idea_modules
-target/
-/target
-target
+*.iml
+*.ipr
+*.iws
+.history
+
+# Mac
 .DS_Store
-._.DS_Store
+
+# Latex
+*.aux
+*.glo
+*.idx
 *.log
-.settings
-.project
-.classpath
-.cache
-*.zip
-src/data/croevss/src/main/resources/*_pq
-*.sublime-project
-*.sublime-workspace
-/data/
-*.pyc
-*.csv
+*.toc
+*.ist
+*.acn
+*.acr
+*.alg
+*.bbl
+*.blg
+*.dvi
+*.glg
+*.gls
+*.ilg
+*.ind
+*.lof
+*.lot
+*.maf
+*.mtc
+*.mtc1
+*.out
+*.synctex.gz
+
+# space-specific
+output/
