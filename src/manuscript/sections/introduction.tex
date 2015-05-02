@@ -11,4 +11,29 @@ Implicit in these optimization procedures is the notion that there exists a well
 
 For the case of muscle redundancy for submaximal and static force production with a limb,  the problem is phrased as one of computational geometry: find the convex polytope of feasible muscle activations given the mechanics of the limb and the constrains of the task \cite{avis1992Pivoting,Valero-Cuevas1998Large,Valero-Cuevas2009mathematical,Valero-Cuevas2015high-dimensional}.  This convex polytope is called the \emph{feasible activation set}. To date, the structure of this high-dimensional polytope is inferred by its bounding box  \cite{kutch2011muscle,sohn2013cat_bounding_box,Valero-Cuevas2015high-dimensional}.  But the bounding box of a convex polytope will always overestimate its volume, and lose the details of its shape.  Empirical dimensionality-reduction methods have also been used to calculate a basis vectors for such subspaces \cite{Clewley2008Estimating,davella2005shared,krishnamoorthy2003muscle}. But those basis  vectors only provide a description of the dimension, orientation, and aspect ratio of the polytope, but not of its boundaries or internal  structure.
 
-Here we present a novel application of the well-known Hit-and-Run algorithm \cite{smith1984efficient} to describe the internal structure of these high-dimensional feasible activation sets. We apply our technique to a schematic example with three muscles to describe the method, and then use realistic model of an index finger with seven muscles and four joints \cite{Valero-Cuevas1998Large}.
+Here we present a novel application of the well-known Hit-and-Run algorithm \cite{smith1984efficient} to describe the internal structure of these high-dimensional feasible activation sets.
+
+We applied our approach to two separate musculoskeletal models:
+1. A fabricated schematic system, with three muscles articulating one DOF, and one dimension of output force.
+2. A realistic model, with seven muscles articulating four DOFs, and 4 dimensional output force \cite{Valero-Cuevas1998Large}.
+With this, below are the key ideas and findings we present with this paper:\\ 
+
+\begin{itemize}
+
+\end{itemize}
+\item We found that hit-and-run sampling of the solution space is computationally tractable; fewer than ten thousand points were required to uncover the shape of the distributions. (Section X)\\
+\item Our approach provides a more granular context to the space within which the central nervous system optimizes. (Section X)\\s
+\item For some muscles, we found that the bounding box exceptionally misconstrues the actual shape of the feasible activation space. (Section X)\\
+\item The hit and run algorithm is cost-agnostic. Therefore, we can provide spatial context to where 'optimal' solutions lie within the space; this approach can be used to view where local optima exist. (Section X)\\
+\item As our approach is cost-agnostic, we can compare cost functions side-by-side and identify the subspace when COST is a constraint. We designed an interactive parallel coordinates plot for visualizing and manipulating constraints to the solution space, such as muscle dysfunction, muscle hyperactivity, as well as constraining the upper and lower bounds for six different cost functions. (Section X)\\
+
+In comparison to traditional bounding-box representations, our application of hit-and-run in this context is decisively superior in capability for meaningful visualization, value in extracting associations between solutions, and computational tractability, in addition to being veritable of the true solution distributions within the FAS. Our bodies exist within a feasible activation space, and once we enter this space then optimization is possible. In this way, we can think of the solutions space as an effectie model for exporation-exploitation.
+This can help us in comparing the structure of the activation space as a set of high-dimensional bayesian priors which are narrowed/shifted over time to compensate for learning and skill-development.
+Essentially, once you enter into task-independent variation, it becomes a question of identifying the region of the activaiton space which both satisfieds the spatiotemporal constraints, but also approaches optimality under efficiency/speed demands.
+We want to 'close the loop' between the nervous system commands, and the mechanical output, thereby uncovering how the CNS collaborates with newtonian physics to select neural commands which effecitvey coordinate multi-link limbs, so we can act, play, and dance in the real world.
+Mechanical demands constrain the total space of musculoskeletal coordination options, thus, motile organisms first explore coordination strategies conducive to the desired movement.
+Once a desired task is mapped to an effective coordination strategy (as in, it gets the job done), then training and experience (exploration-exploitation) can aid in finding the best coordination.
+As many tasks are similar (ie. they require the similar force generation or torque production over the course of a movement),  the activation patterns for simlar actions must be similar as well.
+Optimal coordination strategies for one task may be near-optimal for a similar task.
+On the other hand, a suboptimal coordination strategy that achieves one task, may be furiously off-target for a very similar task.
+
