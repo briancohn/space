@@ -1,10 +1,4 @@
 \section{METHODS}
-
-
-For both the schematic and realistic musculoskeletal models, we use a linear approximation of static tendon force production at the end effector.
-
-
-
 In the case of a schematic tendon-driven limb with three muscles, the feasible activation space is the unit cube (as muscles can only be activated positively from 0 to a maximal normalized value of 1). As explained in \cite{Valero-Cuevas2009mathematical}, when task constraints are introduced to the system, the feasible activation set is further reduced; in this context, a task is a static force vector produced at the endpoint of the limb, which is represented as a set of inequality constraints. Thus if this simple limb meets all constraints, the feasible activation set of the polytope $P$ contains all feasible activations  $\textbf{a} \in \mathbb{R}^n$ that satisfy
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
 where $\textbf{f} \in \mathbb{R}^m$ is a fixed force vector and $A = J^{-T}RF_o \in \mathbb{R}^{m \times n}$---the matrices of the Jacobian of the limb, the moment arms of the tendons, and the strengths of the muscles, respectively \cite{Valero-Cuevas1998Large,Valero-Cuevas2009mathematical}. $P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are bounded by 0 and 1 from below, above respectively.
@@ -44,12 +38,10 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \label{fig:hitruncube}
 \end{figure}
 
-\subsection{Removing inter-point dependence}
-As the function is recursive, any two successive points are not independent; therefore, we sample from our walk on $P$ by selecting every $m^{th}$ point to extract points which are distributed uniformly-at-random across $P$, and are independent to eachother. Some have said that it takes X Hit-and-Run steps before the first and last points gathered are independent of one another, so we chose to collect every 100th point into an array of points $M = [p_0, p_1, p_2, ... p_{100,000}]$. 
-
+\subsection{Selecting a central seed point}
 To find a starting point in 
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
-we only need to find a feasible activation vector. For the Hit-and-Run algorithm to mix faster, we want the starting point to be centrally located within the polytope- that way, the early points will not be clustered in a corner [maytodo cite]. We use the following standard trick with slack variables $\epsilon_i$ to select a point where activations $a_i$ for all muscles are far from 0 and 1, thereby finding a solution central within $P$ [maytodo cite the use of slack variables to improve mixing time].
+we only need to find a feasible activation vector; that said, for the Hit-and-Run algorithm to mix faster we want a centrally located point within the polytope- that way, the early points will not be clustered in a corner [maytodo cite]. We use the following standard trick with slack variables $\epsilon_i$ to select a point where activations $a_i$ for all muscles are far from 0 and 1, thereby finding a solution central within $P$ [maytodo cite the use of slack variables to improve mixing time].
 
 \begin{equation}\label{eq:LP_r}
 \begin{array}{lrcl}
@@ -60,17 +52,57 @@ we only need to find a feasible activation vector. For the Hit-and-Run algorithm
 \end{array}
 \end{equation}
 
-How many points are necessary to reach a uniform distribution across the polytope? For convex polygons in higher dimensions c. $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient. In particular Emiris and Fisikopoulos paper suggest that $(10 + 10\frac{n})n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}.
-In the index finger model we executed the Hit-and-Run algorithm $1,000,000$ times.
+\subsection{Removing inter-point dependence}
+As the function is recursive, any two successive points are not independent; therefore, we sample from our walk on $P$ by selecting every $m^{th}$ point to extract points which are distributed uniformly-at-random across $P$, and are independent to eachother.
+Some have said that it takes X Hit-and-Run steps before the first and last points gathered are independent of one another, so we chose to collect every [maytodo confirm 100th] point into an array of points $M = [p_0, p_1, p_2, ... p_{100,000}]$. 
+
+
+\subsection{Determining target sample size}
+How many points do we need to record from Hit-and-Run to reach a representative distribution across the polytope? For convex polygons in higher dimensions c. $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
+In particular Emiris and Fisikopoulos paper suggest that $(10 + 10\frac{n})n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}.
+With the index finger model we collected a sample of [briantodo #] points.
+
 
 \subsection{Realistic index finger model}
 \label{ss:finger}
-We used our published model in \cite{Valero-Cuevas1998Large} to find matrix $A \in \mathbb{R}^{4 \times 7}$, where $\textbf{a} \in \mathbb{R}^7$ and the four degrees of freedom were ad-abduction, flexion-extension at the metacarpophalangeal joint, and flexion-extension at the proximal and distal interphalangeal joints. The force direction we simulated is in the palmar direction in the posture shown in Figure \ref{fig:finger}.
+We used our published model in \cite{Valero-Cuevas1998Large} to find matrix $A \in \mathbb{R}^{4 \times 7}$, where $\textbf{a} \in \mathbb{R}^7$; the four degrees of freedom were ad-abduction, flexion-extension at the metacarpophalangeal joint, and flexion-extension at the proximal and distal interphalangeal joints.
+The force directions we simulated are visible in Figure \ref{fig:finger}.
+
 \begin{figure}[htbp]
-\centering
-\includegraphics{sections/figs/finger.pdf}
-\caption{The index finger model simulated 50\% of maximal force production in the palmar direction. Adapted from \cite{Valero-Cuevas1998Large}.}
-\label{fig:finger}
+  \centering
+  \includegraphics{sections/figs/finger.pdf}
+  \caption{The index finger model simulated 50\% of maximal force production in the palmar direction. Adapted from \cite{Valero-Cuevas1998Large}.}
+  \label{fig:finger}
 \end{figure}
 
+\subsection{Solution projection histograms}
+The resulting array of points $M$ can be thought of as a matrix, where each row is a point, and each column is a muscle's activation. With this, we can enter a column of this data into a histogram; importantly, this approach projects the density of points. This can be used to approximate the relative volume of different sections of $P$- by slicing (binning) from each muscle's dimension.
 
+\subsection{Parallel coordinates visualization}
+A common way to visualize higher dimensional data is using parallel coordinates[briantodo citations]. To show our sample set of points in the feasible activation space we draw $n$ parallel lines for each of the $n$ muscles. With the axis labels of the line set between 0 and 1, each point is then represented by connecting their coordinates by $n-1$ lines. Using an interactive surface we restrict each muscle function to any desired interval- see, figures [maytodo link these to result figures].
+
+\subsection{Integration of muscle-metabolic and neural drive cost functions}
+
+For every solution collected, we used popularly-used cost functions: we computed activation $l_1$, $l_2$ and $l_3$ norms, and the tendon-force $l_1$, $l_2$ and $l_3$ norms. Six additional vertical lines were added to the parallel coordinates plot to represent each cost function. With the same parallel coordinates framework as developed with muscle activation, we can restrict and subset solutions which fall into desired cost-function ranges, thereby masking sub-optimal solutions and highlighting only those meeting the criteria.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Name} & \textbf{Cost function} & \textbf{Reference} \\ \midrule
+$l_1$            & $\sum_{i=1}^n a_i$                     & REF                \\
+$l_2$            & $\sqrt{\sum_{i=1}^n a_i^2}$                     & REF                \\
+$l_3$            & $\sqrt[3]{\sum_{i=1}^n a_i^3}$                     & REF                \\
+$(weighted)l_1$            & $\sum_{i=1}^n a_i Fo_i$                     & REF                \\
+$(weighted)l_2$            & $\sqrt{\sum_{i=1}^n (a_i Fo_i)^2}$                     & REF                \\
+$(weighted)l_3$            & $\sqrt[3]{\sum_{i=1}^n (a_i Fo_i)^3}$                     & REF                \\ \bottomrule
+\end{tabular}
+
+\caption{Table X. Cost functions and their usage, where $a_i$ and $Fo_i$ represent a muscle's activation in a given solution, and that muscles MIC, respectively. [briantodo: cite cost functions]}
+\label{cost_function_tabls}
+
+\end{table}
+
+For a given point $\textbf{a} \in \mathbb{R}^n$ we are interested in the associated cost of every solution collected through Hit and Run.
+
+We developed and tested our code in  Ubuntu 14.04, Windows 8.1, and OSX Yosemite, using Scala 2.11.6 [briantodo cite] for our implementation of Hit-and-Run, R 3.1.3 [briantodo cite] for histograms and plots, and using Sygmatic Parcoord[briantodo cite] and d3.js[briantodo cite] for our interactive parallel coordinate visualization. All code required to replicate our research is readily available at https://github.com/bcohn12/space.
