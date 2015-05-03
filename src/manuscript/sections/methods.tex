@@ -1,25 +1,11 @@
 \section{METHODS}
-\subsection{construction of the finger model}
-$F_o = (123.0, 219.0, 23.52, 91.74,	21.6, 124.8, 129.6)$\\
-$
-JR = 
-\begin{pmatrix}
--0.08941 & -0.0447 & -0.009249 & 0.03669 & 0.1421 & 0.2087 & -0.2138 \\
--0.04689 & -0.1496 & 0.052 &0.052 & 0.0248 & 0.0 & 0.0248 \\ 
-0.06472 & 0.001953 & -0.1518 &-0.1518 & 0.2919 & 0.0568 & 0.2067 \\
-0.003081 & -0.002352 & -0.0001649 & -0.0001649 & -0.0004483 & 0.0001578 & -0.000685
-\end{pmatrix}
-$
-$task_x = (1.0,0.0,0.0,0.0)$
-$task_y = (0.0,1.0,0.0,0.0)$
-Palmar force is $task_z = (0.0,0.0,1.0,0.0)$
-$task_xy = (1.0,1.0,0.0,0.0)$
 
 
-\subsection{Hit-and-Run algorithm}
-Hit-and-Run is a method used to uniformly sample a convex \cite{smith1984efficient}, and as the set of all feasible activations is defined by the mechanics of the limb and the constraints of the task (described in \ref{ss:finger}). 
-We decided to use Hit-and-run as a way to sample muscle activation solutions. 
-In the case of a schematic tendon-driven limb with three muscles, the feasible activation space is the unit cube (as muscles can only be activated positively from 0 to a maximal normalized value of 1). As explained in \cite{Valero-Cuevas2009mathematical}, when task constraints are introduced to the system, the feasible activation set is further reduced; in this context, a task is a static force vector produced at the endpoint of the limb, which is represented as a set of inequality constraints. Thus if this simple limb meets all constraints, the feasible activation set of the polygon $P$ contains all feasible activation  $\textbf{a} \in \mathbb{R}^n$ that satisfy
+For both the schematic and realistic musculoskeletal models, we use a linear approximation of static tendon force production at the end effector.
+
+
+
+In the case of a schematic tendon-driven limb with three muscles, the feasible activation space is the unit cube (as muscles can only be activated positively from 0 to a maximal normalized value of 1). As explained in \cite{Valero-Cuevas2009mathematical}, when task constraints are introduced to the system, the feasible activation set is further reduced; in this context, a task is a static force vector produced at the endpoint of the limb, which is represented as a set of inequality constraints. Thus if this simple limb meets all constraints, the feasible activation set of the polytope $P$ contains all feasible activations  $\textbf{a} \in \mathbb{R}^n$ that satisfy
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
 where $\textbf{f} \in \mathbb{R}^m$ is a fixed force vector and $A = J^{-T}RF_o \in \mathbb{R}^{m \times n}$---the matrices of the Jacobian of the limb, the moment arms of the tendons, and the strengths of the muscles, respectively \cite{Valero-Cuevas1998Large,Valero-Cuevas2009mathematical}. $P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are bounded by 0 and 1 from below, above respectively.
 Consider the following $1 \times 3$ fabricated example, where the task is a 1N unidimensional force.
@@ -38,12 +24,15 @@ the set of feasible activations is given by the shaded set in Figure \ref{fig:fi
 
 \end{figure}
 
-The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any convex body). 
+\subsection{Hit-and-Run algorithm}
+Hit-and-Run is a method used to uniformly sample a convex body \cite{smith1984efficient}. As the set of all feasible activations is defined by the mechanics of the limb and the constraints of the task (described in \ref{ss:finger}), we decided to use Hit-and-run to sample muscle activation solutions from the polytope $P$. We refer to each sample from $P$ as a 'point' $p \in [0,1]^n$.
+
+The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any convex body):
 \begin{enumerate}
-\item Inner Point: Find a given starting point $\textbf{p}$ of $P$ (Figure \ref{fig:hitruncube}(a)) .
-\item Direction: Generate a random direction from $\textbf{p}$ (uniformly at random over all directions) (Figure \ref{fig:hitruncube}(b)).
-\item Endpoints: Find the intersection points of the random direction with the edges of the polytope (Figure \ref{fig:hitruncube}(c)).
-\item New Point: Pick a random distance along the line formed by the endpoints (Figure \ref{fig:hitruncube}(d)). 
+\item Find a starting point $\textbf{p}$ of $P$ (Figure \ref{fig:hitruncube}a) .
+\item Generate a random direction from $\textbf{p}$ (uniformly at random over all directions) (Figure \ref{fig:hitruncube}b).
+\item Find the intersection points of the random direction with the edges of the polytope (Figure \ref{fig:hitruncube}c).
+\item Pick a random distance along the line formed by the endpoints (Figure \ref{fig:hitruncube}d). 
 \item Repeat from $(a)$ the above steps with the new point as the starting point .
 \end{enumerate}
 
@@ -55,10 +44,12 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \label{fig:hitruncube}
 \end{figure}
 
+\subsection{Removing inter-point dependence}
+As the function is recursive, any two successive points are not independent; therefore, we sample from our walk on $P$ by selecting every $m^{th}$ point to extract points which are distributed uniformly-at-random across $P$, and are independent to eachother. Some have said that it takes X Hit-and-Run steps before the first and last points gathered are independent of one another, so we chose to collect every 100th point into an array of points $M = [p_0, p_1, p_2, ... p_{100,000}]$. 
 
 To find a starting point in 
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
-we only need to find a feasible activation vector. For the Hit-and-Run algorithm to mix faster, we want the starting point to be centrally located within the polytope. We use the following standard trick with slack variables $\epsilon_i$.
+we only need to find a feasible activation vector. For the Hit-and-Run algorithm to mix faster, we want the starting point to be centrally located within the polytope- that way, the early points will not be clustered in a corner [maytodo cite]. We use the following standard trick with slack variables $\epsilon_i$ to select a point where activations $a_i$ for all muscles are far from 0 and 1, thereby finding a solution central within $P$ [maytodo cite the use of slack variables to improve mixing time].
 
 \begin{equation}\label{eq:LP_r}
 \begin{array}{lrcl}
