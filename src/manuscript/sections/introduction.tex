@@ -28,12 +28,12 @@ With this, below are the key ideas and findings we present with this paper:\\
 
 \begin{itemize}
 
+\item {We found that hit-and-run sampling of the solution space is computationally tractable; fewer than ten thousand points were required to uncover the shape of the distributions. (Section X)}
+\item {Our approach provides a more granular context to the space within which the central nervous system optimizes. (Section X)}
+\item {For some muscles, we found that the bounding box exceptionally misconstrues the actual shape of the feasible activation space. (Section X)}
+\item {The hit and run algorithm is cost-agnostic. Therefore, we can provide spatial context to where 'optimal' solutions lie within the space; this approach can be used to view where local optima exist. (Section X)}
+\item {As our approach is cost-agnostic, we can compare cost functions side-by-side and identify the subspace when COST is a constraint. We designed an interactive parallel coordinates plot for visualizing and manipulating constraints to the solution space, such as muscle dysfunction, muscle hyperactivity, as well as constraining the upper and lower bounds for six different cost functions. (Section X)}
 \end{itemize}
-\item We found that hit-and-run sampling of the solution space is computationally tractable; fewer than ten thousand points were required to uncover the shape of the distributions. (Section X)\\
-\item Our approach provides a more granular context to the space within which the central nervous system optimizes. (Section X)\\s
-\item For some muscles, we found that the bounding box exceptionally misconstrues the actual shape of the feasible activation space. (Section X)\\
-\item The hit and run algorithm is cost-agnostic. Therefore, we can provide spatial context to where 'optimal' solutions lie within the space; this approach can be used to view where local optima exist. (Section X)\\
-\item As our approach is cost-agnostic, we can compare cost functions side-by-side and identify the subspace when COST is a constraint. We designed an interactive parallel coordinates plot for visualizing and manipulating constraints to the solution space, such as muscle dysfunction, muscle hyperactivity, as well as constraining the upper and lower bounds for six different cost functions. (Section X)\\
 
 In comparison to traditional bounding-box representations, our application of hit-and-run in this context is decisively superior in capability for meaningful visualization, value in extracting associations between solutions, and computational tractability, in addition to being veritable of the true solution distributions within the FAS. Our bodies exist within a feasible activation space, and once we enter this space then optimization is possible. In this way, we can think of the solutions space as an effectie model for exporation-exploitation.
 This can help us in comparing the structure of the activation space as a set of high-dimensional bayesian priors which are narrowed/shifted over time to compensate for learning and skill-development.
