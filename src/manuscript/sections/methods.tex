@@ -30,13 +30,13 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \item Repeat from $(a)$ the above steps with the new point as the starting point .
 \end{enumerate}
 
-
 \begin{figure}[htbp]
 \centering
 \includegraphics{sections/figs/hitruncube.png}
 \caption{Graphical description of the Hit-and-Run algorithm.}
 \label{fig:hitruncube}
 \end{figure}
+
 
 \subsection{Selecting a central seed point}
 To find a starting point in 
@@ -60,7 +60,7 @@ Some have said that it takes X Hit-and-Run steps before the first and last point
 \subsection{Determining target sample size}
 How many points do we need to record from Hit-and-Run to reach a representative distribution across the polytope? For convex polygons in higher dimensions c. $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
 In particular Emiris and Fisikopoulos paper suggest that $(10 + 10\frac{n})n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}.
-With the index finger model we collected a sample of [briantodo #] points.
+With the index finger model we collected a sample of [briantodo number] points.
 
 
 \subsection{Realistic index finger model}
@@ -74,6 +74,8 @@ The force directions we simulated are visible in Figure \ref{fig:finger}.
   \caption{The index finger model simulated 50\% of maximal force production in the palmar direction. Adapted from \cite{Valero-Cuevas1998Large}.}
   \label{fig:finger}
 \end{figure}
+
+
 
 \subsection{Solution projection histograms}
 The resulting array of points $M$ can be thought of as a matrix, where each row is a point, and each column is a muscle's activation. With this, we can enter a column of this data into a histogram; importantly, this approach projects the density of points. This can be used to approximate the relative volume of different sections of $P$- by slicing (binning) from each muscle's dimension.
@@ -98,7 +100,7 @@ $(weighted)l_2$            & $\sqrt{\sum_{i=1}^n (a_i Fo_i)^2}$                 
 $(weighted)l_3$            & $\sqrt[3]{\sum_{i=1}^n (a_i Fo_i)^3}$                     & REF                \\ \bottomrule
 \end{tabular}
 
-\caption{Table X. Cost functions and their usage, where $a_i$ and $Fo_i$ represent a muscle's activation in a given solution, and that muscles MIC, respectively. [briantodo: cite cost functions]}
+\caption{Cost functions and their usage, where $a_i$ and $Fo_i$ represent a muscle's activation in a given solution, and that muscles MIC, respectively. [briantodo: cite cost functions]}
 \label{cost_function_tabls}
 
 \end{table}

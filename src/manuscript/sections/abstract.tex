@@ -1,9 +1,10 @@
 \begin{abstract}
 The brain must select its control strategies among an infinite set of possibilities, thereby researches believe that it must be solving an optimization problem. 
 While this set of feasible solutions is infinite and lies in high dimensions, it is bounded by kinematic, neuromuscular, and anatomical constraints, within which the brain must select optimal solutions. That is, the seat of feasible activations is well structured. However, to date there is not method to describe and quantify the structure of these high-dimensional solution spaces, other than bounding boxes or dimensionality reduction algorithms that do not capture its full structure. 
-We present a novel approach based on the well-known Hit-and-Run algorithm in computational geometry to extract the structure of the feasible activations that produce 50\% of maximal fingertip force.
+We present a novel approach based on the well-known Hit-and-Run algorithm in computational geometry to extract the structure of the feasible activations that produce [briantodo pick percent] of maximal fingertip force.
 We use a realistic model of a human index finger with 7 muscles, 4DOF, and 4 output dimensions. For a given force vector at the endpoint, the feasible activation space is a 3D convex polytope, embedded in the 7D unit cube.
-It is known that explicitly computing the volume of this polytope can become too computationally complex in many instances. However, our algorithm was able to produce $1,000,000$  random points in the feasible activation space, which converged to the uniform distribution. 
+It is known that explicitly computing the volume of this polytope can become too computationally complex in many instances. However, our algorithm was able to produce [briantodo number]  random points in the feasible activation space, which converged to the uniform distribution. 
+[briantodo: include activationprogressions, parcoords, & costs]
 The computed  distribution of activation across each muscle shed light onto the structure of these solution spaces---rather than simply exploring their maximal and minimal values. 
 Although this paper presents a 7 dimensional case of the index finger, our methods extend to systems with up to at least 40 muscles. This will allow our motor control community  to understand the  distributions of feasible muscle activations, which will provide important contextual information into the learning, optimization and adaptation of motor patterns in future research.
 \end{abstract}

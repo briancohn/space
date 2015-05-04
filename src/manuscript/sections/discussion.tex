@@ -1,12 +1,29 @@
 \section{DISCUSSION}
 
-Our results clearly show that\\
--The Hit-and-Run algorithm can explore the feasible activation space for a realistic 7-muscle finger in a way that is computationally tractable.\\
--For some muscles, we find that the bounding box exceptionally misconstrues the internal structure of the feasible activation set.\\
--The Hit-and-Run algorithm is cost-agnostic in the sense that no cost function is needed to predict the distribution of muscle activation patterns. Therefore, we can provide spatial context to where 'optimal' solutions lie within the solution space; this approach can be used to explore the consequences of different cost functions.\\
--The distribution of muscle activations often show and strong modes that will critically affect the learning of motor tasks.
 
+\subsection{Parallel coordinate slopes} % (fold)
+\label{sec:parallel_coordinate_slopes}
+[maytodo: Talk about what it means to have slopes in Parallel, what a very positive slope means/what a very negative slope means, and what the crossing-slopes mean. Also put forward a couple suggestions of how these slopes could be more quantitatively interpreted/analyzed]
+% subsection parallel_coordinate_slopes (end)
 
+\subsection{Cost distributions} % (fold)
+\label{sec:cost_distributions}
+Yes in further studies we could put activation constraints directly in the A matrix, instead of bounds between 0 and 1. But there are no advantages to adding activation constraints beforehand in the A matrix, as sampling is uniform- as long as the resulting dataset is large enough for your purpose.
+You could also put l1 and weighted l1 cost bounds as constraints in the A matrix. Cannot put higher order cost functions such as l2,l3 or weighted l2,l3.
+\\
+% subsection cost_distributions (end)
+
+\subsubsection{Concluding remarks} % (fold)
+\label{ssub:concluding_remarks}
+
+Our results clearly show:\\
+
+\begin{itemize}
+	\item{The Hit-and-Run algorithm can explore the feasible activation space for a realistic 7-muscle finger in a way that is computationally tractable.}
+	\item{For some muscles, we find that the bounding box exceptionally misconstrues the internal structure of the feasible activation set.}
+	\item{The Hit-and-Run algorithm is cost-agnostic in the sense that no cost function is needed to predict the distribution of muscle activation patterns. Therefore, we can provide spatial context to where 'optimal' solutions lie within the solution space; this approach can be used to explore the consequences of different cost functions.}
+	\item{The distribution of muscle activations often show and strong modes that will critically affect the learning of motor tasks.}
+\end{itemize}
 In comparison to traditional bounding-box representations, our application of hit-and-run in this context is decisively superior in capability for meaningful visualization, value in extracting associations between solutions, and computational tractability, in addition to being veritable of the true solution distributions within the FAS. Our bodies exist within a feasible activation space, and once we enter this space then optimization is possible. In this way, we can think of the solutions space as an effectie model for exporation-exploitation.
 This can help us in comparing the structure of the activation space as a set of high-dimensional bayesian priors which are narrowed/shifted over time to compensate for learning and skill-development.
 Essentially, once you enter into task-independent variation, it becomes a question of identifying the region of the activaiton space which both satisfieds the spatiotemporal constraints, but also approaches optimality under efficiency/speed demands.
@@ -17,3 +34,6 @@ As many tasks are similar (ie. they require the similar force generation or torq
 Optimal coordination strategies for one task may be near-optimal for a similar task.
 On the other hand, a suboptimal coordination strategy that achieves one task, may be furiously off-target for a very similar task.
 
+
+
+% subsubsection concluding_remarks (end)
