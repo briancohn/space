@@ -35,7 +35,6 @@ marchPlot <- function(
 				plot=FALSE,
 				breaks=seq(0.0,1.0,length.out=50))
 			myHistogram$counts <- myHistogram$counts*100.0/sum(myHistogram$counts)
-			browser()
 			plot(myHistogram, ylim=c(0.0,max(myHistogram$counts)),
 							 ylab='',
 							 xlab='',
