@@ -19,17 +19,17 @@ the set of feasible activations is given by the shaded set in Figure \ref{fig:fi
 \end{figure}
 
 \subsection{Hit-and-Run algorithm}
-Hit-and-Run is a method used to uniformly sample a convex body \cite{smith1984efficient}. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps of the Hit-and-Run algorithm has sampled a point uniformly at random in the convex body. Unfortunately the hidden constant is large, which makes the problem practically almost infeasible. However experimental results suggest that a number of points linear w.r.t.\ to the dimension suffices, which will be discussed in Section \ref{sec_lengthrun}. 
-
+Hit-and-Run is a method used to uniformly sample a convex body \cite{smith1984efficient}. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps of the Hit-and-Run algorithm has sampled a point uniformly at random (u.a.r.\ ) in the convex body. Unfortunately the hidden constant is large, which makes the problem practically almost infeasible. However experimental results suggest that a number of points linear w.r.t.\ to the dimension suffices, which will be discussed in Section \ref{sec_lengthrun}. 
+As the feasible activation space of the muscles are given by a convex polytope, this method can be directly used for our problem.
 %Hit-and-Run is a method used to uniformly sample a convex body \cite{smith1984efficient}. As the set of all feasible activations is defined by the mechanics of the limb and the constraints of the task (described in \ref{ss:finger}), we decided to use Hit-and-run to sample muscle activation solutions from the polytope $P$. We refer to each sample from $P$ as a 'point' $p \in [0,1]^n$.
 
 The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any convex body):
 \begin{enumerate}
-\item Find a starting point $\textbf{p}$ of $P$ (Figure \ref{fig:hitruncube}a) .
-\item Generate a random direction from $\textbf{p}$ (uniformly at random over all directions) (Figure \ref{fig:hitruncube}b).
-\item Find the intersection points of the random direction with the edges of the polytope (Figure \ref{fig:hitruncube}c).
-\item Pick a random distance along the line formed by the endpoints (Figure \ref{fig:hitruncube}d). 
-\item Repeat from $(a)$ the above steps with the new point as the starting point .
+\item Find a starting point $\textbf{p}$ of $P$ %(Figure \ref{fig:hitruncube}a) .
+\item Generate a random direction from $\textbf{p}$ in $P$ (uniformly at random over all directions) (Figure \ref{fig:hitruncube}a).
+\item Find the intersection points of the random direction with the edges of the polytope (Figure \ref{fig:hitruncube}b).
+\item Choose a point u.a.r.\ on this line segment given by the intersection points (Figure \ref{fig:hitruncube}c). 
+\item Repeat from $1.$ the above steps with the new point as the starting point .
 \end{enumerate}
 
 \begin{figure}[htbp]
@@ -43,7 +43,8 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \subsection{Selecting a central seed point}
 To find a starting point in 
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
-we only need to find a feasible activation vector; that said, for the Hit-and-Run algorithm to mix faster we want a centrally located point within the polytope- that way, the early points will not be clustered in a corner [maytodo cite]. We use the following standard trick with slack variables $\epsilon_i$ to select a point where activations $a_i$ for all muscles are far from 0 and 1, thereby finding a solution central within $P$ [maytodo cite the use of slack variables to improve mixing time].
+we only need to find a feasible activation vector. For the Hit-and-Run algorithm to mix faster we want the starting point not close to a corner. %centrally located point within the polytope- that way, the early points will not be clustered in a corner [maytodo cite]. 
+We use the following standard trick with slack variables $\epsilon_i$, which for applications often gives a good starting point.% to select a point where activations $a_i$ for all muscles are far from 0 and 1, thereby finding a solution central within $P$ [maytodo cite the use of slack variables to improve mixing time].
 
 \begin{equation}\label{eq:LP_r}
 \begin{array}{lrcl}
@@ -54,22 +55,24 @@ we only need to find a feasible activation vector; that said, for the Hit-and-Ru
 \end{array}
 \end{equation}
 
-\subsection{Removing inter-point dependence}
+%\subsection{Removing inter-point dependence}
+%\label{sec_lengthrun}
+%As the function is recursive, any two successive points are not independent; therefore, we sample from our walk on $P$ by selecting every $m^{th}$ point to extract points which are distributed %uniformly-at-random across $P$, and are independent to eachother.
+%Some have said that it takes X Hit-and-Run steps before the first and last points gathered are independent of one another, so we chose to collect every [maytodo confirm 100th] point into an array of points %$M = [p_0, p_1, p_2, ... p_{100,000}]$. 
+
+
+
+\subsection{Length of Hit-and-Run walk}
 \label{sec_lengthrun}
-As the function is recursive, any two successive points are not independent; therefore, we sample from our walk on $P$ by selecting every $m^{th}$ point to extract points which are distributed uniformly-at-random across $P$, and are independent to eachother.
-Some have said that it takes X Hit-and-Run steps before the first and last points gathered are independent of one another, so we chose to collect every [maytodo confirm 100th] point into an array of points $M = [p_0, p_1, p_2, ... p_{100,000}]$. 
-
-
-\subsection{Determining target sample size}
-How many points do we need to record from Hit-and-Run to reach a representative distribution across the polytope? For convex polygons in higher dimensions c. $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
-In particular Emiris and Fisikopoulos paper suggest that $(10 + 10\frac{n})n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}.
-With the index finger model we collected a sample of [briantodo number] points.
+How many points do we need to record from Hit-and-Run to reach a representative distribution across the polytope? For convex polygons in higher dimensions up to $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
+In particular Emiris and Fisikopoulos paper suggest that $(10 + \frac{10}{n})^n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}, while in Ge et al.'s paper every point of the Hit-and-Run algorithm is used in the sample \cite{Ge}. 
+%With the index finger model we collected a sample of [briantodo number] points.
 
 
 \subsection{Realistic index finger model}
 \label{ss:finger}
 We used our published model in \cite{Valero-Cuevas1998Large} to find matrix $A \in \mathbb{R}^{4 \times 7}$, where $\textbf{a} \in \mathbb{R}^7$; the four degrees of freedom were ad-abduction, flexion-extension at the metacarpophalangeal joint, and flexion-extension at the proximal and distal interphalangeal joints.
-The force directions we simulated are visible in Figure \ref{fig:finger}.
+The force directions we simulated are visible in Figure \ref{fig:finger}. In this model, for each input we collected 1.000.000 points and sampled every 100th point.
 
 \begin{figure}[htbp]
   \centering
@@ -81,7 +84,14 @@ The force directions we simulated are visible in Figure \ref{fig:finger}.
 
 
 \subsection{Solution projection histograms}
-The resulting array of points $M$ can be thought of as a matrix, where each row is a point, and each column is a muscle's activation. With this, we can enter a column of this data into a histogram; importantly, this approach projects the density of points. This can be used to approximate the relative volume of different sections of $P$- by slicing (binning) from each muscle's dimension.
+The visualization for the distribution of solutions over each muscles is given in the histogramms \ref{fig:raw_histograms}. Since the generated points are uniformly at random distributed, this gives a close approximation. %The resulting array of points $M$ can be thought of as a matrix, where each row is a point, and each column is a muscle's activation. With this, we can enter a column of this data into a histogram; importantly, this approach projects the density of points. This can be used to approximate the relative volume of different sections of $P$- by slicing (binning) from each muscle's dimension.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{sections/figs/raw_histograms.png}
+\caption{Distribution of feasible activations for [briantodo: select task percent]50\% maximal force output in the palmar direction.}
+\label{fig:raw_histograms}
+\end{figure}
 
 \subsection{Parallel coordinates visualization}
 A common way to visualize higher dimensional data is using parallel coordinates[briantodo citations]. To show our sample set of points in the feasible activation space we draw $n$ parallel lines for each of the $n$ muscles. With the axis labels of the line set between 0 and 1, each point is then represented by connecting their coordinates by $n-1$ lines. Using an interactive surface we restrict each muscle function to any desired interval- see, figures [maytodo link these to result figures].
