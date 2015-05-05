@@ -34,7 +34,16 @@ num_muscles <- 7
 raw_histogram_i <- 4
 alpha_col <- match("alpha", columnNames)
 csvlist_cutoff<- cutoff_dotCSV(csvlist)
+
+
+filename = csvlist[raw_histogram_i]
+outputpath <- "output/"
+fixed_db <- read.csv(paste0( outputpath,filename), header=FALSE )
+num_muscles <- 7
+colnames(fixed_db) <- columnNames
+
+figPath = 'src/manuscript/figs/'
 print(paste(csvlist[raw_histogram_i], "is being generated as raw_histograms.pdf"))
-max_alpha_solutions <- get_max_alpha_solutions(paste0('output/',csvlist[raw_histogram_i]), num_muscles=num_muscles, alpha_col, header=FALSE)
-fixed_alpha_muscle_histograms(csvlist[raw_histogram_i], 0.5, columnNames, abline_vals=max_alpha_solutions)
+max_alpha_solutions <- get_max_alpha_solutions(fixed_db, num_muscles=num_muscles, alpha_col, header=FALSE)
+fixed_alpha_muscle_histograms(fixed_db,0.5, abline_vals=max_alpha_solutions, num_muscles=7, outPath=figPath)
 activation_progressions(csvlist_cutoff, columnNames=columnNames, NumMuscles = num_muscles)
