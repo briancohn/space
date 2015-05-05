@@ -1,6 +1,7 @@
 # space
 [![Build Status](https://travis-ci.org/bcohn12/space.svg?branch=master)](https://travis-ci.org/bcohn12/space)
-[![Build Status](https://semaphoreci.com/api/v1/projects/a10e42c6-0b4b-404c-9b9c-33d2d539f57b/408569/badge.svg)](https://semaphoreci.com/bcohn12/space--3)  
+[![Build Status](https://semaphoreci.com/api/v1/projects/a45fbc4a-ee80-4f0c-91c5-61ddffa1cad9/416002/badge.svg)](https://semaphoreci.com/bcohn12/space)      
+
 [![PDF Status](https://www.sharelatex.com/github/repos/bcohn12/space/builds/latest/badge.svg)](https://www.sharelatex.com/github/repos/bcohn12/space/builds/latest/output.pdf)
 ####Problem statement:
 We don't know how the brain picks the <strong>optimal</strong> strategy to coordinate its muscles and limbs to generate motion.
