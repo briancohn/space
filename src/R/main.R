@@ -1,6 +1,4 @@
 library(stringr)
-source('src/R/fixed_alpha_muscle_histograms.R')
-source('src/R/activation_progressions.R')
 source('src/R/csv_helpers.R')
 source('src/R/get_max_alpha_solutions.R')
 csvlist = c(
@@ -45,5 +43,7 @@ colnames(fixed_db) <- columnNames
 figPath = 'src/manuscript/figs/'
 print(paste(csvlist[raw_histogram_i], "is being generated as raw_histograms.pdf"))
 max_alpha_solutions <- get_max_alpha_solutions(fixed_db, num_muscles=num_muscles, alpha_col, header=FALSE)
+source('src/R/fixed_alpha_muscle_histograms.R')
 fixed_alpha_muscle_histograms(fixed_db,0.5, abline_vals=max_alpha_solutions, num_muscles=7, outPath=figPath)
-activation_progressions(csvlist_cutoff, columnNames=columnNames, NumMuscles = num_muscles, outPath=figPath)
+source('src/R/activation_progressions.R')
+activation_progressions(csvlist_cutoff[1], columnNames=columnNames, NumMuscles = num_muscles, outPath=figPath)

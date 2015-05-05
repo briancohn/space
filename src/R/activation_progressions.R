@@ -15,11 +15,16 @@ marchPlot <- function(
 	par(mar=c(0.8,1,1,1))
 	for (j in seq(1, NumMuscles)) {
 		for (i in alphavals) {
+			if(i == tail(alphavals, n=1)) {
+				plotxaxt=TRUE
+			} else {
+				plotxaxt=FALSE
+			}
 			sample <- db[which(abs(db$alpha-i) <0.001),]
 			print(paste('muscle',j, 'at alphaval', i ))
 			print(summary(sample[,j]))
 			d <- density(sample[,j])
-			hist(sample[,j], xlab="", ylab="",
+			myHistogram <- hist(sample[,j], xlab="", ylab="",
 				col="#A13F25", 
 				main=paste(colnames(db)[j], "a=", i), 
 				cex.axis=0.5, 
@@ -27,7 +32,21 @@ marchPlot <- function(
 				bty="n",
 				lty="blank",
 				freq=FALSE,
+				plot=FALSE,
 				breaks=seq(0.0,1.0,length.out=50))
+			myHistogram$counts <- myHistogram$counts*100.0/sum(myHistogram$counts)
+			browser()
+			plot(myHistogram, ylim=c(0.0,max(myHistogram$counts)),
+							 ylab='',
+							 xlab='',
+							 xaxt='n',
+							 main=NULL,
+							 col="#A13F25",
+							 lty="blank",
+							 tck=-0.01)
+			if(plotxaxt){
+				axis(1, seq(0,1, length.out=5))
+			}
 			# lines(d, col="brown3", xlim= c(0.0,1.0))
 			# //Plot observed bounds
 			abline(v=max(sample[,j]),col="#3F4878")

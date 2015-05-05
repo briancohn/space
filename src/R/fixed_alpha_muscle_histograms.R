@@ -30,7 +30,8 @@ fixed_alpha_muscle_histograms <- function (  db,
 									tck=0.02,
 									plot=FALSE
 										)
-			myHistogram$counts <- myHistogram$counts/sum(myHistogram$counts)
+			#convert to percentage (get fraction, multiply by 100)
+			myHistogram$counts <- myHistogram$counts*100.0/sum(myHistogram$counts)
 			plot(myHistogram, ylim=c(0.0,max(myHistogram$counts)),
 							ylab='',
 							 xlab="a",
