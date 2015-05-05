@@ -30,8 +30,6 @@ fixed_alpha_muscle_histograms <- function (  db,
 									tck=0.02,
 									plot=FALSE
 										)
-			print("didit1")
-			browser()
 			myHistogram$counts <- myHistogram$counts/sum(myHistogram$counts)
 			plot(myHistogram, ylim=c(0.0,max(myHistogram$counts)),
 							ylab='',
