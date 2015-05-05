@@ -505,7 +505,8 @@ object PointStream {
   def generate(n: Int, OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random): DenseMatrix[Double] = {
     var db = CurrentPoint.toDenseMatrix
     for (i <- 1 to n-1) {
-      db = DenseMatrix.vertcat(db, generator(OrthonormalBasis, CurrentPoint, RandomObject).toDenseMatrix) //add another row for each point
+      val newPt = generator(OrthonormalBasis, CurrentPoint, RandomObject).toDenseMatrix
+      db = DenseMatrix.vertcat(db, newPt) //add another row for each point
     }
     db
   }
