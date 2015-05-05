@@ -14,8 +14,8 @@ fixed_alpha_muscle_histograms <- function (  db,
 	#initialize the pdf for output
 	pdf(paste0(outPath, 'raw_histograms.pdf'), width=3.1, height=9)
 		par(mfrow=c(7,1),
-			mar=c(1, 1, 1, 1),
-			mgp=c(0, 0.25, 0),
+			mar=c(1, 1.5, 1, 0),
+			mgp=c(0, 0.25, -0.25),
 			las=0
 			)
 		for (i in 1:num_muscles) {
@@ -30,9 +30,11 @@ fixed_alpha_muscle_histograms <- function (  db,
 									tck=0.02,
 									plot=FALSE
 										)
-			print("didit")
-			myHistogram$counts <- myHistogram$counts/max(myHistogram$counts)
-			plot(myHistogram, ylim=c(0.0,1.0), ylab='percent of all points',
+			print("didit1")
+			browser()
+			myHistogram$counts <- myHistogram$counts/sum(myHistogram$counts)
+			plot(myHistogram, ylim=c(0.0,max(myHistogram$counts)),
+							ylab='',
 							 xlab="a",
 							 main=NULL,
 							 col="#A13F25",
@@ -42,8 +44,8 @@ fixed_alpha_muscle_histograms <- function (  db,
 			if (class(abline_vals) != "NULL") {
 				abline(v=abline_vals[i], col="darkgrey", lwd=2)
 			}
-			abline(v=max(db[,i]),col="darkorange",lwd=1.5, lty=2)
-			abline(v=min(db[,i]),col="darkorange",lwd=1.5, lty=2)
+			abline(v=max(db[,i]), col="darkorange",lwd=1.5, lty=2)
+			abline(v=min(db[,i]), col="darkorange",lwd=1.5, lty=2)
 		}
 	dev.off()
 }

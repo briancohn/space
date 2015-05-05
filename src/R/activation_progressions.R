@@ -39,7 +39,7 @@ make_alpha_progression_pdfs <- function(csvlist, datafolder_path="", columnNames
 	print('Computing Pages of Activation Progression Histograms')
 	for (i in 1:length(csvlist)){
 		#plot three separate alpha progressions- one page for each direction that is being marched along.
-		pdf(paste0('src/latex/figs/', csvlist[i], '.pdf'), width=7.5, height=8.5 , pointsize=8)
+		pdf(paste0('src/manuscript/figs/', csvlist[i], '.pdf'), width=7.5, height=8.5 , pointsize=8)
 			marchPlot(paste0(datafolder_path,csvlist[i], '.csv'), colNames = columnNames, ...)
 		dev.off()
 	}
