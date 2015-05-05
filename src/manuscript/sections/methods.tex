@@ -65,7 +65,7 @@ We use the following standard trick with slack variables $\epsilon_i$, which for
 \subsection{Length of Hit-and-Run walk}
 \label{sec_lengthrun}
 How many points do we need to record from Hit-and-Run to reach a representative distribution across the polytope? For convex polygons in higher dimensions up to $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
-In particular Emiris and Fisikopoulos paper suggest that $(10 + \frac{10}{n})^n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}, while in Ge et al.'s paper every point of the Hit-and-Run algorithm is used in the sample \cite{Ge}. 
+In particular Emiris and Fisikopoulos paper suggest that $(10 + \frac{10}{n})n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}, while in Ge et al.'s paper every point of the Hit-and-Run algorithm is used in the sample \cite{Ge}. 
 %With the index finger model we collected a sample of [briantodo number] points.
 
 
@@ -96,24 +96,24 @@ The visualization for the distribution of solutions over each muscles is given i
 \subsection{Parallel coordinates visualization}
 A common way to visualize higher dimensional data is using parallel coordinates[briantodo citations]. To show our sample set of points in the feasible activation space we draw $n$ parallel lines for each of the $n$ muscles. With the axis labels of the line set between 0 and 1, each point is then represented by connecting their coordinates by $n-1$ lines. Using an interactive surface we restrict each muscle function to any desired interval- see, figures [maytodo link these to result figures].
 
-\subsection{Integration of muscle-metabolic and neural drive cost functions}
+\subsection{Muscle-metabolic and neural drive cost functions}
 
-For every solution collected, we used popularly-used cost functions: we computed activation $l_1$, $l_2$ and $l_3$ norms, and the tendon-force $l_1$, $l_2$ and $l_3$ norms. Six additional vertical lines were added to the parallel coordinates plot to represent each cost function. With the same parallel coordinates framework as developed with muscle activation, we can restrict and subset solutions which fall into desired cost-function ranges, thereby masking sub-optimal solutions and highlighting only those meeting the criteria.
+For every solution collected, we used popularly-used cost functions: we computed activation $l_1$, $l_2$ and $l_3$ norms, and the tendon-force $l_1^w$, $l_2^w$ and $l_3^w$ norms. Six additional vertical lines were added to the parallel coordinates plot to represent each cost function. With the same parallel coordinates framework as developed with muscle activation, we can restrict and subset solutions which fall into desired cost-function ranges, thereby masking sub-optimal solutions and highlighting only those meeting the criteria.
 
 \begin{table}[h]
 \centering
-\begin{tabular}{@{}lll@{}}
+\begin{tabular}{@{}ll@{}}
 \toprule
-\textbf{Name} & \textbf{Cost function} & \textbf{Reference} \\ \midrule
-$l_1$            & $\sum_{i=1}^n a_i$                     & REF                \\
-$l_2$            & $\sqrt{\sum_{i=1}^n a_i^2}$                     & REF                \\
-$l_3$            & $\sqrt[3]{\sum_{i=1}^n a_i^3}$                     & REF                \\
-$(weighted)l_1$            & $\sum_{i=1}^n a_i Fo_i$                     & REF                \\
-$(weighted)l_2$            & $\sqrt{\sum_{i=1}^n (a_i Fo_i)^2}$                     & REF                \\
-$(weighted)l_3$            & $\sqrt[3]{\sum_{i=1}^n (a_i Fo_i)^3}$                     & REF                \\ \bottomrule
+\textbf{Name} & \textbf{Cost function}  \\ \midrule
+$l_1$            & $\sum_{i=1}^n a_i$                                     \\
+$l_2$            & $\sqrt{\sum_{i=1}^n a_i^2}$                                    \\
+$l_3$            & $\sqrt[3]{\sum_{i=1}^n a_i^3}$                                   \\
+$l_1^w$            & $\sum_{i=1}^n a_i F_{0i}$                                    \\
+$l_2^w$            & $\sqrt{\sum_{i=1}^n (a_i F_{0i})^2}$                                  \\
+$l_3^w$            & $\sqrt[3]{\sum_{i=1}^n (a_i F_{0i})^3}$                                    \\ \bottomrule
 \end{tabular}
 
-\caption{Cost functions and their usage, where $a_i$ and $Fo_i$ represent a muscle's activation in a given solution, and that muscles MIC, respectively. [briantodo: cite cost functions]}
+\caption{Cost functions and their usage, where $a_i$ and $F_{0i}$ represent a muscle's activation in a given solution and that muscles MIC, respectively.}
 \label{cost_function_tabls}
 
 \end{table}
