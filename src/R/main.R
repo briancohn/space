@@ -2,7 +2,7 @@ library(stringr)
 source('src/R/csv_helpers.R')
 source('src/R/get_max_alpha_solutions.R')
 csvlist = c(
-"Z_alphaProgression1430917505157.csv"
+"Z_alphaProgression1430924065026.csv"
 )
 # columnNames <- c("fdp", "fds", "eip", "edc", "lum", "di", "pi", 
 	# "fx", "fy" , "fz", "tx", "alpha", "l1", "l2", "l3", "l1w", "l2w", "l3w")
