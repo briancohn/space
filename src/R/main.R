@@ -2,8 +2,7 @@ library(stringr)
 source('src/R/csv_helpers.R')
 source('src/R/get_max_alpha_solutions.R')
 csvlist = c(
-"X_alphaProgression1429065877379.csv",  "XY_alphaProgression1429067471576.csv",
-"Y_alphaProgression1429066661453.csv",  "Z_alphaProgression1429068338131.csv" 
+"Z_alphaProgression1430917505157.csv"
 )
 # columnNames <- c("fdp", "fds", "eip", "edc", "lum", "di", "pi", 
 	# "fx", "fy" , "fz", "tx", "alpha", "l1", "l2", "l3", "l1w", "l2w", "l3w")
@@ -29,14 +28,14 @@ columnNames= c(
 	"l3w"
   )
 num_muscles <- 7
-raw_histogram_i <- 4
+raw_histogram_i <- 1
 alpha_col <- match("alpha", columnNames)
 csvlist_cutoff<- cutoff_dotCSV(csvlist)
 
 
 filename = csvlist[raw_histogram_i]
 outputpath <- "output/"
-fixed_db <- read.csv(paste0( outputpath,filename), header=FALSE )
+fixed_db <- read.csv(paste0( outputpath, filename), header=FALSE )
 num_muscles <- 7
 colnames(fixed_db) <- columnNames
 
