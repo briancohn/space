@@ -1,7 +1,7 @@
 \section{METHODS}
 In the case of a tendon-driven limb with $n$ muscles, the feasible activation space is the unit $n$-hypercube (as muscles can only be activated positively from 0 to a maximal normalized value of 1). As explained in \cite{Valero-Cuevas2009mathematical}, when task constraints are introduced to the system, the feasible activation set is further reduced; in this context, a task is a static force vector produced at the endpoint of the limb, which is represented as a set of inequality and equality constraints. Thus if this simple limb meets all constraints, the feasible activation set of the polytope $P$ contains all feasible activations  $\textbf{a} \in \mathbb{R}^n$ that satisfy
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
-where $\textbf{f} \in \mathbb{R}^m$ is a fixed force vector and $A = J^{-T}RF_o \in \mathbb{R}^{m \times n}$--- where $J$, $R$ and $F_0$ are the matrices of the Jacobian of the limb, the moment arms of the tendons, and the strengths of the muscles, respectively \cite{Valero-Cuevas1998Large,Valero-Cuevas2009mathematical}. $P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are bounded by 0 and 1 from below, above respectively.
+where $\textbf{f} \in \mathbb{R}^m$ is a fixed force vector and $A = J^{-T}RF_o \in \mathbb{R}^{m \times n}$--- where $J$, $R$ and $F_0$ are the matrices of the Jacobian of the limb, the moment arms of the tendons, and the strengths of the muscles, respectively \cite{Valero-Cuevas1998Large,Valero-Cuevas2009mathematical}. $P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are bounded by 0 and 1 from below, above respectively. 
 Consider the following $1 \times 3$ fabricated example, where the task is a 1N unidimensional force.
 \begin{align*}
 &1 = \frac{10}{3}a_1 - \frac{53}{15}a_2 + 2a_3 \\
@@ -30,9 +30,14 @@ the set of feasible activations is given by the shaded set in Figure \ref{fig:fi
 
 \end{figure}
 
+\subsection{Difficulty in multidimensional integration}
+We aimed to compare the relative volumes of different sections of the activation space; however, exact volume computations are computationally intractable in dimensions beyond [maytodo cite]. Recent models we have used have been 31 dimensions \cite{Valero-Cuevas2015high-dimensional}, and other muscle models have over 40 muscles involved /cite{arnold2010model, kutch2012challenges, hamner2010muscle, de2014human}, thereby limiting the feasibility of using direct volume computations. Instead, we chose to sample the continuous space, effectively approximating the volume of the polytope by calculating point densities. [maytodo mention whether the volume computation is a closed-form solution]
+
 \subsection{Hit-and-Run algorithm}
-Hit-and-Run is a method used to uniformly sample a convex body \cite{smith1984efficient}. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps of the Hit-and-Run algorithm has sampled a point uniformly at random (u.a.r.\ ) in the convex body. Unfortunately the hidden constant is large, which makes the problem practically almost infeasible. However experimental results suggest that a number of points linear w.r.t.\ to the dimension suffices, which will be discussed in Section \ref{sec_lengthrun}. 
-As the feasible activation space of the muscles are given by a convex polytope, this method can be directly used for our problem.
+We chose to sample the activation space with the Hit-and-Run method because it is known to converge to the uniform distribution across a convex body \cite{smith1984efficient}. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps of the Hit-and-Run algorithm has sampled a point uniformly at random (u.a.r.\ ) in the convex body. Unfortunately the hidden constant is large, which makes the problem practically almost infeasible. However experimental results suggest that a number of points linear w.r.t.\ to the dimension suffices, which will be discussed in Section \ref{sec_lengthrun}. 
+As the feasible activation space of the muscles are given by a convex polytope, this method can be directly used for our problem. Notably, there are other methods which sample uniformly; we chose Hit and Run because of [maytodo insert some other sampling paradigmns and our justification for Hit and run (include the Metropolis Hastings algorithm, Gibbs sampling?)].
+
+[maytodo mention whether hit and run is a closed form solution]
 %Hit-and-Run is a method used to uniformly sample a convex body \cite{smith1984efficient}. As the set of all feasible activations is defined by the mechanics of the limb and the constraints of the task (described in \ref{ss:finger}), we decided to use Hit-and-run to sample muscle activation solutions from the polytope $P$. We refer to each sample from $P$ as a 'point' $p \in [0,1]^n$.
 
 The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any convex body):
@@ -96,9 +101,9 @@ We use the following standard trick with slack variables $\epsilon_i$, which for
 
 
 
-\subsection{Length of Hit-and-Run walk}
+\subsection{Length of Hit-and-Run walk; avoiding sample auto-correlation}
 \label{sec_lengthrun}
-How many points do we need to record from Hit-and-Run to reach a representative distribution across the polytope? For convex polygons in higher dimensions up to $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
+Although an increasing sample size of consecutive points will converge upon the uniform distribution of the polytope, we want to ensure that consecutive points are independent. [discussthis]How many points do we need to record from Hit-and-Run to reach a representative distribution across the polytope? For convex polygons in higher dimensions up to $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
 In particular Emiris and Fisikopoulos paper suggest that $(10 + \frac{10}{n})n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}, while in Ge et al.'s paper every point of the Hit-and-Run algorithm is used in the sample \cite{Ge}. 
 %With the index finger model we collected a sample of [briantodo number] points.
 
