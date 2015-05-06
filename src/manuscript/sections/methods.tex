@@ -49,7 +49,7 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \item Repeat from $1.$ the above steps with the new point as the starting point .
 \end{enumerate}
 
-\begin{figure}[htbp]
+\begin{figure}[h]
 \centering
 \includegraphics[width=0.5\textwidth,page=10]{sections/figs/HitandRunSchematics_all.pdf}
 \caption{Graphical description of the Hit-and-Run algorithm.}
@@ -70,9 +70,9 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 %\label{fig:postbasis_cube}
 %\end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth,page=9]{sections/figs/HitandRunSchematics_all.pdf}
+\includegraphics[width=0.3\textwidth,page=9]{sections/figs/HitandRunSchematics_all.pdf}
 \caption{Uniform distribution aross the feasible activation space. In the schematic arm example, the distribution is represented within a 2D plane.}
 \label{fig:posthitrun_distribution}
 \end{figure}
@@ -147,7 +147,8 @@ The force directions we simulated are visible in Figure \ref{fig:finger}. In thi
 \subsection{Solution projection histograms}
 The visualization for the distribution of solutions over each muscles is given in the histogramms in Figure\ref{fig:raw_histograms}. Since the generated points are uniformly at random distributed, this gives a close approximation. %The resulting array of points $M$ can be thought of as a matrix, where each row is a point, and each column is a muscle's activation. With this, we can enter a column of this data into a histogram; importantly, this approach projects the density of points. This can be used to approximate the relative volume of different sections of $P$- by slicing (binning) from each muscle's dimension.
 
-\begin{figure}[htbp]
+Figure \ref{fig:raw_histograms} shows the activation distribution of each muscle, when activated with $50\%$ of the maximal activation force. In Section \ref{sub:activation_spaces_for_increasing_force} we consider the distributions for different forces into palmar direction.
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.5\textwidth]{sections/figs/raw_histograms.png}
 \caption{Distribution of feasible activations for 50\% maximal force output in the palmar direction.}
