@@ -56,19 +56,19 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \label{fig:hitruncube}
 \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.5\textwidth,page=7]{sections/figs/HitandRunSchematics_all.pdf}
-\caption{Distribution of feasible activations for [briantodo: select task percent]50\% maximal force output in the palmar direction.}
-\label{fig:prebasis_cube}
-\end{figure}
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.5\textwidth,page=7]{sections/figs/HitandRunSchematics_all.pdf}
+%\caption{Distribution of feasible activations for [briantodo: select task percent]50\% maximal force output in the palmar direction.}
+%\label{fig:prebasis_cube}
+%\end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.5\textwidth,page=8]{sections/figs/HitandRunSchematics_all.pdf}
-\caption{This shows how the basis vectors are orthogonal following Gram-Schmidt orthogonalization.}
-\label{fig:postbasis_cube}
-\end{figure}
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.5\textwidth,page=8]{sections/figs/HitandRunSchematics_all.pdf}
+%\caption{This shows how the basis vectors are orthogonal following Gram-Schmidt orthogonalization.}
+%\label{fig:postbasis_cube}
+%\end{figure}
 
 \begin{figure}[htbp]
 \centering
@@ -122,9 +122,10 @@ A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and 
 
 
 
-\subsection{Length of Hit-and-Run walk; avoiding sample auto-correlation}
+\subsection{Mixing Time}
 \label{sec_lengthrun}
-Although an increasing sample size of consecutive points will converge upon the uniform distribution of the polytope, we want to ensure that consecutive points are independent. [discussthis]How many points do we need to record from Hit-and-Run to reach a representative distribution across the polytope? For convex polygons in higher dimensions up to $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
+A%lthough an increasing sample size of consecutive points will converge upon the uniform distribution of the polytope, we want to ensure that consecutive points are independent. [discussthis]How many points do we need to record from Hit-and-Run to reach a representative distribution across the polytope? 
+From a given starting point, how many steps of the Hit-and-Run method are necessary to reach a u.a.r.\ point? For convex polygons in higher dimensions up to $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
 In particular Emiris and Fisikopoulos paper suggest that $(10 + \frac{10}{n})n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}, while in Ge et al.'s paper every point of the Hit-and-Run algorithm is used in the sample \cite{Ge}. 
 %With the index finger model we collected a sample of [briantodo number] points.
 
@@ -132,24 +133,24 @@ In particular Emiris and Fisikopoulos paper suggest that $(10 + \frac{10}{n})n$ 
 \subsection{Realistic index finger model}
 \label{ss:finger}
 We used our published model in \cite{Valero-Cuevas1998Large} to find matrix $A \in \mathbb{R}^{4 \times 7}$, where $\textbf{a} \in \mathbb{R}^7$; the four degrees of freedom were ad-abduction, flexion-extension at the metacarpophalangeal joint, and flexion-extension at the proximal and distal interphalangeal joints.
-The force directions we simulated are visible in Figure \ref{fig:finger}. In this model, for each input we collected 1.000.000 points and sampled every 100th point.
+The force directions we simulated are visible in Figure \ref{fig:finger}. In this model, for each input we collected 1.000.000 points and sampled every 100th point. Our code only solves one linear equation to find the starting point, each step only needs time linear in the dimension. Therefore it can be used for other tendon driven models in higher dimension. [briantodo: please rephrase this crappy sentence] 
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.5\textwidth]{sections/figs/finger.pdf}
-  \caption{The index finger model simulated 50\% of maximal force production in the palmar direction. Adapted from \cite{Valero-Cuevas1998Large}.}
+  \caption{The index finger model force production in the palmar direction. Adapted from \cite{Valero-Cuevas1998Large}.}
   \label{fig:finger}
 \end{figure}
 
 
 
 \subsection{Solution projection histograms}
-The visualization for the distribution of solutions over each muscles is given in the histogramms \ref{fig:raw_histograms}. Since the generated points are uniformly at random distributed, this gives a close approximation. %The resulting array of points $M$ can be thought of as a matrix, where each row is a point, and each column is a muscle's activation. With this, we can enter a column of this data into a histogram; importantly, this approach projects the density of points. This can be used to approximate the relative volume of different sections of $P$- by slicing (binning) from each muscle's dimension.
+The visualization for the distribution of solutions over each muscles is given in the histogramms in Figure\ref{fig:raw_histograms}. Since the generated points are uniformly at random distributed, this gives a close approximation. %The resulting array of points $M$ can be thought of as a matrix, where each row is a point, and each column is a muscle's activation. With this, we can enter a column of this data into a histogram; importantly, this approach projects the density of points. This can be used to approximate the relative volume of different sections of $P$- by slicing (binning) from each muscle's dimension.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.5\textwidth]{sections/figs/raw_histograms.png}
-\caption{Distribution of feasible activations for [briantodo: select task percent]50\% maximal force output in the palmar direction.}
+\caption{Distribution of feasible activations for 50\% maximal force output in the palmar direction.}
 \label{fig:raw_histograms}
 \end{figure}
 
@@ -158,7 +159,7 @@ A common way to visualize higher dimensional data is using parallel coordinates[
 
 \subsection{Muscle-metabolic and neural drive cost functions}
 
-For every solution collected, we used popularly-used cost functions: we computed activation $l_1$, $l_2$ and $l_3$ norms, and the tendon-force $l_1^w$, $l_2^w$ and $l_3^w$ norms. Six additional vertical lines were added to the parallel coordinates plot to represent each cost function. With the same parallel coordinates framework as developed with muscle activation, we can restrict and subset solutions which fall into desired cost-function ranges, thereby masking sub-optimal solutions and highlighting only those meeting the criteria.
+For every solution collected, we used popularly-used cost functions: we computed activation $l_1$, $l_2$ and $l_3$ norms, and the tendon-force $l_1^w$, $l_2^w$ and $l_3^w$ norms.
 
 \begin{table}[h]
 \centering
@@ -177,6 +178,9 @@ $l_3^w$            & $\sqrt[3]{\sum_{i=1}^n (a_i F_{0i})^3}$                    
 \label{cost_function_tabls}
 
 \end{table}
+
+ Six additional vertical lines were added to the parallel coordinates plot to represent each cost function. With the same parallel coordinates framework as developed with muscle activation, we can restrict and subset solutions which fall into desired cost-function ranges, thereby masking sub-optimal solutions and highlighting only those meeting the criteria.
+
 
 For a given point $\textbf{a} \in \mathbb{R}^n$ we are interested in the associated cost of every solution collected through Hit and Run.
 
