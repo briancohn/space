@@ -206,6 +206,27 @@
   update = {00.10 fukuda}
 }
 
+@MISC{Bueler,
+  author = {B. B\{"u}eler},
+  title = {VINCI},
+  howpublished = {\url{http://www.math.u-bordeaux1.fr/~aenge/index.php?category=software&page=vinci}},
+  year = {2011},
+  owner = {mszedlak},
+  publisher = {ETH Zurich},
+  timestamp = {2014.11.26}
+}
+
+@ARTICLE{Bueler2,
+  author = {B. B\{"u}eler and A. Enge and K. Fukuda},
+  title = {Exact volume computation for polytopes: A practical study},
+  journal = {Polytopes: Combinatorics and Computation},
+  year = {2000},
+  volume = {29},
+  pages = {131-154},
+  owner = {mszedlak},
+  timestamp = {2015.05.06}
+}
+
 @ARTICLE{Bartel1986effect,
   author = {D. L. Bartel and V. L. Bicknell and T. M. Wright},
   title = {The effect of conformity, thickness, and material on stresses in

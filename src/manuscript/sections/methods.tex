@@ -2,14 +2,12 @@
 \label{s:methods}
 In the case of a tendon-driven limb with $n$ muscles, the feasible activation space is the unit $n$-hypercube (as muscles can only be activated positively from 0 to a maximal normalized value of 1). As explained in \cite{Valero-Cuevas2009mathematical}, when task constraints are introduced to the system, the feasible activation set is further reduced; in this context, a task is a static force vector produced at the endpoint of the limb, which is represented as a set of inequality and equality constraints. Thus if this simple limb meets all constraints, the feasible activation set is given by the polytope containing all $a \in \mathbb{R}^n$, that satisfy
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
-where $\textbf{f} \in \mathbb{R}^m$ is a fixed force vector and $A = J^{-T}RF_o \in \mathbb{R}^{m \times n}$--- where $J$, $R$ and $F_0$ are the matrices of the Jacobian of the limb, the moment arms of the tendons, and the strengths of the muscles, respectively \cite{Valero-Cuevas1998Large,Valero-Cuevas2009mathematical}. $P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are bounded by 0 and 1 from below, above respectively. 
+where $\textbf{f} \in \mathbb{R}^m$ is a fixed force vector and $A = J^{-T}RF_o \in \mathbb{R}^{m \times n}$--- where $J$, $R$ and $F_0$ are the matrices of the Jacobian of the limb, the moment arms of the tendons, and the strengths of the muscles, respectively \cite{Valero-Cuevas1998Large,Valero-Cuevas2009mathematical}. $P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are in the interval $[0,1]$.
 Consider the following $1 \times 3$ fabricated example, where the task is a 1N unidimensional force.
 \begin{align*}
 &1 = \frac{10}{3}a_1 - \frac{53}{15}a_2 + 2a_3 \\
 &a_1, a_2, a_3 \in [0,1],
 \end{align*}
-
-
 
 \begin{figure}[schematic_arm]
   \label{fig:schematic_arm}
@@ -20,19 +18,20 @@ Consider the following $1 \times 3$ fabricated example, where the task is a 1N u
 \end{figure}
 
 
-the set of feasible activations is given by the shaded set in Figure \ref{fig:fig_hr}.
+The set of feasible activations is given by the shaded set in Figure \ref{fig:fig_hr}.
 
 \begin{figure}[ht]
   \label{fig:fig_hr}
    \begin{center}
     \includegraphics[width=0.25\textwidth]{sections/figs/feasibleactivation.png}
   \end{center}
-  \caption{The feasible activation set for a  three-muscle system meeting one functional constraint is a polygon in $\mathbb{R}^3$. Note that muscle activations are assumed to be bounded between $0$ and $1$.}
-
+  \caption{The feasible activation set for a  three-muscle system meeting one functional constraint is a polygon in $\mathbb{R}^3$.} %Note that muscle activations are assumed to be bounded between $0$ and $1$.}
 \end{figure}
 
 \subsection{Difficulty in multidimensional integration}
-We aimed to compare the relative volumes of different sections of the activation space; however, exact volume computations are computationally intractable in dimensions beyond [maytodo cite]. Recent models we have used have been 31 dimensions \cite{Valero-Cuevas2015high-dimensional}, and other muscle models have over 40 muscles involved /cite{arnold2010model, kutch2012challenges, hamner2010muscle, de2014human}, thereby limiting the feasibility of using direct volume computations. Instead, we chose to sample the continuous space, effectively approximating the volume of the polytope by calculating point densities. [maytodo mention whether the volume computation is a closed-form solution]
+Exact volume computations for polytopes is know to be $P$-hard \cite{Dyer}. Several algorithms have been suveyed and implemented, but can only handle up to 10 dimensions \cite{Bueler2}.  
+%We aimed to compare the relative volumes of different sections of the activation space; however, exact volume computations are computationally intractable in dimensions beyond [maytodo cite]. 
+Recent models we have used have been 31 dimensions \cite{Valero-Cuevas2015high-dimensional}, and other muscle models have over 40 muscles involved \cite{arnold2010model, kutch2012challenges, hamner2010muscle, de2014human}, thereby limiting the feasibility of using direct volume computations. Instead, we chose to sample the continuous space, effectively approximating the volume of the polytope by calculating point densities. [maytodo mention whether the volume computation is a closed-form solution]
 
 \subsection{Hit-and-Run algorithm}
 We chose to sample the activation space with the Hit-and-Run method because it is known to converge to the uniform distribution across a convex body \cite{smith1984efficient}. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps of the Hit-and-Run algorithm has sampled a point uniformly at random (u.a.r.\ ) in the convex body. Unfortunately the hidden constant is large, which makes the problem practically almost infeasible. However experimental results suggest that a number of points linear w.r.t.\ to the dimension suffices, which will be discussed in Section \ref{sec_lengthrun}. 
