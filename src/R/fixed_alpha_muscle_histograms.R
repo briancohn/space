@@ -19,7 +19,7 @@ fixed_alpha_muscle_histograms <- function (  db,
 			las=0
 			)
 		for (i in 1:num_muscles) {
-			breaks_vec = seq(0,1.0,length.out=100)
+			breaks_vec = seq(0,1.0,length.out=50)
 			myHistogram <- hist(db[,i], 
 									 
 									# main=colnames(db)[i], 
@@ -40,11 +40,8 @@ fixed_alpha_muscle_histograms <- function (  db,
 							 lty="blank",
 							 tck=-0.01)
 			# Plot the observed bounds
-			if (class(abline_vals) != "NULL") {
-				abline(v=abline_vals[i], col="darkgrey", lwd=2)
-			}
-			abline(v=max(db[,i]), col="darkorange",lwd=1.5, lty=2)
-			abline(v=min(db[,i]), col="darkorange",lwd=1.5, lty=2)
+			abline(v=max(db[,i], na.rm=TRUE), col="darkorange",lwd=1.5, lty=2)
+			abline(v=min(db[,i], na.rm=TRUE), col="darkorange",lwd=1.5, lty=2)
 		}
 	dev.off()
 }

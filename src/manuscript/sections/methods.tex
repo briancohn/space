@@ -29,6 +29,7 @@ The set of feasible activations is given by the shaded set in Figure \ref{fig:fi
 \end{figure}
 
 \subsection{Difficulty in multidimensional integration}
+
 Exact volume computations for polytopes is know to be $P$-hard \cite{Dyer}. Several algorithms have been suveyed and implemented, but can only handle up to 10 dimensions \cite{Bueler2}.  
 %We aimed to compare the relative volumes of different sections of the activation space; however, exact volume computations are computationally intractable in dimensions beyond [maytodo cite]. 
 Recent models we have used have been 31 dimensions \cite{Valero-Cuevas2015high-dimensional}, and other muscle models have over 40 muscles involved \cite{arnold2010model, kutch2012challenges, hamner2010muscle, de2014human}, thereby limiting the feasibility of using direct volume computations. Instead, we chose to sample the continuous space, effectively approximating the volume of the polytope by calculating point densities. [maytodo mention whether the volume computation is a closed-form solution]
@@ -138,7 +139,7 @@ The force directions we simulated are visible in Figure \ref{fig:finger}. In thi
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.5\textwidth]{sections/figs/finger.pdf}
-  \caption{The index finger model force production in the palmar direction. Adapted from \cite{Valero-Cuevas1998Large}.}
+  \caption{The index finger model simulated force production in the palmar direction. Adapted from \cite{Valero-Cuevas1998Large}.}
   \label{fig:finger}
 \end{figure}
 
@@ -151,7 +152,7 @@ Figure \ref{fig:raw_histograms} shows the activation distribution of each muscle
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.5\textwidth]{sections/figs/raw_histograms.png}
-\caption{Distribution of feasible activations for 50\% maximal force output in the palmar direction.}
+\caption{Distribution of feasible activations for 50\% of the computed maximal force output in the palmar direction.}
 \label{fig:raw_histograms}
 \end{figure}
 
@@ -161,6 +162,7 @@ A common way to visualize higher dimensional data is using parallel coordinates[
 \subsection{Muscle-metabolic and neural drive cost functions}
 
 For every solution collected, we used popularly-used cost functions: we computed activation $l_1$, $l_2$ and $l_3$ norms, and the tendon-force $l_1^w$, $l_2^w$ and $l_3^w$ norms.
+
 
 \begin{table}[h]
 \centering
@@ -181,7 +183,6 @@ $l_3^w$            & $\sqrt[3]{\sum_{i=1}^n (a_i F_{0i})^3}$                    
 \end{table}
 
  Six additional vertical lines were added to the parallel coordinates plot to represent each cost function. With the same parallel coordinates framework as developed with muscle activation, we can restrict and subset solutions which fall into desired cost-function ranges, thereby masking sub-optimal solutions and highlighting only those meeting the criteria.
-
 
 For a given point $\textbf{a} \in \mathbb{R}^n$ we are interested in the associated cost of every solution collected through Hit and Run.
 
