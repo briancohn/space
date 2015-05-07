@@ -206,6 +206,17 @@
   update = {00.10 fukuda}
 }
 
+@ARTICLE{Bueler2,
+  author = {B. B{\"u}eler and A. Enge and K. Fukuda},
+  title = {Exact volume computation for polytopes: A practical study},
+  journal = {Polytopes: Combinatorics and Computation},
+  year = {2000},
+  volume = {29},
+  pages = {131-154},
+  owner = {mszedlak},
+  timestamp = {2015.05.06}
+}
+
 @MISC{Bueler,
   author = {B. B\{"u}eler},
   title = {VINCI},
@@ -214,17 +225,6 @@
   owner = {mszedlak},
   publisher = {ETH Zurich},
   timestamp = {2014.11.26}
-}
-
-@ARTICLE{Bueler2,
-  author = {B. B\{"u}eler and A. Enge and K. Fukuda},
-  title = {Exact volume computation for polytopes: A practical study},
-  journal = {Polytopes: Combinatorics and Computation},
-  year = {2000},
-  volume = {29},
-  pages = {131-154},
-  owner = {mszedlak},
-  timestamp = {2015.05.06}
 }
 
 @ARTICLE{Bartel1986effect,

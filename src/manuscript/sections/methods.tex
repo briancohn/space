@@ -1,9 +1,10 @@
 \section{METHODS}
 \label{s:methods}
-In the case of a tendon-driven limb with $n$ muscles, the feasible activation space is the unit $n$-hypercube (as muscles can only be activated positively from 0 to a maximal normalized value of 1). As explained in \cite{Valero-Cuevas2009mathematical}, when task constraints are introduced to the system, the feasible activation set is further reduced; in this context, a task is a static force vector produced at the endpoint of the limb, which is represented as a set of inequality and equality constraints. Thus if this simple limb meets all constraints, the feasible activation set is given by the polytope containing all $a \in \mathbb{R}^n$, that satisfy
+In the case of a tendon-driven limb with $n$ muscles, the feasible activation space is the unit $n$-hypercube (as muscles can only be activated positively from 0 to a maximal normalized value of 1). As explained in \cite{Valero-Cuevas2009mathematical}, when task constraints are introduced to the system, the feasible activation set is further reduced; in this context, a task is a static force vector produced at the endpoint of the limb, which is represented as a set of inequality and equality constraints. Thus if this simple limb meets all constraints, the feasible activation set is given by the polytope $P$ containing all $a \in \mathbb{R}^n$, that satisfy
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
-where $\textbf{f} \in \mathbb{R}^m$ is a fixed force vector and $A = J^{-T}RF_o \in \mathbb{R}^{m \times n}$--- where $J$, $R$ and $F_0$ are the matrices of the Jacobian of the limb, the moment arms of the tendons, and the strengths of the muscles, respectively \cite{Valero-Cuevas1998Large,Valero-Cuevas2009mathematical}. $P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are in the interval $[0,1]$.
-Consider the following $1 \times 3$ fabricated example, where the task is a 1N unidimensional force.
+where $\textbf{f} \in \mathbb{R}^m$ is a fixed force vector and $A = J^{-T}RF_o \in \mathbb{R}^{m \times n}$--- where $J$, $R$ and $F_0$ are the matrices of the Jacobian of the limb, the moment arms of the tendons, and the strengths of the muscles, respectively \cite{Valero-Cuevas1998Large,Valero-Cuevas2009mathematical}. 
+$P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are in the interval $[0,1]$.
+Consider the following $1 \times 3$ fabricated example, where the task is a 1N unidimensional force. The set of feasible activations is given by the shaded set in Figure \ref{fig:fig_hr}.
 \begin{align*}
 &1 = \frac{10}{3}a_1 - \frac{53}{15}a_2 + 2a_3 \\
 &a_1, a_2, a_3 \in [0,1],
@@ -18,8 +19,6 @@ Consider the following $1 \times 3$ fabricated example, where the task is a 1N u
 \end{figure}
 
 
-The set of feasible activations is given by the shaded set in Figure \ref{fig:fig_hr}.
-
 \begin{figure}[ht]
   \label{fig:fig_hr}
    \begin{center}
@@ -28,15 +27,15 @@ The set of feasible activations is given by the shaded set in Figure \ref{fig:fi
   \caption{The feasible activation set for a  three-muscle system meeting one functional constraint is a polygon in $\mathbb{R}^3$.} %Note that muscle activations are assumed to be bounded between $0$ and $1$.}
 \end{figure}
 
-\subsection{Difficulty in multidimensional integration}
+\subsection{Difficultis of Volume Computation in Higher Dimension}
 
-Exact volume computations for polytopes is know to be $P$-hard \cite{Dyer}. Several algorithms have been suveyed and implemented, but can only handle up to 10 dimensions \cite{Bueler2}.  
+Exact volume computations for polytopes is know to be $\#P$-hard \cite{Dyer}. Several algorithms have been suveyed and implemented, but can only handle up to 10 dimensions \cite{Bueler2}.  
 %We aimed to compare the relative volumes of different sections of the activation space; however, exact volume computations are computationally intractable in dimensions beyond [maytodo cite]. 
-Recent models we have used have been 31 dimensions \cite{Valero-Cuevas2015high-dimensional}, and other muscle models have over 40 muscles involved \cite{arnold2010model, kutch2012challenges, hamner2010muscle, de2014human}, thereby limiting the feasibility of using direct volume computations. Instead, we chose to sample the continuous space, effectively approximating the volume of the polytope by calculating point densities. [maytodo mention whether the volume computation is a closed-form solution]
+Recent muscle system models we have used have been 31 dimensions \cite{Valero-Cuevas2015high-dimensional}, and other muscle models have over 40 muscles involved \cite{arnold2010model, kutch2012challenges, hamner2010muscle, de2014human}, thereby limiting the feasibility of using direct volume computations. Instead, we chose to sample the continuous space, effectively approximating the shape of the polytope by calculating point densities. %[maytodo mention whether the volume computation is a closed-form solution]
 
 \subsection{Hit-and-Run algorithm}
-We chose to sample the activation space with the Hit-and-Run method because it is known to converge to the uniform distribution across a convex body \cite{smith1984efficient}. The Hit-and-Run method is a generalization of the discrete Markov chains. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps, the Hit-and-Run algorithm has sampled a point uniformly at random (u.a.r.) in the convex body. Unfortunately the hidden constant is large, which makes the problem practically almost infeasible. However experimental results suggest that a number of points linear w.r.t.\ to the dimension suffices; this will be discussed in Section \ref{sec_lengthrun}.
-As the feasible activation space of the muscles are given by a convex polytope, this method can be directly applied for our problem. Notably, there are other methods which sample uniformly; we chose Hit-and-Run because of [maytodo insert some other sampling paradigmns and our justification for Hit and run (include the Metropolis Hastings algorithm, Gibbs sampling?)].
+We chose to sample the activation space with the Hit-and-Run method that is known to converge to the uniform distribution across a convex body $K$ \cite{smith1984efficient}. It is a generalization of the discrete Markov chains and recursively samples a sequence of points in $K$ as described below. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $R$ and $r$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps, the Hit-and-Run algorithm has sampled a point uniformly at random (u.a.r.) in the convex body. Unfortunately the hidden constant is large, which makes the problem practically almost infeasible. However experimental results suggest that a number of points linear w.r.t.\ to the dimension suffices; this will be discussed in Section \ref{sec_lengthrun}.
+As the feasible activation space of the muscles are given by a convex polytope, this method can be directly applied for our problem. Notably, there are other methods which sample uniformly, such as the Grid Walk or Ball walk \cite{Vempala}. We chose the Hit-and Run because of its easy structure and mixing guarantee, however it would be interesting to compare with other methods.  %we chose Hit-and-Run because of [maytodo insert some other sampling paradigmns and our justification for Hit and run (include the Metropolis Hastings algorithm, Gibbs sampling?)].
 
 [maytodo mention whether hit and run is a closed form solution]
 %Hit-and-Run is a method used to uniformly sample a convex body \cite{smith1984efficient}. As the set of all feasible activations is defined by the mechanics of the limb and the constraints of the task (described in \ref{ss:finger}), we decided to use Hit-and-run to sample muscle activation solutions from the polytope $P$. We refer to each sample from $P$ as a 'point' $p \in [0,1]^n$.
@@ -45,7 +44,7 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \begin{enumerate}
 \item Find a starting point $\textbf{p}$ of $P$ %(Figure \ref{fig:hitruncube}a) .
 \item Generate a random direction from $\textbf{p}$ in $P$ (uniformly at random over all directions) (Figure \ref{fig:hitruncube}a).
-\item Find the intersection points of the random direction with the edges of the polytope (Figure \ref{fig:hitruncube}b).
+\item Find the intersection points of the random direction with the boundary of the polytope (Figure \ref{fig:hitruncube}b).
 \item Choose a point u.a.r.\ on this line segment given by the intersection points (Figure \ref{fig:hitruncube}c). 
 \item Repeat from $1.$ the above steps with the new point as the starting point .
 \end{enumerate}
@@ -83,7 +82,7 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \subsection{Implementation of Hit-and-Run}
 To find a starting point in $P$ the polytope given by
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
-we only need to find a feasible activation vector. For the Hit-and-Run algorithm to mix faster we want the starting point not close to a corner. %centrally located point within the polytope- that way, the early points will not be clustered in a corner [maytodo cite]. 
+we only need to find a feasible activation vector. For the Hit-and-Run algorithm to mix faster we want the starting point not close to a vertex of the polytope \cite{Lovasz}. %centrally located point within the polytope- that way, the early points will not be clustered in a corner [maytodo cite]. 
 We use the following standard trick with slack variables $\epsilon_i$, which for applications often gives a good starting point.% to select a point where activations $a_i$ for all muscles are far from 0 and 1, thereby finding a solution central within $P$ [maytodo cite the use of slack variables to improve mixing time].
 
 \begin{equation}\label{eq:LP_r}
@@ -96,12 +95,12 @@ We use the following standard trick with slack variables $\epsilon_i$, which for
 \end{equation}
 
 
-The rest of the implementation of the Hit-and-Run algorithm is straight forward except for the choice of the random direction. How do we sample u.a.r.\ from all directions in $P$? Suppose that $\textbf{q}$ is a direction in $P$ and $p \in P$. Then by definition of $P$, $\textbf{q}$ must satisfy $\textbf{f} = A(\textbf{p}+\textbf{q})$. Since $\textbf{p} \in P$, we know that $\textbf{f} = A\textbf{p}$ and therefore 
-\[\textbf{f} = A(\textbf{p} + \textbf{q}) = \textbf{f} + A\textbf{q}\]
-and hence
-\[A\textbf{q} = 0.\]
+The rest of the implementation of the Hit-and-Run algorithm is straight forward except for the choice of the random direction. How do we sample u.a.r.\ from all directions in $P$? Suppose that $\textbf{q}$ is a direction in $P$ and $\textbf{p} \in P$. Then by definition of $P$, $\textbf{q}$ must satisfy $\textbf{f} = A(\textbf{p}+\textbf{q})$. Since $\textbf{p} \in P$, we know that $\textbf{f} = A\textbf{p}$ and therefore 
+\[\textbf{f} = A(\textbf{p} + \textbf{q}) = \textbf{f} + A\textbf{q} \Rightarrow A\textbf{q} = 0. \]
+%and hence
+%\[A\textbf{q} = 0.\]
 
-We therefore need to choose directions uniformly at random from all directions in the vectorspace 
+We hence need to choose directions uniformly at random from all directions in the vectorspace 
 \[V = \{\textbf{q} \in \mathbb{R}^n | A\textbf{q} = 0\}.\]
 
 As shown by Marsaglia this can be done as follows \cite{Marsaglia}.
@@ -110,12 +109,12 @@ As shown by Marsaglia this can be done as follows \cite{Marsaglia}.
 \item
 Find an orthonormal basis $b_1, \dots, b_r \in \mathbb{R}^{n}$ of $A\textbf{q} =0$.
 \item
-Choose $(\lambda_1, \dots, \lambda_r) \in \mathcal{N}(0,1)^n$ (from the Gaussian distribution).
+Choose $(\lambda_1, \dots, \lambda_r) \in \mathcal{N}(0,1)^r$ (from the Gaussian distribution).
 \item
 $\sum_{i=1}^r \lambda_i b_i$ is a u.a.r.\ direction.
 \end{enumerate}
 
-A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and it is orthonormal if the vectors are pairwise orthogonal (perpendicular) and have unit length. Using basic linear algebra one can find a basis for $V = \{A\textbf{q} = 0\}$ and orthogonalize it with the well known Gram-Schmidt method (for details see e.g.\ \cite{Robertson}). Note that in order to get the desired u.a.r.\ sample the basis needs to be orthonormal. For the limb case we can safely assume that the rows of $A$ are linearly independent and hence the number of basis vectors is $n-m$.
+A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and it is orthonormal if the vectors are pairwise orthogonal (perpendicular) and have unit length. Using basic linear algebra one can find a basis for $\{A\textbf{q} = 0\}$ and orthogonalize with the well known Gram-Schmidt method (for details see e.g.\ \cite{Robertson}). Note that in order to get the desired u.a.r.\ sample the basis needs to be orthonormal. For the limb case we can safely assume that the rows of $A$ are linearly independent and hence the number of basis vectors is $n-m = r$.
 %\subsection{Removing inter-point dependence}
 %\label{sec_lengthrun}
 %As the function is recursive, any two successive points are not independent; therefore, we sample from our walk on $P$ by selecting every $m^{th}$ point to extract points which are distributed %uniformly-at-random across $P$, and are independent to eachother.
@@ -125,7 +124,7 @@ A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and 
 
 \subsection{Mixing Time}
 \label{sec_lengthrun}
-A%lthough an increasing sample size of consecutive points will converge upon the uniform distribution of the polytope, we want to ensure that consecutive points are independent. [discussthis]How many points do we need to record from Hit-and-Run to reach a representative distribution across the polytope? 
+%Although an increasing sample size of consecutive points will converge upon the uniform distribution of the polytope, we want to ensure that consecutive points are independent. [discussthis]How many points do we need to record from Hit-and-Run to reach a representative distribution across the polytope? 
 From a given starting point, how many steps of the Hit-and-Run method are necessary to reach a u.a.r.\ point? For convex polygons in higher dimensions up to $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
 In particular Emiris and Fisikopoulos paper suggest that $(10 + \frac{10}{n})n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}, while in Ge et al.'s paper every point of the Hit-and-Run algorithm is used in the sample \cite{Ge}. 
 %With the index finger model we collected a sample of [briantodo number] points.
@@ -134,7 +133,7 @@ In particular Emiris and Fisikopoulos paper suggest that $(10 + \frac{10}{n})n$ 
 \subsection{Realistic index finger model}
 \label{ss:finger}
 We used our published model in \cite{Valero-Cuevas1998Large} to find matrix $A \in \mathbb{R}^{4 \times 7}$, where $\textbf{a} \in \mathbb{R}^7$; the four degrees of freedom were ad-abduction, flexion-extension at the metacarpophalangeal joint, and flexion-extension at the proximal and distal interphalangeal joints.
-The force directions we simulated are visible in Figure \ref{fig:finger}. In this model, for each input we collected 1.000.000 points and sampled every 100th point. Our code only solves one linear equation to find the starting point, each step only needs time linear in the dimension. Therefore it can be used for other tendon driven models in higher dimension. [briantodo: please rephrase this crappy sentence] 
+The force directions we simulated are visible in Figure \ref{fig:finger}. In this model, for each input we collected 1.000.000 points and sampled every 100th point. Our code solves one linear equation to find the starting point, each subsequent step only needs time linear in the dimension. Therefore this method can be used for tendon driven models in higher dimension. [briantodo: please rephrase this crappy sentence] 
 
 \begin{figure}[htbp]
   \centering
@@ -146,9 +145,8 @@ The force directions we simulated are visible in Figure \ref{fig:finger}. In thi
 
 
 \subsection{Solution projection histograms}
-The visualization for the distribution of solutions over each muscles is given in the histogramms in Figure\ref{fig:raw_histograms}. Since the generated points are uniformly at random distributed, this gives a close approximation. %The resulting array of points $M$ can be thought of as a matrix, where each row is a point, and each column is a muscle's activation. With this, we can enter a column of this data into a histogram; importantly, this approach projects the density of points. This can be used to approximate the relative volume of different sections of $P$- by slicing (binning) from each muscle's dimension.
-
-Figure \ref{fig:raw_histograms} shows the activation distribution of each muscle, when activated with $50\%$ of the maximal activation force. In Section \ref{sub:activation_spaces_for_increasing_force} we consider the distributions for different forces into palmar direction.
+Figure \ref{fig:raw_histograms} shows the activation distribution of each muscle, when activated with $50\%$ of the maximal activation force. Aditionally to the Hit-and-Run algorithm we theoretically computed the maximum and minimum activation for each muscle for the given force (orange dotted lines). We observe that the theoretical bounds and observed bounds match for all muscles. %Since the generated points are uniformly at random distributed, this gives a close approximation. %The resulting array of points $M$ can be thought of as a matrix, where each row is a point, and each column is a muscle's activation. With this, we can enter a column of this data into a histogram; importantly, this approach projects the density of points. This can be used to approximate the relative volume of different sections of $P$- by slicing (binning) from each muscle's dimension.
+In Section \ref{sub:activation_spaces_for_increasing_force} we consider the distributions for different forces into palmar direction.
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.5\textwidth]{sections/figs/raw_histograms.png}
@@ -177,7 +175,7 @@ $l_2^w$            & $\sqrt{\sum_{i=1}^n (a_i F_{0i})^2}$                       
 $l_3^w$            & $\sqrt[3]{\sum_{i=1}^n (a_i F_{0i})^3}$                                    \\ \bottomrule
 \end{tabular}
 
-\caption{Cost functions and their usage, where $a_i$ and $F_{0i}$ represent a muscle's activation in a given solution and that muscles MIC, respectively.}
+\caption{Cost functions and their usage, where $a_i$ and $F_{0i}$ represent a muscle's activation in a given solution and that muscles MIC [briantodo: what is MIC?], respectively.}
 \label{cost_function_tabls}
 
 \end{table}
