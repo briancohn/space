@@ -46,3 +46,13 @@ source('src/R/fixed_alpha_muscle_histograms.R')
 fixed_alpha_muscle_histograms(fixed_db,0.5, abline_vals=max_alpha_solutions, num_muscles=7, outPath=figPath)
 source('src/R/activation_progressions.R')
 activation_progressions(csvlist_cutoff[1], columnNames=columnNames, NumMuscles = num_muscles, outPath=figPath)
+
+partial_fixed_db<- fixed_db
+half <- partial_fixed_db[,'alpha']==0.5
+colnames(partial_fixed_db) <- c("fdp", "fds", "eip", "edc", "lum", "di", "pi", "fx", "fy" , "fz", "tx", "alpha", "l1", "l2", "l3", "l1w", "l2w", "l3w")
+write.csv(partial_fixed_db[half,], 
+	file='src/parcoord/examples/data/Z_alphaProgression1430924065026only_fifty_percent.csv', 
+	row.names=FALSE,
+	sep=",",
+	quote=FALSE)
+

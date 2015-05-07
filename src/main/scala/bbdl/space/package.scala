@@ -14,15 +14,6 @@ package object MainClass {
       PointsPerAlpha = args(0).toInt
     }
     println("Currently Pointpicking")
-    println("starting x")
-    PointsFor(PointsPerAlpha, DenseVector(1.0,0.0,0.0,0.0), "X", 10, Tuple2(0.1,1.0)) //x direction
-    println("done w x")
-    println("starting y")
-    PointsFor(PointsPerAlpha, DenseVector(0.0,1.0,0.0,0.0), "Y", 10, Tuple2(0.1,1.0)) //y direction
-    println("done w y")
-    println("starting xy")
-    PointsFor(PointsPerAlpha, DenseVector(1.0,1.0,0.0,0.0), "XY", 10, Tuple2(0.1,1.0)) //xy direction
-    println("done w xy")
     PointsFor(PointsPerAlpha, DenseVector(0.0,0.0,1.0,0.0), "Z", 10, Tuple2(0.1,1.0)) //xy direction
     println("done w Z")
   }

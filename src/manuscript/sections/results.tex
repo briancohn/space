@@ -52,8 +52,21 @@ briantodo: add the following figures:
 
 \begin{figure}[htbp]
 \centering
+\includegraphics[width=\textwidth]{figs/parcoord_alpha50.pdf}
+\caption{This parallel coordinates plot visualizes each solution as a line, with intersections upon each axis, for each element of the vector. This is for a palmar force of 50\% of the computed maximal feasible force in this direction. This figure is a snapshot of the interactive platform for visualizing all solutions. Here we show 1000 points accrued from Hit and Run on a task of $\$alpha=0.5$. }
+\label{fig:parcoord_full}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
 \includegraphics[width=\textwidth]{figs/parcoords.pdf}
-\caption{These snapshots show the use of the interactive parallel coordinate visualization of solutions across the activation space. For the task set to 50\% of maximal in the palmar direction, we show all solutions (a), remaining [N] solutions when [mX]$<$ 50\% (b), remaining [N] solutions when [mX] $<$ 25\%, remaining [N] solutions when we select the bottom 50\% across an l2 cost function, remaining [N] solutions when we select the bottom 50\% across an l2-metabolic cost function, and remaining [N] solutions when we constrain mX, mY, mZ each to below 50\%. }
+\caption{These snapshots show the use of the interactive parallel coordinate visualization of solutions across the activation space. For the task set to 50\% of maximal in the palmar direction, we show the
+(a) remaining 166 solutions when PI $<$ 60\% 
+(b) remaining 57 solutions when DI $<$ 260\%, and the
+(c) remaining 57 solutions when we constrain PI $<$ 60\% and DI $<$ 260\%. We also show the
+(d) remaining 502 solutions when we select the lower 50\% of l1 costs,
+(e) remaining 498 solutions when we select the lower 50\% of l2w costs, and the
+(f) remaining 220 solutions when we select the lower 50\% across all cost functions in Table \ref{cost_function_tabls} }
 \label{fig:parcoords}
 \end{figure}
 
