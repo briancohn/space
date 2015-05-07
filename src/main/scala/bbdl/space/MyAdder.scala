@@ -580,6 +580,7 @@ object VectorScale {
     vector*scale
   }
 }
+
 /*
 warning- only works with positive numbers
  */
