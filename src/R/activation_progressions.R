@@ -50,7 +50,11 @@ marchPlot <- function(
 			if(plotxaxt){
 				axis(1, seq(0,1, length.out=5))
 				# solution_text('pido', val=mean(sample[,j]), 0.5, 50 )
-			} else {			
+			} else if (i==0.1) {
+				title(main=c("fdp", "fds", "eip", "edc", "lum", "di", "pi")[j])
+				abline(v=max(sample[,j]),col="#3F4878", lty=3)
+				abline(v=min(sample[,j]),col="#3F4878", lty=3)
+			} else	{		
 				abline(v=max(sample[,j]),col="#3F4878", lty=3)
 				abline(v=min(sample[,j]),col="#3F4878", lty=3)
 			}
