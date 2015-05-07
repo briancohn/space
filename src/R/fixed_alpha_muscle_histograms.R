@@ -12,8 +12,8 @@ fixed_alpha_muscle_histograms <- function (  db,
 	db <- db[maskAlpha8,]
 
 	#initialize the pdf for output
-	pdf(paste0(outPath, 'raw_histograms.pdf'), width=3.1, height=9)
-		par(mfrow=c(7,1),
+	pdf(paste0(outPath, 'raw_histograms.pdf'), width=3.1, height=4)
+		par(mfrow=c(4,2),
 			mar=c(1, 1.5, 1, 0),
 			mgp=c(0, 0.25, -0.25),
 			las=0
@@ -34,14 +34,14 @@ fixed_alpha_muscle_histograms <- function (  db,
 			myHistogram$counts <- myHistogram$counts*100.0/sum(myHistogram$counts)
 			plot(myHistogram, ylim=c(0.0,max(myHistogram$counts)),
 							ylab='',
-							 xlab="a",
-							 main=NULL,
+							 xlab="",
+							 main=c("fdp", "fds", "eip", "edc", "lum", "di", "pi")[i],
 							 col="#A13F25",
 							 lty="blank",
 							 tck=-0.01)
 			# Plot the observed bounds
-			abline(v=max(db[,i], na.rm=TRUE), col="darkorange",lwd=1.5, lty=2)
-			abline(v=min(db[,i], na.rm=TRUE), col="darkorange",lwd=1.5, lty=2)
+			abline(v=max(db[,i], na.rm=TRUE), col="darkorange",lwd=1.5, lty=3)
+			abline(v=min(db[,i], na.rm=TRUE), col="darkorange",lwd=1.5, lty=3)
 		}
 	dev.off()
 }
