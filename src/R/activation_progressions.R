@@ -1,3 +1,7 @@
+solution_text <- function (musclename, val, x, y ){
+	text(x = x, y = x, paste("a", "=", val),
+     cex = 1.6, col = "black")
+}
 #there must be a column called "alpha" that is accessible via _$alpha
 marchPlot <- function(
 	filename, 
@@ -45,11 +49,15 @@ marchPlot <- function(
 							 tck=-0.01)
 			if(plotxaxt){
 				axis(1, seq(0,1, length.out=5))
+				# solution_text('pido', val=mean(sample[,j]), 0.5, 50 )
+			} else {			
+				abline(v=max(sample[,j]),col="#3F4878", lty=3)
+				abline(v=min(sample[,j]),col="#3F4878", lty=3)
 			}
 			# lines(d, col="brown3", xlim= c(0.0,1.0))
 			# //Plot observed bounds
-			abline(v=max(sample[,j]),col="#3F4878")
-			abline(v=min(sample[,j]),col="#3F4878")
+
+			abline(a=0,b=0,col="#000000")
 		}
 	}
 }

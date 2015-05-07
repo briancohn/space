@@ -40,8 +40,8 @@ fixed_alpha_muscle_histograms <- function (  db,
 							 lty="blank",
 							 tck=-0.01)
 			# Plot the observed bounds
-			abline(v=max(db[,i], na.rm=TRUE), col="darkorange",lwd=1.5, lty=2)
-			abline(v=min(db[,i], na.rm=TRUE), col="darkorange",lwd=1.5, lty=2)
+			abline(v=max(db[,i], na.rm=TRUE), col="darkorange",lwd=1.5, lty=3)
+			abline(v=min(db[,i], na.rm=TRUE), col="darkorange",lwd=1.5, lty=3)
 		}
 	dev.off()
 }
