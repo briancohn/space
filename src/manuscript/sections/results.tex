@@ -57,6 +57,13 @@ To maintain realtime interactivity of the plot, we used only the first 1000 poin
 \label{fig:parcoord_full}
 \end{figure}
 
+On the histograms you can predict how many solutions would be lost if you put one constraint on one muscle. Parallel coordinates allow us to visualize not only the amount of solutions lost, but the location of the remaining solutions across the other muscle dimensions.
+
+Figure \ref{fig:parcoord_full} is a modified screen-shot of the platform, constrain activation for a given muscle or cost function from above, below, or both. The resulting number of lines represents how the solution space changed across all dimensions recorded.
+Note how alpha is also a constraint- we can explore each level of force output, or multiple at a time within a range of magnitude in the palmar direction.
+
+
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figs/parcoords.pdf}
@@ -69,6 +76,8 @@ To maintain realtime interactivity of the plot, we used only the first 1000 poin
 (f) remaining 220 solutions when we select the lower 50\% across all cost functions in Table \ref{cost_function_tabls} }
 \label{fig:parcoords}
 \end{figure}
+
+When ei is constrained below 60\% activation, we see that the bounding box of pi is significantly restricted; however, the same constraint has no effect on the bounding box of eip.
 
 discuss what happens when you bring each of those muscles down, using the R produced stats.
 talk about how when you add X as a constraint, most of the solutions are distributed across the other muscles between X and X. Say which ones go up, which go down- which ones become clustered and which ones lose their peak/spike.

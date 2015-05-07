@@ -32,6 +32,8 @@ what the exact pdf function would be \\
 \label{sec:cost_distributions}
 Yes in further studies we could put activation constraints directly in the A matrix, instead of bounds between 0 and 1. But there are no advantages to adding activation constraints beforehand in the A matrix, as sampling is uniform- as long as the resulting dataset is large enough for your purpose.
 You could also put l1 and weighted l1 cost bounds as constraints in the A matrix. Cannot put higher order cost functions such as l2,l3 or weighted l2,l3.
+
+We note that the activation and metabolic classes of cost function are fundamentally different, and do not explore correlations between these two classes. We do, however, note that when all of the involved cost functions are 'minimized' to the bottom half of all solution costs, the union maintains a very high number of solutions. With this we can note how all of these cost functions are similar in nature across the polytope (as expected).
 % subsection cost_distributions (end)
 
 \subsubsection{Concluding remarks} % (fold)
