@@ -36,7 +36,7 @@ First, we observe that a meaningful cross-muscle comparison of point distributio
 Second, we find this holds not only for inter-muscle distribution comparisons, but intra-muscular distributions. Consider the significant change in the shape of the distributions across the progression for edc until the 60\% task; the lower and upper bounds change less than 1\% and 4\%, respectively, while the median shifted by nearly 40\%.
 In the most extreme case, the median activation can be exceptionally narrow, while the bounds are wide- for example, eip at a 90\% task; although all solutions are bounded between 1\% and 81\%, the space between 0.49 and 0.51 house approximately 79\% of the solutions.
 
-Next, we see that if one muscle had to be fixed throughout the entire force progression, di and pi would fail; their bounding boxes at a 10\% task do not include the unique solution at 100\%. 
+Next, we see that if one muscle had to be fixed throughout the entire force progression, di and pi would fail; their bounding boxes at a 10\% task do not include the unique solution at 100\%. We also placed a vertical grey line for the scaled unique solution at maximal, linearly interpolated for the given alpha level (e.g. lum converges to an activation of 1 at maximal palmar force, so we put a grey line at 0.8 for 80\% of maximal palmar force.)
 
 \begin{figure}[htbp]
 \centering
@@ -46,9 +46,7 @@ Next, we see that if one muscle had to be fixed throughout the entire force prog
 \end{figure}
 % subsection activation_spaces_for_increasing_force (end)
 
-
 To maintain realtime interactivity of the plot, we used only the first 1000 points collected for each task, from 10\% to 100\%.
-\label{sub:parallel_coordinates}
 
 \begin{figure}[htbp]
 \centering
