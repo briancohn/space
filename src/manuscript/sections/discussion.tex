@@ -8,12 +8,12 @@ Our approximations show sufficiently accurate views of the polytope in slices pe
 Sohn et. al. have identified how the bounding box can illustrate the bounds of feasible activation; essentially reducing the effective number of solutions a neuromuscular system can select from \cite{sohn2013cat_bounding_box}. Our research here looks to further constrain this space by observing the cost-agnostic distribution of solutions across the set of all feasible coordination patterns.
 
 % subsection level_of_trust_of_the_polytope_approximation (end)
-\\subsection{Activation Progression} % (fold)
+\subsection{Activation Progression} % (fold)
 \label{sub:activation_progression}
 The only way that the bounding box would contain the entire set of information regarding a given muscle's activation distribution would be if that end effector is completely unaffected by any activation of that muscle i.e. the muscle's linear endpoint force is the 0 vector. As such, muscles which are nearly uninvolved in the end effector's actions will form near-uniform distributions, as their involvement does not affect the activation space.
 % subsection activation_progression (end)
 
-\\subsection{Features of the PDF} % (fold)
+\subsection{Features of the PDF} % (fold)
 \label{sub:features_of_the_pdf}
 why must they be \\
 unimodal\\
@@ -32,7 +32,6 @@ what the exact pdf function would be \\
 \label{sec:cost_distributions}
 Yes in further studies we could put activation constraints directly in the A matrix, instead of bounds between 0 and 1. But there are no advantages to adding activation constraints beforehand in the A matrix, as sampling is uniform- as long as the resulting dataset is large enough for your purpose.
 You could also put l1 and weighted l1 cost bounds as constraints in the A matrix. Cannot put higher order cost functions such as l2,l3 or weighted l2,l3.
-\\
 % subsection cost_distributions (end)
 
 \subsubsection{Concluding remarks} % (fold)
