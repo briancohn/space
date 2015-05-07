@@ -20,7 +20,6 @@ Talk about the function of each muscle, with respect to the moment arm matrix an
 The density integrals perpendicular to each muscle are provably unimodal due to the convexity [maytodo cite or add supporting evidence], and therefore it would be inadvisable to fit a normal distribution as the probability density function.
 % subsubsection density_projection_upon_one_dimension (end)
 
-
 \subsection{Activation spaces for increasing force} % (fold)
 \label{sub:activation_spaces_for_increasing_force}
 For maximal force into any direction, there is a unique activation vector satisfiying all constraint. The maximal force into palmar direction is given by ????? and its unique activation vector ????. [briantodo insert values]
@@ -43,20 +42,14 @@ The peaks seen in these figures refers to the perpendicular slice that has the l
 \end{figure}
 % subsection activation_spaces_for_increasing_force (end)
 
-\subsection{Parallel Coordinates} % (fold)
-\label{sub:parallel_coordinates}
-briantodo: add the following figures:
-\begin{itemize}
-	\item{parcoord Full}
-	\item{parcoord muscle limited to 75\%, then 50\%, then 25\% of its normalized maximal activation}
-	\item{parcoord cost limited to 25\% of costfn1, costfn2, costfn3}
-\end{itemize}
 
+To maintain realtime interactivity of the plot, we used only the first 1000 points collected for each task, from 10\% to 100\%.
+\label{sub:parallel_coordinates}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figs/parcoord_alpha50.pdf}
-\caption{This parallel coordinates plot visualizes each solution as a line, with intersections upon each axis, for each element of the vector. This is for a palmar force of 50\% of the computed maximal feasible force in this direction. This figure is a snapshot of the interactive platform for visualizing all solutions. Here we show 1000 points accrued from Hit and Run on a task of $\$alpha=0.5$. }
+\caption{This figure is a snapshot of the interactive platform for visualizing all solutions. This parallel coordinates plot visualizes, where each feasible activation set is strewn across each dimension's axis as a line. While alpha could be set to view all tasks, we set alpha to a palmar force of 50\% of the computed maximal feasible force in this direction. Here we show 1000 points accrued from Hit and Run on a task of $\$alpha=0.5$.}
 \label{fig:parcoord_full}
 \end{figure}
 
