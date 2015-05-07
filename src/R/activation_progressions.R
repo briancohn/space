@@ -17,6 +17,7 @@ marchPlot <- function(
 	total_num_alpha_steps <- length(alphavals)
 	par(mfcol=c(total_num_alpha_steps,NumMuscles))
 	par(mar=c(0.8,1,1,1))
+
 	for (j in seq(1, NumMuscles)) {
 		for (i in alphavals) {
 			if(i == tail(alphavals, n=1)) {
@@ -28,14 +29,7 @@ marchPlot <- function(
 			print(paste('muscle',j, 'at alphaval', i ))
 			print(summary(sample[,j]))
 			d <- density(sample[,j])
-			myHistogram <- hist(sample[,j], xlab="", ylab="",
-				col="#A13F25", 
-				main=paste(colnames(db)[j], "a=", i), 
-				cex.axis=0.5, 
-				xlim = c(0.0,1.0), 
-				bty="n",
-				lty="blank",
-				freq=FALSE,
+			myHistogram <- hist(x=sample[,j],
 				plot=FALSE,
 				breaks=seq(0.0,1.0,length.out=50))
 			myHistogram$counts <- myHistogram$counts*100.0/sum(myHistogram$counts)
@@ -47,14 +41,18 @@ marchPlot <- function(
 							 col="#A13F25",
 							 lty="blank",
 							 tck=-0.01)
+			soln_at_maximal <- mean(db[which(abs(db$alpha-1.0) <0.001),][,j])
+			scaled_sln <- soln_at_maximal*i
 			if(plotxaxt){
 				axis(1, seq(0,1, length.out=5))
 				# solution_text('pido', val=mean(sample[,j]), 0.5, 50 )
 			} else if (i==0.1) {
 				title(main=c("fdp", "fds", "eip", "edc", "lum", "di", "pi")[j])
+				abline(v=scaled_sln, col="grey", lwd=1)
 				abline(v=max(sample[,j]),col="#3F4878", lty=3)
 				abline(v=min(sample[,j]),col="#3F4878", lty=3)
 			} else	{		
+				abline(v=scaled_sln, col="grey", lwd=1)
 				abline(v=max(sample[,j]),col="#3F4878", lty=3)
 				abline(v=min(sample[,j]),col="#3F4878", lty=3)
 			}

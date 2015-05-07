@@ -53,7 +53,6 @@ colnames(partial_fixed_db) <- c("fdp", "fds", "eip", "edc", "lum", "di", "pi", "
 write.csv(partial_fixed_db[half,], 
 	file='src/parcoord/examples/data/Z_alphaProgression1430924065026only_fifty_percent.csv', 
 	row.names=FALSE,
-	sep=",",
 	quote=FALSE)
 
 source('src/R/scattercost.R')
