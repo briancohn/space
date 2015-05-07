@@ -5,7 +5,23 @@
 
 Our approximations show sufficiently accurate views of the polytope in slices perpendicular to each axis. Had we performed exact volume computations, we would have had more accurate relative volumes; that said, the level of error generated through approximation is exceptionally small in comparison to error derived from measuring/predicting the musculoskeletal parameters to define the force generators $A$. Our code only solves one linear equation to find the starting point, and the time-cost of each point thereafter is linear; therefore this method can be used for tendon driven models in very high-dimensional systems.
 
+Sohn et. al. have identified how the bounding box can illustrate the bounds of feasible activation; essentially reducing the effective number of solutions a neuromuscular system can select from \cite{sohn2013cat_bounding_box}. Our research here looks to further constrain this space by observing the cost-agnostic distribution of solutions across the set of all feasible coordination patterns.
+
 % subsection level_of_trust_of_the_polytope_approximation (end)
+\\subsection{Activation Progression} % (fold)
+\label{sub:activation_progression}
+The only way that the bounding box would contain the entire set of information regarding a given muscle's activation distribution would be if that end effector is completely unaffected by any activation of that muscle i.e. the muscle's linear endpoint force is the 0 vector. As such, muscles which are nearly uninvolved in the end effector's actions will form near-uniform distributions, as their involvement does not affect the activation space.
+% subsection activation_progression (end)
+
+\\subsection{Features of the PDF} % (fold)
+\label{sub:features_of_the_pdf}
+why must they be \\
+unimodal\\
+non-normal\\
+non-uniform (talk about the exception(s))\\
+what the exact pdf function would be \\
+	a piecewise quadratic equation, where it changes when you incorporate/exclude vertices of the polytope
+% subsection features_of_the_pdf (end)
 
 \subsection{Parallel coordinate slopes} % (fold)
 \label{sec:parallel_coordinate_slopes}
@@ -40,7 +56,7 @@ As many tasks are similar (ie. they require the similar force generation or torq
 Optimal coordination strategies for one task may be near-optimal for a similar task.
 On the other hand, a suboptimal coordination strategy that achieves one task, may be furiously off-target for a very similar task.
 
-
+intention --> excitation --> activation dynamics --> contraction properties --> muscle properties with muscle models --> musculoskeletal force on the bones, joints, and finally, endpoint force. Long chain and we only look at 2 parts.
 
 % subsubsection concluding_remarks (end)
 

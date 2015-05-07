@@ -13,8 +13,7 @@
 Using Hit-and-Run to sample feasible activation sets, Figure \ref{fig:raw_histograms} shows the distributions of activation solutions for a palmar submaximal force resulting from [briantodo number] solutions computed with Hit-and-Run sampling. This is the first time (to our knowledge) that the internal structure of the feasible activation set has been visualized for a sub-maximal force.
 Notice also that the lower and upper bounds of the activations (i.e., the dashed lines that indicate their bounding box), are uniquely uninformative of the actual density of distribution of feasible activations. Note also that the activation needed for the maximal force output (thick gray line) is very often not the mode of the activations at [briantodo select correct number]50\%[maytodo: can we set this as a variable and use throughout?] of output.
 \\
-This figure shows ... [briantodo]
-talk about what the bounds mean with respect to the upper and lower bounds.
+
 Talk about the function of each muscle, with respect to the moment arm matrix and the relevant cell of the A matrix.
 
 The density integrals perpendicular to each muscle are provably unimodal due to the convexity [maytodo cite or add supporting evidence], and therefore it would be inadvisable to fit a normal distribution as the probability density function.
@@ -25,14 +24,29 @@ The density integrals perpendicular to each muscle are provably unimodal due to 
 For maximal force into any direction, there is a unique activation vector satisfiying all constraint. The maximal force into palmar direction is given by ????? and its unique activation vector ????. [briantodo insert values]
 In Figure \ref{fig:XY_progression} we give the distributions of the activations for increasing force, starting with $10\%$ of the maximal force, increasing in $10\%$ steps until maximal force is reached.
 
-[1. briantodo generate pdfs as separate pages]
-[briantodo write about how they are skewed, constrained, etc. Produce stats for each of the histograms and superimpose the data temporarily so you can write about it]
-
 The solution polytope converges as the difficulty of the task increases; the rate of convergence is different across muscles. For some muscles (such as X and Y) the convergence only occurs in the last [briantodo insert maximal feasible palmar force * 0.90], while others converge earlier-in lower forces of maximal (X and Y are examples of this)[briantodo fill out these descriptive statistics].
 
-It is imperative to keep in mind that every histogram (regardless of its convergence) is composed of the distribution of all 10,000 points; when the distribution is compressed, the relative percentage of the bars will increase, as we made break width ($\Delta x$) remain constant to 2\% of maximal contraction. [briantodo cite http://library.msri.org/books/Book31/files/ball.pdf]
+It is imperative to keep in mind that every histogram (regardless of its convergence) is composed of the distribution of all 10,000 points; when the distribution is compressed, the relative percentage of the bars will increase, as we fixed break width ($\Delta x$) remain constant to 2\% of maximal contraction. [briantodo cite http://library.msri.org/books/Book31/files/ball.pdf]
 
-The peaks seen in these figures refers to the perpendicular slice that has the largest area. %the highest number of points, and therefore has the highest volume (relative to the other parts).
+\subsection{Distribution unimodal peak} % (fold)
+\label{sub:distribution_unimodal_peak}
+
+The peaks seen in these figures is the perpendicular slice that has the largest relative area; within the same muscle it does not have to be symmetric between the bounds, and can shift over differing tasks. As expected, the unique solution at 100\% activation appears as a single peak representing 100\% of the sampled points; the bounds and the muscle's unique activation are superimposed. We explain why these distributions must be unimodal, non-normal, more formally in the discussion, along with information about the structure of the probability density function across a given muscle dimension. Consider the activation distributions between 70\%and 80\% for lum, where the median changed by less than 4\% while the lower bound increased by nearly 13\%.
+% subsection distribution_unimodal_peak (end)
+
+\subsection{Cross-muscle comparisons with bounding boxes} % (fold)
+\label{sub:cross_muscle_comparisons_with_bounding_boxes}
+First, we observe that a meaningful cross-muscle comparison of point distributions cannot be ascertained by the bounding box. For example, at a task of 10\% of maximal palmar force production, epi and edc both have lower and upper bounds of 0, and 1, respectively, yet their distributions are thoroughly distinct; the shape of eip is more symmetric (lower 25\%, median, upper 75\%: 0.36, 0.5029, and 0.62), while 75\% of the solutions sampled have edc higher than 0.74\ref{fig:Z_progression}. 
+Second, we find this holds not only for inter-muscle distribution comparisons, but intra-muscular distributions. Consider the significant change in the shape of the distributions across the progression for edc until the 60\% task; the lower and upper bounds change less than 1\% and 4\%, respectively, while the median shifted by nearly 40\%. In the most extreme case, the median activation can be exceptionally narrow, while the bounds are wide- for example, eip at a 90\% task; although all solutions are bounded between 1\% and 81\%, the space between 0.49 and 0.51 house approximately 79\% of the solutions.
+% subsection cross_muscle_comparisons_with_bounding_boxes (end)
+
+Next, we see that if one muscle had to be fixed throughout the entire force progression, di and pi would fail; their bounding boxes at a 10\% task do not include the unique solution at 100\%. 
+
+
+
+Second, we 
+
+Second
 
 \begin{figure}[htbp]
 \centering
@@ -68,5 +82,7 @@ To maintain realtime interactivity of the plot, we used only the first 1000 poin
 
 discuss what happens when you bring each of those muscles down, using the R produced stats.
 talk about how when you add X as a constraint, most of the solutions are distributed across the other muscles between X and X. Say which ones go up, which go down- which ones become clustered and which ones lose their peak/spike.
+
+We found that the unweighted l1,l2,and l3 cost functions for the finger were highly correlated with one another, and the weighted functions were similarly correlated, and provide a scatter plot for their relationships in Appendix Figures \ref{fig:unweighted_cost_functions} and \ref{fig:weighted_cost_functions}.
 
 % subsection parallel_coordinates (end)
