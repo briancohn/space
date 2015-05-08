@@ -3,21 +3,24 @@
 
 Muscle redundancy is the term used to describe the underdetermined nature of neural control of musculature.
 The classical notion of muscle redundancy  proposes that, faced with an infinite number of possible muscle activation patterns for a given task, the nervous system optimizes in some fashion to select one solution.
-Here, each of $n$ muscles represents a dimension of control on an end effector, and at any moment of a task, a muscle activation pattern exists as a point in $[0,1]^n$,--- the $n$-dimensional hypercube --- where each muscle's maximal activation is normalized to $1$ \cite{Valero-Cuevas1998Large}.
+Here, each of $n$ muscles represents a dimension of control on an end effector, and at any moment of a task, a muscle activation pattern exists as a point in $[0,1]^n$,--- the $n$-dimensional unit hypercube ($n$-cube) --- where each muscle's maximal activation is normalized to $1$ \cite{Valero-Cuevas1998Large}.
 Thus researchers often seek to infer the optimization approach and the cost functions the nervous system utilizes to select effective points in activation space to produce natural behavior \cite{Chao1978Graphical,Prilutsky2000Muscle,scott2004optimal,todorov2002optimal,crowninshield1981physiologically,higginson2005simulated}. 
 
 Implicit in these optimization procedures is the notion that there exists a well structured set of feasible solutions. Thus several of us have focused on describing and understanding those high-dimensional subspaces  embedded in $[0,1]^n$ (see Methods) \cite{kutch2011muscle,kutch2012challenges,sohn2013cat_bounding_box,Valero-Cuevas1998Large,Valero-Cuevas2015high-dimensional}.
 
 For the case of static force production with a limb, the muscle redundancy problem is phrased in computational geometry: Find the structure of the set of all feasible muscle activations, given the limb mechanics and the task constraints \cite{avis1992Pivoting,Valero-Cuevas1998Large,Valero-Cuevas2009mathematical,Valero-Cuevas2015high-dimensional}. We aim to explore what the solution space looks like, and uncover the structure of the feasible activation space for given static force tasks.
-If each muscle's maximal activation is normalized to 1, the constraint $\textbf{a} \in [0,1]^n$ describes that the feasible activation space lies in the $n$-dimensional unit hypercube (also called the $n$-cube).%; the activation space for the index finger is within the unit $7$-cube.
 
 \subsection{High dimensionality difficulties}
-Consider a model of a static fingertip force, with 7 muscles arculating the index finger's 4 degrees of freedom (DoF), which will be further described in Section \ref{ss:finger}.
-Assuming independent control of each muscle (non-synergistic model), each muscle has a unique force vector at the endpoint; the end effector has 7 unique vectors it can linearly combine to generate any vector of static force.
+Consider a model of a static fingertip force, with 7 muscles articulating the index finger's 4 degrees of freedom (DOF), which will be further described in Section \ref{ss:finger}.
+Assuming independent control of each muscle (non-synergistic model), each muscle has a unique force vector at the endpoint (i.e.\ the fingertip has 7 unique vectors it can linearly combine to generate any vector of static force).
 This yields a unit $7$-cube in charge of producing a 4-dimensional output wrench.
-On order to uncover the structure and relationship of these spaces, we cannot visualize all dimensions simultaneously. %as we could with a simple 3-muscle model.
+In order to uncover the structure and relationship of these spaces, we cannot visualize all dimensions simultaneously. %as we could with a simple 3-muscle model.
 
-The solution of the above system is a convex polytope is called the \emph{feasible activation set} (see Section \ref{s:methods}). To date, the structure of this high-dimensional polytope is inferred by its bounding box  \cite{kutch2011muscle,sohn2013cat_bounding_box,Valero-Cuevas2015high-dimensional}.  But the bounding box of a convex polytope excludes the details of its shape, thereby precluding comparison, since the polytope is a lower dimensional object embedded into $[0,1]^n$.  Empirical dimensionality-reduction methods have also been used to calculate a basis vectors for such subspaces \cite{Clewley2008Estimating,davella2005shared,krishnamoorthy2003muscle}. But those basis  vectors only provide a description of the dimension, orientation, and aspect ratio of the polytope, but not of its boundaries or internal  structure.
+The solution of the above system is a convex polytope is called the \emph{feasible activation set} (see Section \ref{s:methods}).
+To date, the structure of this high-dimensional polytope has inferred by computing its bounding box, which is the maximum and minimum activation of muscles for a given output force \cite{kutch2011muscle,sohn2013cat_bounding_box,Valero-Cuevas2015high-dimensional}.
+But the bounding box of a convex polytope excludes the details of its shape, thereby precluding comparison, since the polytope is a lower dimensional object embedded into $[0,1]^n$.
+Empirical dimensionality-reduction methods have been used to calculate basis vectors for such subspaces \cite{Clewley2008Estimating,davella2005shared,krishnamoorthy2003muscle},
+but this approach only provides a description of the dimension, orientation, and aspect ratio of the polytope; basis vectors are uninformative of boundaries and internal structure.
 
 Here we present a novel application of the well-known Hit-and-Run algorithm \cite{smith1984efficient} to describe the internal structure of these high-dimensional feasible activation sets (see Section \ref{ss:hitrun}). The input to Hit-and-Run procedure is a task force, along with the system's endpoint Jacobian, maximal tendon forces, and a moment arm matrix \cite{Valero-Cuevas2009mathematical}.
 
@@ -27,14 +30,21 @@ We applied our approach to two separate musculoskeletal models:
 
 2. A realistic model, with seven muscles articulating four DOFs, and four dimensional output force \cite{Valero-Cuevas1998Large}.
 
-With this, below are the key ideas and findings we present with this paper:
-
+With this, below are the key observations we identified with our research:
 \begin{itemize}
-\item {The high-dimensional space serving as a Bayesian prior posterior probability distribution is highly structured.}
-\item {The bounding box exceptionally misconstrues the actual shape of the feasible activation space.}
-\item {Our approach provides a more granular context to the space within which the central nervous system optimizes.}
-\item {Hit-and-Run sampling of the solution space is computationally tractable.}%; fewer than ten thousand points uncovered the shape of the distributions.}
+\item {Hit-and-Run sampling of the solution space is computationally tractable.}
 \item {We apply six different cost functions (post-hoc) to all solutions, thereby providing spatial context to where 'optimal' solutions lie within the space.}
 \item {We designed an interactive parallel coordinates platform for visualizing and manipulating constraints to the solution space, such as muscle dysfunction, muscle hyperactivity, as well as constraining the upper and lower bounds for six different cost functions. We can compare cost functions side-by-side and view subsets of the dataset after applying cost function constraints. }
+\end{itemize}
+
+With trespect to the structure of the activation space, we set forth the following key ideas and findings:
+\begin{itemize}
+\item {Submaximal activation patterns do not scale linearly from the unique solution}
+\item {Our approach provides a more granular context to the space within which the central nervous system optimizes.}
+\item {The bounding box exceptionally misconstrues the actual shape of the feasible activation space.}
+
+and most importantly,
+\begin{itemize}
+\item {The high-dimensional space, which serves as the landscape upon which all Bayesian priors exist, is a remarkably shallow space within which to optimize. We provide substantial theoretical and experimental evidence suggesting that the 'dynamics' of neuromechanical evolution and learning are heavily constrained and defined by the simple statics.}
 \end{itemize}
 
