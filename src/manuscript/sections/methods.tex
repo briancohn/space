@@ -1,10 +1,14 @@
 \section{METHODS}
 \label{s:methods}
-In the case of a tendon-driven limb with $n$ muscles, the feasible activation space is the unit $n$-hypercube (as muscles can only be activated positively from 0 to a maximal normalized value of 1). As explained in \cite{Valero-Cuevas2009mathematical}, when task constraints are introduced to the system, the feasible activation set is further reduced; in this context, a task is a static force vector produced at the endpoint of the limb, which is represented as a set of inequality and equality constraints. Thus if this simple limb meets all constraints, the feasible activation set is given by the polytope $P$ containing all $a \in \mathbb{R}^n$, that satisfy
+For a tendon-driven limb with $n$ muscles, the feasible activation space is the unit $n$-hypercube (as muscles can only be activated positively from 0 to a maximal normalized value of 1). As explained in \cite{Valero-Cuevas2009mathematical}, when task constraints are introduced to the system, the feasible activation set is further reduced; in this context, a task is a static force vector produced at the end effector, which is imposed as a constraint on the limb's options in activating its muscles. Thus if this limb meets all constraints, the feasible activation set is given by the polytope $P$ containing all $\textbf{a} \in \mathbb{R}^n$, that satisfy
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
-where $\textbf{f} \in \mathbb{R}^m$ is a fixed output force vector and $A = J^{-T}RF_o \in \mathbb{R}^{m \times n}$--- where $J$, $R$ and $F_0$ are the matrices of the Jacobian of the limb, the moment arms of the tendons, and the strengths of the muscles, respectively \cite{Valero-Cuevas1998Large,Valero-Cuevas2009mathematical}. 
-$P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are in the interval $[0,1]$. Each constraint of $\textbf{f}= A \textbf{a}$, is a hyperplane in $n-1$ dimensions. If $\textbf{f}$ is a is a feasible submaximal output force and there are no linear depenencies on the constraints, the feasible activation set is a $(n-m)$-dimensional space embedded into the $n$-dimensional unit cube. Note that in our applications, it is safe to assume that no linear dependencies exist.
-Consider the following $1 \times 3$ fabricated example, where the task is a 1N unidimensional force. The set of feasible activations is given by the shaded set in Figure \ref{fig:fig_hr}. Since there are three muscles and one constraint the output space is of dimension $3-1 = 2$.
+where $\textbf{f} \in \mathbb{R}^m$ is a fixed output force vector and $A = J^{-T}RF_o \in \mathbb{R}^{m \times n}$--- where $J$, $R$ and $F_0$ are the matrices of the Jacobian of the limb, the moment arms of the tendons, and the strengths of the muscles, respectively \cite{Valero-Cuevas1998Large,Valero-Cuevas2009mathematical}.
+The dimensionality of output force $m$ is typically at most 6-dimensional (with force and torque, each in 3 dimensions), and tends to be much smaller than $n$.
+$P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are in the interval $[0,1]$. Each constraint of $\textbf{f}= A \textbf{a}$, is a hyperplane in $n-1$ dimensions.
+If $\textbf{f}$ is a feasible submaximal output force, the feasible activation set is a $(n-m)$-dimensional space embedded into the $n$-cube.
+Note that in our applications, it is safe to assume that no linear dependencies exist.
+Consider the following $1 \times 3$ fabricated example, where the task is a +1N unidimensional force in $x$. The set of feasible activations is given by the shaded set in Figure \ref{fig:fig_hr}. Since there are three muscles and one constraint the output space is of dimension $(3-1) = 2$.
+Although synergies would be conducive to implement into this model, we do not explore this here.
 \begin{align*}
 &1 = \frac{10}{3}a_1 - \frac{53}{15}a_2 + 2a_3 \\
 &a_1, a_2, a_3 \in [0,1],
@@ -29,26 +33,26 @@ Consider the following $1 \times 3$ fabricated example, where the task is a 1N u
 
 \subsection{Difficulties of Volume Computation in Higher Dimension}
 
-Exact volume computations for polytopes is known to be $\#P$-hard \cite{Dyer}. Several algorithms have been surveyed and implemented, but can only handle up to 10 dimensions \cite{Bueler2}.  
+We are interested in the volume and shape of $P$, but exact volume computations for polytopes is known to be $\#P$-hard \cite{Dyer}. Several algorithms have been surveyed and implemented, but can only handle up to 10 dimensions \cite{Bueler2}.  
 %We aimed to compare the relative volumes of different sections of the activation space; however, exact volume computations are computationally intractable in dimensions beyond [maytodo cite]. 
 Recent muscle system models we have used have been 31 dimensional \cite{Valero-Cuevas2015high-dimensional}, and other muscle models have over 40 muscles involved \cite{arnold2010model, kutch2012challenges, hamner2010muscle, de2014human}, thereby limiting the feasibility of using direct volume computations. Instead, we chose to uniformly sample the continuous space, effectively approximating the shape of the polytope by calculating point densities. %[maytodo mention whether the volume computation is a closed-form solution]
 
 \subsection{Hit-and-Run algorithm}
 \label{ss:hitrun}
-We chose to sample the activation space with the Hit-and-Run method that is known to converge to the uniform distribution across an< convex body $K$ \cite{smith1984efficient}.
-It is a generalization of the discrete Markov chains and recursively samples a sequence of points in $K$ as described below.
-The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $r$ and $R$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}.
+We chose to sample the activation space with the Hit-and-Run method that is known to converge to the uniform distribution across any convex body $K$ \cite{smith1984efficient}.
+It is a generalization of a discrete Markov chain, which recursively samples a sequence of points in $K$ as described below.
+The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $r$ and $R$ are the radii of the inscribed and circumscribed ball of $K$ respectively \cite{Dyer, Lovasz}.
 I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps, the Hit-and-Run algorithm has sampled a point uniformly at random (u.a.r.) in $K$.
-Unfortunately the hidden constant is large, which makes the problem practically almost infeasible.
-However experimental results suggest that a number of points linear w.r.t.\ to the dimension suffices; this will be discussed in Section \ref{sec_lengthrun}.
+Unfortunately the hidden constant is large, which makes the problem practically infeasible.
+However experimental results suggest that a number of points linear w.r.t.\ to the dimension suffices(as discussed in Section \ref{sec_lengthrun}).
 As the feasible activation space of the muscles are given by a convex polytope, this method can be directly applied for our problem.
-We chose Hit-and-run because of its easy structure and mixing guarantee; however, it would be interesting to compare Hit-and-Run with the Grid Walk or Ball walk (similar sampling paradigms) \cite{Vempala}.
+We chose Hit-and-run because of its easy structure and mixing guarantee; however, it would be interesting to compare Hit-and-Run with the Grid Walk, Ball walk, or other sampling paradigms \cite{Vempala}.
 
 The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any convex body):
 \begin{enumerate}
-\item Find a starting point $\textbf{p}$ of $P$. %(Figure \ref{fig:hitruncube}a) .
+\item Find a starting point $\textbf{p}$ of $P$.
 \item Generate a random direction from $\textbf{p}$ in $P$ (uniformly at random over all directions) (Figure \ref{fig:hitruncube}a).
-\item Find the intersection points of the random direction with the boundary of the polytope (Figure \ref{fig:hitruncube}b).
+\item Find the intersection points of the line given by the random direction $q$ with the boundary of the polytope (Figure \ref{fig:hitruncube}b).
 \item Choose a point u.a.r.\ on this line segment given by the intersection points (Figure \ref{fig:hitruncube}c). 
 \item Repeat from $2.$ the above steps with the new point as the starting point .
 \end{enumerate}
@@ -70,7 +74,8 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \subsection{Implementation of Hit-and-Run}
 To find a starting point in $P$, the polytope given by
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
-we only need to find a feasible activation vector. For the Hit-and-Run algorithm to mix faster we want the starting point not close to a vertex of the polytope \cite{Lovasz}. %centrally located point within the polytope- that way, the early points will not be clustered in a corner [maytodo cite]. 
+we only need to find a feasible activation vector.
+For the Hit-and-Run algorithm to mix faster we don't want the starting point to be close to a vertex of the polytope \cite{Lovasz}. %centrally located point within the polytope- that way, the early points will not be clustered in a corner [maytodo cite]. 
 We use the following standard trick with slack variables $\epsilon_i$, which for applications often gives a good starting point.% to select a point where activations $a_i$ for all muscles are far from 0 and 1, thereby finding a solution central within $P$ [maytodo cite the use of slack variables to improve mixing time].
 
 \begin{equation}\label{eq:LP_r}
