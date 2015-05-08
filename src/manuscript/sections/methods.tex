@@ -36,10 +36,7 @@ Recent muscle system models we have used have been 31 dimensional \cite{Valero-C
 \subsection{Hit-and-Run algorithm}
 \label{ss:hitrun}
 We chose to sample the activation space with the Hit-and-Run method that is known to converge to the uniform distribution across an< convex body $K$ \cite{smith1984efficient}. It is a generalization of the discrete Markov chains and recursively samples a sequence of points in $K$ as described below. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $r$ and $R$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps, the Hit-and-Run algorithm has sampled a point uniformly at random (u.a.r.) in $K$. Unfortunately the hidden constant is large, which makes the problem practically almost infeasible. However experimental results suggest that a number of points linear w.r.t.\ to the dimension suffices; this will be discussed in Section \ref{sec_lengthrun}.
-As the feasible activation space of the muscles are given by a convex polytope, this method can be directly applied for our problem. Notably, there are other methods which sample uniformly, such as the Grid Walk or Ball walk \cite{Vempala}. We chose the Hit-and Run because of its easy structure and mixing guarantee, however it would be interesting to compare with other methods.  %we chose Hit-and-Run because of [maytodo insert some other sampling paradigmns and our justification for Hit and run (include the Metropolis Hastings algorithm, Gibbs sampling?)].
-
-%[maytodo mention whether hit and run is a closed form solution]
-%Hit-and-Run is a method used to uniformly sample a convex body \cite{smith1984efficient}. As the set of all feasible activations is defined by the mechanics of the limb and the constraints of the task (described in \ref{ss:finger}), we decided to use Hit-and-run to sample muscle activation solutions from the polytope $P$. We refer to each sample from $P$ as a 'point' $p \in [0,1]^n$.
+As the feasible activation space of the muscles are given by a convex polytope, this method can be directly applied for our problem. Notably, there are other methods which sample uniformly, such as the Grid Walk or Ball walk \cite{Vempala}. We chose the Hit-and Run because of its easy structure and mixing guarantee, however it would be interesting to compare with other methods.
 
 The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any convex body):
 \begin{enumerate}
@@ -160,5 +157,5 @@ $l_3^w$            & $\sqrt[3]{\sum_{i=1}^n (a_i F_{0i})^3}$                    
 \end{table}
 
 Six additional vertical lines were added to the parallel coordinates plot to represent each cost function. With the same parallel coordinates framework as developed with muscle activation, we can restrict and subset solutions which fall into desired cost-function ranges, thereby masking sub-optimal solutions and highlighting only those meeting the criteria.
-For a given point $\textbf{a} \in \mathbb{R}^n$ we are interested in the associated cost of every solution collected through Hit and Run.
+For a given point $\textbf{a} \in \mathbb{R}^n$ we are interested in the associated cost of every solution collected through Hit-and-Run.
 We developed and tested our code in  Ubuntu 14.04, Windows 8.1, and OSX Yosemite, using Scala 2.11.6 [briantodo cite] for our implementation of Hit-and-Run, R 3.1.3 [briantodo cite] for histograms and plots, and using Sygmatic Parcoord[briantodo cite] and d3.js[briantodo cite] for our interactive parallel coordinate visualization. All code used to develop this publication is readily available at https://github.com/bcohn12/space.
