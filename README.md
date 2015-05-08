@@ -1,6 +1,7 @@
 # space
 [![Build Status](https://travis-ci.org/bcohn12/space.svg?branch=master)](https://travis-ci.org/bcohn12/space)
 [![Build Status](https://semaphoreci.com/api/v1/projects/a45fbc4a-ee80-4f0c-91c5-61ddffa1cad9/416002/badge.svg)](https://semaphoreci.com/bcohn12/space)      
+[![Codacy Badge](https://www.codacy.com/project/badge/df8cbf6a225249ae9619b25cc613f0e8)](https://www.codacy.com/app/brian_cohn14/space)
 
 [![PDF Status](https://www.sharelatex.com/github/repos/bcohn12/space/builds/latest/badge.svg)](https://www.sharelatex.com/github/repos/bcohn12/space/builds/latest/output.pdf)
 ####Problem statement:
