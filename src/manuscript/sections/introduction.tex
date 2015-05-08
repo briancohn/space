@@ -19,8 +19,7 @@ On order to uncover the structure and relationship of these spaces, we cannot vi
 
 The solution of the above system is a convex polytope is called the \emph{feasible activation set} (see Section \ref{s:methods}). To date, the structure of this high-dimensional polytope is inferred by its bounding box  \cite{kutch2011muscle,sohn2013cat_bounding_box,Valero-Cuevas2015high-dimensional}.  But the bounding box of a convex polytope excludes the details of its shape, thereby precluding comparison, since the polytope is a lower dimensional object embedded into $[0,1]^n$.  Empirical dimensionality-reduction methods have also been used to calculate a basis vectors for such subspaces \cite{Clewley2008Estimating,davella2005shared,krishnamoorthy2003muscle}. But those basis  vectors only provide a description of the dimension, orientation, and aspect ratio of the polytope, but not of its boundaries or internal  structure.
 
-Here we present a novel application of the well-known Hit-and-Run algorithm \cite{smith1984efficient} to describe the internal structure of these high-dimensional feasible activation sets (see Section \ref{ss:hitrun}.
-The input to Hit-and-Run procedure is a task force, along with the system's endpoint Jacobian, maximal tendon forces, and a moment arm matrix \cite{Valero-Cuevas2009mathematical}.
+Here we present a novel application of the well-known Hit-and-Run algorithm \cite{smith1984efficient} to describe the internal structure of these high-dimensional feasible activation sets (see Section \ref{ss:hitrun}). The input to Hit-and-Run procedure is a task force, along with the system's endpoint Jacobian, maximal tendon forces, and a moment arm matrix \cite{Valero-Cuevas2009mathematical}.
 
 We applied our approach to two separate musculoskeletal models:
 
