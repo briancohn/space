@@ -6,8 +6,7 @@
 
 
 Using Hit-and-Run to sample feasible activation sets, Figure \ref{fig:raw_histograms} shows the distributions of activation solutions for a palmar submaximal force resulting from [briantodo number] solutions computed with Hit-and-Run sampling. This is the first time (to our knowledge) that the internal structure of the feasible activation set has been visualized for a sub-maximal force.
-Notice also that the lower and upper bounds of the activations (i.e., the dashed lines that indicate their bounding box), are uniquely uninformative of the actual density of distribution of feasible activations. Note also that the activation needed for the maximal force output (thick gray line) is very often not the mode of the activations at [briantodo select correct number]50\%[maytodo: can we set this as a variable and use throughout?] of output.
-\\
+Notice also that the observed lower and upper bounds of the activations (i.e., the dashed lines that indicate their bounding box), are uniquely uninformative of the actual density of distribution of feasible activations.
 
 Talk about the function of each muscle, with respect to the moment arm matrix and the relevant cell of the A matrix.
 
@@ -17,22 +16,24 @@ The density integrals perpendicular to each muscle are provably unimodal due to 
 \subsection{Activation spaces for increasing force} % (fold)
 \label{sub:activation_spaces_for_increasing_force}
 For maximal force into any direction, there is a unique activation vector satisfiying all constraints.
-In Figure \ref{fig:Z_progression} we give the distributions of the activations for increasing force, starting with $10\%$ of the maximal force, increasing in $10\%$ steps until maximal force is reached.
+In Figure \ref{fig:Z_progression} we give the distributions of the activations for increasing force, starting with $\alpha=0.1$($10\%$ of the maximal force), and increasing $\alpha$ by $0.1$ until maximal force is reached.
+This way, we can track the change in the distributions of a given muscle's activations by following its column from top to bottom.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figs/Z_alphaProgression1430924065026.pdf}
 \caption{Distribution of activations in the palmar direction and changing force. Each row of histograms uses a Hit-and-Run set. The height of each bar visualizes the percentage of 10,000 solutions found within a given 0.02 span of activation; the shape is more meaningful than the magnitude of the $y$-axis, as we expect convergence (and therefore peak increase within few bins) towards maximal contractions. We computed the upper and lower bounds of activation for each muscle (vertical dotted lines).}
 \label{fig:Z_progression}
-\end{figure}% subsection activation_spaces_for_increasing_force (end)
+\end{figure}
 
-The solution polytope converges as the difficulty of the task increases; the rate of convergence is different across muscles. Whereas for example fds already has a small range of feasible activations at 10\%, EIP has feasible activation $[0,1]$ up to 80\%.
-For some muscles (such as X and Y) the convergence only occurs in the last [briantodo insert maximal feasible palmar force * 0.90], while others converge earlier-in lower forces of maximal (X and Y are examples of this)[briantodo fill out these descriptive statistics].
+The solution polytope converges as the difficulty of the task increases; the rate of convergence is different across muscles.
+Whereas for example FDS already has a small range of feasible activations at $\alpha=0.1$, EIP has feasible activation $[0,1]$ up to 80\%.
+For some muscles the convergence only occurs after $\alpha=0.6$ or $\alpha=0.8$ (as in LUM and EIP), while others converge across the entire progression (e.g.\ DI and PI).
 
-It is imperative to keep in mind that every histogram (regardless of its convergence) is composed of the distribution of all 10,000 points; when the distribution is compressed, the relative percentage of the bars will increase, as we fixed break width ($\Delta x$) remain constant to 2\% of maximal contraction. [briantodo cite http://library.msri.org/books/Book31/files/ball.pdf]
+It is imperative to keep in mind that every histogram (regardless of its convergence) is composed of the distribution of all 10,000 points; when the distribution is compressed, the relative percentage of the bars will increase (as evident by the increasing y-axis limits), as we fixed break width ($\Delta x$) remain constant to 2\% of maximal activation\ref{ball1997elementary}.
 
 The peaks seen in these figures is the perpendicular slice that has the largest relative area; within the same muscle it does not have to be symmetric between the bounds, and can shift over differing tasks.
-As expected, the unique solution at 100\% activation appears as a single peak representing 100\% of the sampled points; the bounds and the muscle's unique activation are superimposed.
+As expected, the unique solution at $\alpha=1.0$ appears as a single peak representing 100\% of the sampled points; the bounds and the muscle's unique activation are superimposed.
 We explain why these distributions must be unimodal, non-normal, more formally in the discussion, along with information about the structure of the probability density function across a given muscle dimension.
 Consider the activation distributions between $\alpha = 0.7$ and $\alpha = 0.8$ for LUM, where the median changed by less than 4\% while the lower bound increased by nearly 13\%.
 

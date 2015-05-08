@@ -3,7 +3,7 @@
 
 Muscle redundancy is the term used to describe the underdetermined nature of neural control of musculature.
 The classical notion of muscle redundancy  proposes that, faced with an infinite number of possible muscle activation patterns for a given task, the nervous system optimizes in some fashion to select one solution.
-Here, each of $N$ muscles represents a dimension of control on an end effector, and at any moment of a task, a muscle activation pattern exists as a point in $[0,1]^n$,--- the $n$-dimensional hypercube --- where each muscle's maximal activation is normalized to $1$ \cite{Valero-Cuevas1998Large}.
+Here, each of $n$ muscles represents a dimension of control on an end effector, and at any moment of a task, a muscle activation pattern exists as a point in $[0,1]^n$,--- the $n$-dimensional hypercube --- where each muscle's maximal activation is normalized to $1$ \cite{Valero-Cuevas1998Large}.
 Thus researchers often seek to infer the optimization approach and the cost functions the nervous system utilizes to select effective points in activation space to produce natural behavior \cite{Chao1978Graphical,Prilutsky2000Muscle,scott2004optimal,todorov2002optimal,crowninshield1981physiologically,higginson2005simulated}. 
 
 Implicit in these optimization procedures is the notion that there exists a well structured set of feasible solutions. Thus several of us have focused on describing and understanding those high-dimensional subspaces  embedded in $[0,1]^n$ \cite{kutch2011muscle,kutch2012challenges,sohn2013cat_bounding_box,Valero-Cuevas1998Large,Valero-Cuevas2015high-dimensional}.
@@ -31,7 +31,7 @@ We applied our approach to two separate musculoskeletal models:
 With this, below are the key ideas and findings we present with this paper:
 
 \begin{itemize}
-\item {The high-dimensional space serves as a Bayesian posterior probability distribution, with a nonparametric, piecewise shape.}
+\item {The high-dimensional space serving as a Bayesian prior posterior probability distribution is highly structured.}
 \item {The bounding box exceptionally misconstrues the actual shape of the feasible activation space.}
 \item {Our approach provides a more granular context to the space within which the central nervous system optimizes.}
 \item {Hit-and-Run sampling of the solution space is computationally tractable.}%; fewer than ten thousand points uncovered the shape of the distributions.}
