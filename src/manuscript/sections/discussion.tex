@@ -13,24 +13,24 @@ Sohn et. al. have identified how the bounding box can illustrate the bounds of f
 The only way that the bounding box would contain the entire set of information regarding a given muscle's activation distribution would be if that end effector is completely unaffected by any activation of that muscle i.e. the muscle's linear endpoint force is the 0 vector. As such, muscles which are nearly uninvolved in the end effector's actions will form near-uniform distributions, as their involvement does not affect the activation space.
 % subsection activation_progression (end)
 
-\subsection{Features of the PDF} % (fold)
-\label{sub:features_of_the_pdf}
-why must they be \\
-unimodal\\
-non-normal\\
-non-uniform (talk about the exception(s))\\
-what the exact pdf function would be \\
-	a piecewise quadratic equation, where it changes when you incorporate/exclude vertices of the polytope
+%\subsection{Features of the PDF} % (fold)
+%\label{sub:features_of_the_pdf}
+%why must they be \\
+%unimodal\\
+%non-normal\\
+%non-uniform (talk about the exception(s))\\
+%what the exact pdf function would be \\
+%	a piecewise quadratic equation, where it changes when you incorporate/exclude vertices of the polytope
 % subsection features_of_the_pdf (end)
 
-\subsection{Parallel coordinate slopes} % (fold)
-\label{sec:parallel_coordinate_slopes}
-[maytodo: Talk about what it means to have slopes in Parallel, what a very positive slope means/what a very negative slope means, and what the crossing-slopes mean. Also put forward a couple suggestions of how these slopes could be more quantitatively interpreted/analyzed]
+%\subsection{Parallel coordinate slopes} % (fold)
+%\label{sec:parallel_coordinate_slopes}
+%[maytodo: Talk about what it means to have slopes in Parallel, what a very positive slope means/what a very negative slope means, and what the crossing-slopes mean. Also put forward a couple suggestions of how these slopes could be more quantitatively interpreted/analyzed]
 % subsection parallel_coordinate_slopes (end)
 
 \subsection{Cost distributions} % (fold)
 \label{sec:cost_distributions}
-In further studies one could put activaton constraints directly into the $A$, instead of the unit interval bounds. As long as the resulting dataset is large enough for our purpose, there is no advantage to this, as we can not compare with the original feasible activation space. Since $l_1$ and $l_1^w$ are linear, one can also put corresponding constraints into $A$. Our implementation does not support directily inputting bounds on the higher degree weight functions $l_2$, $l_3$, $l_2^w$ and $l_3^w$.
+In further studies one could put activation constraints directly into the $A$, instead of the unit interval bounds. As long as the resulting dataset is large enough for our purpose, there is no advantage to this, as we can not compare with the original feasible activation space. Since $l_1$ and $l_1^w$ are linear, one can also put corresponding constraints into $A$. Our implementation does not support directly inputting bounds on the higher degree weight functions $l_2$, $l_3$, $l_2^w$ and $l_3^w$.
 %Yes in further studies we could put activation constraints directly in the A matrix, instead of bounds between 0 and 1. But there are no advantages to adding activation constraints beforehand in the A matrix, as sampling is uniform- as long as the resulting dataset is large enough for your purpose.
 %You could also put l1 and weighted l1 cost bounds as constraints in the A matrix. Cannot put higher order cost functions such as l2,l3 or weighted l2,l3.
 
@@ -47,31 +47,31 @@ Our results clearly show:
 	\item{The Hit-and-Run algorithm is cost-agnostic in the sense that no cost function is needed to predict the distribution of muscle activation patterns. Therefore, we can provide spatial context to where 'optimal' solutions lie within the solution space; this approach can be used to explore the consequences of different cost functions.}
 	\item{The distribution of muscle activations often show and strong modes that will critically affect the learning of motor tasks.}
 \end{itemize}
-In comparison to traditional bounding-box representations, our application of Hit-and-Run in this context is decisively superior in capability for meaningful visualization, value in extracting associations between solutions, and computational tractability, in addition to being veritable of the true solution distributions within the feasible activation set. Our bodies exist within a feasible activation space, and once we enter this space then optimization is possible. In this way, we can think of the solutions space as an effectie model for exporation-exploitation.
-This can help us in comparing the structure of the activation space as a set of high-dimensional bayesian priors which are narrowed/shifted over time to compensate for learning and skill-development.
-Essentially, once you enter into task-independent variation, it becomes a question of identifying the region of the activaiton space which both satisfieds the spatiotemporal constraints, but also approaches optimality under efficiency/speed demands.
-We want to 'close the loop' between the nervous system commands, and the mechanical output, thereby uncovering how the CNS collaborates with newtonian physics to select neural commands which effecitvey coordinate multi-link limbs, so we can act, play, and dance in the real world.
+In comparison to traditional bounding-box representations, our application of Hit-and-Run in this context is decisively superior in capability for meaningful visualization, value in extracting associations between solutions, and computational tractability, in addition to being veritable of the true solution distributions within the feasible activation set. Our bodies exist within a feasible activation space, and once we enter this space then optimization is possible. In this way, we can think of the solutions space as an effective model for exporation-exploitation.
+This can help us in comparing the structure of the activation space as a set of high-dimensional Bayesian priors which are narrowed/shifted over time to compensate for learning and skill-development.
+Essentially, once you enter into task-independent variation, it becomes a question of identifying the region of the activation space which both satisfies the spatiotemporal constraints, but also approaches optimality under efficiency/speed demands.
+We want to 'close the loop' between the nervous system commands, and the mechanical output, thereby uncovering how the CNS collaborates with Newtonian physics to select neural commands which effectively coordinate multi-link limbs, so we can act, play, and dance in the real world.
 Mechanical demands constrain the total space of musculoskeletal coordination options, thus, motile organisms first 'explore' coordination strategies conducive to the desired movement, and recursively redefine the more optimal subspaces.
 Once a desired task is mapped to an effective coordination strategy (as in, it gets the job done), then training and experience (exploration-exploitation) can aid in finding the best coordination.
-As many tasks are similar (ie. they require the similar force generation or torque production over the course of a movement),  the activation patterns for simlar actions must be similar as well.
+As many tasks are similar (i.e.\ they require the similar force generation or torque production over the course of a movement),  the activation patterns for similar actions must be similar as well.
 Optimal coordination strategies for one task may be near-optimal for a similar task.
 On the other hand, a suboptimal coordination strategy that achieves one task, may be furiously off-target for a very similar task.
 
-intention --> excitation --> activation dynamics --> contraction properties --> muscle properties with muscle models --> musculoskeletal force on the bones, joints, and finally, endpoint force. Long chain and we only look at 2 parts.
+%intention --> excitation --> activation dynamics --> contraction properties --> muscle properties with muscle models --> musculoskeletal force on the bones, joints, and finally, endpoint force. Long chain and we only look at 2 parts.
 
-[briantodo: discuss francisco's paper about scaling the solution to the boundary.]
+%[briantodo: discuss francisco's paper about scaling the solution to the boundary.]
 
 % subsubsection concluding_remarks (end)
 
-[briantodo: address the following:]
-any given manuscript must satisfy the following criteria:
-\begin{itemize}
-	\item {Originality}
-	\item {Innovation}
-	\item {High importance to researchers in the field}
-	\item {Significant biological and/or methodological insight}
-	\item {Rigorous methodology}
-	\item {Substantial evidence for its conclusions}
-\end{itemize}
+%[briantodo: address the following:]
+%any given manuscript must satisfy the following criteria:
+%\begin{itemize}
+%	\item {Originality}
+%	\item {Innovation}
+%	\item {High importance to researchers in the field}
+%	\item {Significant biological and/or methodological insight}
+%	\item {Rigorous methodology}
+%	\item {Substantial evidence for its conclusions}
+%\end{itemize}
 
 
