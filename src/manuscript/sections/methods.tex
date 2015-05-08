@@ -91,7 +91,7 @@ We use the following standard trick with slack variables $\epsilon_i$, which for
 The rest of the implementation of the Hit-and-Run algorithm is straight forward except for the choice of the random direction. How do we sample u.a.r.\ from all directions in $P$? Suppose that $\textbf{q}$ is a direction in $P$ and $\textbf{p} \in P$. Then by definition of $P$, $\textbf{q}$ must satisfy $\textbf{f} = A(\textbf{p}+\textbf{q})$. Since $\textbf{p} \in P$, we know that $\textbf{f} = A\textbf{p}$ and therefore 
 \[\textbf{f} = A(\textbf{p} + \textbf{q}) = \textbf{f} + A\textbf{q} \Rightarrow A\textbf{q} = 0. \]
 
-Hence we need to choose directions uniformly at random from all directions in the vectorspace 
+Hence we need to choose directions uniformly at random across the vectorspace 
 \[V = \{\textbf{q} \in \mathbb{R}^n | A\textbf{q} = 0\}.\]
 
 As shown by Marsaglia this can be done as follows \cite{Marsaglia}.
