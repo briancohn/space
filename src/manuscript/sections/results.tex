@@ -26,24 +26,24 @@ In Figure \ref{fig:Z_progression} we give the distributions of the activations f
 \label{fig:Z_progression}
 \end{figure}% subsection activation_spaces_for_increasing_force (end)
 
-The solution polytope converges as the difficulty of the task increases; the rate of convergence is different across muscles. Whereas for example fds already has a small range of feasible activations at 10\%, eip has feasible activation $[0,1]$ up to 80\%.  For some muscles (such as X and Y) the convergence only occurs in the last [briantodo insert maximal feasible palmar force * 0.90], while others converge earlier-in lower forces of maximal (X and Y are examples of this)[briantodo fill out these descriptive statistics].
+The solution polytope converges as the difficulty of the task increases; the rate of convergence is different across muscles. Whereas for example fds already has a small range of feasible activations at 10\%, EIP has feasible activation $[0,1]$ up to 80\%. For some muscles (such as X and Y) the convergence only occurs in the last [briantodo insert maximal feasible palmar force * 0.90], while others converge earlier-in lower forces of maximal (X and Y are examples of this)[briantodo fill out these descriptive statistics].
 
 It is imperative to keep in mind that every histogram (regardless of its convergence) is composed of the distribution of all 10,000 points; when the distribution is compressed, the relative percentage of the bars will increase, as we fixed break width ($\Delta x$) remain constant to 2\% of maximal contraction. [briantodo cite http://library.msri.org/books/Book31/files/ball.pdf]
 
 The peaks seen in these figures is the perpendicular slice that has the largest relative area; within the same muscle it does not have to be symmetric between the bounds, and can shift over differing tasks.
 As expected, the unique solution at 100\% activation appears as a single peak representing 100\% of the sampled points; the bounds and the muscle's unique activation are superimposed.
 We explain why these distributions must be unimodal, non-normal, more formally in the discussion, along with information about the structure of the probability density function across a given muscle dimension.
-Consider the activation distributions between 70\%and 80\% for lum, where the median changed by less than 4\% while the lower bound increased by nearly 13\%.
+Consider the activation distributions between $\alpha = 0.7$ and $\alpha = 0.8$ for LUM, where the median changed by less than 4\% while the lower bound increased by nearly 13\%.
 
-First, we observe that a meaningful cross-muscle comparison of point distributions cannot be ascertained by the bounding box. For example, at a task of 10\% of maximal palmar force production, epi and edc both have lower and upper bounds of 0, and 1, respectively, yet their distributions are thoroughly distinct; the shape of eip is more symmetric (lower 25\%, median, upper 75\%: 0.36, 0.5029, and 0.62), while 75\% of the solutions sampled have edc higher than 0.74 \ref{fig:Z_progression}. 
+First, we observe that a meaningful cross-muscle comparison of point distributions cannot be ascertained by the bounding box. For example, at a task of 10\% of maximal palmar force production, EIP and EDC both have lower and upper bounds of 0, and 1, respectively, yet their distributions are thoroughly distinct; the shape of EIP is more symmetric (lower 25\% = 0.36, median = 0.5029, upper 75\% = 0.62), while 75\% of the solutions sampled have edc higher than 0.74 \ref{fig:Z_progression}.
 
 Second, we find this holds not only for inter-muscle distribution comparisons, but intra-muscular distributions. Consider the significant change in the shape of the distributions across the progression for edc until the 60\% task; the lower and upper bounds change less than 1\% and 4\%, respectively, while the median shifted by nearly 40\%.
-In the most extreme case, the median activation can be exceptionally narrow, while the bounds are wide- for example, eip at a 90\% task; although all solutions are bounded between 1\% and 81\%, the space between 0.49 and 0.51 house approximately 79\% of the solutions.
+In the most extreme case, the median activation can be exceptionally narrow, while the bounds are wide- for example, EIP at a 90\% task; although activation is bounded between 0.1 and 0.81, approximately 79\% of the solutions exist with EIP activation between just 0.49 and 0.51.
 
-Next, we see that if one muscle had to be fixed throughout the entire force progression, di and pi would fail; their bounding boxes of tasks below 40\% do not include the unique solution at 100\%. We also placed a vertical grey line for the scaled unique solution at maximal, denoted $\textbf{a}^*$, (e.g. lum converges to an activation of 1 at maximal palmar force, so we put a grey line at 0.8 for 80\% of maximal palmar force.) Since $\alpha f_{\max} = \alpha A \textbf{a}^*$, $\alpha \textbf{a}^*$ is a solution of the feasible activation set at $\alpha$-fraction of the maximal force. However we observe that for some muscles, these points can lie arbirtraliy in the distribution i.e.\ do not have to lie close to the corresponding peaks (e.g.\ musle di and eip).
+Next, we see that if one muscle had to be fixed throughout the entire force progression, DI and PI would fail; their bounding boxes of tasks below $\alpha=0.4$ do not include the unique solution at $\alpha=1.0$. We also placed a vertical grey line for the scaled unique solution at maximal, denoted $\textbf{a}^*$, (e.g. LUM converges to an activation of 1 at maximal palmar force, so we put a grey line at 0.8 for $\alpha=0.8$ of maximal palmar force.) Since $\alpha f_{\max} = \alpha A \textbf{a}^*$, $\alpha \textbf{a}^*$ is a solution of the feasible activation set at $\alpha$-fraction of the maximal force. However we observe that for some muscles, these points can lie arbirtraliy in the distribution i.e.\ do not have to lie close to the corresponding peaks (e.g.\ musle DI and EIP).
 
 \subsection{Parallel Coordinates Visualisation}
-To maintain realtime interactivity of the plot, we used only the first 1000 points collected for each task, from $\alpha = 0.1$ to $\alpha = 1\%$ (maximal force).
+To maintain realtime interactivity of the plot, we used only the first 1000 points collected for each task, from $\alpha = 0.1$ to $\alpha = 1.0\%$ (maximal force).
 
 \begin{figure}[htbp]
 \centering
@@ -55,24 +55,24 @@ To maintain realtime interactivity of the plot, we used only the first 1000 poin
 On the histograms you can predict how many solutions would be lost if you put one constraint on one muscle. Parallel coordinates allow us to visualize not only the amount of solutions lost, but the location of the remaining solutions across the other muscle dimensions. Furthermore one can constraint any number of muscles and still visualize the remaining amount of solutions, whearas in the histogramms one can not make any predictions.
 
 Figure \ref{fig:parcoord_full} is a modified screen-shot of the platform, constrain activation for a given muscle or cost function from above, below, or both. The resulting number of lines represents how the solution space changed across all dimensions recorded.
-Note how $\alpha$ is also a constraint- we can explore each level of force output, or multiple at a time within a range of magnitude in the palmar direction.
+Note how $\alpha$ can also be constrained- we can explore one or more levels of force output at a time.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figs/parcoords.pdf}
 \caption{These snapshots show the use of the interactive parallel coordinate visualization of solutions across the activation space. For the task set to 50\% of maximal in the palmar direction, we show the
-(a) remaining 166 solutions when pi $<$ 60\% 
-(b) remaining 57 solutions when di $<$ 60\%, and the
-(c) remaining 57 solutions when we constrain pi $<$ 60\% and di $<$ 60\%. We also show the
+(a) remaining 166 solutions when PI $<$ 60\% 
+(b) remaining 57 solutions when DI $<$ 60\%, and the
+(c) remaining 57 solutions when we constrain PI $<$ 60\% and DI $<$ 60\%. We also show the
 (d) remaining 502 solutions when we select the lower 50\% of $l_1$ costs,
 (e) remaining 498 solutions when we select the lower 50\% of $l_2^w$ costs, and the
 (f) remaining 220 solutions when we select the lower 50\% across all cost functions in Table \ref{cost_function_tabls} }
 \label{fig:parcoords}
 \end{figure}
 
-Constraining pi $<$ 60\% still leaves a solution space about three times as large as di $<$ 60\%. 
-Observe that constraining di $<$ 60\% already implies that pi $<$ 60\% as seen in Figure \ref{fig:parcoords} (b), (c). 
-Constraining one muscles does have different effects on the other muscles as for example if ei is constrained below 60\% activation, we see that the bounding box of pi is significantly restricted; however, the same constraint has no effect on the bounding box of eip.
+Constraining PI $<$ 60\% still leaves a solution space about three times as large as di $<$ 60\%. 
+Observe that constraining di $<$ 60\% already implies that PI $<$ 60\% as seen in Figure \ref{fig:parcoords} (b), (c). 
+Constraining one muscles does have different effects on the other muscles as for example if ei is constrained below 60\% activation, we see that the bounding box of PI is significantly restricted; however, the same constraint has no effect on the bounding box of EIP.
 
 discuss what happens when you bring each of those muscles down, using the R produced stats.
 talk about how when you add X as a constraint, most of the solutions are distributed across the other muscles between X and X. Say which ones go up, which go down- which ones become clustered and which ones lose their peak/spike.
