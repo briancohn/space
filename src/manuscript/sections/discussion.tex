@@ -1,81 +1,43 @@
 \section{DISCUSSION}
+\subsection{Remarks about the implementation}
+Our approximations show sufficiently accurate views of the polytope in slices perpendicular to each axis, in both histogram and parallel coordinate visualizations, and are not computationally intractable.
+Had we performed exact volume computations, we would have had more accurate relative volumes; that said, the level of error generated through approximation is exceptionally small in comparison to error derived from measuring/predicting the musculoskeletal parameters to define the generators of $A$.
+Our code only solves one linear equation to find the starting point, and the time-cost of each point thereafter is linear; therefore this method can be used for tendon driven models in very high-dimensional systems with at least 40 contributing muscles; the number of degrees of freedom and the values of $F_o$ has no effect on the speed of Hit-and-Run.\\
 
-\subsection{Level of trust of the polytope approximation} % (fold)
-\label{sub:level_of_trust_of_the_polytope_approximation}
+If an end effector were completely unaffected by any activation of a given muscle (i.e. the muscle's linear endpoint force is the 0 vector), then we would see a uniform distribution across that muscle's activation. As such, muscles which are nearly uninvolved in the end effector's actions will form near-uniform distributions, as their involvement barely influences the activation space.
+In further studies one could put muscle activation constraints directly into the $A$; that said, as long as there are enough remaining points after adding post-hoc constraints (i.e. the original dataset is large enough) there is no advantage to this.
+Importantly, if one muscle is fixed to an exact value of activation, the resulting polytope is reduced by 1 dimension; a fixed constraint must be added directly to $A$, prior to sampling.\\
+Since $l_1$ and $l_1^w$ are linear, one can also constrain $A$ with these cost functions prior to Hit-and-Run, but our implementation does not support constrains based on functions of nonlinear degree (i.\ e.\ $l_2$, $l_3$, $l_2^w$ and $l_3^w$).
+We note that the activation and metabolic classes of cost function are fundamentally different, and do not explore correlations between these two classes.
+We do, however, note that when all of the involved cost functions are 'minimized' to the bottom half of all solution costs, the union maintains a very high number of solutions (22\%).
+With this we can note how all of these cost functions are similar in nature across the polytope (as one would expect).\\
 
-Our approximations show sufficiently accurate views of the polytope in slices perpendicular to each axis. Had we performed exact volume computations, we would have had more accurate relative volumes; that said, the level of error generated through approximation is exceptionally small in comparison to error derived from measuring/predicting the musculoskeletal parameters to define the force generators $A$. Our code only solves one linear equation to find the starting point, and the time-cost of each point thereafter is linear; therefore this method can be used for tendon driven models in very high-dimensional systems.
+In expanding upon the exciting research by Sohn et.\ al.\, we explored the space between the bounds of feasible activation \cite{sohn2013cat_bounding_box}.
+While our research here looked to further constrain this space, the perspective of this space is fundamentally cost-agnostic; the CNS, especially in well-trained systems, likely explore only regions of the space which are more pragmatic in practice \cite{todorov2002optimal}.
+In comparison to bounding-box representations, our application of Hit-and-Run in this context represents a highly significant step forward in developing tools for meaningful visualization, value in extracting associations between solutions, and computational tractability, in addition to being veritable of the true solution distributions within the feasible activation set.
 
-Sohn et.\ al.\ have identified how the bounding box can illustrate the bounds of feasible activation; essentially reducing the effective number of solutions a neuromuscular system can select from \cite{sohn2013cat_bounding_box}. Our research here looks to further constrain this space by observing the cost-agnostic distribution of solutions across the set of all feasible coordination patterns.
-
-% subsection level_of_trust_of_the_polytope_approximation (end)
-\subsection{Activation Progression} % (fold)
-\label{sub:activation_progression}
-The only way that the bounding box would contain the entire set of information regarding a given muscle's activation distribution would be if that end effector is completely unaffected by any activation of that muscle i.e. the muscle's linear endpoint force is the 0 vector. As such, muscles which are nearly uninvolved in the end effector's actions will form near-uniform distributions, as their involvement does not affect the activation space.
-% subsection activation_progression (end)
-
-%\subsection{Features of the PDF} % (fold)
-%\label{sub:features_of_the_pdf}
-%why must they be \\
-%unimodal\\
-%non-normal\\
-%non-uniform (talk about the exception(s))\\
-%what the exact pdf function would be \\
-%	a piecewise quadratic equation, where it changes when you incorporate/exclude vertices of the polytope
-% subsection features_of_the_pdf (end)
-
-%\subsection{Parallel coordinate slopes} % (fold)
-%\label{sec:parallel_coordinate_slopes}
-%[maytodo: Talk about what it means to have slopes in Parallel, what a very positive slope means/what a very negative slope means, and what the crossing-slopes mean. Also put forward a couple suggestions of how these slopes could be more quantitatively interpreted/analyzed]
-% subsection parallel_coordinate_slopes (end)
-
-\subsection{Cost distributions} % (fold)
-\label{sec:cost_distributions}
-In further studies one could put activation constraints directly into the $A$, instead of the unit interval bounds. As long as there are enough remaining points after adding post-hoc constraints (i.e. the original dataset is large enough) there is no advantage to this.
-Since $l_1$ and $l_1^w$ are linear, one can also constrain $A$ with these cost functions prior to Hit-and-Run.
-If one muscle is fixed to an exact value of activation, the resulting polytope is reduced by 1 dimension; a fixed constraint must be added directly to $A$, prior to sampling.
-Our implementation does not support directly inputting bounds on the higher degree weight functions $l_2$, $l_3$, $l_2^w$ and $l_3^w$.
-%Yes in further studies we could put activation constraints directly in the A matrix, instead of bounds between 0 and 1. But there are no advantages to adding activation constraints beforehand in the A matrix, as sampling is uniform- as long as the resulting dataset is large enough for your purpose.
-%You could also put l1 and weighted l1 cost bounds as constraints in the A matrix. Cannot put higher order cost functions such as l2,l3 or weighted l2,l3.
-
-We note that the activation and metabolic classes of cost function are fundamentally different, and do not explore correlations between these two classes. We do, however, note that when all of the involved cost functions are 'minimized' to the bottom half of all solution costs, the union maintains a very high number of solutions (22\%). With this we can note how all of these cost functions are similar in nature across the polytope (as expected).
-% subsection cost_distributions (end)
-
-\subsection{Concluding remarks} % (fold)
-\label{ssub:concluding_remarks}
-
-Our results clearly show:
+Our results provide evidence supporting the following:
 \begin{itemize}
-	\item{The Hit-and-Run algorithm can explore the feasible activation space for a realistic 7-muscle finger in a way that is computationally tractable.}
+	\item{The Hit-and-Run algorithm can explore the feasible activation space for a realistic 7-muscle finger in a way that will remain computationally tractable in higher dimensions.}
 	\item{We find that the bounding box exceptionally misconstrues the internal structure of the feasible activation set.}
-	\item{The Hit-and-Run algorithm is cost-agnostic in the sense that no cost function is needed to predict the distribution of muscle activation patterns. Therefore, we can provide spatial context to where 'optimal' solutions lie within the solution space; this approach can be used to explore the consequences of different cost functions.}
+	\item{The Hit-and-Run algorithm is cost-agnostic in the sense that no cost function is needed to predict the distribution of muscle activation patterns.
+	Therefore, we can provide spatial context to where 'optimal' solutions lie within the solution space; this approach can be used to explore the consequences of different cost functions.}
 	\item{The distribution of muscle activations and the effects of muscle and cost constraints critically affect the space within which motor learning transpires.}
 \end{itemize}
-In comparison to traditional bounding-box representations, our application of Hit-and-Run in this context is decisively superior in capability for meaningful visualization, value in extracting associations between solutions, and computational tractability, in addition to being veritable of the true solution distributions within the feasible activation set. Our bodies exist within a feasible activation space, and once we enter this space then optimization is possible. In this way, we can think of the solutions space as an effective model for exploration-exploitation.
-This can help us in comparing the structure of the activation space as a set of high-dimensional Bayesian priors which are narrowed/shifted over time to compensate for learning and skill-development.
-Essentially, once you enter into task-independent variation, it becomes a question of identifying the region of the activation space which both satisfies the spatiotemporal constraints, but also approaches optimality under efficiency/speed demands.
-We want to 'close the loop' between the nervous system commands, and the mechanical output, thereby uncovering how the central nervous system collaborates with Newtonian physics to select neural commands--- with the intention of enlightening our understanding of effective coordination of multi-link limbs, so we can act, play, and dance in the real world.
+
 Mechanical demands constrain the total space of musculoskeletal coordination options, thus, motile organisms first 'explore' coordination strategies conducive to the desired movement, and recursively redefine the more optimal subspaces.
 Once a desired task is mapped to an effective coordination strategy (as in, it gets the job done), then training and experience (exploration-exploitation) can aid in finding the best coordination.
-As many tasks are similar (i.e.\ they require the similar force generation or torque production over the course of a movement),  the activation patterns for similar actions must be similar as well.
-Optimal coordination strategies for one task may be near-optimal for a similar task.
-On the other hand, a suboptimal coordination strategy that achieves one task, may be furiously off-target for a very similar task.
+As many tasks are similar (i.\ e.\ they require the similar force generation or torque production over the course of a movement),  the activation patterns for similar actions must be similar as well.
+In this way, we can think of the solutions space as an effective model for exploration-exploitation, where the structure of the activation space contains high-dimensional Bayesian priors--- these priors are narrowed/shifted over time to compensate for learning and skill-development, and must move within the space following significant changes in the CNS or musculoskeletal system.\\
+Experiments into the 'commonly-chosen' coordination region over the course of a learned motor task could further elucidate how these task-irrelevant parameters are shifted and refined.
+It's imperative to remember that the space is highly constrained by spatiotemporal demands;
+as a task changes slightly from moment to moment, applying the optimal coordination strategy for one task may only require slight modification to achieve the next. In this case, the region of activation space continues to be near-optimal in spite of changing circumstances. In a different situation, a suboptimal coordination strategy that achieves one task, may be furiously off-target for a similar task.
+With this, it's important to consider how limbs optimize for a minimal total effort alongside a changing task\cite{todorov2002optimal}, and what theoretical cost functions remain both mathematically and biologically reasonable across changing situations.
+While prior research has shown that submaximal force coordination is related to unique solutions at maximal force generation \cite{Valero-Cuevas2000Scaling}, the Hit-and-Run distributions offer a different view of the total set of solutions from which the CNS must select; along our march from $\alpha=0.1$ to $\alpha =1.0$, we observed no discernible clustering of solutions near the scaled unique solution.\\
+Considering the limitations on muscle activation and deactivation speed, the set of feasible activation time-histories would be constrained to a relatively high metabolic cost for low forces on the way to maximal force production, especially for quick force ramp-ups.
 
-%intention --> excitation --> activation dynamics --> contraction properties --> muscle properties with muscle models --> musculoskeletal force on the bones, joints, and finally, endpoint force. Long chain and we only look at 2 parts.
+This disconnect may let us infer that effective submaximal force generation requires a complex trajectory of muscle activations which have trajectory-dependent cost functions; while continuing to generate the intended wrench output, the system select a time-history of activation for all muscles which minimize the cost of the entire movement, or discrete parts of the movement.
+Consider for example the effect of injury upon the selection of motor coordination patterns: if higher activation of a muscle induces pain, then the entire movement cost function must naturally incorporate some strategy of minimizing the levels of discomfort. Similarly, a stroke affecting an afferent motor neuron pool could drastically limit the feasible set of alpha-gamma feedback, thereby redefining the set of feasible coordination strategies, both in biomechanical movement, and its relevant muscle activation patterns.
+We understand that in the context of the entire closed loop, afferent activation is highly distant from neural decisionmaking;  intention, alpha-gamma motor neuron excitation-inhibition, muscle excitation, activation dynamics and contractile properties represent the next logical additions to our set of constraints on the coordination space. Furthermore, the use of dynamical system modeling in addition to static force production could help us understand how changes in moment arms and muscle velocities affect the control situation for the CNS.\\
 
-While prior research has shown that submaximal force coordination is related to unique solutions at maximal force generation \cite{Valero-Cuevas2000Scaling}, this research offers a different view of the total number of solutions within which the neuromuscular system must select.
-
-
-% subsubsection concluding_remarks (end)
-
-%[briantodo: address the following:]
-%any given manuscript must satisfy the following criteria:
-%\begin{itemize}
-%	\item {Originality}
-%	\item {Innovation}
-%	\item {High importance to researchers in the field}
-%	\item {Significant biological and/or methodological insight}
-%	\item {Rigorous methodology}
-%	\item {Substantial evidence for its conclusions}
-%\end{itemize}
-
-
+We look to 'close the loop' between nervous system commands and mechanical output, thereby uncovering how the CNS collaborates with Newtonian physics--- with the intention of enlightening the community's understanding of motor performance and learning, it will require us to consider where we exist in activation space.
