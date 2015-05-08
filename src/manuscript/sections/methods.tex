@@ -50,7 +50,7 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \item Generate a random direction from $\textbf{p}$ in $P$ (uniformly at random over all directions) (Figure \ref{fig:hitruncube}a).
 \item Find the intersection points of the random direction with the boundary of the polytope (Figure \ref{fig:hitruncube}b).
 \item Choose a point u.a.r.\ on this line segment given by the intersection points (Figure \ref{fig:hitruncube}c). 
-\item Repeat from $1.$ the above steps with the new point as the starting point .
+\item Repeat from $2.$ the above steps with the new point as the starting point .
 \end{enumerate}
 
 \begin{figure}[h]
@@ -63,12 +63,12 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.3\textwidth,page=9]{sections/figs/HitandRunSchematics_all.pdf}
-\caption{Uniform distribution aross the feasible activation space. In the schematic arm example, the distribution is represented within a 2D plane.}
+\caption{Uniform distribution aross the feasible activation space.\ In the schematic arm example, the distribution is represented within a 2D plane.}
 \label{fig:posthitrun_distribution}
 \end{figure}
 
 \subsection{Implementation of Hit-and-Run}
-To find a starting point in $P$ the polytope given by
+To find a starting point in $P$, the polytope given by
 \[\textbf{f} = A\textbf{a}, \textbf{a} \in [0,1]^n,\]
 we only need to find a feasible activation vector. For the Hit-and-Run algorithm to mix faster we want the starting point not close to a vertex of the polytope \cite{Lovasz}. %centrally located point within the polytope- that way, the early points will not be clustered in a corner [maytodo cite]. 
 We use the following standard trick with slack variables $\epsilon_i$, which for applications often gives a good starting point.% to select a point where activations $a_i$ for all muscles are far from 0 and 1, thereby finding a solution central within $P$ [maytodo cite the use of slack variables to improve mixing time].
@@ -85,10 +85,8 @@ We use the following standard trick with slack variables $\epsilon_i$, which for
 
 The rest of the implementation of the Hit-and-Run algorithm is straight forward except for the choice of the random direction. How do we sample u.a.r.\ from all directions in $P$? Suppose that $\textbf{q}$ is a direction in $P$ and $\textbf{p} \in P$. Then by definition of $P$, $\textbf{q}$ must satisfy $\textbf{f} = A(\textbf{p}+\textbf{q})$. Since $\textbf{p} \in P$, we know that $\textbf{f} = A\textbf{p}$ and therefore 
 \[\textbf{f} = A(\textbf{p} + \textbf{q}) = \textbf{f} + A\textbf{q} \Rightarrow A\textbf{q} = 0. \]
-%and hence
-%\[A\textbf{q} = 0.\]
 
-and hence need to choose directions uniformly at random from all directions in the vectorspace 
+Hence we need to choose directions uniformly at random from all directions in the vectorspace 
 \[V = \{\textbf{q} \in \mathbb{R}^n | A\textbf{q} = 0\}.\]
 
 As shown by Marsaglia this can be done as follows \cite{Marsaglia}.
@@ -102,7 +100,10 @@ Choose $(\lambda_1, \dots, \lambda_r) \in \mathcal{N}(0,1)^r$ (from the Gaussian
 $\sum_{i=1}^r \lambda_i b_i$ is a u.a.r.\ direction.
 \end{enumerate}
 
-A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and it is orthonormal if the vectors are pairwise orthogonal (perpendicular) and have unit length. Using basic linear algebra one can find a basis for $\{A\textbf{q} = 0\}$ and orthogonalize with the well known Gram-Schmidt method (for details see e.g.\ \cite{Robertson}). Note that in order to get the desired u.a.r.\ sample the basis needs to be orthonormal. For the limb case we can safely assume that the rows of $A$ are linearly independent and hence the number of basis vectors is $n-m = r$.
+A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and it is orthonormal if the vectors are pairwise orthogonal (perpendicular) and have unit length.
+Using basic linear algebra one can find a basis for $\{A\textbf{q} = 0\}$ and orthogonalize with the well known Gram-Schmidt method (for details see e.g.\ \cite{Robertson}).
+Note that in order to get the desired u.a.r.\ sample the basis needs to be orthonormal.
+As mentioned earlier, we can safely assume that the rows of $A$ are linearly independent and hence $r = n-m$.
 
 \subsection{Mixing Time}
 \label{sec_lengthrun}
@@ -114,7 +115,7 @@ In particular Emiris and Fisikopoulos paper suggest that $(10 + \frac{10}{n})n$ 
 We used our published model in \cite{Valero-Cuevas1998Large} to find matrix $A \in \mathbb{R}^{4 \times 7}$, where $\textbf{a} \in \mathbb{R}^7$; the four degrees of freedom were ad-abduction, flexion-extension at the metacarpophalangeal joint, and flexion-extension at the proximal and distal interphalangeal joints.
 The force direction we simulated are visible in Figure \ref{fig:finger}.
 In this model, for each input we collected 1.000.000 points and sampled every 100th point.
-In addition to the Hit-and-Run algorithm we computed the theoretical maximum and minimum activation for each muscle for the given force; the difference between the theoretical and observed bounds for all muscles is smaller than 0.001. \ref{fig:raw_histograms, fig:Z_progression}.
+In addition to the Hit-and-Run algorithm we computed the theoretical maximum and minimum activation for each muscle for the given force; the difference between the theoretical and observed bounds for all muscles is smaller than 0.001 (Figures \ref{fig:raw_histograms} and \ref{fig:Z_progression}).
 
 \begin{figure}[htbp]
   \centering
@@ -134,7 +135,8 @@ In Section \ref{sub:activation_spaces_for_increasing_force} we consider the dist
 \end{figure}
 
 \subsection{Parallel coordinates visualization}
-A common way to visualize higher dimensional data is using parallel coordinates[briantodo citations]. To show our sample set of points in the feasible activation space we draw $n$ parallel lines for each of the $n$ muscles.
+A common way to visualize higher dimensional coordinate data is using parallel coordinates, and has been used in biomechanical studies \ref{bachynskyi2013biomechanical, krekel2010visual}.
+To show our sample set of points in the feasible activation space we draw $n$ parallel lines for each of the $n$ muscles.
 With the axis labels of the line set between 0 and 1, each point is then represented by connecting their coordinates by $n-1$ lines.
 Using an interactive surface we restrict each muscle function to any desired interval- see Figures \ref{fig:parcoord_full} and \ref{fig:parcoords}.
 We decided to simulate a 50\% reduction in activation (feasible tendon force production) in three of the muscles innervated by the deep branch of the ulnar nerve- PI, DI, and FDP. 
