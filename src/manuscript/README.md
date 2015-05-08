@@ -1,5 +1,4 @@
-# StructureIEEE
-Conference Proceedings Draft
+#Space Manuscript
 
 
-[![PDF Status](https://www.sharelatex.com/github/repos/bcohn12/StructureIEEE/builds/latest/badge.svg)](https://www.sharelatex.com/github/repos/bcohn12/StructureIEEE/builds/latest/output.pdf)
+[![PDF Status](https://www.sharelatex.com/github/repos/bcohn12/space/builds/latest/badge.svg)](https://www.sharelatex.com/github/repos/bcohn12/space/builds/latest/output.pdf)
