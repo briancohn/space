@@ -97,7 +97,7 @@ Hence we need to choose directions uniformly at random across the vectorspace
 As shown by Marsaglia this can be done as follows \cite{Marsaglia}.
 \begin{enumerate}
 \item
-Find an orthonormal basis $b_1, \dots, b_r \in \mathbb{R}^{n}$ of $A\textbf{q} =0$.
+Find an orthonormal basis $b_1, \dots, b_r \in \mathbb{R}^{n}$ of \{$\textbf{q} \in \mathbb{R}^n | A\textbf{q} = 0$\}.
 \item
 Choose $(\lambda_1, \dots, \lambda_r) \in \mathcal{N}(0,1)^r$ (from the Gaussian distribution).
 \item
@@ -107,15 +107,16 @@ A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and 
 
 \subsection{Mixing Time}
 \label{sec_lengthrun}
-From a given starting point, how many iterations of the Hit-and-Run method are necessary to reach a u.a.r.\ point? For convex polygons in higher dimensions up to $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
-In particular Emiris and Fisikopoulos paper suggest that $(10 + \frac{10}{n})n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}, while in Ge et al.'s paper every point of the Hit-and-Run algorithm is used in the sample \cite{Ge}. 
+From a given starting point, how many iterations of the Hit-and-Run method are necessary to reach a u.a.r.\ point?
+For convex polygons in higher dimensions up to $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
+In particular Emiris and Fisikopoulos paper suggest that $(10 + \frac{10}{n})n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}, while in Ge et al.'s paper every singlepoint of the Hit-and-Run algorithm is used in the sample \cite{Ge}. 
 
 \subsection{Realistic index finger model}
 \label{ss:finger}
 We used our published model in \cite{Valero-Cuevas1998Large} to find matrix $A \in \mathbb{R}^{4 \times 7}$, where $\textbf{a} \in \mathbb{R}^7$; the four degrees of freedom were ad-abduction, flexion-extension at the metacarpophalangeal joint, and flexion-extension at the proximal and distal interphalangeal joints.
 The force direction we simulated are visible in Figure \ref{fig:finger}.
-In this model, for each input we collected 1.000.000 points and sampled every 100th point.
-In addition to the Hit-and-Run algorithm we computed the theoretical maximum and minimum activation for each muscle for the given force; the difference between the theoretical and observed bounds for all muscles is smaller than 0.001 (Figures \ref{fig:raw_histograms} and \ref{fig:Z_progression}).
+In this model, for each input we ran 1.000.000 Hit-and-Run iterations and sampled every 100th point.
+In addition to the Hit-and-Run algorithm we computed the theoretical maximum and minimum activation for each muscle for the given force (Figures \ref{fig:raw_histograms} and \ref{fig:Z_progression}); we found that the difference between the theoretical and observed bounds for all muscles was smaller than 0.001.
 
 \begin{figure}[htbp]
   \centering
@@ -130,16 +131,16 @@ In Section \ref{sub:activation_spaces_for_increasing_force} we consider the dist
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.5\textwidth]{figs/raw_histograms.pdf}
-\caption{Distribution of feasible activations for 50\% of the computed maximal force output in the palmar direction.}
+\caption{Distribution of feasible activations for $\alpha= 0.5$ (50\% of the computed maximal force output in the palmar direction). Dashed lines are the observed lower and upper bounds.}
 \label{fig:raw_histograms}
 \end{figure}
 
 \subsection{Parallel coordinates visualization}
-A common way to visualize higher dimensional coordinate data is using parallel coordinates, and has been used in biomechanical studies \ref{bachynskyi2013biomechanical, krekel2010visual}.
+A common way to visualize higher dimensional coordinate data is using parallel coordinates, and has been used in biomechanical studies \cite{bachynskyi2013biomechanical, krekel2010visual}.
 To show our sample set of points in the feasible activation space we draw $n$ parallel lines for each of the $n$ muscles.
 With the axis labels of the line set between 0 and 1, each point is then represented by connecting their coordinates by $n-1$ lines.
 Using an interactive surface we restrict each muscle function to any desired interval- see Figures \ref{fig:parcoord_full} and \ref{fig:parcoords}.
-We decided to simulate a 40\% reduction in activation (feasible tendon force production) in three of the muscles innervated by the deep branch of the ulnar nerve- PI, DI, and FDP. 
+We decided to simulate a 40\% reduction in activation (feasible tendon force production) in the three index finger muscles innervated by the deep branch of the ulnar nerve- PI, DI, and FDP. 
 
 \subsection{Muscle-metabolic and neural drive cost functions}
 
@@ -162,5 +163,4 @@ $l_3^w$            & $\sqrt[3]{\sum_{i=1}^n (a_i F_{0i})^3}$                    
 \label{cost_function_tabls}
 \end{table}
 
-Six additional vertical lines were added to the parallel coordinates plot to represent each cost function. With the same parallel coordinates framework as developed with muscle activation, we can restrict and subset solutions which fall into desired cost-function ranges, thereby masking sub-optimal solutions and highlighting only those meeting the criteria.
-For a given point $\textbf{a} \in \mathbb{R}^n$ we are interested in the associated cost of every solution collected through Hit-and-Run.
+We added six additional vertical lines, one for each cost function (Table \ref{cost_function_tabls}), to the parallel coordinates plot to show the associated costs of each point. With the same parallel coordinates framework as developed with muscle activation, we can restrict and subset solutions which fall into desired cost-function ranges, thereby masking sub-optimal solutions and highlighting only those meeting the criteria.
