@@ -21,7 +21,7 @@ The density integrals perpendicular to each muscle are provably unimodal due to 
 
 \subsection{Activation spaces for increasing force} % (fold)
 \label{sub:activation_spaces_for_increasing_force}
-For maximal force into any direction, there is a unique activation vector satisfiying all constraint. The maximal force into palmar direction is given by ????? and its unique activation vector ????. [briantodo insert values]
+For maximal force into any direction, there is a unique activation vector satisfying all constraint. The maximal force into palmar direction is given by ????? and its unique activation vector ????. [briantodo insert values]
 In Figure \ref{fig:Z_progression} we give the distributions of the activations for increasing force, starting with $10\%$ of the maximal force, increasing in $10\%$ steps until maximal force is reached.
 
 \begin{figure}[htbp]
@@ -46,7 +46,7 @@ In the most extreme case, the median activation can be exceptionally narrow, whi
 
 Next, we see that if one muscle had to be fixed throughout the entire force progression, di and pi would fail; their bounding boxes of tasks below 40\% do not include the unique solution at 100\%. We also placed a vertical grey line for the scaled unique solution at maximal, denoted $\textbf{a}^*$, (e.g. lum converges to an activation of 1 at maximal palmar force, so we put a grey line at 0.8 for 80\% of maximal palmar force.) Since $\alpha f_{\max} = \alpha A \textbf{a}^*$, $\alpha \textbf{a}^*$ is a solution of the feasible activation set at $\alpha$-fraction of the maximal force. However we observe that for some muscles, these points can lie arbirtraliy in the distribution i.e.\ do not have to lie close to the corresponding peaks (e.g.\ musle di and eip).
 
-\subsection{Parallel Coordinates Visualisation}
+\subsection{Parallel Coordinates Visualization}
 To maintain realtime interactivity of the plot, we used only the first 1000 points collected for each task, from $\alpha = 0.1$ to $\alpha = 1\%$ (maximal force).
 
 \begin{figure}[htbp]
@@ -56,7 +56,7 @@ To maintain realtime interactivity of the plot, we used only the first 1000 poin
 \label{fig:parcoord_full}
 \end{figure}
 
-On the histograms you can predict how many solutions would be lost if you put one constraint on one muscle. Parallel coordinates allow us to visualize not only the amount of solutions lost, but the location of the remaining solutions across the other muscle dimensions. Furthermore one can constraint any number of muscles and still visualize the remaining amount of solutions, whearas in the histogramms one can not make any predictions.
+On the histograms you can predict how many solutions would be lost if you put one constraint on one muscle. Parallel coordinates allow us to visualize not only the amount of solutions lost, but the location of the remaining solutions across the other muscle dimensions. Furthermore one can constraint any number of muscles and still visualize the remaining amount of solutions, whereas in the histograms one can not make any predictions.
 
 Figure \ref{fig:parcoord_full} is a modified screen-shot of the platform, constrain activation for a given muscle or cost function from above, below, or both. The resulting number of lines represents how the solution space changed across all dimensions recorded.
 Note how $\alpha$ is also a constraint- we can explore each level of force output, or multiple at a time within a range of magnitude in the palmar direction.
@@ -81,7 +81,7 @@ Constraining one muscles does have different effects on the other muscles as for
 discuss what happens when you bring each of those muscles down, using the R produced stats.
 talk about how when you add X as a constraint, most of the solutions are distributed across the other muscles between X and X. Say which ones go up, which go down- which ones become clustered and which ones lose their peak/spike.
 
-As there are only few not steep crossings between $l_1$, $l_2$ and $l_3$, the parallel coordintes suggest correlation of those three weights. Similar correlation is observerved for the respective weighted functions. %the unweighted l1,l2,and l3 cost functions for the finger were highly correlated with one another, and the weighted functions were similarly correlated, 
+As there are only few not steep crossings between $l_1$, $l_2$ and $l_3$, the parallel coordinates suggest correlation of those three weights. Similar correlation is observed for the respective weighted functions. %the unweighted l1,l2,and l3 cost functions for the finger were highly correlated with one another, and the weighted functions were similarly correlated, 
 We provide a scatter plot for their relationships in Appendix Figures \ref{fig:unweighted_cost_functions} and \ref{fig:weighted_cost_functions}.
 
 % subsection parallel_coordinates (end)

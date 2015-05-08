@@ -27,15 +27,15 @@ Consider the following $1 \times 3$ fabricated example, where the task is a 1N u
   \caption{The feasible activation set for a  three-muscle system meeting one functional constraint is a polygon in $\mathbb{R}^3$.} %Note that muscle activations are assumed to be bounded between $0$ and $1$.}
 \end{figure}
 
-\subsection{Difficultis of Volume Computation in Higher Dimension}
+\subsection{Difficulties of Volume Computation in Higher Dimension}
 
-Exact volume computations for polytopes is know to be $\#P$-hard \cite{Dyer}. Several algorithms have been suveyed and implemented, but can only handle up to 10 dimensions \cite{Bueler2}.  
+Exact volume computations for polytopes is know to be $\#P$-hard \cite{Dyer}. Several algorithms have been surveyed and implemented, but can only handle up to 10 dimensions \cite{Bueler2}.  
 %We aimed to compare the relative volumes of different sections of the activation space; however, exact volume computations are computationally intractable in dimensions beyond [maytodo cite]. 
 Recent muscle system models we have used have been 31 dimensional \cite{Valero-Cuevas2015high-dimensional}, and other muscle models have over 40 muscles involved \cite{arnold2010model, kutch2012challenges, hamner2010muscle, de2014human}, thereby limiting the feasibility of using direct volume computations. Instead, we chose to uniformly sample the continuous space, effectively approximating the shape of the polytope by calculating point densities. %[maytodo mention whether the volume computation is a closed-form solution]
 
 \subsection{Hit-and-Run algorithm}
 \label{ss:hitrun}
-We chose to sample the activation space with the Hit-and-Run method that is known to converge to the uniform distribution across an< convex body $K$ \cite{smith1984efficient}. It is a generalization of the discrete Markov chains and recursively samples a sequence of points in $K$ as described below. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $r$ and $R$ are the radii of the inscribed and cicumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps, the Hit-and-Run algorithm has sampled a point uniformly at random (u.a.r.) in $K$. Unfortunately the hidden constant is large, which makes the problem practically almost infeasible. However experimental results suggest that a number of points linear w.r.t.\ to the dimension suffices; this will be discussed in Section \ref{sec_lengthrun}.
+We chose to sample the activation space with the Hit-and-Run method that is known to converge to the uniform distribution across an< convex body $K$ \cite{smith1984efficient}. It is a generalization of the discrete Markov chains and recursively samples a sequence of points in $K$ as described below. The mixing time is known to be $\mathcal{O}^*(n^2R^2/r^2)$, where $r$ and $R$ are the radii of the inscribed and circumscribed ball of $K$ respectively \cite{Dyer, Lovasz}. I.e., after $\mathcal{O}^*(n^2R^2/r^2)$ steps, the Hit-and-Run algorithm has sampled a point uniformly at random (u.a.r.) in $K$. Unfortunately the hidden constant is large, which makes the problem practically almost infeasible. However experimental results suggest that a number of points linear w.r.t.\ to the dimension suffices; this will be discussed in Section \ref{sec_lengthrun}.
 As the feasible activation space of the muscles are given by a convex polytope, this method can be directly applied for our problem. Notably, there are other methods which sample uniformly, such as the Grid Walk or Ball walk \cite{Vempala}. We chose the Hit-and Run because of its easy structure and mixing guarantee, however it would be interesting to compare with other methods.
 
 The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any convex body):
@@ -57,7 +57,7 @@ The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.3\textwidth,page=9]{sections/figs/HitandRunSchematics_all.pdf}
-\caption{Uniform distribution aross the feasible activation space. In the schematic arm example, the distribution is represented within a 2D plane.}
+\caption{Uniform distribution across the feasible activation space. In the schematic arm example, the distribution is represented within a 2D plane.}
 \label{fig:posthitrun_distribution}
 \end{figure}
 
