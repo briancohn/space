@@ -1,5 +1,5 @@
 \section{DISCUSSION}
-\subsection{Remarks about the implementation}
+
 Our approximations show sufficiently accurate views of the polytope in slices perpendicular to each axis, in both histogram and parallel coordinate visualizations, and are not computationally intractable.
 Had we performed exact volume computations, we would have had more accurate relative volumes; that said, the level of error generated through approximation is exceptionally small in comparison to error derived from measuring/predicting the musculoskeletal parameters to define the generators of $A$.
 Our code only solves one linear equation to find the starting point, and the time-cost of each point thereafter is linear; therefore this method can be used for tendon driven models in very high-dimensional systems with at least 40 contributing muscles; the number of degrees of freedom and the values of $F_o$ has no effect on the speed of Hit-and-Run.\\
