@@ -4,12 +4,7 @@
 \subsection{Density projection upon one dimension} % (fold)
 \label{ssub:density_projection_upon_one_dimension}
 
-%\begin{figure}[htbp]
-%\centering
-%\includegraphics[width=0.5\textwidth]{sections/figs/raw_histograms.png}
-%\caption{Distribution of feasible activations for [briantodo: select task percent]50\% maximal force output in the palmar direction.}
-%\label{fig:raw_histograms}
-%\end{figure}
+
 Using Hit-and-Run to sample feasible activation sets, Figure \ref{fig:raw_histograms} shows the distributions of activation solutions for a palmar submaximal force resulting from [briantodo number] solutions computed with Hit-and-Run sampling. This is the first time (to our knowledge) that the internal structure of the feasible activation set has been visualized for a sub-maximal force.
 Notice also that the lower and upper bounds of the activations (i.e., the dashed lines that indicate their bounding box), are uniquely uninformative of the actual density of distribution of feasible activations. Note also that the activation needed for the maximal force output (thick gray line) is very often not the mode of the activations at [briantodo select correct number]50\%[maytodo: can we set this as a variable and use throughout?] of output.
 \\
@@ -36,7 +31,8 @@ The solution polytope converges as the difficulty of the task increases; the rat
 It is imperative to keep in mind that every histogram (regardless of its convergence) is composed of the distribution of all 10,000 points; when the distribution is compressed, the relative percentage of the bars will increase, as we fixed break width ($\Delta x$) remain constant to 2\% of maximal contraction. [briantodo cite http://library.msri.org/books/Book31/files/ball.pdf]
 
 The peaks seen in these figures is the perpendicular slice that has the largest relative area; within the same muscle it does not have to be symmetric between the bounds, and can shift over differing tasks.
-As expected, the unique solution at 100\% activation appears as a single peak representing 100\% of the sampled points; the bounds and the muscle's unique activation are superimposed. We explain why these distributions must be unimodal, non-normal, more formally in the discussion, along with information about the structure of the probability density function across a given muscle dimension.
+As expected, the unique solution at 100\% activation appears as a single peak representing 100\% of the sampled points; the bounds and the muscle's unique activation are superimposed.
+We explain why these distributions must be unimodal, non-normal, more formally in the discussion, along with information about the structure of the probability density function across a given muscle dimension.
 Consider the activation distributions between 70\%and 80\% for lum, where the median changed by less than 4\% while the lower bound increased by nearly 13\%.
 
 First, we observe that a meaningful cross-muscle comparison of point distributions cannot be ascertained by the bounding box. For example, at a task of 10\% of maximal palmar force production, epi and edc both have lower and upper bounds of 0, and 1, respectively, yet their distributions are thoroughly distinct; the shape of eip is more symmetric (lower 25\%, median, upper 75\%: 0.36, 0.5029, and 0.62), while 75\% of the solutions sampled have edc higher than 0.74 \ref{fig:Z_progression}. 
@@ -52,7 +48,7 @@ To maintain realtime interactivity of the plot, we used only the first 1000 poin
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figs/parcoord_alpha50.pdf}
-\caption{This figure is a snapshot of the interactive platform for visualizing all solutions. This parallel coordinates plot visualizes, where each feasible activation set is strewn across each dimension's axis as a line. While $\alpha$ could be set to view all tasks, we set alpha to a palmar force of 50\% of the computed maximal feasible force in this direction. Here we show 1000 points accrued from Hit-and-Run on a task of $\alpha=0.5$.}
+\caption{This figure is a snapshot of the interactive platform for visualizing all solutions. This parallel coordinates plot visualizes, where each feasible activation set is strewn across each dimension's axis as a line. While $\alpha$ could be set to view all tasks, we set $\alpha$ to a palmar force of 50\% of the computed maximal feasible force in this direction. Here we show 1000 points accrued from Hit-and-Run on a task of $\alpha=0.5$.}
 \label{fig:parcoord_full}
 \end{figure}
 
