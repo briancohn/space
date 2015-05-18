@@ -100,3 +100,15 @@ sudo dpkg -i sbt-0.13.7.deb
  sbt run 100
 ```
 This will generate 100 uniformly distributed points within a 7-muscle index finger model, and put the results CSVs in the output folder.
+
+#Mapping Code
+```latex
+J^{-T} \in \mathbb{R}^{m\times k} ,
+R \in \mathbb{R}^{k\times n} ,
+F_O \in \mathbb{R}^{n\times n} ,
+\textbf{a} \in \mathbb{R}^n\\
+
+m=\text{Output Dimensions}\\
+k=\text{DOF}\\
+n=\text{Muscles}\\
+```
