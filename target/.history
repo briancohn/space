@@ -281,3 +281,4 @@ test
 compile
 run 100
 run 1000
+test

@@ -179,8 +179,8 @@ object Basis extends Function1[DenseMatrix[Double], DenseMatrix[Double]]{
 		output
 	}
 	def InsertCol(M: DenseMatrix[Double], v: DenseVector[Double], k: Int) = {
-		for( RowNum<- 0 to M.rows) {
-			M(RowNum, k) = v(RowNum)
+		for( k<- 0 to M.rows) {
+			M(k, k) = v(k)
 		}
 		M
 	}

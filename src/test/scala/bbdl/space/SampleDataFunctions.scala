@@ -28,11 +28,11 @@ object SampleDataFunctions {
 
     def b3 = DenseVector((5.0), (6.0))
 
-    def deltas1 = DenseVector((0.1), (0.15))
+    def deltas1 = DenseVector((0.1), (0.2))
 
-    def deltas2 = DenseVector((0.15), (0.20))
+    def deltas2 = DenseVector((0.3), (0.4))
 
-    def deltas3 = DenseVector((0.18), (0.23))
+    def deltas3 = DenseVector((0.5), (0.6))
 
     def ShortbList = Array(b1, b2, b3)
 
@@ -84,14 +84,17 @@ object SampleDataFunctions {
 
     def StepDeltaChangeConstraint = DenseMatrix(
       (1.0, 0.0, -1.0, 0.0, 0.0, 0.0),
-      (-1.0, 0.0, 1.0, 0.0, 0.0, 0.0),
       (0.0, 1.0, 0.0, -1.0, 0.0, 0.0),
-      (0.0, -1.0, 0.0, 1.0, 0.0, 0.0),
       (0.0, 0.0, 1.0, 0.0, -1.0, 0.0),
-      (0.0, 0.0, -1.0, 0.0, 1.0, 0.0),
       (0.0, 0.0, 0.0, 1.0, 0.0, -1.0),
+      (-1.0, 0.0, 1.0, 0.0, 0.0, 0.0),
+      (0.0, -1.0, 0.0, 1.0, 0.0, 0.0),
+      (0.0, 0.0, -1.0, 0.0, 1.0, 0.0),
       (0.0, 0.0, 0.0, -1.0, 0.0, 1.0)
     )
+    def StackedFullWithDeltasA = DenseMatrix.vertcat(Array(KStackedConstraints, ConstrainBelow1,ConstrainToPositive,StepDeltaChangeConstraint):_*)
+
+    def DeltaConstraintB = DenseVector.vertcat(Array(PreExpansion.deltas1, PreExpansion.deltas2, PreExpansion.deltas3, -PreExpansion.deltas1, -PreExpansion.deltas2, -PreExpansion.deltas3):_*)
 
     def apply(): DenseMatrix[Double] = {
       val MatList = List(paddedA1, paddedA2, paddedA3, ConstrainToPositive, ConstrainBelow1, StepDeltaChangeConstraint)

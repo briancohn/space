@@ -28,22 +28,38 @@ class KSystemConstraintsSpec() extends FlatSpec with Matchers{
 
   behavior of "PadWithZeroMatrices"
   val Vec = DenseVector(1.0,0.0,-1.0)
-  it should "add the correct padding of zeros when it's the first (leftmost) System" in {
+  it should "add  correct padding of zeros when it's the first (leftmost) System" in {
     assert(AbsDiff.Vectors(KSystemConstraints.PadWithZeroVector(Vec, 0, 6), DenseVector(1.0,0.0,-1.0,0.0,0.0,0.0)) < 1E-14)
   }
-  it should "add the correct padding of zeros when it's the middle (non edge) System" in {
+  it should "add  correct padding of zeros when it's the middle (non edge) System" in {
     val theo = DenseVector(0.0,1.0,0.0,-1.0,0.0,0.0)
     val exp = KSystemConstraints.PadWithZeroVector(Vec, 1, 6)
     assert(AbsDiff.Vectors(theo,exp) < 1E-14)
   }
-  it should "add the correct padding of zeros when it's the last (rightmost) System" in {
+  it should "add  correct padding of zeros when it's the last (rightmost) System" in {
     assert(AbsDiff.Vectors(KSystemConstraints.PadWithZeroVector(Vec, 3, 6), DenseVector(0.0,0.0,0.0,1.0,0.0,-1.0)) < 1E-14)
   }
   "DeltaConstraintMatrix" should "construct a matrix for an A=2,2 K=3 small example" in {
     val theo = SampleDataFunctions.PostExpansion.StepDeltaChangeConstraint
-    //TODO
-//    val Experimental = DeltaConstraintMatrix(SampleDataFunctions.PreExpansion.KSystemsMini)
+    val Experimental = KSystemConstraints.deltaConstraintsA(n=2, K=3)
+    assert(AbsDiff.Matricies(theo,Experimental) < 1E-14)
   }
-
+  "DeltaConstraintVec" should "construct a vector of solutions for an A=2,2 K=3 small example" in {
+    val KInputSystem = SampleDataFunctions.PreExpansion.KSystemsMini
+    val theo = SampleDataFunctions.PostExpansion.DeltaConstraintB
+    val Experimental = KSystemConstraints.deltaConstraintsb(KInputSystem)
+    assert(AbsDiff.Vectors(theo,Experimental) < 1E-14)
+  }
+  "Concat Constraints b" should "stack a vector of solutions for an A=2,2 K=3 small example" in {
+    val KInputSystem = SampleDataFunctions.PreExpansion.KSystemsMini
+    val theo = SampleDataFunctions.PostExpansion.DeltaConstraintB
+    val Experimental = KSystemConstraints.deltaConstraintsb(KInputSystem)
+    assert(AbsDiff.Vectors(theo,Experimental) < 1E-14)
+  }
+  "KSystemConstraints" should "take in the A=2,2 example with K=3, and expand out an A matrix with added delta constraints" in {
+    val KInputSystem = SampleDataFunctions.PreExpansion.KSystemsMini
+    val theo = SampleDataFunctions.PostExpansion.StackedFullWithDeltasA
+    val Experimental = KSystemConstraints(KInputSystem)._1
+    assert(AbsDiff.Matricies(theo,Experimental) < 1E-14)
   }
 }
