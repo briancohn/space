@@ -1,15 +1,11 @@
 package bbdl.space
-
 import java.io.File
-
 import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
 import org.scalatest._
 import Matchers._
 import scala.util.Random
-
-//added for this test file
 
 class MaximumOutputSpec extends FlatSpec with Matchers {
   behavior of "Maximum Output Spec"
@@ -281,7 +277,6 @@ class GetNewPointSpec extends FlatSpec with Matchers {
     val UpperBoundInner = 0.25
     val Endpoints = GetNewPoint.FindEndpoints(p,q, UpperBoundInner,LowerBoundInner)
     val ExpectedEndpoints = (DenseVector(0.75,1.0,0.25), DenseVector(0.25,0.0,0.75))
-    println(Endpoints)
     assert(Endpoints === ExpectedEndpoints)
   }
   it should "use the p, positive direction q, and bound information to assemble two endpoints" in {
@@ -499,7 +494,6 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     assert(db.rows==10)
     val FileName = Output.TimestampCSVName("output/XYZoneoneone").toString()
     val MyFile = new java.io.File(FileName)
-    println("Saving to " + FileName)
     csvwrite(MyFile, db)
 
   }
@@ -523,13 +517,8 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     val db = PointStream.alphaGenerate(2, Tuple2(0.0, 0.9),10, v, A, OrthonormalBasis, RandomObject)
     db.cols should equal (12) // lambdas+v_i's+alpha
     db.rows should equal (20)
-    println(db(::,11))
   }
   "PointStream" should "generate 10 points( per alpha) in a direction progression where alpha is increasing in the xyz direction." in {
-    import bbdl.space._
-    import breeze.linalg._
-    import breeze.numerics._
-    import breeze.stats._
     val Seed = 10
     val RandomObject = new scala.util.Random(Seed)
     val JR = DenseMatrix(
@@ -550,7 +539,6 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     db.rows should equal (100)
     val FileName = Output.TimestampCSVName("output/XYZ_alphaProgression").toString()
     val MyFile = new java.io.File(FileName)
-    println("Saving to " + FileName)
     csvwrite(MyFile, db)
   }
   "PointStream" should "generate 100 points( per alpha) in a direction progression where alpha is increasing in the x direction." in {
@@ -577,7 +565,6 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     db.rows should equal (1000)
     val FileName = Output.TimestampCSVName("output/X_alphaProgression").toString()
     val MyFile = new java.io.File(FileName)
-    println("Saving to " + FileName)
     csvwrite(MyFile, db)
   }
   "PointStream" should "generate 100 points( per alpha) in a direction progression where alpha is increasing in the y direction." in {
@@ -604,7 +591,6 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     db.rows should equal (1000)
     val FileName = Output.TimestampCSVName("output/Y_alphaProgression").toString()
     val MyFile = new java.io.File(FileName)
-    println("Saving to " + FileName)
     csvwrite(MyFile, db)
   }
   "PointStreamXY" should "generate 100 points( per alpha) in a direction progression where alpha is increasing in the xy direction." in {
@@ -631,7 +617,6 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     db.rows should equal (1000)
     val FileName = Output.TimestampCSVName("output/XY_alphaProgression").toString()
     val MyFile = new java.io.File(FileName)
-    println("Saving to " + FileName)
     csvwrite(MyFile, db)
   }
   "PointStream" should "generate the same result as a direct hit and run computation (given v)" in {
@@ -654,7 +639,6 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     val DirectHitandRunPoints = PointStream.generate(1000,OrthonormalBasis,GenStartingPoint(A,v),RandomObject)
     val FileName = Output.TimestampCSVName("output/direct_points286").toString()
     val MyFile = new java.io.File(FileName)
-    println("Saving to " + FileName)
     csvwrite(MyFile, DirectHitandRunPoints)
   }
   "PointStream" should "generate 1000 points( per alpha) WITH COSTS, per direction progression where alpha is increasing in the x direction." in {
@@ -682,7 +666,6 @@ class PointStreamSpec() extends FlatSpec with Matchers {
     db.rows should equal (10000)
     val FileName = Output.TimestampCSVName("output/X_alphaProgression").toString()
     val MyFile = new java.io.File(FileName)
-    println("Saving to " + FileName)
     csvwrite(MyFile, DBwithCosts)
   }
 }
@@ -751,3 +734,4 @@ class CostSpec() extends  FlatSpec with Matchers {
     assert(Cost.L3WeightedNorm(ExpV,ExpW)- res(5)< 1E-6)
   }
 }
+
