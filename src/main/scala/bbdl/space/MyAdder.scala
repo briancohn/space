@@ -1,14 +1,14 @@
 package bbdl.space
-
 import java.io.File
 import java.util.Date
-
 import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
 import breeze.optimize.linear.LinearProgram
+import breeze.util.JavaArrayOps
 import spire.math.Real
 import scala.util._
+import breeze.util.JavaArrayOps
 object MaximumOutput {
     /*
   Takes in an A Matrix, and b vector, and returns the maximum output vector in direction b
@@ -354,8 +354,6 @@ object AbsDiff{
 object LowLevelSimplex{
   def apply(A_input: DenseMatrix[Double], b_input: DenseVector[Double], c_input: DenseVector[Double]): DenseVector[Double] = {
     val lp = new breeze.optimize.linear.LinearProgram()
-    import breeze.util.JavaArrayOps
-
     val ColNum = A_input.cols //ColNum = the number of variables
     val xs = Array.fill(ColNum)(lp.Real()) //xs is the number of variables in an array. If x_0 to x_n, ColNum defines n
     val b = JavaArrayOps.dvDToArray(b_input)
@@ -364,6 +362,9 @@ object LowLevelSimplex{
     val c = JavaArrayOps.dvDToArray(c_input) //the objective function
 
     var Constraints = new Array[lp.Constraint](RowNum)
+    /* the following lines were derived from a Google Group conversation about Breeze Scala implementations, and was added/edited by Brian Cohn May 21st, 2015
+    Source Link: https://groups.google.com/forum/#!msg/scala-breeze/B3Anj9pljZA/04sLj0LMouwJ
+     */
     for (i <- 0 to RowNum-1) {
     Constraints(i) = (for( (x, a) <- xs zip A(i)) yield (x * a)).reduce(_ + _)  <= b(i)
     }
@@ -371,6 +372,9 @@ object LowLevelSimplex{
     (for( (x, a) <- xs zip c) yield (x * a)).reduce(_ + _)
     subjectTo( Constraints:_* )
     )
+    /*
+    End Google Group code usage.=
+     */
     val x = lp.maximize(lpp).result
     x
   }
@@ -639,3 +643,4 @@ object ExtrudeVector {
     DenseMatrix(Range(0,n).map(x => k):_*)
   }
 }
+

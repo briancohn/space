@@ -19,7 +19,7 @@ This project can get computationally complex, very quickly. We have a cat-leg mo
 Imagine you're holding a brick in your palm that weighs 2kg, and you can't move your elbow or shoulder. You have to push up with 20N force or the brick will move. It will require a direct upward force, and you can't create any torque on the brick (you're not allowed to spin it).
 <img src="http://www.beldenbrick.com/2007/images/modular.gif" alt="picture of a brick">
 
-The brick isn't heavy for you, and because it's not your 'maximal' there's alot of ways you could create that force directly up. Your arm has many different muscles which can support the brick. Some muscles are absolutely necessary, while others you could inject with botox, and still maintain effective control of the brick (albeit it might be more difficult). Every muscle you have can be tensed from 0 to 100%, where 100% is as hard as you can possibly contract that muscle. Your nervous system controls the 'activations' of these muscles, thereby producing forces and controlling motion for your body. Every moment of your life, your arm muscles have a level of activation. When sleeping, you might have very low muscle tension, but when holding the brick, some of the muscles are more highly activated.
+The brick isn't heavy for you, and because it's not your 'maximal', there are many ways to create that force directly up. Your arm has many different muscles which can support the brick. Some muscles are absolutely necessary, while others you could inject with botox, and still maintain effective control of the brick (albeit it might be more difficult). Every muscle you have can be tensed from 0 to 100%, where 100% is as hard as you can possibly contract that muscle. Your nervous system controls the 'activations' of these muscles, thereby producing forces and controlling motion for your body. Every moment of your life, your arm muscles have a level of activation. When sleeping, you might have very low muscle tension, but when holding the brick, some of the muscles are more highly activated.
 
 ##a
 Think of your muscle activations as a list of percentages:
@@ -50,7 +50,7 @@ What does the 'solution space' look like?
 
 Every point within the Feasible Activation Set will produce the desired force output. The dimensionality of the FAS is highly dependent on the number of muscles and whether there are any other constraints on the system (to be discussed in another post).
 ##Example
-If you had 4 muscles in your system, the feasible activaiton space could look like this:
+If you had 4 muscles in your system, the feasible activation space could look like this:
 <img src="http://upload.wikimedia.org/wikipedia/commons/e/ef/3dpoly.svg">
 
 
