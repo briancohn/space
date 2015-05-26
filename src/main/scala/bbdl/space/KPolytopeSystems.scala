@@ -129,14 +129,14 @@ object KSystemConstraints {
     val n = kGeneratorSystems.KSystemArray(0).A.cols
     val AMatConstraints = ConcatConstraints_A(kGeneratorSystems)
     val AMatConstraintsB = ConcatConstraints_b(kGeneratorSystems)
-    val LessThanOneA = DenseMatrix.ones[Double](K*n, K*n)
-    val LessThanOneB = DenseVector.ones[Double](size=K*n)
-    val LargerThanZeroA = DenseMatrix.zeros[Double](K*n, K*n)
-    val LargerThanZeroB = DenseVector.zeros[Double](K*n)
+    val EyeMat = DenseMatrix.eye[Double](K*n)
+    val OnesVec = DenseVector.ones[Double](size=K*n)
+    val NegativeEye = -DenseMatrix.eye[Double](K*n)
+    val NegativeOnesVec = -DenseVector.ones[Double](size=K*n)
     val DeltaConstraintsA = deltaConstraintsA(n,K)
     val DeltaConstraintsB = deltaConstraintsb(kGeneratorSystems)
-    val ExpandedA = DenseMatrix.vertcat(Array(AMatConstraints,LessThanOneA,LargerThanZeroA,DeltaConstraintsA):_*)
-    val ExpandedB = DenseVector.vertcat(Array(AMatConstraintsB,LessThanOneB, LargerThanZeroB, DeltaConstraintsB):_*)
+    val ExpandedA = DenseMatrix.vertcat(Array(AMatConstraints,NegativeEye, EyeMat, DeltaConstraintsA):_*)
+    val ExpandedB = DenseVector.vertcat(Array(AMatConstraintsB, NegativeOnesVec, OnesVec, DeltaConstraintsB):_*)
     (ExpandedA,ExpandedB)
   }
 }
