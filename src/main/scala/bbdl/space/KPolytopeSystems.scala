@@ -118,25 +118,30 @@ object KSystemConstraints {
 
   def deltaConstraintsb(kGeneratorSystems: KGeneratorSystems): DenseVector[Double] = {
     val Ks = kGeneratorSystems.KSystemArray
-    val Deltas = (0 to Ks.length - 1).map(j => Ks(j).deltas)
+    // IMPORTANT - Ks.lengt is subtracted by 2 because we only want K-1 of the deltas.
+    // We do not include the last delta from the last timepoint
+    val Deltas = (0 to Ks.length - 2).map(j => Ks(j).deltas)
     val DeltasArray = Deltas.toArray
     val DeltasA2 = DenseVector.vertcat(DeltasArray:_*)
     val ConcatDeltas = DenseVector.vertcat(DeltasA2, -DeltasA2)
     ConcatDeltas
   }
+  /*
+  Concatenates the entire system including the bounds and delta constraints
+   */
   def apply(kGeneratorSystems: KGeneratorSystems): (DenseMatrix[Double], DenseVector[Double]) = {
     val K = kGeneratorSystems.KSystemArray.length
     val n = kGeneratorSystems.KSystemArray(0).A.cols
     val AMatConstraints = ConcatConstraints_A(kGeneratorSystems)
     val AMatConstraintsB = ConcatConstraints_b(kGeneratorSystems)
     val EyeMat = DenseMatrix.eye[Double](K*n)
-    val OnesVec = DenseVector.ones[Double](size=K*n)
+    val OnesVec = DenseVector.ones[Double](K*n)
     val NegativeEye = -DenseMatrix.eye[Double](K*n)
-    val NegativeOnesVec = -DenseVector.ones[Double](size=K*n)
+    val Zs = DenseVector.zeros[Double](K*n)
     val DeltaConstraintsA = deltaConstraintsA(n,K)
     val DeltaConstraintsB = deltaConstraintsb(kGeneratorSystems)
     val ExpandedA = DenseMatrix.vertcat(Array(AMatConstraints,NegativeEye, EyeMat, DeltaConstraintsA):_*)
-    val ExpandedB = DenseVector.vertcat(Array(AMatConstraintsB, NegativeOnesVec, OnesVec, DeltaConstraintsB):_*)
+    val ExpandedB = DenseVector.vertcat(Array(AMatConstraintsB, Zs, OnesVec, DeltaConstraintsB):_*)
     (ExpandedA,ExpandedB)
   }
 }
