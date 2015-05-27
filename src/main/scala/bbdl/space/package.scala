@@ -30,7 +30,7 @@ package object MainClass {
       (0.06472, 0.001953, -0.1518,-0.1518, 0.2919, 0.0568, 0.2067),
       (0.003081, -0.002352, -0.0001649, -0.0001649, -0.0004483, 0.0001578, -0.000685)
     )
-      val Fm: DenseVector[Double] = DenseVector(123.0, 219.0,	23.52, 91.74,	21.6,	124.8,129.6)
+    val Fm: DenseVector[Double] = DenseVector(123.0, 219.0,	23.52, 91.74,	21.6,	124.8,129.6)
     val A = JR*diag(Fm)
     val db = PointStream.alphaGenerate(PointsPerAlpha, AlphaLim, AlphaLenOut, v, A, Ortho(Basis(A)), RandomObject)
     val DBwithCosts = Cost.GenCosts(db, A.cols, Fm)

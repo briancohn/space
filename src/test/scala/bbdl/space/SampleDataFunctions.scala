@@ -160,11 +160,11 @@ object SampleDataFunctions {
       val Bs = DenseVector.vertcat(Array(PreExpansion.b1,-PreExpansion.b1,PreExpansion.b2,-PreExpansion.b2,PreExpansion.b3,-PreExpansion.b3):_*)
       val Bounds = DenseVector.vertcat(DenseVector.zeros[Double](6), DenseVector.ones[Double](6))
       val DeltaConstraints = DenseVector(0.1,0.2,0.3,0.4)
-      DenseVector.vertcat(Array(Bs,Bounds,DeltaConstraints, -DeltaConstraints):_*)
+      DenseVector.vertcat(Array(Bs,Bounds,DeltaConstraints, DeltaConstraints):_*)
     }
     def StackedFullWithDeltasA = DenseMatrix.vertcat(Array(KStackedConstraints, ConstrainBelow1,ConstrainToPositive,StepDeltaChangeConstraint):_*)
 
-    def DeltaConstraintB = DenseVector.vertcat(Array(PreExpansion.deltas1, PreExpansion.deltas2, -PreExpansion.deltas1, -PreExpansion.deltas2):_*)
+    def DeltaConstraintB = DenseVector.vertcat(Array(PreExpansion.deltas1, PreExpansion.deltas2, PreExpansion.deltas1, PreExpansion.deltas2):_*)
 
     def apply(): DenseMatrix[Double] = {
       val MatList = List(paddedA1, paddedA2, paddedA3, ConstrainToPositive, ConstrainBelow1, StepDeltaChangeConstraint)

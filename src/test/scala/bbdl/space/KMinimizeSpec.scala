@@ -26,7 +26,7 @@ class KMinimizeSpec() extends FlatSpec with Matchers{
  "Minimizing the sum of change in activation from j to j+1" should "produce the minimal result" in {
   val KMini = SampleDataFunctions.K3N2Mini.KSystemsMini
   val ExperimentalX = KMinimize.AbsDiffOfSumOfDeltaActivation(KMini)
-  val TheoreticalX = DenseVector(2.0,2.0)
+  val TheoreticalX = DenseVector(0.6363636363636364, 0.4227272727272727, 0.6363636363636365, 0.5454545454545454, 0.6363636363636364, 0.7454545454545455, 0.0, 0.12272727272727275, 0.0, 0.2)
   assert(AbsDiff.Vectors(TheoreticalX,ExperimentalX) < 1E-14)
  }
 }
