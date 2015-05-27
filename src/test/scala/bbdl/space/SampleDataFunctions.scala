@@ -47,6 +47,69 @@ object SampleDataFunctions {
     def KSystemsMini = KGeneratorSystems(Array(SystemMini1, SystemMini2, SystemMini3))
   }
 
+  object K3N2Mini {
+    def A1 = DenseMatrix((-0.35, 1.0))
+
+    def A2 = DenseMatrix((-4.0,1.0))
+
+    def A3 = DenseMatrix((-0.7,1.0))
+
+    def b1 = DenseVector((0.2))
+
+    def b2 = DenseVector((-2.0))
+
+    def b3 = DenseVector((0.3))
+
+    def deltas1 = DenseVector((0.2), (0.2))
+
+    def deltas2 = DenseVector((0.2), (0.2))
+
+    def deltas3 = DenseVector((0.2), (0.2))
+
+    def ShortbList = Array(b1, b2, b3)
+
+    def SystemMini1 = GeneratorSystem(A1, b1, deltas1)
+
+    def SystemMini2 = GeneratorSystem(A2, b2, deltas2)
+
+    def SystemMini3 = GeneratorSystem(A3, b3, deltas3)
+
+    def KSystemsMini = KGeneratorSystems(Array(SystemMini1, SystemMini2, SystemMini3))
+  }
+
+  object K2N2SystemsMini {
+    def apply = KGeneratorSystems(Array(K3N2Mini.SystemMini1, K3N2Mini.SystemMini2))
+  }
+  object K3N2NoDelta {
+    def A1 = DenseMatrix((-0.35, 1.0))
+
+    def A2 = DenseMatrix((-4.0,1.0))
+
+    def A3 = DenseMatrix((-0.7,1.0))
+
+    def b1 = DenseVector((0.2))
+
+    def b2 = DenseVector((-2.0))
+
+    def b3 = DenseVector((0.3))
+
+    def deltas1 = DenseVector((1.0), (1.0))
+
+    def deltas2 = DenseVector((1.0), (1.0))
+
+    def deltas3 = DenseVector((1.0), (1.0))
+
+    def ShortbList = Array(b1, b2, b3)
+
+    def SystemMini1 = GeneratorSystem(A1, b1, deltas1)
+
+    def SystemMini2 = GeneratorSystem(A2, b2, deltas2)
+
+    def SystemMini3 = GeneratorSystem(A3, b3, deltas3)
+
+    def KSystemsMini = KGeneratorSystems(Array(SystemMini1, SystemMini2, SystemMini3))
+  }
+
   object PostExpansion {
     def paddedA1 = DenseMatrix((1.0, 2.0, 0.0, 0.0, 0.0, 0.0),
       (3.0, 4.0, 0.0, 0.0, 0.0, 0.0),

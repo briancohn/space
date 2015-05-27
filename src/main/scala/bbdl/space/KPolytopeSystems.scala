@@ -123,8 +123,20 @@ object KSystemConstraints {
     val Deltas = (0 to Ks.length - 2).map(j => Ks(j).deltas)
     val DeltasArray = Deltas.toArray
     val DeltasA2 = DenseVector.vertcat(DeltasArray:_*)
-    val ConcatDeltas = DenseVector.vertcat(DeltasA2, -DeltasA2)
+    val ConcatDeltas = DenseVector.vertcat(DeltasA2, DeltasA2)
     ConcatDeltas
+  }
+  /*
+  returns a tuple of the stacked A and b for between 0 and 1
+   */
+  def ZeroOneBoundConstraints(n:Int): (DenseMatrix[Double], DenseVector[Double]) = {
+    val NegativeEye = -DenseMatrix.eye[Double](n)
+    val Zs = DenseVector.zeros[Double](n)
+    val EyeMat = DenseMatrix.eye[Double](n)
+    val OnesVec = DenseVector.ones[Double](n)
+    val A = DenseMatrix.vertcat(NegativeEye,EyeMat)
+    val B = DenseVector.vertcat(Zs, OnesVec)
+    (A,B)
   }
   /*
   Concatenates the entire system including the bounds and delta constraints
@@ -134,14 +146,50 @@ object KSystemConstraints {
     val n = kGeneratorSystems.KSystemArray(0).A.cols
     val AMatConstraints = ConcatConstraints_A(kGeneratorSystems)
     val AMatConstraintsB = ConcatConstraints_b(kGeneratorSystems)
-    val EyeMat = DenseMatrix.eye[Double](K*n)
-    val OnesVec = DenseVector.ones[Double](K*n)
+    //bound constraints
     val NegativeEye = -DenseMatrix.eye[Double](K*n)
     val Zs = DenseVector.zeros[Double](K*n)
+    val EyeMat = DenseMatrix.eye[Double](K*n)
+    val OnesVec = DenseVector.ones[Double](K*n)
+//TODO refactor use ZeroOneBoundConstraints
     val DeltaConstraintsA = deltaConstraintsA(n,K)
     val DeltaConstraintsB = deltaConstraintsb(kGeneratorSystems)
     val ExpandedA = DenseMatrix.vertcat(Array(AMatConstraints,NegativeEye, EyeMat, DeltaConstraintsA):_*)
     val ExpandedB = DenseVector.vertcat(Array(AMatConstraintsB, Zs, OnesVec, DeltaConstraintsB):_*)
     (ExpandedA,ExpandedB)
+  }
+}
+
+object KSystemConstraintsAbsDiffDelta {
+  def AuxVars(K: Int, n: Int): DenseMatrix[Double] = {
+    val EyeMat = DenseMatrix.eye[Double](n*(K-1))
+    DenseMatrix.vertcat(-EyeMat,-EyeMat)
+  }
+
+  def apply(kGeneratorSystems: KGeneratorSystems): (DenseMatrix[Double], DenseVector[Double]) = {
+    val K = kGeneratorSystems.KSystemArray.length
+    val n = kGeneratorSystems.KSystemArray(0).A.cols
+  // construct the system constraints
+    val A1 = KSystemConstraints.ConcatConstraints_A(kGeneratorSystems)
+    val B1 = KSystemConstraints.ConcatConstraints_b(kGeneratorSystems)
+    // construct bound constraints
+    val BoundConstraints = KSystemConstraints.ZeroOneBoundConstraints(K*n)
+    val A2 = BoundConstraints._1
+    val B2 = BoundConstraints._2
+    //construct delta constraints
+    val A3 = KSystemConstraints.deltaConstraintsA(n,K)
+    val B3 = KSystemConstraints.deltaConstraintsb(kGeneratorSystems)
+    //concat KSystemConstraints
+    val KSystemCols = DenseMatrix.vertcat(Array(A1,A2,A3,A3):_*)
+
+    val A4 = AuxVars(K,n)
+
+    val RowsA1A2 = A1.rows+A2.rows+A3.rows
+    val AuxZeros = DenseMatrix.zeros[Double](RowsA1A2, (K-1)*n)
+    val AuxCols = DenseMatrix.vertcat(AuxZeros,A4)
+    val AWithAux = DenseMatrix.horzcat(KSystemCols, AuxCols)
+    val BWithAux = DenseVector.vertcat(Array(B1,B2,B3, DenseVector.zeros[Double](A3.rows)):_*)
+    (AWithAux,BWithAux)
+//    (DenseMatrix.zeros[Double](2,2), DenseVector.zeros[Double](2))//TODO implement the b vector for the aux b
   }
 }
