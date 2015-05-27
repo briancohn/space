@@ -25,8 +25,10 @@ object KMinimize {
   val AVDelta = KSystemConstraintsAbsDiffDelta.apply(kGeneratorSystems)
   val A = AVDelta._1
   val b = AVDelta._2
-
-  // TODO call auxiliary A expansion fn
-  DenseVector.zeros[Double](2)
+  val KConstraintVariables = DenseVector.zeros[Double](K*n)
+  val AuxiliaryVariables = -DenseVector.ones[Double](n*(K-1))
+  val c = DenseVector.vertcat(KConstraintVariables, AuxiliaryVariables)
+  val x = LowLevelSimplex(A, b, c)
+  x
  }
 }

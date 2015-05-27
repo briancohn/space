@@ -184,12 +184,11 @@ object KSystemConstraintsAbsDiffDelta {
 
     val A4 = AuxVars(K,n)
 
-    val RowsA1A2 = A1.rows+A2.rows+A3.rows
-    val AuxZeros = DenseMatrix.zeros[Double](RowsA1A2, (K-1)*n)
+    val RowsA1A2A3 = A1.rows+A2.rows+A3.rows
+    val AuxZeros = DenseMatrix.zeros[Double](RowsA1A2A3, (K-1)*n)
     val AuxCols = DenseMatrix.vertcat(AuxZeros,A4)
     val AWithAux = DenseMatrix.horzcat(KSystemCols, AuxCols)
     val BWithAux = DenseVector.vertcat(Array(B1,B2,B3, DenseVector.zeros[Double](A3.rows)):_*)
     (AWithAux,BWithAux)
-//    (DenseMatrix.zeros[Double](2,2), DenseVector.zeros[Double](2))//TODO implement the b vector for the aux b
   }
 }
