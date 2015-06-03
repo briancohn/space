@@ -126,6 +126,16 @@ object KSystemConstraints {
     val ConcatDeltas = DenseVector.vertcat(DeltasA2, DeltasA2)
     ConcatDeltas
   }
+  def deltaConstraintsbForOneLessStep(kGeneratorSystems: KGeneratorSystems): DenseVector[Double] = {
+    val Ks = kGeneratorSystems.KSystemArray
+    // IMPORTANT - Ks.lengt is subtracted by 2 because we only want K-1 of the deltas.
+    // We do not include the last delta from the last timepoint
+    val Deltas = (0 to Ks.length - 3).map(j => Ks(j).deltas)
+    val DeltasArray = Deltas.toArray
+    val DeltasA2 = DenseVector.vertcat(DeltasArray:_*)
+    val ConcatDeltas = DenseVector.vertcat(DeltasA2, DeltasA2)
+    ConcatDeltas
+  }
   /*
   returns a tuple of the stacked A and b for between 0 and 1
    */
@@ -191,4 +201,54 @@ object KSystemConstraintsAbsDiffDelta {
     val BWithAux = DenseVector.vertcat(Array(B1,B2,B3, DenseVector.zeros[Double](A3.rows)):_*)
     (AWithAux,BWithAux)
   }
+}
+
+object KSystemCheckPoint {
+  /*
+  j is out of K steps
+   */
+  def apply(kGeneratorSystems: KGeneratorSystems, PointInQuestion: DenseVector[Double], j: Int): Boolean = {
+    val MinusLastOne = DropLastSystem(kGeneratorSystems)
+    val K = kGeneratorSystems.KSystemArray.length
+    val n = kGeneratorSystems.KSystemArray(0).A.cols
+    val AConstraints = KSystemConstraints.ConcatConstraints_A(MinusLastOne)
+    val BConstraints = KSystemConstraints.ConcatConstraints_b(MinusLastOne)
+    val Bounds = KSystemConstraints.ZeroOneBoundConstraints((K-1)*n)
+    val ADelta = KSystemConstraints.deltaConstraintsA(n,K-1)
+    val BDelta = KSystemConstraints.deltaConstraintsbForOneLessStep(kGeneratorSystems)
+
+    // this final constraint is for the point with respect to the last j (which is j=k)
+    val ADeltasLast = LastDeltaConstraint(n,K)
+    val UltDeltaPoint = UltimatePointDeltaB(kGeneratorSystems,PointInQuestion)
+    val A = DenseMatrix.vertcat(Array(AConstraints, Bounds._1, ADelta,ADeltasLast):_*)
+    val Constraints = Array(
+    BConstraints,
+      Bounds._2,
+      BDelta,
+    UltDeltaPoint)
+    val B = DenseVector.vertcat(Constraints:_*)
+    (A,B)
+    true
+  }
+  def LastDeltaConstraint(n:Int ,K:Int): DenseMatrix[Double] = {
+    val LeftPadding = DenseMatrix.zeros[Double](n*(K-2),n*(K-2))
+    val Eye = DenseMatrix.eye[Double](n)
+    val RightConstraints = DenseMatrix.vertcat(Eye,-Eye)
+    //Combine them together
+    DenseMatrix.horzcat(LeftPadding,RightConstraints)
+  }
+  /*
+  only returns the first N entries
+   */
+  def DropLastSystem(kGeneratorSystems: KGeneratorSystems): KGeneratorSystems = {
+    val Length = kGeneratorSystems.KSystemArray.length
+    KGeneratorSystems(kGeneratorSystems.KSystemArray.take(Length-1))
+  }
+  def UltimatePointDeltaB(kGeneratorSystems: KGeneratorSystems, Point: DenseVector[Double]): DenseVector[Double] = {
+    val PenultimateK = kGeneratorSystems.KSystemArray(kGeneratorSystems.KSystemArray.length-2)
+    val Positives = PenultimateK.deltas + Point
+    val Negatives = PenultimateK.deltas - Point
+    DenseVector.vertcat(Positives,Negatives)
+  }
+
 }

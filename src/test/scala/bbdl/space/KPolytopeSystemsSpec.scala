@@ -10,7 +10,14 @@ Created by B
 Time: 16:18 PM, 5/21/2015;
 Project: space
 */
-
+class KSystemCheckPointSpec() extends FlatSpec with Matchers{
+  "KSystemCheckPoint" should "say false for k3n2 out-of-space point" in {
+    val Kmini = SampleDataFunctions.K4N2Mini.KSystemsMini
+    val j = 2 // the last element in the ksystem
+    val InSet = KSystemCheckPoint(Kmini,DenseVector(1.0,1.0),j)
+    assert(!InSet)
+  }
+}
 class KSystemConstraintsSpec() extends FlatSpec with Matchers{
   behavior of "PadWithZeroMatrices"
   it should "add the correct padding of zeros when it's the first (leftmost) System" in {

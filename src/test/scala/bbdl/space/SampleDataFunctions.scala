@@ -76,6 +76,9 @@ object SampleDataFunctions {
 
     def KSystemsMini = KGeneratorSystems(Array(SystemMini1, SystemMini2, SystemMini3))
   }
+  object K4N2Mini{
+    def KSystemsMini = KGeneratorSystems(Array(K3N2Mini.SystemMini1, K3N2Mini.SystemMini2,K3N2Mini.SystemMini3,K3N2Mini.SystemMini3))
+  }
 
   object K2N2SystemsMini {
     def apply = KGeneratorSystems(Array(K3N2Mini.SystemMini1, K3N2Mini.SystemMini2))
