@@ -7,7 +7,7 @@
 ####Problem statement:
 We don't know how the brain picks the <strong>optimal</strong> strategy to coordinate its muscles and limbs to generate motion.
 ####Why we are researching this:
-If we understand the constraints of force generation, we can see how many solutions the brain can choose from. Prosthetic and robotic designs are dependent upon robust control algorithms; we have the opportunity to unveil how the brain optimizes its coordination strategy, and build the next generation of biologically-inspired robot arms, prosthetic designs, and orthopaedic treatments.
+If we understand the constraints of force generation, we can see how many solutions the brain can choose from. Prosthetic and robotic designs are dependent upon robust control algorithms;  we have the opportunity to unveil how the brain optimizes its coordination strategy, and build the next generation of biologically-inspired robot arms, prosthetic designs, and orthopaedic treatments.
 ####How do we approach this topic:
 Take in data about a musculoskeletal arm or leg, and visualize how the brain optimizes the limb's force production. With many different muscles, there is an infinite number of control strategies. In this project, we look to constrain those possibilties as much as possible, until we uncover physical limitations to the solution space itself.
 
