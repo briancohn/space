@@ -13,3 +13,5 @@ script:
   - sbt run
 jdk:
   - oraclejdk7
+notifications:
+  slack: kaspect:ZDGGbLyDsPguWyRxpcrkpqQa
