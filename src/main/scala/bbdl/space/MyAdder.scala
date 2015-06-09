@@ -392,6 +392,7 @@ object LowLevelSimplex{
   }
  }
 
+
 object SampleLinearSystem {
   def apply(A: DenseMatrix[Double], v: DenseVector[Double], RandomObject: scala.util.Random, Samples: Int) = {
     val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
