@@ -8,7 +8,8 @@ Thus researchers often seek to infer the optimization approach and the cost func
 
 Implicit in these optimization procedures is the notion that there exists a well structured set of feasible solutions. Thus several of us have focused on describing and understanding those high-dimensional subspaces  embedded in $[0,1]^n$ (see Methods) \cite{kutch2011muscle,kutch2012challenges,sohn2013cat_bounding_box,Valero-Cuevas1998Large,Valero-Cuevas2015high-dimensional}.
 
-For the case of static force production with a limb, the muscle redundancy problem is phrased in computational geometry: Find the structure of the set of all feasible muscle activations, given the limb mechanics and the task constraints \cite{avis1992Pivoting,Valero-Cuevas1998Large,Valero-Cuevas2009mathematical,Valero-Cuevas2015high-dimensional}. We aim to explore what the solution space looks like, and uncover the structure of the feasible activation space for given static force tasks.
+For the case of static force production with a limb, the muscle redundancy problem is phrased in computational geometry: Find the structure of the set of all feasible muscle activations, given the limb mechanics and the task constraints \cite{avis1992Pivoting,Valero-Cuevas1998Large,Valero-Cuevas2009mathematical,Valero-Cuevas2015high-dimensional}.
+We aim to explore what the solution space looks like, and uncover the structure of the feasible activation space for given static force tasks.
 
 \subsection{High dimensionality difficulties}
 Consider a model of a static fingertip force, with 7 muscles articulating the index finger's 4 degrees of freedom (DOF), which will be further described in Section \ref{ss:finger}.
@@ -16,8 +17,8 @@ Assuming independent control of each muscle (non-synergistic model), each muscle
 This yields a unit $7$-cube in charge of producing a 4-dimensional output wrench.
 In order to uncover the structure and relationship of these spaces, we cannot visualize all dimensions simultaneously. %as we could with a simple 3-muscle model.
 
-The solution of the above system is a convex polytope called the \emph{feasible activation set} (see Section \ref{s:methods}).
-To date, the structure of this high-dimensional polytope has inferred by computing its bounding box, which is determined by the maximum and minimum activation of each muscle for a given output force \cite{kutch2011muscle,sohn2013cat_bounding_box,Valero-Cuevas2015high-dimensional}.
+The solution of the above system is a convex polytope, and is called the \emph{feasible activation set} (see Section \ref{s:methods}).
+To date, the structure of this high-dimensional polytope has been inferred by computing its bounding box, which is determined by the maximum and minimum activation of each muscle for a given output force \cite{kutch2011muscle,sohn2013cat_bounding_box,Valero-Cuevas2015high-dimensional}.
 But the bounding box of a convex polytope excludes the details of its shape, thereby precluding comparison, since the polytope is a lower dimensional object embedded into $[0,1]^n$.
 Empirical dimensionality-reduction methods have been used to calculate basis vectors for such subspaces \cite{Clewley2008Estimating,davella2005shared,krishnamoorthy2003muscle},
 but this approach only provides a description of the dimension, orientation, and aspect ratio of the polytope; basis vectors are uninformative of boundaries and internal structure.
@@ -40,12 +41,12 @@ With this, below are the key observations we identified with our research:
 
 With respect to the structure of the activation space, we set forth the following key ideas and findings:
 \begin{itemize}
-\item {Submaximal activation patterns do not scale linearly from the unique solution}
+\item {When the unique solution at maximal force production is scaled for submaximal wrenches, we find that the solution space is not centered (by the mode) on those scaled vectors.}
 \item {Our approach provides a more granular context to the space within which the central nervous system (CNS) optimizes.}
 \item {The bounding box exceptionally misconstrues the actual shape of the feasible activation space.}
 \end{itemize}
 and most importantly,
 \begin{itemize}
-\item {The high-dimensional space, which serves as the landscape upon which all Bayesian priors exist, is a remarkably shallow space within which to optimize. We provide substantial theoretical and experimental evidence suggesting that the 'dynamics' of neuromechanical evolution and learning are heavily constrained and defined by the simple statics.}
+\item {The high-dimensional activation space, which serves as the landscape upon which all Bayesian priors exist, is a remarkably shallow space within which to optimize. We provide substantial theoretical and experimental evidence suggesting that the 'dynamics' of neuromechanical evolution and learning are heavily constrained and defined by the simple statics.}
 \end{itemize}
 

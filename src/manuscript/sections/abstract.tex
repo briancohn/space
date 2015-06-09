@@ -7,11 +7,12 @@ We present a novel approach based on the well-known Hit-and-Run algorithm (used 
 It is known that explicitly computing the volume of this polytope can become too computationally complex in many instances.
 However, using the Hit-and-Run algorithm, we are able to uniformly sample points across the feasible activation space.
 We visualize this space by using histograms across each dimension, illustrating  the distributions over each muscle.
-We use a realistic model of a static human index finger with 7 muscles, 4DOF, and 4 output dimensions, and for a progression of increasing palmar force (from 10\% to 100\% of maximal), we examine the distribution across each muscle's activation, as the feasible activation space shrinks to the unique maximal solution.
+We use a realistic model of a static human index finger with 7 muscles, 4DOF, and 4 output dimensions.
+For a progression of increasing palmar force (from 10\% to 100\% of maximal), we examine the distribution across each muscle's activation, as the feasible activation space shrinks to the unique maximal solution.
 An integration of these densities illustrates the relative number of solutions in different parts of activation space.
 We simulated a 40\% reduction in activation ability for three muscles innervated by the deep head of the ulnar nerve, and to explore alternative constraints, we designed an interactive parallel coordinate visualization of the space.
 The computed  distribution of activation across each muscle shed light onto the structure of these solution spaces, rather than simply exploring their maximal and minimal values.
-Finally, we apply six non weighted and weighted static force cost functions and compare their effect upon the shape of the polytope.
+Finally, we apply six non weighted and weighted static force cost functions and compare their effect upon the shape of the activation space.
 Although this paper presents a 7-dimensional case of the index finger, our methods extend to systems with at least 40 muscles.
 Our sampling technique for an activation space allows us to articulate the structure within which coordination Bayesian priors exist, thereby providing a foundation to the contextual neuromechanical framework which constrains learning, optimization, and adaptation of motor patterns in future research.
 \end{abstract}
