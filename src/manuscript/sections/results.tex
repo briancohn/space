@@ -45,10 +45,14 @@ Notably, we observe that a meaningful cross-muscle comparison of point distribut
 We find this holds not only for inter-muscle distribution comparisons, but intra-muscular distributions. Consider the significant change in the shape of the distributions across the progression for EDC until the 60\% task; the lower and upper bounds change less than 1\% and 4\%, respectively, while the median shifted by nearly 40\%.
 In the most extreme case, the median activation can be exceptionally narrow, while the bounds are wide- for example, EIP at a 90\% task; although activation is bounded between 0.1 and 0.81, approximately 79\% of the solutions exist with EIP activation between just 0.49 and 0.51.
 
-Next, we see that if one muscle had to be fixed throughout the entire force progression, DI and PI would fail; their bounding boxes of tasks below $\alpha=0.4$ do not include the unique solution at $\alpha=1.0$. We also placed a vertical grey line for the scaled unique solution at maximal, denoted $\textbf{a}^*$, (e.g. LUM converges to an activation of 1 at maximal palmar force, so we put a grey line at 0.8 for $\alpha=0.8$ of maximal palmar force.) Since $\alpha \textbf{f}_{\max} = \alpha A \textbf{a}^*$, $\alpha \textbf{a}^*$ is a solution of the feasible activation set at $\alpha$-fraction of the maximal force. However we observe that for some muscles, these points can lie arbirtraliy in the distribution i.e.\ do not have to lie close to the corresponding peaks (e.g.\ musle DI and EIP).
+Next, we see that if one muscle had to be fixed throughout the entire force progression, DI and PI would fail; their bounding boxes of tasks below $\alpha=0.4$ do not include the unique solution at $\alpha=1.0$.
+We also placed a vertical grey line for the scaled unique solution at maximal force, denoted $\textbf{a}^*$, (e.g. LUM converges to an activation of 1 at maximal palmar force, so we put a grey line at 0.8 for $\alpha=0.8$ of maximal palmar force).
+Since $\alpha \textbf{f}_{\max} = \alpha A \textbf{a}^*$, $\alpha \textbf{a}^*$ is a solution of the feasible activation set at $\alpha$-fraction of the maximal force.
+However we observe that for some muscles, these points can lie arbitrarily in the distribution i.e.\ do not have to lie close to the corresponding peaks (e.g.\ musle DI and EIP).
 
 
 \subsection{Parallel Coordinates Visualisation}
+Unlike the solution projections, which only show unidimensional information about a set of sampled solutions, we use parallel coordinate visualization to view how different parts of one muscle's distribution interact with another's.
 To maintain realtime interactivity of the plot, we used only the first 1000 points collected for each task, from $\alpha = 0.1$ to $\alpha = 1.0$.
 
 \begin{figure}[htbp]
@@ -58,9 +62,9 @@ To maintain realtime interactivity of the plot, we used only the first 1000 poin
 \label{fig:parcoord_full}
 \end{figure}
 
-On the histograms we can predict how many solutions would be lost if you a constraint were imposed upon one muscle.
+On the histograms we can predict how many solutions would be lost if a constraint were imposed upon one muscle.
 Parallel coordinates allow us to visualize not only the amount of solutions lost, but the location of the remaining solutions across the other muscle dimensions.
-Furthermore one can constraint any number of muscles and still visualize the remaining solutions, whereas in the histograms one can not make any predictions.
+Furthermore one can constrain any number of muscles and still visualize the remaining solutions, whereas in the histograms one can not make any predictions.
 
 Figure \ref{fig:parcoord_full} is a modified screen-shot of the platform, where we can constrain activation for a given muscle or cost function from above, below, or both.
 The resulting number of lines represents how the solution space changed across all dimensions recorded.
@@ -83,7 +87,8 @@ Constraining PI $<$ 60\% still leaves a solution space about three times as larg
 Observe that constraining di $<$ 60\% already implies that PI $<$ 60\% as seen in Figure \ref{fig:parcoords} (b), (c). 
 Constraining one muscles does have different effects on the other muscles as for example if ei is constrained below 60\% activation, we see that the bounding box of PI is significantly restricted; however, the same constraint has no effect on the bounding box of EIP.
 
-As there are only few not steep crossings between $l_1$, $l_2$ and $l_3$, the parallel coordinates suggest correlation of those three weights. Similar correlation is observed for the respective weighted functions. %the unweighted l1,l2,and l3 cost functions for the finger were highly correlated with one another, and the weighted functions were similarly correlated, 
+As there are few steep crossings between $l_1$, $l_2$ and $l_3$, the parallel coordinates suggest correlation of those three cost functions.
+Similar correlation is observed for the respective weighted functions.
 We provide a scatter plot for their relationships in Appendix Figures \ref{fig:unweighted_cost_functions} and \ref{fig:weighted_cost_functions}.
 
 % subsection parallel_coordinates (end)
