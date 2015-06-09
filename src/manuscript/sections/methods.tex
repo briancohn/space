@@ -110,7 +110,7 @@ A basis of a vectorspace $V$ is a minimal set of vectors that generate $V$, and 
 \label{sec_lengthrun}
 From a given starting point, how many iterations of the Hit-and-Run method are necessary to reach a u.a.r.\ point?
 For convex polytopes in $n$ dimensions up to $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
-In particular, the paper \cite{emiris2013efficient} by Emiris and Fisikopoulos suggests that $(10 + \frac{10}{n})n$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}, while in Ge et al.'s paper every single point of the Hit-and-Run algorithm is used in the sample \cite{Ge}. 
+In particular, the paper \cite{emiris2013efficient} by Emiris and Fisikopoulos suggests that $10(n + 1)$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}, while in Ge et al.'s paper every single point of the Hit-and-Run algorithm is used in the sample \cite{Ge}. 
 
 \subsection{Realistic index finger model}
 \label{ss:finger}
@@ -127,7 +127,7 @@ In addition to the Hit-and-Run algorithm we computed the theoretical maximum and
 \end{figure}
 
 \subsection{Solution projection histograms}
-Figure \ref{fig:raw_histograms} shows the activation distribution of each muscle, when activated with $50\%$ of the maximal activation force.
+Figure \ref{fig:raw_histograms} shows the activation distribution of each muscle, when activated with $50\%$ of the maximal activation force. The diagram shows, for each muscle, the relative number of solutions that activate the muscle to some percentage range (within each histogram break of $0.02$).
 We also show the observed activation upper and lower bounds for each muscle (vertical dotted lines).
 In Section \ref{sub:activation_spaces_for_increasing_force} we consider the distributions for different forces into palmar direction.
 \begin{figure}[!htbp]
