@@ -2,7 +2,7 @@
 \section{INTRODUCTION}
 
 Muscle redundancy is the term used to describe the underdetermined nature of neural control of musculature.
-The classical notion of muscle redundancy  proposes that, faced with an infinite number of possible muscle activation patterns for a given task, the nervous system optimizes in some fashion to select one solution.
+The classical notion of muscle redundancy  proposes that, faced with an infinite number of possible muscle activation patterns for a given movement or force production task, the nervous system optimizes in some fashion to select one solution.
 Here, each of $n$ muscles represents a dimension of control on an end effector, and at any moment of a task, a muscle activation pattern exists as a point in $[0,1]^n$,--- the $n$-dimensional unit hypercube ($n$-cube) --- where each muscle's maximal activation is normalized to $1$ \cite{Valero-Cuevas1998Large}.
 Thus researchers often seek to infer the optimization approach and the cost functions the nervous system utilizes to select effective points in activation space to produce natural behavior \cite{Chao1978Graphical,Prilutsky2000Muscle,scott2004optimal,todorov2002optimal,crowninshield1981physiologically,higginson2005simulated}. 
 
@@ -18,13 +18,13 @@ This yields a unit $7$-cube in charge of producing a 4-dimensional output wrench
 In order to uncover the structure and relationship of these spaces, we cannot visualize all dimensions simultaneously. %as we could with a simple 3-muscle model.
 
 The solution of the above system is a convex polytope, and is called the \emph{feasible activation set} (see Section \ref{s:methods}).
-To date, the structure of this high-dimensional polytope has been inferred by computing its bounding box, which is determined by the maximum and minimum activation of each muscle for a given output force \cite{kutch2011muscle,sohn2013cat_bounding_box,Valero-Cuevas2015high-dimensional}.
-But the bounding box of a convex polytope excludes the details of its shape, thereby precluding comparison, since the polytope is a lower dimensional object embedded into $[0,1]^n$.
+To date, the structure of this high-dimensional polytope has been inferred by computing its bounding box, which is determined by the maximum and minimum activation of each muscle for a given output force across all solutions \cite{kutch2011muscle,sohn2013cat_bounding_box,Valero-Cuevas2015high-dimensional}.
+Although useful in defining the ultimate requirements of a muscle, the bounding box of a convex polytope excludes the details of the polytope's shape, thereby precluding comparison, since the polytope is a lower dimensional object embedded into $[0,1]^n$.
 Empirical dimensionality-reduction methods have been used to calculate basis vectors for such subspaces \cite{Clewley2008Estimating,davella2005shared,krishnamoorthy2003muscle},
 but this approach only provides a description of the dimension, orientation, and aspect ratio of the polytope; basis vectors are uninformative of boundaries and internal structure.
 
 Here we present a novel application of the well-known Hit-and-Run algorithm \cite{smith1984efficient} to describe the internal structure of these high-dimensional feasible activation sets (see Section \ref{ss:hitrun}).
-The input to the Hit-and-Run procedure is a task force, along with the system's endpoint Jacobian, maximal tendon forces, and a moment arm matrix \cite{Valero-Cuevas2009mathematical}.
+The input to the Hit-and-Run procedure is a static end-effector force, along with the system's endpoint Jacobian, maximal tendon forces, and a moment arm matrix \cite{Valero-Cuevas2009mathematical}.
 
 We applied our approach to two separate musculoskeletal models:
 
@@ -47,6 +47,6 @@ With respect to the structure of the activation space, we set forth the followin
 \end{itemize}
 and most importantly,
 \begin{itemize}
-\item {The high-dimensional activation space, which serves as the landscape upon which all Bayesian priors exist, is a remarkably shallow space within which to optimize. We provide substantial theoretical and experimental evidence suggesting that the 'dynamics' of neuromechanical evolution and learning are heavily constrained and defined by the simple statics.}
+\item {The high-dimensional activation space, which serves as the landscape upon which all neuromuscular learning transpires, is a remarkably shallow space within which to optimize. We provide substantial theoretical and experimental evidence suggesting that the 'dynamics' of neuromechanical evolution and learning are heavily constrained and defined by the simple statics.}
 \end{itemize}
 
