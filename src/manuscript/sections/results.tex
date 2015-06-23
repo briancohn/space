@@ -5,7 +5,7 @@
 \label{ssub:density_projection_upon_one_dimension}
 
 
-Using Hit-and-Run to sample feasible activation sets, Figure \ref{fig:raw_histograms} shows the distributions of activation solutions for a submaximal palmar force resulting from 10,000 solutions computed with Hit-and-Run sampling.
+Using Hit-and-Run to sample feasible activation sets, Figure \ref{fig:raw_histograms} shows the distributions of activation solutions for a submaximal distal force resulting from 10,000 solutions computed with Hit-and-Run sampling.
 This is the first time (to our knowledge) that the internal structure of the feasible activation set has been visualized for a sub-maximal force.
 Notice also that the observed lower and upper bounds of the activations (i.e., the dashed lines that indicate their bounding box), are uniquely uninformative of the actual density of distribution of feasible activations.
 
@@ -21,7 +21,7 @@ This way, we can track the change in the distributions of a given muscle's activ
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figs/Z_alphaProgression1430924065026.pdf}
-\caption{Distribution of activations in the palmar direction and changing force. Each row of histograms uses a Hit-and-Run set. The height of each bar visualizes the percentage of 10,000 solutions found within a given 0.02 span of activation; the shape is more meaningful than the magnitude of the $y$-axis, as we expect convergence (and therefore peak increase within few bins) towards maximal contractions. We computed the upper and lower bounds of activation for each muscle (vertical dotted lines).}
+\caption{Distribution of activations in the distal direction and changing force. Each row of histograms uses a Hit-and-Run set. The height of each bar visualizes the percentage of 10,000 solutions found within a given 0.02 span of activation; the shape is more meaningful than the magnitude of the $y$-axis, as we expect convergence (and therefore peak increase within few bins) towards maximal contractions. We computed the upper and lower bounds of activation for each muscle (vertical dotted lines).}
 \label{fig:Z_progression}
 \end{figure}
 
@@ -36,13 +36,13 @@ As expected, the unique solution at $\alpha=1.0$ appears as a single peak repres
 
 The most simple finding is that the distributions cannot be inferred by their bounding boxes alone.
 Consider the activation distributions between $\alpha = 0.7$ and $\alpha = 0.8$ for LUM, where the median changed by less than 4\% while the lower bound increased by nearly 13\%.
-Notably, we observe that a meaningful cross-muscle comparison of point distributions cannot be ascertained by the bounding box. For example, at a task of 10\% of maximal palmar force production, EIP and EDC both have lower and upper bounds of 0, and 1, respectively, yet their distributions are thoroughly distinct; the shape of EIP is more symmetric (lower 25\% = 0.36, median = 0.5029, upper 75\% = 0.62), while 75\% of the solutions sampled have EDC higher than 0.74 (see Figure \ref{fig:Z_progression}).
+Notably, we observe that a meaningful cross-muscle comparison of point distributions cannot be ascertained by the bounding box. For example, at a task of 10\% of maximal distal force production, EIP and EDC both have lower and upper bounds of 0, and 1, respectively, yet their distributions are thoroughly distinct; the shape of EIP is more symmetric (lower 25\% = 0.36, median = 0.5029, upper 75\% = 0.62), while 75\% of the solutions sampled have EDC higher than 0.74 (see Figure \ref{fig:Z_progression}).
 
 We find this holds not only for inter-muscle distribution comparisons, but intra-muscular distributions. Consider the significant change in the shape of the distributions across the progression for EDC until the 60\% task; the lower and upper bounds change less than 1\% and 4\%, respectively, while the median shifted by nearly 40\%.
 In the most extreme case, the median activation can be exceptionally narrow, while the bounds are wide- for example, EIP at a 90\% task; although activation is bounded between 0.1 and 0.81, approximately 79\% of the solutions exist with EIP activation between just 0.49 and 0.51.
 
 Next, we see that if one muscle had to be fixed throughout the entire force progression, DI and PI would fail; their bounding boxes of tasks below $\alpha=0.4$ do not include the unique solution at $\alpha=1.0$.
-We also placed a vertical grey line for the scaled unique solution at maximal force, denoted $\textbf{a}^*$, (e.g. LUM converges to an activation of 1 at maximal palmar force, so we put a grey line at 0.8 for $\alpha=0.8$ of maximal palmar force).
+We also placed a vertical grey line for the scaled unique solution at maximal force, denoted $\textbf{a}^*$, (e.g. LUM converges to an activation of 1 at maximal distal force, so we put a grey line at 0.8 for $\alpha=0.8$ of maximal distal force).
 Since $\alpha \textbf{f}_{\max} = \alpha A \textbf{a}^*$, $\alpha \textbf{a}^*$ is a solution of the feasible activation set at $\alpha$-fraction of the maximal force.
 However we observe that for some muscles, these points can lie arbitrarily in the distribution i.e.\ do not have to lie close to the corresponding peaks (e.g.\ musle DI and EIP).
 
@@ -54,7 +54,7 @@ To maintain realtime interactivity of the plot, we used only the first 1000 poin
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figs/parcoord_alpha50.pdf}
-\caption{This figure is a snapshot of the interactive platform for visualizing all solutions. This parallel coordinates plot visualizes, where each feasible activation set is strewn across each dimension's axis as a line. While $\alpha$ could be set to view all tasks, we set $\alpha$ to a palmar force of 50\% of the computed maximal feasible force in this direction. Here we show 1000 points accrued from Hit-and-Run on a task of $\alpha=0.5$.}
+\caption{This figure is a snapshot of the interactive platform for visualizing all solutions. This parallel coordinates plot visualizes, where each feasible activation set is strewn across each dimension's axis as a line. While $\alpha$ could be set to view all tasks, we set $\alpha$ to a distal force of 50\% of the computed maximal feasible force in this direction. Here we show 1000 points accrued from Hit-and-Run on a task of $\alpha=0.5$.}
 \label{fig:parcoord_full}
 \end{figure}
 
@@ -69,7 +69,7 @@ Note how $\alpha$ can also be constrained- we can explore one or more levels of 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figs/parcoords.pdf}
-\caption{These snapshots show the use of the interactive parallel coordinate visualization of solutions across the activation space. For the task set to 50\% of maximal in the palmar direction, we show the
+\caption{These snapshots show the use of the interactive parallel coordinate visualization of solutions across the activation space. For the task set to 50\% of maximal in the distal direction, we show the
 (a) remaining 166 solutions when PI $<$ 60\% 
 (b) remaining 57 solutions when DI $<$ 60\%, and the
 (c) remaining 57 solutions when we constrain PI $<$ 60\% and DI $<$ 60\%. We also show the
