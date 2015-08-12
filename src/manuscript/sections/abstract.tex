@@ -1,12 +1,12 @@
 \begin{abstract}
-The study of muscle coordination emphasizes numerical optimization to find unique solutions from among the many that can accomplish a given motor task.
-This  is justified by  the lack computational methods to characterize the high-dimensional structure of the set of feasible muscle activations for a given muscle coordination problem.
-We present a cost-agnostic and computationally efficient use of the Hit-and-Run algorithm to characterize the feasibleactivation set that emerges naturally from the interactions among the feasible neural commands, the anatomy of the limb, andthe constraints of the task.
-A  toy problem describes the method for a three-muscle system, which we then apply to the characterize the convex polytopeembedded in 7D that defines the feasible activation set  for a realistic model of  static fingertip force production by a 7-muscle human index finger with 4 kinematic DOFs.
+The study of muscle coordination emphasizes numerical optimization in finding unique solutions among the many that can accomplish a given motor task.
+This approach has been justified by the lack of computational methods to characterize the high-dimensional structure of the set of feasible muscle activations.
+We present a cost-agnostic and computationally efficient use of the Hit-and-Run algorithm to characterize the feasible activation set that emerges naturally from the interactions among the feasible neural commands, the anatomy of the limb, and the constraints of static force production.
+A toy problem describes the method for a three-muscle system, which we then apply to the characterize the convex polytopeembedded in 7D that defines the feasible activation set for a realistic model of static fingertip force production by a 7-muscle human index finger with 4 kinematic DOFs.
 We first describe the structure of that feasible activation set by the histograms of valid activations for each muscle.
-But we find that an  interactive parallel coordinates system can  describe better the nature and relative size of families offeasible solutions for a variety of cost functions---and for fingertip force magnitudes  ranging from 10\% to 100\% of maximal.
-We demonstrate that a bounding box approach (i.e., combining the extremes of the histograms) singularly misconstrues thefamilies of feasible activations, and that the modes of the histograms at low force magnitudes do not necessarily reflect themuscle coordination patterns needed to achieve higher, or maximal, force magnitudes.
+But we find that an interactive parallel coordinates system entirely describes the nature and relative size of families of feasible solutions, across a variety of cost functions---and for fingertip force magnitudes ranging from 10\% to 100\% of maximal.
+We demonstrate that a bounding box approach (i.e., only considering the extreme upper and lower bounds of a muscle's activation) singularly misconstrues the families of feasible activations.
+We also note that the modes of the histograms at low force magnitudes do not necessarily reflect the muscle coordination patterns needed to achieve higher, or maximal, force magnitudes.
 Although we present a 7D index finger example, our methods are computationally applicable to systems with at least 40 muscles.
-Lastly, we explore the consequences of the structure of feasible activation sets to a probabilistic approach to musclecoordination, which has  important implications to  biological plausibility, muscle dysfunction, and motor learning/adaptationfor neuromechanically realistic limbs producing real-world tasks.
-
+Lastly, we explore the consequences of the structure of feasible activation sets to a probabilistic approach to muscle coordination, which has important implications to biological plausibility, muscle dysfunction, and motor learning/adaptation for neuromechanically realistic limbs producing real-world tasks.
 \end{abstract}
