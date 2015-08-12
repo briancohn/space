@@ -65,7 +65,7 @@
         <attribute name="name" type="string">root</attribute>
         <attribute name="folder" type="string">/Users/francisco/Documents/_Working Documents@Jedi/GitHub/space/src/manuscript</attribute>
         <relationship name="mainfile" type="1/1" destination="FILE" idrefs="z113"></relationship>
-        <relationship name="selected" type="1/1" destination="FILE" idrefs="z113"></relationship>
+        <relationship name="selected" type="1/1" destination="FILE" idrefs="z112"></relationship>
         <relationship name="settings" type="1/1" destination="SETTINGS" idrefs="z103"></relationship>
         <relationship name="uisettings" type="1/1" destination="UISETTINGS" idrefs="z104"></relationship>
         <relationship name="items" type="0/0" destination="PROJECTITEM" idrefs="z105 z106 z107 z108 z109 z110 z111 z112 z113 z114 z115 z116 z117 z118 z119 z120 z121 z122 z123"></relationship>
@@ -85,7 +85,7 @@
         <relationship name="project" type="1/1" destination="PROJECT" idrefs="z102"></relationship>
     </object>
     <object type="UISETTINGS" id="z104">
-        <attribute name="pdfviewscrollrect" type="string">{{0, 16331.655352479271}, {604, 1551.7911226980777}}</attribute>
+        <attribute name="pdfviewscrollrect" type="string">{{0, 16331.655352479265}, {604, 1551.7911226980796}}</attribute>
         <attribute name="showpdfthumbnails" type="bool">0</attribute>
         <attribute name="selectedcontrolstab" type="int16">0</attribute>
         <attribute name="maxoutlinedepth" type="int16">7</attribute>
@@ -193,11 +193,11 @@
     </object>
     <object type="TEXFILE" id="z112">
         <attribute name="visiblerect" type="string">{{0, 0}, {1204, 846}}</attribute>
-        <attribute name="cursor" type="string">{382, 0}</attribute>
+        <attribute name="cursor" type="string">{1602, 0}</attribute>
         <attribute name="wasopen" type="bool">0</attribute>
-        <attribute name="lasteditdate" type="date">461032803.86211097240447998047</attribute>
+        <attribute name="lasteditdate" type="date">461036693.77719402313232421875</attribute>
         <attribute name="istext" type="bool">1</attribute>
-        <attribute name="fileloaddate" type="date">461032804.61550998687744140625</attribute>
+        <attribute name="fileloaddate" type="date">461036695.02665400505065917969</attribute>
         <attribute name="extension" type="string">tex</attribute>
         <attribute name="sortindex" type="int32">6</attribute>
         <attribute name="name" type="string">abstract.tex</attribute>
@@ -211,7 +211,7 @@
     </object>
     <object type="TEXFILE" id="z113">
         <attribute name="wasopen" type="bool">1</attribute>
-        <attribute name="visiblerect" type="string">{{0, 651}, {1204, 846}}</attribute>
+        <attribute name="visiblerect" type="string">{{0, 497}, {1204, 846}}</attribute>
         <attribute name="lasteditdate" type="date">461032838.23478102684020996094</attribute>
         <attribute name="istext" type="bool">1</attribute>
         <attribute name="fileloaddate" type="date">461032845.04853498935699462891</attribute>
