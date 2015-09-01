@@ -2,7 +2,7 @@
 \label{ssub:density_projection_upon_one_dimension}
 
 
-Using Hit-and-Run to sample feasible activation sets, Figure \ref{fig:raw_histograms} shows the distributions of activation solutions for a submaximal distal force resulting from 10,000 solutions computed with Hit-and-Run sampling.
+Using Hit-and-Run to sample feasible activation sets, Fig. \ref{fig:raw_histograms} shows the distributions of activation solutions for a submaximal distal force resulting from 10,000 solutions computed with Hit-and-Run sampling.
 This is the first time (to our knowledge) that the internal structure of the feasible activation set has been visualized for a sub-maximal force.
 Notice also that the observed lower and upper bounds of the activations (i.e., the dashed lines that indicate their bounding box), are uniquely uninformative of the actual density of distribution of feasible activations.
 
@@ -12,7 +12,7 @@ The density integrals perpendicular to each muscle are unimodal due to the conve
 \subsection*{Activation spaces for increasing force} % (fold)
 \label{sub:activation_spaces_for_increasing_force}
 For maximal force into any direction, there is a unique activation vector satisfiying all constraints.
-In Figure \ref{fig:Z_progression} we give the distributions of the activations for increasing force, starting with $\alpha=0.1$ ($10\%$ of the maximal force), and increasing $\alpha$ by $0.1$ until maximal force is reached.
+In Fig. \ref{fig:Z_progression} we give the distributions of the activations for increasing force, starting with $\alpha=0.1$ ($10\%$ of the maximal force), and increasing $\alpha$ by $0.1$ until maximal force is reached.
 This way, we can track the change in the distributions of a given muscle's activations by following its column from top to bottom.
 
 \begin{figure}[htbp]
@@ -33,7 +33,7 @@ As expected, the unique solution at $\alpha=1.0$ appears as a single peak repres
 
 The most simple finding is that the distributions cannot be inferred by their bounding boxes alone.
 Consider the activation distributions between $\alpha = 0.7$ and $\alpha = 0.8$ for LUM, where the median changed by less than 4\% while the lower bound increased by nearly 13\%.
-Notably, we observe that a meaningful cross-muscle comparison of point distributions cannot be ascertained by the bounding box. For example, at a task of 10\% of maximal distal force production, EIP and EDC both have lower and upper bounds of 0, and 1, respectively, yet their distributions are thoroughly distinct; the shape of EIP is more symmetric (lower 25\% = 0.36, median = 0.5029, upper 75\% = 0.62), while 75\% of the solutions sampled have EDC higher than 0.74 (see Figure \ref{fig:Z_progression}).
+Notably, we observe that a meaningful cross-muscle comparison of point distributions cannot be ascertained by the bounding box. For example, at a task of 10\% of maximal distal force production, EIP and EDC both have lower and upper bounds of 0, and 1, respectively, yet their distributions are thoroughly distinct; the shape of EIP is more symmetric (lower 25\% = 0.36, median = 0.5029, upper 75\% = 0.62), while 75\% of the solutions sampled have EDC higher than 0.74 (see Fig. \ref{fig:Z_progression}).
 
 We find this holds not only for inter-muscle distribution comparisons, but intra-muscular distributions. Consider the significant change in the shape of the distributions across the progression for EDC until the 60\% task; the lower and upper bounds change less than 1\% and 4\%, respectively, while the median shifted by nearly 40\%.
 In the most extreme case, the median activation can be exceptionally narrow, while the bounds are wide- for example, EIP at a 90\% task; although activation is bounded between 0.1 and 0.81, approximately 79\% of the solutions exist with EIP activation between just 0.49 and 0.51.
@@ -59,7 +59,7 @@ On the histograms we can predict how many solutions would be lost if a constrain
 Parallel coordinates allow us to visualize not only the amount of solutions lost, but the location of the remaining solutions across the other muscle dimensions.
 Furthermore one can constrain any number of muscles and still visualize the remaining solutions, whereas in the histograms one can not make any predictions.
 
-Figure \ref{fig:parcoord_full} is a modified screen-shot of the platform, where we can constrain activation for a given muscle or cost function from above, below, or both.
+Fig. \ref{fig:parcoord_full} is a modified screen-shot of the platform, where we can constrain activation for a given muscle or cost function from above, below, or both.
 The resulting number of lines represents how the solution space changed across all dimensions recorded.
 Note how $\alpha$ can also be constrained- we can explore one or more levels of force output at a time.
 
@@ -77,11 +77,11 @@ Note how $\alpha$ can also be constrained- we can explore one or more levels of 
 \end{figure}
 
 Constraining PI $<$ 60\% still leaves a solution space about three times as large as di $<$ 60\%. 
-Observe that constraining DI $<$ 60\% already implies that PI $<$ 60\% as seen in Figure \ref{fig:parcoords} (b), (c). 
+Observe that constraining DI $<$ 60\% already implies that PI $<$ 60\% as seen in Fig. \ref{fig:parcoords} (b), (c). 
 Constraining one muscles does have different effects on the other muscles as for example if ei is constrained below 60\% activation, we see that the bounding box of PI is significantly restricted; however, the same constraint has no effect on the bounding box of EIP.
 
 As there are few steep crossings between $l_1$, $l_2$ and $l_3$, the parallel coordinates suggest correlation of those three cost functions.
 Similar correlation is observed for the respective weighted functions.
-We provide a scatter plot for their relationships in Appendix Figures \ref{fig:unweighted_cost_functions} and \ref{fig:weighted_cost_functions}.
+We provide a scatter plot for their relationships in Appendix Fig. \ref{fig:unweighted_cost_functions} and \ref{fig:weighted_cost_functions}.
 
 % subsection parallel_coordinates (end)

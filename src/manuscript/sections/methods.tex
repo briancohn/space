@@ -6,8 +6,9 @@ The dimensionality of output force $m$ is typically at most 6-dimensional (with 
 $P$ is bounded by the unit $n$-cube since all variables $a_i$, $i \in [n]$ are in the interval $[0,1]$. Each constraint of $\textbf{f}= A \textbf{a}$, is a hyperplane, which has dimension $n-1$.
 If $\textbf{f}$ is a feasible submaximal output force, the feasible activation set is a $(n-m)$-dimensional space embedded into the $n$-cube.
 Note that in our applications, it is safe to assume that no linear dependencies exist.
-Consider the following $1 \times 3$ fabricated example, where the task is a 1 Newton unidimensional force in $x$. The set of feasible activations is given by the shaded set in Figure \ref{fig:fig_hr}. Since there are three muscles and one constraint the output space is of dimension $(3-1) = 2$.
-Although synergies would be conducive to implement into this model, we do not explore this here.
+Consider the following $1 \times 3$ fabricated example (illustrated in Fig. \ref{fig:schematic_arm}), where the task is a 1 Newton unidimensional force in $x$.
+The set of feasible activations is given by the shaded set in Fig. \ref{fig:polygon_slice_solution_space}. Since there are three muscles and one constraint the output space is of dimension $(3-1) = 2$.
+Although linearized synergies would be conducive to implement into this model, we do not explore this here.
 \begin{align*}
 &1 = \frac{10}{3}a_1 - \frac{53}{15}a_2 + 2a_3 \\
 &a_1, a_2, a_3 \in [0,1],
@@ -18,15 +19,12 @@ Although synergies would be conducive to implement into this model, we do not ex
   \centering
   \includegraphics{figs/schematic_arm_1D.pdf}
   \caption{One imagined visualization of the fabricated tendon driven system, with 3 generators.}
-  \label{fig:finger}
 \end{figure}
 
-
 \begin{figure}[t]
-  \label{fig:fig_hr}
-   \begin{center}
-    \includegraphics[width=0.25\textwidth]{sections/figs/feasibleactivation.png}
-  \end{center}
+  \label{fig:polygon_slice_solution_space}
+  \centering
+  \includegraphics[width=0.25\textwidth]{sections/figs/feasibleactivation.png}
   \caption{The feasible activation set for a  three-muscle system meeting one functional constraint is a polygon in $\mathbb{R}^3$.} %Note that muscle activations are assumed to be bounded between $0$ and $1$.}
 \end{figure}
 
@@ -49,9 +47,9 @@ We chose Hit-and-run because of its easy structure and mixing guarantee; however
 The Hit-and-Run walk on $P$ is defined as follows (it works analogously for any convex body):
 \begin{enumerate}
 \item Find a starting point $\textbf{p}$ of $P$.
-\item Generate a random direction $q$ from $\textbf{p}$ in $P$ (u.a.r. over all directions) (Figure \ref{fig:hitruncube}a).
-\item Find the two intersection points of the line given by the random direction $q$ with the boundary of the polytope (Figure \ref{fig:hitruncube}b).
-\item Choose a point u.a.r.\ on this line segment given by the intersection points (Figure \ref{fig:hitruncube}c). 
+\item Generate a random direction $q$ from $\textbf{p}$ in $P$ (u.a.r. over all directions) (Fig. \ref{fig:hitruncube}a).
+\item Find the two intersection points of the line given by the random direction $q$ with the boundary of the polytope (Fig. \ref{fig:hitruncube}b).
+\item Choose a point u.a.r.\ on this line segment given by the intersection points (Fig. \ref{fig:hitruncube}c). 
 \item Repeat from $2.$ the above steps wit the new point as the starting point, for $s$ iterations until the model is mixed.
 \end{enumerate}
 
@@ -112,9 +110,9 @@ In particular, the paper \cite{emiris2013efficient} by Emiris and Fisikopoulos s
 \subsection*{Realistic index finger model}
 \label{ss:finger}
 We used our published model in \cite{Valero-Cuevas1998Large} to find matrix $A \in \mathbb{R}^{4 \times 7}$, where $\textbf{a} \in \mathbb{R}^7$; the four degrees of freedom were ad-abduction, flexion-extension at the metacarpophalangeal joint, and flexion-extension at the proximal and distal interphalangeal joints.
-The force direction we simulated are visible in Figure \ref{fig:finger}.
+The force direction we simulated are visible in Fig. \ref{fig:finger}.
 In this model, for each input we ran 1,000,000 Hit-and-Run iterations and sampled every 100th point- thus setting mixing time to 100 iterations.
-To validate the Hit-and-Run algorithm, we computed the theoretical maximum and minimum activation for each muscle for the given force (Figures \ref{fig:raw_histograms} and \ref{fig:Z_progression}); we found that the difference between the theoretical and observed bounds for all muscles was smaller than 0.001.
+To validate the Hit-and-Run algorithm, we computed the theoretical maximum and minimum activation for each muscle for the given force (Fig. \ref{fig:raw_histograms} and \ref{fig:Z_progression}); we found that the difference between the theoretical and observed bounds for all muscles was smaller than 0.001.
 
 \begin{figure}[ht]
   \centering
@@ -124,7 +122,7 @@ To validate the Hit-and-Run algorithm, we computed the theoretical maximum and m
 \end{figure}
 
 \subsection*{Solution projection histograms}
-Figure \ref{fig:raw_histograms} shows the activation distribution of each muscle, when activated with $50\%$ of the maximal activation force. The diagram shows, for each muscle, the relative number of solutions that activate the muscle to some range in $[0,1]$ (counted within each histogram break).
+Fig. \ref{fig:raw_histograms} shows the activation distribution of each muscle, when activated with $50\%$ of the maximal activation force. The diagram shows, for each muscle, the relative number of solutions that activate the muscle to some range in $[0,1]$ (counted within each histogram break).
 We also show the observed activation upper and lower bounds for each muscle (vertical dotted lines).
 In Section \ref{sub:activation_spaces_for_increasing_force} we consider the distributions for different forces into distal direction.
 \begin{figure}[h]
@@ -138,7 +136,7 @@ In Section \ref{sub:activation_spaces_for_increasing_force} we consider the dist
 A common way to visualize higher dimensional coordinate data is using parallel coordinates, and has been used in biomechanical studies \cite{bachynskyi2013biomechanical, krekel2010visual}.
 To show our sample set of points in the feasible activation space we draw $n$ parallel lines for each of the $n$ muscles.
 With the axis labels of the line set between 0 and 1, each point is then represented by connecting their coordinates by $n-1$ lines.
-Using an interactive surface we restrict each muscle function to any desired interval- see Figures \ref{fig:parcoord_full} and \ref{fig:parcoords}.
+Using an interactive surface we restrict each muscle function to any desired interval- see Fig. \ref{fig:parcoord_full} and \ref{fig:parcoords}.
 We decided to simulate a 40\% reduction in activation (feasible tendon force production) in the three index finger muscles innervated by the deep branch of the ulnar nerve- PI, DI, and FDP. 
 
 \subsection*{Muscle-metabolic and neural drive cost functions}
