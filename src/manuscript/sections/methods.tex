@@ -13,16 +13,16 @@ Although synergies would be conducive to implement into this model, we do not ex
 &a_1, a_2, a_3 \in [0,1],
 \end{align*}
 
-\begin{figure}[schematic_arm]
+\begin{figure}[h]
   \label{fig:schematic_arm}
   \centering
-  \includegraphics[width=0.5\textwidth]{figs/schematic_arm_1D.pdf}
+  \includegraphics{figs/schematic_arm_1D.pdf}
   \caption{One imagined visualization of the fabricated tendon driven system, with 3 generators.}
   \label{fig:finger}
 \end{figure}
 
 
-\begin{figure}[ht]
+\begin{figure}[t]
   \label{fig:fig_hr}
    \begin{center}
     \includegraphics[width=0.25\textwidth]{sections/figs/feasibleactivation.png}
@@ -116,9 +116,9 @@ The force direction we simulated are visible in Figure \ref{fig:finger}.
 In this model, for each input we ran 1,000,000 Hit-and-Run iterations and sampled every 100th point- thus setting mixing time to 100 iterations.
 To validate the Hit-and-Run algorithm, we computed the theoretical maximum and minimum activation for each muscle for the given force (Figures \ref{fig:raw_histograms} and \ref{fig:Z_progression}); we found that the difference between the theoretical and observed bounds for all muscles was smaller than 0.001.
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
   \centering
-  \includegraphics[width=0.5\textwidth]{sections/figs/finger.pdf}
+  \includegraphics[]{sections/figs/finger.pdf}
   \caption{The index finger model simulated force production in the distal direction. Adapted from \cite{Valero-Cuevas1998Large}.}
   \label{fig:finger}
 \end{figure}
@@ -127,7 +127,7 @@ To validate the Hit-and-Run algorithm, we computed the theoretical maximum and m
 Figure \ref{fig:raw_histograms} shows the activation distribution of each muscle, when activated with $50\%$ of the maximal activation force. The diagram shows, for each muscle, the relative number of solutions that activate the muscle to some range in $[0,1]$ (counted within each histogram break).
 We also show the observed activation upper and lower bounds for each muscle (vertical dotted lines).
 In Section \ref{sub:activation_spaces_for_increasing_force} we consider the distributions for different forces into distal direction.
-\begin{figure}[!htbp]
+\begin{figure}[h]
 \centering
 \includegraphics[width=0.5\textwidth]{figs/raw_histograms.pdf}
 \caption{Distribution of feasible activations for $\alpha= 0.5$ (50\% of the computed maximal force output in the distal direction). Dashed lines are the observed lower and upper bounds.}
