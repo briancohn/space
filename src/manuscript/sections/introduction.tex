@@ -1,6 +1,3 @@
-
-\section{INTRODUCTION}
-
 Muscle redundancy is the term used to describe the underdetermined nature of neural control of musculature.
 The classical notion of muscle redundancy  proposes that, faced with an infinite number of possible muscle activation patterns for a given movement or force production task, the nervous system optimizes in some fashion to select one solution.
 Here, each of $n$ muscles represents a dimension of control on an end effector, and at any moment of a task, a muscle activation pattern exists as a point in $[0,1]^n$,--- the $n$-dimensional unit hypercube ($n$-cube) --- where each muscle's maximal activation is normalized to $1$ \cite{Valero-Cuevas1998Large}.
@@ -11,7 +8,7 @@ Implicit in these optimization procedures is the notion that there exists a well
 For the case of static force production with a limb, the muscle redundancy problem is phrased in computational geometry: Find the structure of the set of all feasible muscle activations, given the limb mechanics and the task constraints \cite{avis1992Pivoting,Valero-Cuevas1998Large,Valero-Cuevas2009mathematical,Valero-Cuevas2015high-dimensional}.
 We aim to explore what the solution space looks like, and uncover the structure of the feasible activation space for given static force tasks.
 
-\subsection{High dimensionality difficulties}
+\subsection*{High dimensionality difficulties}
 Consider a model of a static fingertip force, with 7 muscles articulating the index finger's 4 degrees of freedom (DOF), which will be further described in Section \ref{ss:finger}.
 Assuming independent control of each muscle (non-synergistic model), each muscle has a unique force vector at the endpoint (i.e.\ the fingertip has 7 unique vectors it can linearly combine to generate any vector of static force).
 This yields a unit $7$-cube in charge of producing a 4-dimensional output wrench.
