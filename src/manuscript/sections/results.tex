@@ -1,11 +1,14 @@
 \subsection*{Parallel Coordinates Visualisation}
-Unlike the solution projections, which only show unidimensional information about a set of sampled solutions, we use parallel coordinate visualization to view how different parts of one muscle's distribution interact with the others.
-To maintain realtime interactivity of the plot, we used only the first 1000 points collected for each task, from $\alpha = 0.1$ to $\alpha = 1.0$.
+We use parallel coordinate visualization to view how different parts of one muscle's distribution interact with the others.
+To maintain real-time interactivity of the plot in our interface, we used only the first 1000 points collected for each task, from $\alpha = 0.1$ to $\alpha = 1.0$.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figs/parcoord_alpha50.pdf}
-\caption{This figure is a snapshot of the interactive platform for visualizing all solutions. This parallel coordinates plot visualizes, where each feasible activation set is strewn across each dimension's axis as a line. While $\alpha$ could be set to view all tasks, we set $\alpha$ to a distal force of 50\% of the computed maximal feasible force in this direction. Here we show 1000 points accrued from Hit-and-Run on a task of $\alpha=0.5$.}
+\caption{This figure is a snapshot of the interactive platform for visualizing 1000 solutions, all of which produce the same output force.
+This parallel coordinates plot visualizes, where each feasible activation set is strewn across each dimension's axis as a line. 
+While $\alpha$ could be set to view all tasks, we set $\alpha$ to a distal force of 50\% of the computed maximal feasible force in this direction. 
+Here we show 1000 points accrued from Hit-and-Run on a task of $\alpha=0.5$.}
 \label{fig:parcoord_full}
 \end{figure}
 
