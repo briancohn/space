@@ -1,3 +1,48 @@
+\subsection*{Parallel Coordinates Visualisation}
+We use parallel coordinate visualization to view how different parts of one muscle's distribution interact with the others.
+To maintain real-time interactivity of the plot in our interface, we used only the first 1000 points collected for each task, from $\alpha = 0.1$ to $\alpha = 1.0$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figs/parcoord_alpha50.pdf}
+\caption{This figure is a snapshot of the interactive platform for visualizing 1000 solutions, all of which produce the same output force.
+This parallel coordinates plot visualizes, where each feasible activation set is strewn across each dimension's axis as a line. 
+While $\alpha$ could be set to view all tasks, we set $\alpha$ to a distal force of 50\% of the computed maximal feasible force in this direction. 
+Here we show 1000 points accrued from Hit-and-Run on a task of $\alpha=0.5$.}
+\label{fig:parcoord_full}
+\end{figure}
+
+On the histograms we can predict how many solutions would be lost if a constraint were imposed upon one muscle.
+Parallel coordinates allow us to visualize not only the amount of solutions lost, but the location of the remaining solutions across the other muscle dimensions.
+Furthermore one can constrain any number of muscles and still visualize the remaining solutions, whereas in the histograms one can not make any predictions.
+
+Fig. \ref{fig:parcoord_full} is a modified screen-shot of the platform, where we can constrain activation for a given muscle or cost function from above, below, or both.
+The resulting number of lines represents how the solution space changed across all dimensions recorded.
+Note how $\alpha$ can also be constrained- we can explore one or more levels of force output at a time.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figs/parcoords.pdf}
+\caption{These snapshots show the use of the interactive parallel coordinate visualization of solutions across the activation space. For the task set to 50\% of maximal in the distal direction, we show the
+(a) remaining 166 solutions when PI $<$ 60\% 
+(b) remaining 57 solutions when DI $<$ 60\%, and the
+(c) remaining 57 solutions when we constrain PI $<$ 60\% and DI $<$ 60\%. We also show the
+(d) remaining 502 solutions when we select the lower 50\% of $l_1$ costs,
+(e) remaining 498 solutions when we select the lower 50\% of $l_2^w$ costs, and the
+(f) remaining 220 solutions when we select the lower 50\% across all cost functions in Table \ref{cost_function_tabls} }
+\label{fig:parcoords}
+\end{figure}
+
+Constraining PI $<$ 60\% still leaves a solution space about three times as large as di $<$ 60\%. 
+Observe that constraining DI $<$ 60\% already implies that PI $<$ 60\% as seen in Fig. \ref{fig:parcoords} (b), (c). 
+Constraining one muscles does have different effects on the other muscles as for example if ei is constrained below 60\% activation, we see that the bounding box of PI is significantly restricted; however, the same constraint has no effect on the bounding box of EIP.
+
+As there are few steep crossings between $l_1$, $l_2$ and $l_3$, the parallel coordinates suggest correlation of those three cost functions.
+Similar correlation is observed for the respective weighted functions.
+We provide a scatter plot for their relationships in Appendix Fig. \ref{fig:unweighted_cost_functions} and \ref{fig:weighted_cost_functions}.
+
+% subsection parallel_coordinates (end)
+
 \subsection*{Density projection upon one dimension} % (fold)
 \label{ssub:density_projection_upon_one_dimension}
 
@@ -44,44 +89,4 @@ Since $\alpha \textbf{f}_{\max} = \alpha A \textbf{a}^*$, $\alpha \textbf{a}^*$ 
 However we observe that for some muscles, these points can lie arbitrarily in the distribution i.e.\ do not have to lie close to the corresponding peaks (e.g.\ musle DI and EIP).
 
 
-\subsection*{Parallel Coordinates Visualisation}
-Unlike the solution projections, which only show unidimensional information about a set of sampled solutions, we use parallel coordinate visualization to view how different parts of one muscle's distribution interact with the others.
-To maintain realtime interactivity of the plot, we used only the first 1000 points collected for each task, from $\alpha = 0.1$ to $\alpha = 1.0$.
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\textwidth]{figs/parcoord_alpha50.pdf}
-\caption{This figure is a snapshot of the interactive platform for visualizing all solutions. This parallel coordinates plot visualizes, where each feasible activation set is strewn across each dimension's axis as a line. While $\alpha$ could be set to view all tasks, we set $\alpha$ to a distal force of 50\% of the computed maximal feasible force in this direction. Here we show 1000 points accrued from Hit-and-Run on a task of $\alpha=0.5$.}
-\label{fig:parcoord_full}
-\end{figure}
-
-On the histograms we can predict how many solutions would be lost if a constraint were imposed upon one muscle.
-Parallel coordinates allow us to visualize not only the amount of solutions lost, but the location of the remaining solutions across the other muscle dimensions.
-Furthermore one can constrain any number of muscles and still visualize the remaining solutions, whereas in the histograms one can not make any predictions.
-
-Fig. \ref{fig:parcoord_full} is a modified screen-shot of the platform, where we can constrain activation for a given muscle or cost function from above, below, or both.
-The resulting number of lines represents how the solution space changed across all dimensions recorded.
-Note how $\alpha$ can also be constrained- we can explore one or more levels of force output at a time.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\textwidth]{figs/parcoords.pdf}
-\caption{These snapshots show the use of the interactive parallel coordinate visualization of solutions across the activation space. For the task set to 50\% of maximal in the distal direction, we show the
-(a) remaining 166 solutions when PI $<$ 60\% 
-(b) remaining 57 solutions when DI $<$ 60\%, and the
-(c) remaining 57 solutions when we constrain PI $<$ 60\% and DI $<$ 60\%. We also show the
-(d) remaining 502 solutions when we select the lower 50\% of $l_1$ costs,
-(e) remaining 498 solutions when we select the lower 50\% of $l_2^w$ costs, and the
-(f) remaining 220 solutions when we select the lower 50\% across all cost functions in Table \ref{cost_function_tabls} }
-\label{fig:parcoords}
-\end{figure}
-
-Constraining PI $<$ 60\% still leaves a solution space about three times as large as di $<$ 60\%. 
-Observe that constraining DI $<$ 60\% already implies that PI $<$ 60\% as seen in Fig. \ref{fig:parcoords} (b), (c). 
-Constraining one muscles does have different effects on the other muscles as for example if ei is constrained below 60\% activation, we see that the bounding box of PI is significantly restricted; however, the same constraint has no effect on the bounding box of EIP.
-
-As there are few steep crossings between $l_1$, $l_2$ and $l_3$, the parallel coordinates suggest correlation of those three cost functions.
-Similar correlation is observed for the respective weighted functions.
-We provide a scatter plot for their relationships in Appendix Fig. \ref{fig:unweighted_cost_functions} and \ref{fig:weighted_cost_functions}.
-
-% subsection parallel_coordinates (end)
