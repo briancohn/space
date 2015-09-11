@@ -124,7 +124,18 @@ To validate the Hit-and-Run algorithm, we computed the theoretical maximum and m
 \subsection*{Parallel coordinates visualization}
 A common way to visualize higher dimensional coordinate data is using parallel coordinates, and has been used in biomechanical studies \cite{bachynskyi2013biomechanical, krekel2010visual}.
 To show our sample set of points in the feasible activation space we draw $n$ parallel lines for each of the $n$ muscles.
-With the axis labels of the line set between 0 and 1, each point is then represented by connecting their coordinates by $n-1$ lines.
+With the axis labels of the line set between 0 and 1, each point is then represented by connecting their coordinates by $n-1$ lines (See Fig. \ref{fig:points_to_parcoords_mapping}).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=1.0\textwidth]{sections/figs/3d_points_to_parcoords.pdf}
+  \caption{Schematic mapping between 3D points (a), activations in parallel coordinate format (b), and the associated costs of each activation (c).}
+  \label{fig:points_to_parcoords_mapping}
+\end{figure}
+
+
+
+
 Using an interactive surface we restrict each muscle function to any desired interval- see Fig. \ref{fig:parcoord_full} and \ref{fig:parcoords}.
 We decided to simulate a 40\% reduction in activation (feasible tendon force production) in the three index finger muscles innervated by the deep branch of the ulnar nerve- PI, DI, and FDP. 
 
