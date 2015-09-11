@@ -121,17 +121,6 @@ To validate the Hit-and-Run algorithm, we computed the theoretical maximum and m
   \label{fig:finger}
 \end{figure}
 
-\subsection*{Solution projection histograms}
-Fig. \ref{fig:raw_histograms} shows the activation distribution of each muscle, when activated with $50\%$ of the maximal activation force. The diagram shows, for each muscle, the relative number of solutions that activate the muscle to some range in $[0,1]$ (counted within each histogram break).
-We also show the observed activation upper and lower bounds for each muscle (vertical dotted lines).
-In Section \ref{sub:activation_spaces_for_increasing_force} we consider the distributions for different forces into distal direction.
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.5\textwidth]{figs/raw_histograms.pdf}
-\caption{Distribution of feasible activations for $\alpha= 0.5$ (50\% of the computed maximal force output in the distal direction). Dashed lines are the observed lower and upper bounds.}
-\label{fig:raw_histograms}
-\end{figure}
-
 \subsection*{Parallel coordinates visualization}
 A common way to visualize higher dimensional coordinate data is using parallel coordinates, and has been used in biomechanical studies \cite{bachynskyi2013biomechanical, krekel2010visual}.
 To show our sample set of points in the feasible activation space we draw $n$ parallel lines for each of the $n$ muscles.
@@ -161,3 +150,16 @@ $l_3^w$            & $\sqrt[3]{\sum_{i=1}^n (a_i F_{0i})^3}$                    
 \end{table}
 
 We added six additional vertical lines, one for each cost function (Table \ref{cost_function_tabls}), to the parallel coordinates plot to show the associated costs of each point. With the same parallel coordinates framework as developed with muscle activation, we can restrict and subset solutions which fall into desired cost-function ranges, thereby masking sub-optimal solutions and highlighting only those meeting the criteria.
+
+\subsection*{Solution projection histograms}
+Fig. \ref{fig:raw_histograms} shows the activation distribution of each muscle, when activated with $50\%$ of the maximal activation force. The diagram shows, for each muscle, the relative number of solutions that activate the muscle to some range in $[0,1]$ (counted within each histogram break).
+We also show the observed activation upper and lower bounds for each muscle (vertical dotted lines).
+In Section \ref{sub:activation_spaces_for_increasing_force} we consider the distributions for different forces into distal direction.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{figs/raw_histograms.pdf}
+\caption{Distribution of feasible activations for $\alpha= 0.5$ (50\% of the computed maximal force output in the distal direction). Dashed lines are the observed lower and upper bounds.}
+\label{fig:raw_histograms}
+\end{figure}
+
+
