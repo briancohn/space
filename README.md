@@ -112,3 +112,6 @@ m=\text{Output Dimensions}\\
 k=\text{DOF}\\
 n=\text{Muscles}\\
 ```
+
+
+https://docs.google.com/presentation/d/1arXzTLhYD5tdzfiQYsthWoewsP36PEL5ODuatkBJMGc/edit#slide=id.gbcc608561_0_0
