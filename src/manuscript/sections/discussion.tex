@@ -1,6 +1,109 @@
+Our novel computational approach to understanding the high-dimensional structure of feasible activation sets has important consequences to our conceptual and practical approaches to the neural control of musculature.  Our work provides an integrative neuromechanical perspective that places the currently dominant optimization and dimensionality reduction approaches in perspective. The novel use of the well established Hit-and-Run algorithm in the context of musculoskeletal models provides, to our knowledge, the first  rigorous probabilistic description of the internal structure of feasible activation sets. We then go on to visualize the obligatory multi-dimensional functional interactions among muscles defined by the anatomical structure of the limb and the nature of the task. After all, the most the nervous system can do to control a limb is  to identify, learn, and exploit its mechanical wherewithal. The structure of the feasible activation set provides the full high-dimensional description of what this entails.
+
+
+\subsection*{Piercing the curse of dimensionality}
+We begin by pointing out that, at its core, our approach is a direct response to the so-called `curse of dimensionality.'  This computational challenge comes up in the context of optimization \cite{todorov2002optimal} or combinatronics \cite{valero-cuevas2015fundamentals} when used to understand how the nervous system solves the muscle redundancy problem. The term curse of dimensionality was first coined by Richard E. Bellman  in the context of dynamic programming \cite{bellman1957dynamic}. It refers to the fact that the difficulty of finding optimal  solutions,  or characterizing the set of feasible solutions, often grows exponentially with  dimensionality (i.e., the number of muscles). The Hit-and-Run algorithm was specifically developed to address $\#P$-hard problems such as approximating the volume of high-dimensional polytopes\cite{Dyer}. The Hit-and-Run algorithms can converge to the uniform sampling across any convex body \cite{smith1984efficient} after $\mathcal{O}^*(n^2R^2/r^2)$ steps ($r$ and $R$ are the radii of the inscribed and circumscribed ball of the polytope as mentioned in the Introduction) \cite{Dyer, Lovasz}.  Experimental results  suggest that a number of points linear with respect to $N$  suffices for convex polytopes embedded in dimensions up to 40.  Emiris and Fisikopoulos \cite{emiris2013efficient} suggest that  $(10 + \frac{10}{N})~N$ iterations suffice to uniformly sample a convex polytope. Moreover, the Hit-and-Run algorithm is easy to implement. It is by no means unique and it would would be interesting to compare Hit-and-Run with the Grid Walk, Ball walk, or other sampling paradigms \cite{Vempala}. Nevertheless, in the field of neural control, the Hit-and-Run algorithm is an example of how to pierce the curse of dimensionality for musculoskeletal models with up to 40 muscles, which have historically remain beyond easy reach of our community because only specialists  can get optimization  or combinatronics algorithms to work with high-dimensional systems  \cite{valero-cuevas2009computational,sohn2013cat_bounding_box,Valero-Cuevas2015high-dimensional,todorov2002optimal}.
+
+\subsection*{The value of a cost function}
+
+How the brain confronts the problem of muscle redundancy remains a mystery. While some advocate optimization as a metaphor for the neural basis of voluntary motor muscle coordination  \cite{scott2004optimal,todorov2002optimal}, others criticize  it as physiologically unrealistic analogy \cite{deRugy2012habitual,loeb2012optimal}. This criticism comes from two directions. The first is the choice of the cost function, and the second the notion that the nervous system can find optimal solutions in spite of the curse of dimensionality. However, let us recall that one of the reasons that optimization is used is because it is a tried-and-true method for engineers and mathematicians to solve underdetermined problems \cite{valero-cuevas2009computational}.  Cost functions are  a necessary means to gauge the merits of individual solutions, and the pitfalls of exploring high-dimensional spaces to find global (as opposed to local) minima are well known---both of which are compatible with the evolutionary pressures to use trial-and-error to find adequate solutions to physical problems. Thus many of the debates about the merits of cost functions \cite{Prilutsky2000Muscle,crowninshield1981physiologically} and reasonable means to find  global minima \cite{shadmehr2012biological} are to a certain extent driven by the very real need to inject physiological realism to the engineering methods available to us.
+
+The results of out Hit-and-Run approach allow us to place optimization in perspective. Finding the feasible activation set for a task is in fact the mathematical dual, or counterpart, to optimization \cite{deBerg2008computational,Chvatal1983Linear}. If optimization is like a very efficient means to feel your way around the solution space in the dark---guided only by your cost-function and local gradient; then  finding the structure of the feasible activation set is like a computationally means to turn on the lights to see all possible solutions and their individual merits \cite{valero-cuevas2015fundamentals}.
+
+As mentioned above, being able to  `turn on the lights' is no longer as computationally challenging or expensive as it used to be as we demonstrate it is quite feasible and accessible to non-specialists. Having obtained the structure of the feasible activation set now allows us to see every see and interpret  families of solutions\index{families of solutions} for a variety of cost functions. Clearly, a cost function will still allow you to select a particular solution. But you can  be more flexible an classify solutions as generally valid (i.e., good enough or sub-optimal),  instead of insisting on finding the one optimal solution which may not be global, easy to find, generalizable, or robust.
+
+Figures \ref{fig:parcoord_full} and \ref{fig:parcoords} show examples of this. Having sampled the feasible activation set for the task of producing a submaximal force in the distal direction, the parallel coordinate plots show the families of solutions and their associated merits as per six different cost functions.  This allows one to see the joint distributions of muscle activations in  a cost-agnostic way; or enforce a particular cost function to see the diverse population of solutions that share similar or different costs. One can see  the landscape of solutions, and the multiple fitness landscapes that can be associated with them. This allows one to determine whether individual solutions, or families of solutions, are global, easy to find, generalizable, or robust.
+
+\subsection*{Synergy and structure}
+%--adding synergies will only constrain this space further
+%--you can model synergies as basis functions, but how does the CNS stay in the space
+%--in the future, 'synergists' should focus on exploitation of families of solutions
+%--synergies are exploiting these landscapes (see Racz & FVC)
+
+The families of feasible solutions in Figures \ref{fig:parcoord_full} and \ref{fig:parcoords} are informative in other ways. As discussed  in  \cite{valero-cuevas2015fundamentals}, several authors have pointed out that  understanding neural control from the perspective of synergies requires that we  distinguish between synergies that are extracted descriptively from data vs. synergies that are implemented prescriptively by a controller or the nervous system \cite{alessandro2013musclesynergies,kutch2012challenges,tresch2009case,scholz1999uncontrolled}. As shown in our results, feasible activation sets have a well-defined, low-dimensional structure that is given by the biomechanics of the limb and the mechanical constraints defining the task. This explains why there have been repeated reports of experimental data exhibiting correlated activity and modularity that reflects a lower-dimensional structure embedded in the native higher-dimensional space of the  measured variables \cite{Frontiers2012Modularity}. Therefore, the lines shown in the parallel coordinates plots describe in detail the obligatory correlations in muscle activations that are bound to be detected by dimensionality reduction algorithms because the feasible activation set is a lower-dimensional entity to begin with.
+
+The question then is, then, how can one infer prescriptive synergies (i.e., the existence of synergies of neural origin) from experimental data that naturally exhibit descriptive synergies? This is the heart of the debate in this area at the moment. It is  a subtle, hard to prove, distinction whether the low dimensionality of the observed data arises naturally  from the nervous system meeting the constraints of the task (by whatever means) vs. whether the nervous system is prescriptively implementing a low-dimensional basis to meet the constraints of the task (to simplify the muscle redundancy problem or otherwise) \cite{tresch2009case,kutch2012challenges,deRugy2013aremusclesynergiesuseful}.  This distinction is not purely semantic. It is our hope that our work, and the parallel coordinates exploration of the results it allows, aid us to explore these issues. For example, you can consider  the family of coordination patterns that  (i) are associated with a particular narrow range of values of a particular cost function; or (ii) have several muscles active within  particular ranges like low for one, medium for  another, and high for a third, etc. By showing in detail the obligatory correlations in activation values required by the mechanics of the limb and task,  parallel coordinates plots allow one to explore the latitude the nervous system has in the coordination of the other muscles---and whether it uses that latitude or not.  This is a computation capability we argued was necessary to advance our understanding of muscle synergies of neural origin \cite{kutch2012challenges}, and we are happy to report that this exploration of the structure of high-dimensional feasible activation sets is now possible. This is in line with an emerging  approach to treat computational models as experimental subjects to see how well current experimental techniques can detect the underlying  control strategy purposely implemented in the model by the researcher, or evaluate the tradeoffs of alternative synergies (e.g.,\cite{kutch2012challenges,alessandro2013musclesynergies,burkholder2013practical,moghadam2013well,steele2015consequences,ting1999phase}). 
+
+
+\subsection*{Learning the landscape}
+
+As mentioned above, the most the nervous system can do to control a limb is  to identify, learn, and exploit its mechanical wherewithal. The structure of the feasible activation set is an internal representation of that mechanical wherewithal at the level of the controller. Therefore, as we have written elsewhere \cite{valero-cuevas2015fundamentals,kutch2012challenges}, the question is not \emph{whether} experimentally observed neural commands will inhabit a low-dimensional subspace. Rather, the question is \emph{how}  the the nervous system finds and inhabits that low-dimensional subspace, i.e., implements prescriptive synergies. To make progress, we should focus on understanding the  processes by which the nervous system finds, inhabits, traverses and remembers the feasible activation set to meet the requirements of real-world tasks   \cite{racz2013spatiotemporal,dingwell2010walkingvariability,Keenan2009Maximal,Venkadesan2008Neural,giszter2015motor}.  
+
+Thankfully our results in the form of histograms and parallel coordinate plots provide, to our knowledge, the first characterization of the statistical distribution of muscle activations for a given task. This probabilistic approach to muscle coordination then allows us to explore the likelihood that a trial-and-error strategy (based on gradient descent or other heuristic or formal reinforcement learning approaches) will find functional solutions (i.e., land in the feasible activation set). Clearly, there are coordination patterns that are  much more likely to be found by others as can be seen by the density of lines in the parallel coordinate plots.
+
+Thus the structure of the feasible activation set provides strong priors that help interpret the nature  of motor learning as related to  exploration-exploitation  strategies driven by  trial-and-error to find and remember the feasible activation set for a task (i.e., a family of good-enough solutions). There are several such strategies that have been producing good results where strict single-line optimization methods are brittle or fail to converge. For example the work of Lipson, Bongard, and colleagues \cite{bongard2006Resilient,lipson2000automatic,Rieffel2009Morphological}; and Schaal and colleagues \cite{theodorou2011ACC_finger_OC,theodorou2010PiSquared,kalakrishnan2011littleDog} has used  trial-and-error learning combined with model-free or semi-model free approaches (i.e., they do not require precise models or the full equations of motion of the body being controlled) to evolve complex behavior, or design controllers for complex behavior.   It then starts to become biologically feasible that similar memory, interpolation and extrapolation approaches may be at the root of  biological control---and the success of particular trial-and-error strategy for a given task is very much tied to the  density of solutions (i.e., statistical priors) provided by the structure of the feasible activation set.
+
+This is then compatible with the notion that motor control is likely more habitual than optimal \cite{deRugy2012habitual}. That is, once a particular region of the feasible activation set has been found and remembered---with some subregions with higher densities being easier to find---that is likely to become a `good enough' (i.e., suboptimal) but nevertheless recurrent motor habit. It is only those individuals with skill and motivation to continue to explore the feasible activation space into less dense regions that are able to optimize, and thus win medals and such. Bur for most of us,  easy to find, generalizable, and robust families of suboptimal solutions are likely good enough.  This is made apparent in Figure \ref{fig:raw_histograms} that shows that the level of activation of each muscle for the optimal solution capable of producing maximal  force is not usually the mode of their histograms. That is, optimal solutions are not necessarily the most common, and therefore require either training or good coaching to be found given the curse of dimensionality mentioned above.
+
+% to be finalized ************
+%\subsection*{Stochastic Motor Control}
+%Our methodology and results also help paint a broader picture that  links well to  stochastic, Bayesian or Bayesian-like approaches of motor control.  If the structure of a feasible activation set enforces strong statistical biases on the set of feasible solutions, it is very plausible that that those priors naturally enable neurons to implement probabilistic  control strategies as suggested by some \cite{kording2004bayesian,sanger2011distributed}. 
+%As such, the means by which the CNS enters and continually inhabits the solution manifold can be thought of as the implementation of a dynamical attractor on the task variables. In the context of time-varying stochastic behavior of differential and discrete-time distributed systems like the neuromuscular system, the implementation of such a controller enforcing an attractor can be thought of as the implementation of a specific probability density of the state (for a presentation of this view see~\cite{sanger2011distributed}, which is different from Bayesian estimation and discrete-time Markov processes).
+%
+%This emerging view of the nervous system as functioning at the level of affecting probability density functions~\cite{sanger2011distributed} is compatible with a modular interpretation of our spatio-temporal results. DFA estimates the statistical self-affinity of stochastic processes with memory whose underlying statistics (mean, standard deviation and higher-order moments) or dynamics are non-stationary~\cite{kantelhardt_detecting_2001}. That is, DFA quantifies how well a probability density function is implemented. Thus the continuum of control strategies seen across all Modes and time scales can be thought of as essentially differently tuned versions of the same modular control process that can let drift (i.e., uncorrected divergence), be indifferent, or enforce (i.e., corrective action) the statistics of the time-varying probability density of the state so that it populates the solution space. Hence the level of modularity in the controller rests on the ability of the system to work with probability density functions in the task-relevant and task-irrelevant spaces at different time scales - and not with distinct basis functions or synergies implementing a separation of task variables. 
+
+%
+%This is different from the dominant thinking   emphasizing optimization of deterministic systems to find unique solutions. The limits of applying the concepts of optimization to motor control have been discussed elsewhere \cite{loeb2012optimal,deRugy2012habitual}.
+%
+%My hope is that this book will provide  a set of conceptual and computations tools to better understand  the dimensionality and structure of feasible activation sets.  It is only when we remove the  non-neural (i.e., anatomical and task-dependent) contributors to the structure of the these subspaces that we can begin to   focus better on the neural contributors to how the nervous system meets those constraints. Along these lines, I present some additional examples of how we can begin to characterize the structure of feasible activations sets in high dimensional spaces in the context of the multiple and compounding constraints of real-world tasks.
+%
+
+
+--Now they have a way to view how these landscapes change. 
+--Motor learning is (at its essence) focused on finding and exploring these subspaces- now we've opened the ability for them to track and visualize them.
+
+\subsection*{Data mining/ML people}
+[Please add this part Brian]
+--cost functions are now multidimensional
+--parallel coordinates offer a quick way to make decisions
+--now that we can enter these spaces, how do we visualize them? that remains a challenge. fruitful avenue for research.
+
+effects on each subgroup, and how it will inspire
+
+
+
+************************** Unused notes *****************
+***********************************************
+
+
+
+
+
 Our approximations show accurate views of feasible activations in slices perpendicular to each axis, in both histogram and parallel coordinate visualizations, and are computationally tractable.
 Had we performed exact volume computations, we would have had more accurate relative volumes; that said, the level of error generated through approximation is exceptionally small in comparison to error derived from measuring/predicting the musculoskeletal parameters to define the generators of $A$.
 Our code only solves one linear program to find the starting point, and the time-cost of each point thereafter is linear; therefore this method can be used for tendon driven models in very high-dimensional systems with at least 40 contributing muscles; the number of degrees of freedom and the relative strengths of the muscles ($F_o$) does not hinder the speed of Hit-and-Run.\\
+
+\subsection*{Internal structure of feasible activation sets as revealed by activation histograms}
+
+Using Hit-and-Run to sample feasible activation sets, Fig. \ref{fig:raw_histograms} shows the distributions of activation solutions for a submaximal distal force resulting from 10,000 solutions computed with Hit-and-Run sampling.
+This is the first time (to our knowledge) that the internal structure of the feasible activation set has been visualized for a sub-maximal force.
+Notice also that the observed lower and upper bounds of the activations (i.e., the dashed lines that indicate their bounding box), are uniquely uninformative of the actual density of distribution of feasible activations.
+
+The density integrals perpendicular to each muscle are unimodal due to the convexity\cite{ball1997elementary}, and therefore it would be inadvisable to fit any bimodal distribution as the probability density function.
+% subsubsection density_projection_upon_one_dimension (end)
+
+The solution polytope converges as the difficulty of the task increases; the rate of convergence is different across muscles.
+For some muscles the convergence only occurs after $\alpha=0.6$ or $\alpha=0.8$ (as in LUM and EIP), while others converge across the entire progression (e.g.\ DI and PI).
+Whereas for example FDS already has a small range of feasible activations at $\alpha=0.1$, EIP has feasible activation $[0,1]$ up to 80\%.
+
+It is imperative to keep in mind that every histogram (regardless of its convergence) is composed of the distribution of all 10,000 points; when the distribution is compressed, the relative percentage of the bars will increase (as evident by the increasing y-axis limits), as we fixed break width ($\Delta x$) to remain constant to 2\% of maximal activation \cite{ball1997elementary}.
+
+The peaks seen in these figures is the perpendicular slice that has the largest relative volume; within the same muscle it does not have to be symmetric between the bounds, and can shift over differing tasks.
+As expected, the unique solution at $\alpha=1.0$ appears as a single peak representing 100\% of the sampled points; the bounds and the muscle's unique activation are superimposed.
+
+The most simple finding is that the distributions cannot be inferred by their bounding boxes alone.
+Consider the activation distributions between $\alpha = 0.7$ and $\alpha = 0.8$ for LUM, where the median changed by less than 4\% while the lower bound increased by nearly 13\%.
+Notably, we observe that a meaningful cross-muscle comparison of point distributions cannot be ascertained by the bounding box. For example, at a task of 10\% of maximal distal force production, EIP and EDC both have lower and upper bounds of 0, and 1, respectively, yet their distributions are thoroughly distinct; the shape of EIP is more symmetric (lower 25\% = 0.36, median = 0.5029, upper 75\% = 0.62), while 75\% of the solutions sampled have EDC higher than 0.74 (see Fig. \ref{fig:Z_progression}).
+
+We find this holds not only for inter-muscle distribution comparisons, but intra-muscular distributions. Consider the significant change in the shape of the distributions across the progression for EDC until the 60\% task; the lower and upper bounds change less than 1\% and 4\%, respectively, while the median shifted by nearly 40\%.
+In the most extreme case, the median activation can be exceptionally narrow, while the bounds are wide- for example, EIP at a 90\% task; although activation is bounded between 0.1 and 0.81, approximately 79\% of the solutions exist with EIP activation between just 0.49 and 0.51.
+
+Next, we see that if one muscle had to be fixed throughout the entire force progression, DI and PI would fail; their bounding boxes of tasks below $\alpha=0.4$ do not include the unique solution at $\alpha=1.0$.
+We also placed a vertical grey line for the scaled unique solution at maximal force, denoted $\textbf{a}^*$, (e.g. LUM converges to an activation of 1 at maximal distal force, so we put a grey line at 0.8 for $\alpha=0.8$ of maximal distal force).
+Since $\alpha \textbf{f}_{\max} = \alpha A \textbf{a}^*$, $\alpha \textbf{a}^*$ is a solution of the feasible activation set at $\alpha$-fraction of the maximal force.
+However we observe that for some muscles, these points can lie arbitrarily in the distribution i.e.\ do not have to lie close to the corresponding peaks (e.g.\ musle DI and EIP).
+
+\subsection*{Multi-dimensional interactions among valid muscle activations and cost as revealed by parallel coordinates}
 
 If an end effector were completely unaffected by any activation of a given muscle (i.e. the muscle's linear endpoint force is the 0 vector), then we would see a uniform distribution across that muscle's activation. As such, muscles which are nearly uninvolved in the end effector's actions will form near-uniform distributions, as their involvement barely influences the activation space.
 In further studies one could put muscle activation constraints directly into the $A$; that said, as long as there are enough remaining points after adding post-hoc constraints (i.e. the original dataset is large enough) there is no advantage to this.
@@ -39,3 +142,60 @@ Consider for example the effect of injury upon the selection of motor coordinati
 We understand that in the context of the entire closed loop, afferent activation is highly distant from neural decisionmaking;  intention, alpha-gamma motor neuron excitation-inhibition, muscle excitation, activation dynamics and contractile properties represent the next logical additions to our set of constraints on the coordination space. Furthermore, the use of dynamical system modeling in addition to static force production could help us understand how changes in moment arms and muscle velocities affect the control situation for the CNS.\\
 
 We look to 'close the loop' between nervous system commands and mechanical output, thereby uncovering how the CNS collaborates with Newtonian physics--- with the intention of enlightening the community's understanding of motor performance and learning, it will require us to consider where we exist in activation space.
+
+\subsection*{Towards an integrative probabilistic approach to motor control}
+
+%*********
+Then we go on to discuss how  we can use the statistical structure of the feasible activation set to build a bridge to  Bayesian, Bayesian and neuromechanical perspectives to muscle coordination point to near-optimal and habitual biologically plausible reinforcement learning, sensorimotor mapping, and memory as  alternative mechanisms for motor function, but hinge on understanding the statistical properties of the families of valid coordination patterns to explore and exploit. 
+Markov  work then establishes a direct link between 
+
+
+  collection of points are a useful description of the  As in prior work, we  start by using a standard computational geometric approach to find that the low-dimensional feasible activation set \cite{valero2015fundamentals}. We then use  the Hit-and-Run algorithm \cite{smith1984efficient} to efficiently sample from it. The uni- and multi-dimensional statistical properties of this  collection of points are a useful description of the internal structure of these feasible activation sets.
+of computationally  nBayesian and neur=omechanciasl approaches, two of the altenatives to the cuse of cost functions In fact, coputational efficiency is likley the driving factor for the dominant perspective of optimization with convex and usually cuadratic cost functionsone of the 
+
+
+Implicit in these optimization procedures is the notion that there exists a well structured set of feasible solutions. Thus several of us have focused on describing and understanding those high-dimensional subspaces  embedded in $[0,1]^n$ (see Methods) \cite{kutch2011muscle,kutch2012challenges,sohn2013cat_bounding_box,Valero-Cuevas1998Large,Valero-Cuevas2015high-dimensional}.
+
+For the case of static force production with a limb, the muscle redundancy problem is phrased in computational geometry: Find the structure of the set of all feasible muscle activations, given the limb mechanics and the task constraints \cite{avis1992Pivoting,Valero-Cuevas1998Large,Valero-Cuevas2009mathematical,Valero-Cuevas2015high-dimensional}.
+We aim to explore what the solution space looks like, and uncover the structure of the feasible activation space for given static force tasks.
+
+\subsection*{High dimensionality difficulties}
+Consider a model of a static fingertip force, with 7 muscles articulating the index finger's 4 degrees of freedom (DOF), which will be further described in Section \ref{ss:finger}.
+Assuming independent control of each muscle (non-synergistic model), each muscle has a unique force vector at the endpoint (i.e.\ the fingertip has 7 unique vectors it can linearly combine to generate any vector of static force).
+This yields a unit $7$-cube in charge of producing a 4-dimensional output wrench.
+In order to uncover the structure and relationship of these spaces, we cannot visualize all dimensions simultaneously. %as we could with a simple 3-muscle model.
+
+The solution of the above system is a convex polytope, and is called the \emph{feasible activation set} (see Section \ref{s:methods}).
+To date, the structure of this high-dimensional polytope has been inferred by computing its bounding box, which is determined by the maximum and minimum activation of each muscle for a given output force across all solutions \cite{kutch2011muscle,sohn2013cat_bounding_box,Valero-Cuevas2015high-dimensional}.
+Although useful in defining the ultimate requirements of a muscle, the bounding box of a convex polytope excludes the details of the polytope's shape, thereby precluding comparison, since the polytope is a lower dimensional object embedded into $[0,1]^n$.
+Empirical dimensionality-reduction methods have been used to calculate basis vectors for such subspaces \cite{Clewley2008Estimating,davella2005shared,krishnamoorthy2003muscle},
+but this approach only provides a description of the dimension, orientation, and aspect ratio of the polytope; basis vectors are uninformative of boundaries and internal structure.
+
+Here we present a novel application of the well-known Hit-and-Run algorithm \cite{smith1984efficient} to describe the internal structure of these high-dimensional feasible activation sets (see Section \ref{ss:hitrun}).
+The input to the Hit-and-Run procedure is a static end-effector force, along with the system's endpoint Jacobian, maximal tendon forces, and a moment arm matrix \cite{Valero-Cuevas2009mathematical}.
+
+We applied our approach to two separate musculoskeletal models:
+
+1. A fabricated schematic system, which we designed to have three muscles articulating one DOF, and one dimension of output force.
+
+2. A realistic model, with seven muscles articulating four DOFs, and four dimensional output force \cite{Valero-Cuevas1998Large}.
+
+With this, below are the key observations we identified with our research:
+\begin{itemize}
+\item {The Hit-and-Run sampling of the solution space is computationally tractable.}
+\item {We apply six different cost functions (post-hoc) to all solutions, thereby providing spatial context to where 'optimal' solutions lie within the space.}
+\item {We designed an interactive parallel coordinates platform for visualizing and manipulating constraints to the solution space, such as muscle dysfunction, muscle hyperactivity, as well as constraining the upper and lower bounds for six different cost functions. We can compare cost functions side-by-side and view subsets of the dataset after applying cost function constraints. }
+\end{itemize}
+
+With respect to the structure of the activation space, we set forth the following key ideas and findings:
+\begin{itemize}
+\item {When the unique solution at maximal force production is scaled for submaximal wrenches, we find that the solution space is not centered (by the mode) on those scaled vectors.}
+\item {Our approach provides a more granular context to the space within which the central nervous system (CNS) optimizes.}
+\item {The bounding box exceptionally misconstrues the actual shape of the feasible activation space.}
+\end{itemize}
+and most importantly,
+\begin{itemize}
+\item {The high-dimensional activation space, which serves as the landscape upon which all neuromuscular learning transpires, is a remarkably shallow space within which to optimize. We provide substantial theoretical and experimental evidence suggesting that the 'dynamics' of neuromechanical evolution and learning are heavily constrained and defined by the simple statics.}
+\end{itemize}
+
+%**********

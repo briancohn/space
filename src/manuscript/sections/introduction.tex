@@ -1,49 +1,9 @@
-Muscle redundancy is the term used to describe the underdetermined nature of neural control of musculature.
-The classical notion of muscle redundancy  proposes that, faced with an infinite number of possible muscle activation patterns for a given movement or force production task, the nervous system optimizes in some fashion to select one solution.
-Here, each of $n$ muscles represents a dimension of control on an end effector, and at any moment of a task, a muscle activation pattern exists as a point in $[0,1]^n$,--- the $n$-dimensional unit hypercube ($n$-cube) --- where each muscle's maximal activation is normalized to $1$ \cite{Valero-Cuevas1998Large}.
-Thus researchers often seek to infer the optimization approach and the cost functions the nervous system utilizes to select effective points in activation space to produce natural behavior \cite{Chao1978Graphical,Prilutsky2000Muscle,scott2004optimal,todorov2002optimal,crowninshield1981physiologically,higginson2005simulated}. 
+Muscle redundancy is the term used to describe the classical concept that multiple muscle coordination patterns can   produce a same set of joint torques for limb function.
+Numerical optimization is a reasonable and useful metaphor of how the nervous system selects and implements muscle coordination patterns. It allows one to select one from among   many  options based on the  different energetic, physiological, and neuromechanical consequences associated with each muscle activation pattern\cite{Chao1978Graphical,Prilutsky2000Muscle,scott2004optimal,todorov2002optimal,crowninshield1981physiologically,higginson2005simulated}. 
+Some of the criticisms of numerical optimization, however,  include that it is not necessarily  realistic (i.e., does the nervous system really solve quadratic equations and enforce optimality?), and may even be paradoxical with neural computation, evolutionary biology and clinical reality (i.e., why does disability arise with the damage of even a few muscles?) \cite{valero2015fundamentals,deRugy2012habitual,loeb2000overcomplete,loeb2012optimal}. Nevertheless,  numerical optimization is widely used because of its conceptual appeal,  computational tractability,  efficiency, and practical implementation in computer packages. This has produced a large body of literature containing multiple examples of the use of biologically reasonable---yet at times hotly debated---cost functions  to find unique optimal solutions, even for  limbs with numerous muscles (i.e., high-dimensional problems) \cite{valero2009computational}.
 
-Implicit in these optimization procedures is the notion that there exists a well structured set of feasible solutions. Thus several of us have focused on describing and understanding those high-dimensional subspaces  embedded in $[0,1]^n$ (see Methods) \cite{kutch2011muscle,kutch2012challenges,sohn2013cat_bounding_box,Valero-Cuevas1998Large,Valero-Cuevas2015high-dimensional}.
+An alternative  approach  focuses on characterizing groups of multiple valid solutions, instead of individual optimal solutions. This approach stems from longtime observations that the variables used to describe functional features (e.g., joint angles) in general, and muscle activations (e.g., EMG signals) in particular, occupy  a lower-dimensional  space than the native dimensionality of all variables (i.e., all joints, all muscles, etc.)  \cite{scholz1999uncontrolled,bizzi2013neural,davella2005shared,Clewley2008Estimating}.   Subsequent work phrased these observations more broadly as a consequence of there being  \emph{families} of feasible muscle activations  (i.e., feasible activation sets) whose well-defined structure that emerges naturally from the interactions among the anatomy of the limb, neural constraints in the activation of muscles, and the mechanical  constraints defining the task\cite{kutch2011muscle,sohn2013cat_bounding_box,Valero-Cuevas1998Large,Valero-Cuevas2015high-dimensional,Kuo1993Human,valero-cuevas2015fundamentals,schieber2004hand}. From this perspective, the fact that EMG signals  exhibit low-dimensionality is to be expected as  part and parcel of meeting the neuromechanical constrains of a task. Thus, research on the nature of muscle coordination should  focus on how nervous system  explores, inhabits, and exploits those sets of feasible solutions \cite{kutch2012challenges,steele2013number,bizzi2013neural,tresch2009case,dingwell2010walkingvariability,racz2013spatiotemporal,steele2015consequences}.
 
-For the case of static force production with a limb, the muscle redundancy problem is phrased in computational geometry: Find the structure of the set of all feasible muscle activations, given the limb mechanics and the task constraints \cite{avis1992Pivoting,Valero-Cuevas1998Large,Valero-Cuevas2009mathematical,Valero-Cuevas2015high-dimensional}.
-We aim to explore what the solution space looks like, and uncover the structure of the feasible activation space for given static force tasks.
+While potentially more biologically realistic than optimization methods,  finding families of feasible solutions  requires  linear and nonlinear geometric methods that are particularly susceptible to computational difficulties in higher dimensions, which has impeded their development and  widespread adoption \cite{valero2009computational,Chao1978Graphical,spoor1983balancing,Kuo1993Human,theodorou2010optimalityEMBC,scholz1999uncontrolled,dingwell2010walkingvariability}. In response to this need,  we present the development of a conceptual framework that enables the computational tractable and efficient description of the structure of feasible  activation sets  for high-dimensional systems. We start from the fundamental notion that, for some problems in motor control involving the production of static forces, the feasible activation set is a convex polytope embedded in the native high-dimensional space of all muscles (the general case is  considered in the Discussion).  By efficiently sampling from the large-dimensional feasible activation sets, we are  able to describe their structure using the  uni- and multi-dimensional statistical properties of the muscle coordination patterns that constitute them.  We then go on to discuss how  we can use the probabilistic structure of  feasible activations set to bridge  from neuromechanics to  Bayesian and stochastic  exploration-exploitation methods as a biologically plausible model of sensorimotor function.
 
-\subsection*{High dimensionality difficulties}
-Consider a model of a static fingertip force, with 7 muscles articulating the index finger's 4 degrees of freedom (DOF), which will be further described in Section \ref{ss:finger}.
-Assuming independent control of each muscle (non-synergistic model), each muscle has a unique force vector at the endpoint (i.e.\ the fingertip has 7 unique vectors it can linearly combine to generate any vector of static force).
-This yields a unit $7$-cube in charge of producing a 4-dimensional output wrench.
-In order to uncover the structure and relationship of these spaces, we cannot visualize all dimensions simultaneously. %as we could with a simple 3-muscle model.
-
-The solution of the above system is a convex polytope, and is called the \emph{feasible activation set} (see Section \ref{s:methods}).
-To date, the structure of this high-dimensional polytope has been inferred by computing its bounding box, which is determined by the maximum and minimum activation of each muscle for a given output force across all solutions \cite{kutch2011muscle,sohn2013cat_bounding_box,Valero-Cuevas2015high-dimensional}.
-Although useful in defining the ultimate requirements of a muscle, the bounding box of a convex polytope excludes the details of the polytope's shape, thereby precluding comparison, since the polytope is a lower dimensional object embedded into $[0,1]^n$.
-Empirical dimensionality-reduction methods have been used to calculate basis vectors for such subspaces \cite{Clewley2008Estimating,davella2005shared,krishnamoorthy2003muscle},
-but this approach only provides a description of the dimension, orientation, and aspect ratio of the polytope; basis vectors are uninformative of boundaries and internal structure.
-
-Here we present a novel application of the well-known Hit-and-Run algorithm \cite{smith1984efficient} to describe the internal structure of these high-dimensional feasible activation sets (see Section \ref{ss:hitrun}).
-The input to the Hit-and-Run procedure is a static end-effector force, along with the system's endpoint Jacobian, maximal tendon forces, and a moment arm matrix \cite{Valero-Cuevas2009mathematical}.
-
-We applied our approach to two separate musculoskeletal models:
-
-1. A fabricated schematic system, which we designed to have three muscles articulating one DOF, and one dimension of output force.
-
-2. A realistic model, with seven muscles articulating four DOFs, and four dimensional output force \cite{Valero-Cuevas1998Large}.
-
-With this, below are the key observations we identified with our research:
-\begin{itemize}
-\item {The Hit-and-Run sampling of the solution space is computationally tractable.}
-\item {We apply six different cost functions (post-hoc) to all solutions, thereby providing spatial context to where 'optimal' solutions lie within the space.}
-\item {We designed an interactive parallel coordinates platform for visualizing and manipulating constraints to the solution space, such as muscle dysfunction, muscle hyperactivity, as well as constraining the upper and lower bounds for six different cost functions. We can compare cost functions side-by-side and view subsets of the dataset after applying cost function constraints. }
-\end{itemize}
-
-With respect to the structure of the activation space, we set forth the following key ideas and findings:
-\begin{itemize}
-\item {When the unique solution at maximal force production is scaled for submaximal wrenches, we find that the solution space is not centered (by the mode) on those scaled vectors.}
-\item {Our approach provides a more granular context to the space within which the central nervous system (CNS) optimizes.}
-\item {The bounding box exceptionally misconstrues the actual shape of the feasible activation space.}
-\end{itemize}
-and most importantly,
-\begin{itemize}
-\item {The high-dimensional activation space, which serves as the landscape upon which all neuromuscular learning transpires, is a remarkably shallow space within which to optimize. We provide substantial theoretical and experimental evidence suggesting that the 'dynamics' of neuromechanical evolution and learning are heavily constrained and defined by the simple statics.}
-\end{itemize}
 

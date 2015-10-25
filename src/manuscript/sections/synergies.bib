@@ -1,0 +1,502 @@
+%% This BibTeX bibliography file was created using BibDesk.
+%% http://bibdesk.sourceforge.net/
+
+
+%% Created for Francisco at 2015-05-30 10:04:38 -0700 
+
+
+%% Saved with string encoding Unicode (UTF-8) 
+
+
+
+@article{ijspeert2013dynamical,
+	Abstract = {Nonlinear dynamical systems have been used in many disciplines to model complex behaviors, including biological motor control, robotics, perception, economics, traffic prediction, and neuroscience. While often the unexpected emergent behavior of nonlinear systems is the focus of investigations, it is of equal importance to create goal-directed behavior (e.g., stable locomotion from a system of coupled oscillators under perceptual guidance). Modeling goal-directed behavior with nonlinear systems is, however, rather difficult due to the parameter sensitivity of these systems, their complex phase transitions in response to subtle parameter changes, and the difficulty of analyzing and predicting their long-term behavior; intuition and time-consuming parameter tuning play a major role. This letter presents and reviews dynamical movement primitives, a line of research for modeling attractor behaviors of autonomous nonlinear dynamical systems with the help of statistical learning techniques. The essence of our approach is to start with a simple dynamical system, such as a set of linear differential equations, and transform those into a weakly nonlinear system with prescribed attractor dynamics by means of a learnable autonomous forcing term. Both point attractors and limit cycle attractors of almost arbitrary complexity can be generated. We explain the design principle of our approach and evaluate its properties in several example applications in motor control and robotics.},
+	Author = {Ijspeert, Auke Jan and Nakanishi, Jun and Hoffmann, Heiko and Pastor, Peter and Schaal, Stefan},
+	Date-Added = {2015-05-12 20:16:58 +0000},
+	Date-Modified = {2015-05-12 20:17:09 +0000},
+	Journal = {Neural computation},
+	Number = {2},
+	Pages = {328--373},
+	Publisher = {MIT Press},
+	Title = {Dynamical movement primitives: learning attractor models for motor behaviors},
+	Volume = {25},
+	Year = {2013}}
+
+@incollection{atkeson1997locally,
+	Author = {Atkeson, Christopher G and Moore, Andrew W and Schaal, Stefan},
+	Booktitle = {Lazy learning},
+	Date-Added = {2015-05-12 20:12:24 +0000},
+	Date-Modified = {2015-05-12 20:12:24 +0000},
+	Pages = {75--113},
+	Publisher = {Springer},
+	Title = {Locally weighted learning for control},
+	Year = {1997}}
+
+@article{chhabra2008learning,
+	Abstract = {The computational complexities arising in motor control can be ameliorated through the use of a library of motor synergies. We present a new model, referred to as the Greedy Additive Regression (GAR) model, for learning a library of torque sequences, and for learning the coefficients of a linear combination of sequences minimizing a cost function. From the perspective of numerical optimization, the GAR model is interesting because it creates a library of "local features"---each sequence in the library is a solution to a single training task---and learns to combine these sequences using a local optimization procedure, namely, additive regression. We speculate that learners with local representational primitives and local optimization procedures will show good performance on nonlinear tasks. The GAR model is also interesting from the perspective of motor control because it outperforms several competing models. Results using a simulated two-joint arm suggest that the GAR model consistently shows excellent performance in the sense that it rapidly learns to perform novel, complex motor tasks. Moreover, its library is overcomplete and sparse, meaning that only a small fraction of the stored torque sequences are used when learning a new movement. The library is also robust in the sense that, after an initial training period, nearly all novel movements can be learned as additive combinations of sequences in the library, and in the sense that it shows good generalization when an arm's dynamics are altered between training and test conditions, such as when a payload is added to the arm. Lastly, the GAR model works well regardless of whether motor tasks are specified in joint space or Cartesian space. We conclude that learning techniques using local primitives and optimization procedures are viable and potentially important methods for motor control and possibly other domains, and that these techniques deserve further examination by the artificial intelligence and cognitive science communities.},
+	Author = {Chhabra, Manu and Jacobs, Robert A},
+	Date-Added = {2015-05-12 20:09:45 +0000},
+	Date-Modified = {2015-05-12 20:10:04 +0000},
+	Journal = {The Journal of Machine Learning Research},
+	Pages = {1535--1558},
+	Publisher = {JMLR. org},
+	Title = {Learning to combine motor primitives via greedy additive regression},
+	Volume = {9},
+	Year = {2008}}
+
+@inproceedings{todorov2009compositionality,
+	Abstract = {We present a theory of compositionality in stochastic optimal control, showing how task-optimal controllers can be constructed from certain primitives. The primitives are themselves feedback controllers pursuing their own agendas. They are mixed in proportion to how much progress they are making towards their agendas and how compatible their agendas are with the present task. The resulting composite control law is provably optimal when the problem belongs to a certain class. This class is rather general and yet has a number of unique properties - one of which is that the Bellman equation can be made linear even for non-linear or discrete dynamics. This gives rise to the compositionality developed here. In the special case of linear dynamics and Gaussian noise our framework yields analytical solutions (i.e. non-linear mixtures of linear-quadratic regulators) without requiring the final cost to be quadratic. More generally, a natural set of control primitives can be constructed by applying SVD to Greens function of the Bellman equation. We illustrate the theory in the context of human arm movements. The ideas of optimality and compositionality are both very prominent in the field of motor control, yet they are hard to reconcile. Our work makes this possible.},
+	Author = {Todorov, Emanuel},
+	Booktitle = {Advances in Neural Information Processing Systems},
+	Date-Added = {2015-05-12 20:07:43 +0000},
+	Date-Modified = {2015-05-12 20:07:58 +0000},
+	Pages = {1856--1864},
+	Title = {Compositionality of optimal control laws},
+	Year = {2009}}
+
+@article{berger2014effective,
+	Abstract = {Abstract
+Muscle synergies have been proposed as a way for the central nervous system (CNS) to simplify the generation of motor commands and they have been shown to explain a large fraction of the variation in the muscle patterns across a variety of conditions. However, whether human subjects are able to control forces and movements effectively with a small set of synergies has not been tested directly. Here we show that muscle synergies can be used to generate target forces in multiple directions with the same accuracy achieved using individual muscles. We recorded electromyographic (EMG) activity from 13 arm muscles and isometric hand forces during a force reaching task in a virtual environment. From these data we estimated the force associated to each muscle by linear regression and we identified muscle synergies by non-negative matrix factorization. We compared trajectories of a virtual mass displaced by the force estimated using the entire set of recorded EMGs to trajectories obtained using 4-5 muscle synergies. While trajectories were similar, when feedback was provided according to force estimated from recorded EMGs (EMG-control) on average trajectories generated with the synergies were less accurate. However, when feedback was provided according to recorded force (force-control) we did not find significant differences in initial angle error and endpoint error. We then tested whether synergies could be used as effectively as individual muscles to control cursor movement in the force reaching task by providing feedback according to force estimated from the projection of the recorded EMGs into synergy space (synergy-control). Human subjects were able to perform the task immediately after switching from force-control to EMG-control and synergy-control and we found no differences between initial movement direction errors and endpoint errors in all control modes. These results indicate that muscle synergies provide an effective strategy for motor coordination.},
+	Author = {Berger, Denise J and d'Avella, Andrea},
+	Date-Added = {2015-05-12 19:54:01 +0000},
+	Date-Modified = {2015-05-12 19:54:15 +0000},
+	Journal = {Frontiers in computational neuroscience},
+	Publisher = {Frontiers Media SA},
+	Title = {Effective force control by muscle synergies},
+	Volume = {8},
+	Year = {2014}}
+
+@article{Valero-Cuevas2015high-dimensional,
+	Author = {Valero-Cuevas, Francisco J and Cohn, Brian A and Yngvason, Hordur F and Lawrence, Emily L},
+	Date-Added = {2015-05-12 18:12:17 +0000},
+	Date-Modified = {2015-05-15 18:36:41 +0000},
+	Journal = {Journal of Biomechanics},
+	Title = {Exploring the high-dimensional structure of muscle redundancy via subject-specific and generic musculoskeletal models},
+	Volume = {doi:10.1016/j.jbiomech.2015.04.026},
+	Year = {2015 In Press}}
+
+@article{loeb2000overcomplete,
+	Author = {Loeb, GE},
+	Date-Added = {2015-05-12 18:12:10 +0000},
+	Date-Modified = {2015-05-12 18:12:10 +0000},
+	Journal = {Motor Control},
+	Number = {1},
+	Pages = {81--83},
+	Publisher = {HUMAN KINETICS},
+	Title = {Overcomplete musculature or underspecified tasks?},
+	Volume = {4},
+	Year = {2000}}
+
+@article{ting2012review,
+	Author = {Ting, Lena H and Chvatal, Stacie A and Safavynia, Seyed A and Lucas McKay, J},
+	Date-Added = {2015-05-12 18:00:34 +0000},
+	Date-Modified = {2015-05-12 18:00:34 +0000},
+	Journal = {International journal for numerical methods in biomedical engineering},
+	Number = {10},
+	Pages = {1003--1014},
+	Publisher = {Wiley Online Library},
+	Title = {Review and perspective: neuromechanical considerations for predicting muscle activation patterns for movement},
+	Volume = {28},
+	Year = {2012}}
+
+@article{alessandro2013musclesynergies,
+	Author = {Alessandro, C and Delis, I and Nori, F and Panzeri, S and Berret, B},
+	Date-Added = {2015-05-12 17:43:21 +0000},
+	Date-Modified = {2015-05-30 16:23:29 +0000},
+	Journal = {Frontiers in computational neuroscience},
+	Publisher = {Frontiers Media SA},
+	Title = {Muscle synergies in neuroscience and robotics: from input-space to task-space perspectives},
+	Volume = {7},
+	Year = {2013}}
+
+@article{spoor1983balancing,
+	Author = {Spoor, CW},
+	Date-Added = {2015-05-09 01:00:25 +0000},
+	Date-Modified = {2015-05-09 01:00:25 +0000},
+	Journal = {Journal of Biomechanics},
+	Number = {7},
+	Pages = {497--504},
+	Publisher = {Elsevier},
+	Title = {Balancing a force on the fingertip of a two-dimensional finger model without intrinsic muscles},
+	Volume = {16},
+	Year = {1983}}
+
+@article{Chao1978Graphical,
+	Author = {Chao, EY and An, KN},
+	Date-Added = {2015-05-09 00:59:16 +0000},
+	Date-Modified = {2015-05-09 00:59:16 +0000},
+	Journal = {Journal of Biomechanical Engineering},
+	Owner = {francisco},
+	Pages = {159-67},
+	Timestamp = {2009.09.04},
+	Title = {Graphical interpretation of the solution to the redundant problem in biomechanics},
+	Volume = {100},
+	Year = {1978}}
+
+@article{Keenan2009Maximal,
+	Author = {Keenan, K G and Santos, V J and Venkadesan, M and Valero-Cuevas, F J},
+	Date-Added = {2015-05-09 00:57:59 +0000},
+	Date-Modified = {2015-05-15 18:33:35 +0000},
+	Journal = {Journal of Neuroscience},
+	Pages = {8784--8789},
+	Title = {{{M}aximal voluntary fingertip force production is not limited by movement speed in combined motion and force tasks}},
+	Volume = {29},
+	Year = {2009}}
+
+@article{Valero-Cuevas2009mathematical,
+	Author = {Valero-Cuevas, F J},
+	Date-Added = {2015-05-08 23:37:35 +0000},
+	Date-Modified = {2015-05-15 18:38:03 +0000},
+	Journal = {Advances in Experimental Medicine /& Biology},
+	Pages = {619--633},
+	Title = {{{A} mathematical approach to the mechanical capabilities of limbs and fingers}},
+	Volume = {629},
+	Year = {2009}}
+
+@article{Valero-Cuevas1998Large,
+	Author = {Valero-Cuevas, F J and Zajac, F E and Burgar, C G},
+	Date-Added = {2015-05-08 23:37:16 +0000},
+	Date-Modified = {2015-05-15 18:37:59 +0000},
+	Journal = {Journal of Biomechanics},
+	Pages = {693--703},
+	Title = {{{L}arge index-fingertip forces are produced by subject-independent patterns of muscle excitation}},
+	Volume = {31},
+	Year = {1998}}
+
+@inproceedings{balasubramanian2008biologicalstiffness,
+	Author = {Balasubramanian, Ravi and Matsuoka, Yoky},
+	Booktitle = {Robotics and Automation, 2008. ICRA 2008. IEEE International Conference on},
+	Date-Added = {2015-05-08 22:54:10 +0000},
+	Date-Modified = {2015-05-08 22:54:31 +0000},
+	Organization = {IEEE},
+	Pages = {737--742},
+	Title = {Biological stiffness control strategies for the anatomically correct testbed (ACT) hand},
+	Year = {2008}}
+
+@article{bizzi2013neural,
+	Author = {Bizzi, Emilio and Cheung, Vincent CK},
+	Date-Added = {2015-05-08 18:51:38 +0000},
+	Date-Modified = {2015-05-08 18:51:38 +0000},
+	Journal = {Frontiers in computational neuroscience},
+	Publisher = {Frontiers Media SA},
+	Title = {The neural origin of muscle synergies},
+	Volume = {7},
+	Year = {2013}}
+
+@article{kutch2012challenges,
+	Author = {Kutch, JJ and Valero-Cuevas, FJ},
+	Date-Added = {2015-05-08 18:47:02 +0000},
+	Date-Modified = {2015-05-08 18:47:02 +0000},
+	Journal = {PLoS Computational Biology},
+	Number = {5},
+	Pages = {e1002434},
+	Publisher = {Public Library of Science},
+	Title = {Challenges and new approaches to proving the existence of muscle synergies of neural origin},
+	Volume = {8},
+	Year = {2012}}
+
+@article{hu2012biomechanical,
+	Author = {Hu, Xiao and Murray, Wendy M and Perreault, Eric J},
+	Journal = {Journal of Neurophysiology},
+	Number = {8},
+	Pages = {2083-2091},
+	Title = {Biomechanical constraints on the feedforward regulation of endpoint stiffness},
+	Volume = {108},
+	Year = {2012}}
+
+@article{davella2005shared,
+	Author = {d'Avella, Andrea and Bizzi, Emilio},
+	Journal = {Proceedings of the National Academy of Sciences of the United States of America},
+	Number = {8},
+	Pages = {3076-3081},
+	Title = {Shared and specific muscle synergies in natural motor behaviors},
+	Volume = {102},
+	Year = {2005}}
+
+@article{ting2007neuromechanics,
+	Author = {Ting, Lena H and McKay, J Lucas},
+	Journal = {Current opinion in neurobiology},
+	Number = {6},
+	Pages = {622-628},
+	Title = {Neuromechanics of muscle synergies for posture and movement},
+	Volume = {17},
+	Year = {2007}}
+
+@article{ting2005limited,
+	Author = {Ting, Lena H and Macpherson, Jane M},
+	Journal = {Journal of Neurophysiology},
+	Number = {1},
+	Pages = {609-613},
+	Title = {A limited set of muscle synergies for force control during a postural task},
+	Volume = {93},
+	Year = {2005}}
+
+@article{tresch2009case,
+	Author = {Tresch, Matthew C and Jarc, Anthony},
+	Journal = {Current opinion in neurobiology},
+	Number = {6},
+	Pages = {601-607},
+	Title = {The case for and against muscle synergies},
+	Volume = {19},
+	Year = {2009}}
+
+@article{kutch2008endpoint,
+	Author = {Kutch, Jason J and Kuo, Arthur D and Bloch, Anthony M and Rymer, William Z},
+	Journal = {Journal of Neurophysiology},
+	Number = {5},
+	Pages = {2455-2471},
+	Title = {Endpoint force fluctuations reveal flexible rather than synergistic patterns of muscle cooperation},
+	Volume = {100},
+	Year = {2008}}
+
+@article{burdet2001central,
+	Author = {Burdet, E. and Osu, R. and Franklin, D. W. and Milner, T. E. and Kawato, M.},
+	Journal = {Nature},
+	Number = {6862},
+	Pages = {446-449},
+	Title = {The central nervous system stabilizes unstable dynamics by learning optimal impedance},
+	Volume = {414},
+	Year = {2001}}
+
+@article{burdet2000method,
+	Author = {Burdet, E. and Osu, R. and Franklin, D. W. and Yoshioka, T. and Milner, T. E. and Kawato, M.},
+	Journal = {Journal of Biomechanics},
+	Number = {12},
+	Pages = {1705-1709},
+	Title = {A method for measuring endpoint stiffness during multi-joint arm movements},
+	Volume = {33},
+	Year = {2000}}
+
+@inproceedings{ciblak1994asymmetric,
+	Author = {Ciblak, N. and Lipkin, H.},
+	Note = {Proc. ASME 23rd Biennial Mech. Conf., Des. Eng. Div},
+	Pages = {197-204},
+	Title = {Asymmetric Cartesian stiffness for the modeling of compliant robotic systems},
+	Volume = {72},
+	Year = {1994}}
+
+@inproceedings{ciblak1999synthesis,
+	Author = {Ciblak, N. and Lipkin, H.},
+	Note = {Robotics and Automation, 1999. Proceedings. 1999 IEEE International Conference on},
+	Pages = {2147-2152 vol. 3},
+	Publisher = {IEEE},
+	Title = {Synthesis of Cartesian stiffness for robotic applications},
+	Volume = {3},
+	Year = {1999}}
+
+@article{cui2008modeling,
+	Author = {Cui, L. and Perreault, E. J. and Maas, H. and Sandercock, T. G.},
+	Journal = {Journal of Biomechanics},
+	Number = {9},
+	Pages = {1945-1952},
+	Title = {Modeling short-range stiffness of feline lower hindlimb muscles},
+	Volume = {41},
+	Year = {2008}}
+
+@article{darainy2004learning,
+	Author = {Darainy, M. and Malfait, N. and Gribble, P. L. and Towhidkhah, F. and Ostry, D. J.},
+	Journal = {Journal of Neurophysiology},
+	Number = {6},
+	Pages = {3344},
+	Title = {Learning to control arm stiffness under static conditions},
+	Volume = {92},
+	Year = {2004}}
+
+@inproceedings{fagg1997cerebellar,
+	Author = {Fagg, A. H. and Sitkoff, N. and Barto, A. G. and Houk, J. C.},
+	Note = {Robotics and Automation, 1997. Proceedings., 1997 IEEE International Conference on},
+	Pages = {2638-2644 vol. 3},
+	Publisher = {IEEE},
+	Title = {Cerebellar learning for control of a two-link arm in muscle space},
+	Volume = {3},
+	Year = {1997}}
+
+@article{flash1990human,
+	Author = {Flash, T. and Mussa-Ivaldi, F.},
+	Journal = {Experimental brain research},
+	Number = {2},
+	Pages = {315-326},
+	Title = {Human arm stiffness characteristics during the maintenance of posture},
+	Volume = {82},
+	Year = {1990}}
+
+@article{franklin2007endpoint,
+	Author = {Franklin, D. W. and Liaw, G. and Milner, T. E. and Osu, R. and Burdet, E. and Kawato, M.},
+	Journal = {The Journal of Neuroscience},
+	Number = {29},
+	Pages = {7705-7716},
+	Title = {Endpoint stiffness of the arm is directionally tuned to instability in the environment},
+	Volume = {27},
+	Year = {2007}}
+
+@article{franklin2004impedance,
+	Author = {Franklin, D. W. and So, U. and Kawato, M. and Milner, T. E.},
+	Journal = {Journal of Neurophysiology},
+	Number = {5},
+	Pages = {3097},
+	Title = {Impedance control balances stability with metabolically costly muscle activation},
+	Volume = {92},
+	Year = {2004}}
+
+@article{gomi1998task,
+	Author = {Gomi, H. and Osu, R.},
+	Journal = {The Journal of Neuroscience},
+	Number = {21},
+	Pages = {8965-8978},
+	Title = {Task-dependent viscoelasticity of human multijoint arm and its spatial characteristics for interaction with environments},
+	Volume = {18},
+	Year = {1998}}
+
+@article{hogan1984adaptive,
+	Author = {Hogan, N.},
+	Journal = {Automatic Control, IEEE Transactions on},
+	Number = {8},
+	Pages = {681-690},
+	Title = {Adaptive control of mechanical impedance by coactivation of antagonist muscles},
+	Volume = {29},
+	Year = {1984}}
+
+@article{hogan1985impedance,
+	Author = {Hogan, N.},
+	Journal = {ASME Transactions Journal of Dynamic Systems and Measurement Control B},
+	Pages = {1-24},
+	Title = {Impedance control-An approach to manipulation. I-Theory. II-Implementation. III-Applications},
+	Volume = {107},
+	Year = {1985}}
+
+@article{hogan1985mechanics,
+	Author = {Hogan, N.},
+	Journal = {Biological cybernetics},
+	Number = {5},
+	Pages = {315-331},
+	Title = {The mechanics of multi-joint posture and movement control},
+	Volume = {52},
+	Year = {1985}}
+
+@article{hu2011muscle,
+	Author = {Hu, X. and Murray, W.M. and Perreault, E.J.},
+	Journal = {Journal of Neurophysiology},
+	Number = {4},
+	Pages = {1633-1641},
+	Title = {Muscle short-range stiffness can be used to estimate the endpoint stiffness of the human arm.},
+	Volume = {105},
+	Year = {2011}}
+
+@article{huang2000bounds,
+	Author = {Huang, S. and Schimmels, J. M.},
+	Journal = {Robotics and Automation, IEEE Transactions on},
+	Number = {1},
+	Pages = {99-103},
+	Title = {The bounds and realization of spatial compliances achieved with simple serial elastic mechanisms},
+	Volume = {16},
+	Year = {2000}}
+
+@article{kadiallah2011impedance,
+	Author = {Kadiallah, A. and Liaw, G. and Kawato, M. and Franklin, D. W. and Burdet, E.},
+	Journal = {Journal of Neurophysiology},
+	Title = {Impedance Control is Selectively Tuned to Multiple Directions of Movement}}
+
+@article{kobayashi1998tendon,
+	Author = {Kobayashi, H. and Hyodo, K. and Ogane, D.},
+	Journal = {The International Journal of Robotics Research},
+	Number = {5},
+	Pages = {561},
+	Title = {On tendon-driven robotic mechanisms with redundant tendons},
+	Volume = {17},
+	Year = {1998}}
+
+@article{mcintyre1996control,
+	Author = {McIntyre, J. and Mussa-Ivaldi, F. A. and Bizzi, E.},
+	Journal = {Experimental brain research},
+	Number = {2},
+	Pages = {248-264},
+	Title = {The control of stable postures in the multijoint arm},
+	Volume = {110},
+	Year = {1996}}
+
+@article{milner2002contribution,
+	Author = {Milner, T. E.},
+	Journal = {Experimental brain research},
+	Number = {4},
+	Pages = {515-519},
+	Title = {Contribution of geometry and joint stiffness to mechanical stability of the human arm},
+	Volume = {143},
+	Year = {2002}}
+
+@article{mussa1985neural,
+	Author = {Mussa-Ivaldi, F. A. and Hogan, N. and Bizzi, E.},
+	Journal = {The Journal of Neuroscience},
+	Number = {10},
+	Pages = {2732-2743},
+	Title = {Neural, mechanical, and geometric factors subserving arm posture in humans},
+	Volume = {5},
+	Year = {1985}}
+
+@article{osu1999multijoint,
+	Author = {Osu, R. and Gomi, H.},
+	Journal = {Journal of Neurophysiology},
+	Number = {4},
+	Pages = {1458},
+	Title = {Multijoint muscle regulation mechanisms examined by measured human arm stiffness and EMG signals},
+	Volume = {81},
+	Year = {1999}}
+
+@article{perreault2001effects,
+	Author = {Perreault, E. J. and Kirsch, R. F. and Crago, P. E.},
+	Journal = {Experimental brain research. Experimentelle Hirnforschung. Experimentation cerebrale},
+	Number = {3},
+	Pages = {312},
+	Title = {Effects of voluntary force generation on the elastic components of endpoint stiffness},
+	Volume = {141},
+	Year = {2001}}
+
+@article{perreault2002voluntary,
+	Author = {Perreault, E. J. and Kirsch, R. F. and Crago, P. E.},
+	Journal = {Journal of Neurophysiology},
+	Number = {6},
+	Pages = {2808},
+	Title = {Voluntary control of static endpoint stiffness during force regulation tasks},
+	Volume = {87},
+	Year = {2002}}
+
+@article{shin2009myokinetic,
+	Author = {Shin, D. and Kim, J. and Koike, Y.},
+	Journal = {Journal of Neurophysiology},
+	Number = {1},
+	Pages = {387-401},
+	Title = {A myokinetic arm model for estimating joint torque and stiffness from EMG signals during maintained posture},
+	Volume = {101},
+	Year = {2009}}
+
+@article{stroeve1999impedance,
+	Author = {Stroeve, S.},
+	Journal = {Biological cybernetics},
+	Number = {5},
+	Pages = {475-494},
+	Title = {Impedance characteristics of a neuromusculoskeletal model of the human arm I. Posture control},
+	Volume = {81},
+	Year = {1999}}
+
+@article{tee2010concurrent,
+	Author = {Tee, K. P. and Franklin, D. W. and Kawato, M. and Milner, T. E. and Burdet, E.},
+	Journal = {Biological cybernetics},
+	Number = {1},
+	Pages = {31-44},
+	Title = {Concurrent adaptation of force and impedance in the redundant muscle system},
+	Volume = {102}}
+
+@article{valero2009computational,
+	Author = {Valero-Cuevas, F. J. and Hoffmann, H. and Kurse, M. U. and Kutch, J. J. and Theodorou, E. A.},
+	Journal = {IEEE Reviews in Biomedical Engineering (2) October},
+	Pages = {110{\~n}135},
+	Title = {Computational models for neuromuscular function},
+	Year = {2009}}
+
+@article{walmsey1981comparison,
+	Author = {Walmsley, B. and Proske, U.},
+	Journal = {Journal of Neurophysiology},
+	Number = {2},
+	Pages = {250},
+	Title = {Comparison of stiffness of soleus and medial gastrocnemius muscles in cats},
+	Volume = {46},
+	Year = {1981}}

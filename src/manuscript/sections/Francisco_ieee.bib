@@ -2,17 +2,59 @@
 %% http://bibdesk.sourceforge.net/
 
 
-%% Created for Francisco at 2015-10-02 17:28:50 -0700 
+%% Created for Francisco at 2015-10-20 22:23:40 -0700 
 
 
 %% Saved with string encoding Unicode (UTF-8) 
 
 
 
+@article{deRugy2013aremusclesynergiesuseful,
+	Abstract = {The observation that the activity of multiple muscles can be well approximated by a few linear synergies is viewed by some as a sign that such low-dimensional modules constitute a key component of the neural control system. Here, we argue that the usefulness of muscle synergies as a control principle should be evaluated in terms of errors produced not only in muscle space, but also in task space. We used data from a force-aiming task in two dimensions at the wrist, using an electromyograms (EMG)-driven virtual biomechanics technique that overcomes typical errors in predicting force from recorded EMG, to illustrate through simulation how synergy decomposition inevitably introduces substantial task space errors. Then, we computed the optimal pattern of muscle activation that minimizes summed-squared muscle activities, and demonstrated that synergy decomposition produced similar results on real and simulated data. We further assessed the influence of synergy decomposition on aiming errors (AEs) in a more redundant system, using the optimal muscle pattern computed for the elbow-joint complex (i.e., 13 muscles acting in two dimensions). Because EMG records are typically not available from all contributing muscles, we also explored reconstructions from incomplete sets of muscles. The redundancy of a given set of muscles had opposite effects on the goodness of muscle reconstruction and on task achievement; higher redundancy is associated with better EMG approximation (lower residuals), but with higher AEs. Finally, we showed that the number of synergies required to approximate the optimal muscle pattern for an arbitrary biomechanical system increases with task-space dimensionality, which indicates that the capacity of synergy decomposition to explain behavior depends critically on the scope of the original database. These results have implications regarding the viability of muscle synergy as a putative neural control mechanism, and also as a control algorithm to restore movements.
+
+},
+	Author = {de Rugy, Aymar and Loeb, Gerald E and Carroll, Timothy J},
+	Date-Added = {2015-10-21 05:21:44 +0000},
+	Date-Modified = {2015-10-21 05:21:44 +0000},
+	Journal = {Frontiers in computational neuroscience},
+	Publisher = {Frontiers Media SA},
+	Title = {Are muscle synergies useful for neural control?},
+	Volume = {7},
+	Year = {2013}}
+
+@article{bellman1957dynamic,
+	Author = {Bellman, Richard Ernest and Osborn, Howard A},
+	Date-Added = {2015-10-20 18:39:07 +0000},
+	Date-Modified = {2015-10-20 18:39:07 +0000},
+	Publisher = {RAND Corporation},
+	Title = {Dynamic programming and the variation of Green's functions.},
+	Year = {1957}}
+
+@book{valero-cuevas2015fundamentals,
+	Author = {Valero-Cuevas, Francisco J},
+	Date-Added = {2015-10-03 00:35:24 +0000},
+	Date-Modified = {2015-10-03 00:35:24 +0000},
+	Publisher = {{Springer\-Verlag London}},
+	Series = {Biosystems and Biorobotics},
+	Title = {Fundamentals of Neuromechanics},
+	Volume = {8},
+	Year = {2015}}
+
+@inproceedings{theodorou2010optimalityEMBC,
+	Abstract = {We provide an overview of optimal control methods to nonlinear neuromuscular systems and discuss their limitations. Moreover we extend current optimal control methods to their application to neuromuscular models with realistically numerous musculotendons; as most prior work is limited to torque-driven systems. Recent work on computational motor control has explored the used of control theory and estimation as a conceptual tool to understand the underlying computational principles of neuromuscular systems. After all, successful biological systems regularly meet conditions for stability, robustness and performance for multiple classes of complex tasks. Among a variety of proposed control theory frameworks to explain this, stochastic optimal control has become a dominant framework to the point of being a standard computational technique to reproduce kinematic trajectories of reaching movements (see) In particular, we demonstrate the application of optimal control to a neuromuscular model of the index finger with all seven musculotendons producing a tapping task. Our simulations include 1) a muscle model that includes force- length and force-velocity characteristics; 2) an anatomically plausible biomechanical model of the index finger that includes a tendinous network for the extensor mechanism and 3) a contact model that is based on a nonlinear spring-damper attached at the end effector of the index finger. We demonstrate that it is feasible to apply optimal control to systems with realistically large state vectors and conclude that, while optimal control is an adequate formalism to create computational models of neuro-musculoskeletal systems, there remain important challenges and limitations that need to be considered and overcome such as contact transitions, curse of dimensionality, and constraints on states and controls.},
+	Author = {Theodorou, Evangelos and Valero-Cuevas, Francisco J},
+	Booktitle = {Engineering in Medicine and Biology Society (EMBC), 2010 Annual International Conference of the IEEE},
+	Date-Added = {2015-09-19 02:05:04 +0000},
+	Date-Modified = {2015-09-19 02:05:04 +0000},
+	Organization = {IEEE},
+	Pages = {4510--4516},
+	Title = {Optimality in neuromuscular systems},
+	Year = {2010}}
+
 @article{spoor1983balancing,
 	Author = {Spoor, CW},
-	Date-Added = {2015-10-03 00:20:43 +0000},
-	Date-Modified = {2015-10-03 00:20:43 +0000},
+	Date-Added = {2015-09-18 22:32:05 +0000},
+	Date-Modified = {2015-09-18 22:32:05 +0000},
 	Journal = {Journal of Biomechanics},
 	Number = {7},
 	Pages = {497--504},
@@ -21,93 +63,82 @@
 	Volume = {16},
 	Year = {1983}}
 
-@article{steele2015consequences,
-	Author = {Steele, Katherine M and Tresch, Matthew C and Perreault, Eric J},
-	Date-Added = {2015-10-01 21:36:49 +0000},
-	Date-Modified = {2015-10-01 21:36:49 +0000},
-	Journal = {Journal of neurophysiology},
-	Number = {7},
-	Pages = {2102--2113},
-	Publisher = {Am Physiological Soc},
-	Title = {Consequences of biomechanically constrained tasks in the design and interpretation of synergy analyses},
-	Volume = {113},
-	Year = {2015}}
+@article{Kuo1993Human,
+	Abstract = {We developed a theoretical framework for studying coordination strategies
+	in standing posture. The framework consists of a musculoskeletal
+	model of the human lower extremity in the sagittal plane and a technique
+	to visualize, geometrically, how constraints internal and external
+	to the body affect movement. The set of all feasible accelerations
+	(i.e., the "feasible acceleration set" or FAS) that muscles can induce
+	at positions near upright were calculated. We found that musculoskeletal
+	mechanics dictate that independent control of joints is relatively
+	difficult to achieve. When muscle activations are constrained so
+	the knees stay straight, to approximate the typical postural response
+	to perturbation, the corresponding subset of the feasible acceleration
+	set greatly favors a combination of ankle and hip movement in the
+	ratio 1:3 (called the "hip strategy"). Independent control of these
+	two joints remains difficult to achieve. When near the boundary of
+	instability, the orientation and shape of this subset show that the
+	movement strategy necessary to maintain stability, without taking
+	a step, is quite restricted. Hypothesizing that regulation of center-of-mass
+	position is crucial to maintaining balance, we examined the feasible
+	set of center-of-mass accelerations. When the knees must be kept
+	straight, the acceleration of the center of mass is severely limited
+	vertically, but not horizontally. We also found that the "ankle strategy",
+	involving rotation about the ankles only, requires more muscle activation
+	than the "hip strategy" for a given amount of horizontal acceleration.
+	Our model therefore predicts that the hip strategy is most effective
+	at controlling the center of mass with minimal muscle activation
+	("neural effort").},
+	Author = {Kuo, AD and Zajac, FE},
+	Date-Added = {2015-09-18 22:30:13 +0000},
+	Date-Modified = {2015-09-18 22:30:13 +0000},
+	Journal = {Progress in Brain Research},
+	Owner = {francisco},
+	Pages = {349-358},
+	Timestamp = {2009.09.04},
+	Title = {Human standing posture: multi-joint movement strategies based on biomechanical constraints},
+	Volume = {97},
+	Year = {1993}}
 
-@article{racz2013spatiotemporal,
-	Author = {R{\'a}cz, Kornelius and Valero-Cuevas, Francisco J},
-	Date-Added = {2015-10-01 21:33:05 +0000},
-	Date-Modified = {2015-10-01 21:33:05 +0000},
-	Journal = {Frontiers in computational neuroscience},
-	Publisher = {Frontiers Media SA},
-	Title = {Spatio-temporal analysis reveals active control of both task-relevant and task-irrelevant variables},
-	Volume = {7},
-	Year = {2013}}
+@article{deRugy2012habitual,
+	Abstract = {When sharing load among multiple muscles, humans appear to select an optimal pattern of activation that minimizes costs such as the effort or variability of movement. How the nervous system achieves this behavior, however, is unknown. Here we show that contrary to predictions from optimal control theory, habitual muscle activation patterns are surprisingly robust to changes in limb biomechanics. We first developed a method to simulate joint forces in real time from electromyographic recordings of the wrist muscles. When the model was altered to simulate the effects of paralyzing a muscle, the subjects simply increased the recruitment of all muscles to accomplish the task, rather than recruiting only the useful muscles. When the model was altered to make the force output of one muscle unusually noisy, the subjects again persisted in recruiting all muscles rather than eliminating the noisy one. Such habitual coordination patterns were also unaffected by real modifications of biomechanics produced by selectively damaging a muscle without affecting sensory feedback. Subjects naturally use different patterns of muscle contraction to produce the same forces in different pronation--supination postures, but when the simulation was based on a posture different from the actual posture, the recruitment patterns tended to agree with the actual rather than the simulated posture. The results appear inconsistent with computation of motor programs by an optimal controller in the brain. Rather, the brain may learn and recall command programs that result in muscle coordination patterns generated by lower sensorimotor circuitry that are functionally ``good-enough.''
 
-@book{valero-cuevas2015fundamentals,
-	Author = {Valero-Cuevas, Francisco J},
-	Date-Added = {2015-10-01 21:29:31 +0000},
-	Date-Modified = {2015-10-03 00:28:49 +0000},
-	Publisher = {{Springer\-Verlag London}},
-	Series = {Biosystems and Biorobotics},
-	Title = {Fundamentals of Neuromechanics},
-	Volume = {8},
-	Year = {2015}}
+},
+	Author = {De Rugy, Aymar and Loeb, Gerald E and Carroll, Timothy J},
+	Date-Added = {2015-09-18 22:10:06 +0000},
+	Date-Modified = {2015-09-18 22:10:06 +0000},
+	Journal = {The Journal of Neuroscience},
+	Number = {21},
+	Pages = {7384--7391},
+	Publisher = {Soc Neuroscience},
+	Title = {Muscle coordination is habitual rather than optimal},
+	Volume = {32},
+	Year = {2012}}
 
-@article{tresch2009case,
-	Author = {Tresch, Matthew C and Jarc, Anthony},
-	Date-Added = {2015-10-01 20:52:20 +0000},
-	Date-Modified = {2015-10-01 20:52:20 +0000},
-	Journal = {Current opinion in neurobiology},
-	Number = {6},
-	Pages = {601--607},
-	Publisher = {Elsevier},
-	Title = {The case for and against muscle synergies},
-	Volume = {19},
-	Year = {2009}}
+@article{loeb2000overcomplete,
+	Author = {Loeb, GE},
+	Date-Added = {2015-09-18 22:10:06 +0000},
+	Date-Modified = {2015-09-18 22:10:06 +0000},
+	Journal = {Motor Control},
+	Number = {1},
+	Pages = {81--83},
+	Publisher = {HUMAN KINETICS},
+	Title = {Overcomplete musculature or underspecified tasks?},
+	Volume = {4},
+	Year = {2000}}
 
-@article{steele2013number,
-	Abstract = {non-negative matrix factorization},
-	Author = {Steele, Katherine M and Tresch, Matthew C and Perreault, Eric J},
-	Date-Added = {2015-10-01 20:50:54 +0000},
-	Date-Modified = {2015-10-01 20:50:54 +0000},
-	Journal = {Frontiers in computational neuroscience},
-	Publisher = {Frontiers Media SA},
-	Title = {The number and choice of muscles impact the results of muscle synergy analyses},
-	Volume = {7},
-	Year = {2013}}
-
-@article{bizzi2013neural,
-	Abstract = {Muscle synergies are neural coordinative structures that function to alleviate the computational burden associated with the control of movement and posture. In this commentary, we address two critical questions: the explicit encoding of muscle synergies in the nervous system, and how muscle synergies simplify movement production. We argue that shared and task-specific muscle synergies are neurophysiological entities whose combination, orchestrated by the motor cortical areas and the afferent systems, facilitates motor control and motor learning.},
-	Author = {Bizzi, Emilio and Cheung, Vincent CK},
-	Date-Added = {2015-10-01 20:21:16 +0000},
-	Date-Modified = {2015-10-01 20:21:16 +0000},
-	Journal = {Frontiers in computational neuroscience},
-	Publisher = {Frontiers Media SA},
-	Title = {The neural origin of muscle synergies},
-	Volume = {7},
-	Year = {2013}}
-
-@article{dingwell2010walkingvariability,
-	Author = {Dingwell, Jonathan B and John, Joby and Cusumano, Joseph P},
-	Date-Added = {2015-09-29 21:59:13 +0000},
-	Date-Modified = {2015-09-29 21:59:13 +0000},
-	Journal = {PLoS computational biology},
-	Number = {7},
-	Pages = {e1000856},
-	Publisher = {Public Library of Science},
-	Title = {Do humans optimally exploit redundancy to control step variability in walking?},
-	Volume = {6},
-	Year = {2010}}
-
-@article{scholz1999uncontrolled,
-	Author = {Scholz, John P and Sch{\"o}ner, Gregor},
-	Date-Added = {2015-09-29 21:57:53 +0000},
-	Date-Modified = {2015-09-29 21:57:53 +0000},
-	Journal = {Exp Brain Res},
-	Pages = {289--306},
-	Title = {The uncontrolled manifold concept: identifying control variables for a functional task},
-	Volume = {126},
-	Year = {1999}}
+@article{loeb2012optimal,
+	Author = {Loeb, GE},
+	Date-Added = {2015-09-18 22:10:06 +0000},
+	Date-Modified = {2015-09-19 01:52:37 +0000},
+	Journal = {Biological Cybernetics},
+	Number = {11-12},
+	Pages = {757--765},
+	Publisher = {Springer},
+	Title = {Optimal isn not good enough},
+	Volume = {106},
+	Year = {2012}}
 
 @article{davella2005shared,
 	Author = {d'Avella, Andrea and Bizzi, Emilio},
@@ -1819,44 +1850,6 @@
 	Volume = {89},
 	Year = {2003}}
 
-@article{Kuo1993Human,
-	Abstract = {We developed a theoretical framework for studying coordination strategies
-	in standing posture. The framework consists of a musculoskeletal
-	model of the human lower extremity in the sagittal plane and a technique
-	to visualize, geometrically, how constraints internal and external
-	to the body affect movement. The set of all feasible accelerations
-	(i.e., the "feasible acceleration set" or FAS) that muscles can induce
-	at positions near upright were calculated. We found that musculoskeletal
-	mechanics dictate that independent control of joints is relatively
-	difficult to achieve. When muscle activations are constrained so
-	the knees stay straight, to approximate the typical postural response
-	to perturbation, the corresponding subset of the feasible acceleration
-	set greatly favors a combination of ankle and hip movement in the
-	ratio 1:3 (called the "hip strategy"). Independent control of these
-	two joints remains difficult to achieve. When near the boundary of
-	instability, the orientation and shape of this subset show that the
-	movement strategy necessary to maintain stability, without taking
-	a step, is quite restricted. Hypothesizing that regulation of center-of-mass
-	position is crucial to maintaining balance, we examined the feasible
-	set of center-of-mass accelerations. When the knees must be kept
-	straight, the acceleration of the center of mass is severely limited
-	vertically, but not horizontally. We also found that the "ankle strategy",
-	involving rotation about the ankles only, requires more muscle activation
-	than the "hip strategy" for a given amount of horizontal acceleration.
-	Our model therefore predicts that the hip strategy is most effective
-	at controlling the center of mass with minimal muscle activation
-	("neural effort").},
-	Author = {Kuo, A D and Zajac, F E},
-	Date-Added = {2015-04-14 23:58:52 +0000},
-	Date-Modified = {2015-04-14 23:58:52 +0000},
-	Journal = {Progress in Brain Research},
-	Owner = {francisco},
-	Pages = {349-358},
-	Timestamp = {2009.09.04},
-	Title = {Human standing posture: multi-joint movement strategies based on biomechanical constraints},
-	Volume = {97},
-	Year = {1993}}
-
 @article{kurse2012extrapolatable,
 	Author = {Kurse, Manish U and Lipson, Hod and Valero-Cuevas, Francisco J},
 	Date-Added = {2015-04-14 23:58:52 +0000},
@@ -2004,30 +1997,6 @@
 	Title = {On making a thumb: One hundred years of surgical effort},
 	Volume = {1},
 	Year = {1976}}
-
-@article{loeb2012optimal,
-	Author = {Loeb, Gerald E},
-	Date-Added = {2015-04-14 23:58:52 +0000},
-	Date-Modified = {2015-09-19 01:46:59 +0000},
-	Journal = {Biological cybernetics},
-	Number = {11-12},
-	Pages = {757--765},
-	Publisher = {Springer},
-	Title = {Optimal is not good enough},
-	Volume = {106},
-	Year = {2012}}
-
-@article{loeb2000overcomplete,
-	Author = {Loeb, Gerald E},
-	Date-Added = {2015-04-14 23:58:52 +0000},
-	Date-Modified = {2015-04-14 23:58:52 +0000},
-	Journal = {MOTOR CONTROL-CHAMPAIGN-},
-	Number = {1},
-	Pages = {81--83},
-	Publisher = {HUMAN KINETICS},
-	Title = {Overcomplete musculature or underspecified tasks?},
-	Volume = {4},
-	Year = {2000}}
 
 @article{loram2005activeparadoxical,
 	Author = {Loram, Ian D and Maganaris, Constantinos N and Lakie, Martin},
