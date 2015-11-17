@@ -1,8 +1,13 @@
 \label{s:methods}
 \subsection*{Feasible activation set}
-For ease of presentation and visualization,  first describe this novel approach in a  3-muscle system acting on a  rotational joint as shown in Fig. \ref{fig:schematic_arm}, and then demonstrate its utility and in a realistic model of the human index finger with 7 muscles. 
+For ease of presentation and visualization, we first describe this novel approach in a 3-muscle system acting on a  rotational joint as shown in Fig. \ref{fig:schematic_arm}, and then demonstrate its utility in a realistic model of the human index finger with 7 muscles. 
 
-Consider a tendon-driven limb with $n$ muscles. As described in \cite{Kuo1993Human, Chao1978Graphical,spoor1983balancing,Valero-Cuevas2009mathematical, valero-cuevas2015neuromechanics}, we can describe  the neural command to a muscle is a positive value of activation $0 \leq a \leq 1$.  If there are $n$ independently controlled  muscles,  the set of all feasible neural commands  is the positive unit $n$-cube, and the coordination patters in the vector $\textbf{a} \in \mathbb{R}^n$ as explained in \cite{Valero-Cuevas2009mathematical, valero-cuevas2015fundamentals}. Moreover, when  task constraints are introduced, only those points within the $n$-cube that meet those constraints are allowable. In the context of producing a vector of static force with the endpoint of the limb in a give posture, the constraints that define that task (i.e., the direction and magnitude of the force vector at the endpoint) are linear equations.  Each constraint equation defines a hyper-plane of dimension $n-1$. The \emph{feasible activation set} of the task, if it exists,  is formed by the intersection of the $n$-cube and the hyperplanes.
+Consider a tendon-driven limb with $n$ muscles.
+As described in \cite{Kuo1993Human, Chao1978Graphical,spoor1983balancing,Valero-Cuevas2009mathematical, valero-cuevas2015neuromechanics}, we can describe the neural commands to a muscle as a positive value of activation $0 \leq a \leq 1$.
+If there are $n$ independently controlled  muscles,  the set of all feasible neural commands  is the positive unit $n$-cube, and the coordination patters in the vector $\textbf{a} \in \mathbb{R}^n$ as explained in \cite{Valero-Cuevas2009mathematical, valero-cuevas2015fundamentals}.
+Moreover, when  task constraints are introduced, only those points within the $n$-cube that meet those constraints are allowable.
+In the context of producing a vector of static force with the endpoint of the limb in a give posture, the constraints that define that task (i.e., the direction and magnitude of the force vector at the endpoint) are linear equations.  Each constraint equation defines a hyper-plane of dimension $n-1$.
+The \emph{feasible activation set} of the task, if it exists,  is formed by the intersection of the $n$-cube and the hyperplanes.
 Thus if the limb can meet all constraint equations, described as the rows of matrix $A$, the feasible activation set is given by the convex polytope $P$ containing all $\textbf{a} \in \mathbb{R}^n$, that satisfy
 \begin{align}
 \label{eq:constraints}
@@ -74,13 +79,19 @@ The application of the Hit-and-Run method to $P$ is defined as follows (it works
 \label{fig:posthitrun_distribution}
 \end{figure}
 
-We describe the mathematical basis and full notes of our implementation in the appendix.
+We describe the mathematical basis and full notes of our implementation in the appendix, including our application of slack variables to select a good starting point within the activation space.
 
 \subsection*{Realistic index finger model}
 \label{ss:finger}
-We  applied this methodology to our published model of an index finger for static fingertip force production\footnote{The model of the finger encapsulates the mechanics of static force production capabilities of the tendon-driven system $H=J^{-T}RF_o \in \mathbb{R}^{4 \times 7}$--- where $J$, $R$ and $F_0$ are the matrices of the Jacobian of the finger with 4 kinematic degrees of freedom, the moment arms of the tendons, and the strengths of the seven muscles, respectively \cite{Valero-Cuevas1998Large,Valero-cuevas2015fundamentals}}. It contains  four kinematic degrees of freedom (ad-abduction, flexion-extension at the metacarpophalangeal joint, and flexion-extension at the proximal and distal interphalangeal joints) and seven muscles  \cite{Valero-Cuevas1998Large}. The task we explored was producing a submaximal force in the `distal'  direction, shown  in Fig. \ref{fig:finger}, by combining this model with the constraints defining the direction of the force and the cancellation of endpoint torque. The finger posture was defined to be $0^\circ$  ad-abduction and $45^\circ$ flexion at the metacarpophalangeal joint, and $45^\circ$ and $10^\circ$ flexion, respectively, at the proximal and distal interphalangeal joints. For details on how create such models and apply task constraints see \cite{Valero-Cuevas1998Large,valero-cuevas2015fundamentals}.  This results in a model of the task where the resulted in a matrix $A \in \mathbb{R}^{4 \times 7}$, where $\textbf{a} \in \mathbb{R}^7$. Each row is a constraint: The first two constraints define the up-down and  left-right directions of the fingertip force vector, and the third equation sets the torque at the fingertip to zero. The fourth constraint sets the magnitude of the distal force to a particular value. Thus the task has a 4-dimensional null space. Thus the feasible activation set $P$ is a 4-dimensional convex polytope embedded in 7-dimensional muscle activation space.
+We  applied this methodology to our published model of an index finger for static fingertip force production\footnote{The model of the finger encapsulates the mechanics of static force production capabilities of the tendon-driven system $H=J^{-T}RF_o \in \mathbb{R}^{4 \times 7}$--- where $J$, $R$ and $F_0$ are the matrices of the Jacobian of the finger with 4 kinematic degrees of freedom, the moment arms of the tendons, and the strengths of the seven muscles, respectively \cite{Valero-Cuevas1998Large,Valero-cuevas2015fundamentals}}.
+It contains  four kinematic degrees of freedom (ad-abduction, flexion-extension at the metacarpophalangeal joint, and flexion-extension at the proximal and distal interphalangeal joints) and seven muscles  \cite{Valero-Cuevas1998Large}.
+The task we explored was producing a submaximal force in the 'distal'  direction, shown  in Fig. \ref{fig:finger}, by combining this model with the constraints defining the direction of the force and the cancellation of endpoint torque.
+The finger posture was defined to be $0^\circ$  ad-abduction and $45^\circ$ flexion at the metacarpophalangeal joint, and $45^\circ$ and $10^\circ$ flexion, respectively, at the proximal and distal interphalangeal joints.
+For details on how create such models and apply task constraints see \cite{Valero-Cuevas1998Large,valero-cuevas2015fundamentals}.
+A is the  set of constraints based on the model and the task constraints---the null space of the task. This resulted in a matrix $A \in \mathbb{R}^{4 \times 7}$, where $\textbf{a} \in \mathbb{R}^7$.
+Thus the task has a 4-dimensional null space. Thus the feasible activation set $P$ is a 4-dimensional convex polytope embedded in 7-dimensional muscle activation space.
 
-[[[there is a problem in how things were written: The A matrix is one that includes the constraints. it is not the unconstrained model. Thus, A is not the model. A is the  set of constraints based on the model and the task constraints---the null space of the task. This resulted in a matrix $A \in \mathbb{R}^{4 \times 7}$, where $\textbf{a} \in \mathbb{R}^7$. ]]]
+
 
 
 \begin{figure}[ht]
