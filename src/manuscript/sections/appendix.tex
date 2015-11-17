@@ -41,15 +41,12 @@ A basis of a vector space $V$ is a minimal set of vectors that generate $V$, and
 
 \subsection*{Mixing Time}
 \label{sec_lengthrun}
-From a given starting point, how many iterations of the Hit-and-Run method are necessary to reach a u.a.r.\ point [again you want a u.a.r. sample of the space not the point]?
+From a given starting point, how many iterations of the Hit-and-Run method are necessary to reach a u.a.r.\ point.
 For convex polytopes in $n$ dimensions up to $40$, experimental results suggest that $\mathcal{O}(n)$ steps of the Hit-and-Run algorithm are sufficient.
-In particular, the paper \cite{emiris2013efficient} by Emiris and Fisikopoulos suggests that $10(n + 1)$ steps are enough to converge upon the uniform distribution \cite{emiris2013efficient}, while in Ge et al.'s paper every single point of the Hit-and-Run algorithm is used in the sample \cite{Ge}. [this last sentence talks about two things... convergence vs. subsampling to avoid correlations between consecutive iterations. Pls explain better.]
+In particular, the paper \cite{emiris2013efficient} by Emiris and Fisikopoulos suggests that selecting every $10(n + 1)$ points is sufficient to get a uniform distribution \cite{emiris2013efficient}, while in Ge et al.'s paper every single point of the Hit-and-Run algorithm is used in the sample \cite{Ge}.
 
 
-
-
-
-
+The Hit-and-Run algorithm was specifically developed to address $\#P$-hard problems such as approximating the volume of high-dimensional polytopes\cite{Dyer}. The Hit-and-Run algorithms can converge to the uniform sampling across any convex body \cite{smith1984efficient} after $\mathcal{O}^*(n^2R^2/r^2)$ steps ($r$ and $R$ are the radii of the inscribed and circumscribed ball of the polytope as mentioned in the Introduction) \cite{Dyer, Lovasz}.  Experimental results  suggest that a number of points linear with respect to $N$  suffices for convex polytopes embedded in dimensions up to 40.  Emiris and Fisikopoulos \cite{emiris2013efficient} suggest that  $(10 + \frac{10}{N})~N$ iterations suffice to uniformly sample a convex polytope.
 
 
 
