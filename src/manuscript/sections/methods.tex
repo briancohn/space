@@ -4,10 +4,10 @@ For ease of presentation and visualization, we first describe this novel approac
 
 Consider a tendon-driven limb with $n$ muscles.
 As described in \cite{Kuo1993Human, Chao1978Graphical,spoor1983balancing,Valero-Cuevas2009mathematical, valero-cuevas2015neuromechanics}, we can describe the neural commands to a muscle as a positive value of activation $0 \leq a \leq 1$.
-If there are $n$ independently controlled  muscles,  the set of all feasible neural commands  is the positive unit $n$-cube, and the coordination patters in the vector $\textbf{a} \in \mathbb{R}^n$ as explained in \cite{Valero-Cuevas2009mathematical, valero-cuevas2015fundamentals}.
-Moreover, when  task constraints are introduced, only those points within the $n$-cube that meet those constraints are allowable.
+If there are $n$ independently controlled  muscles,  the set of all feasible neural commands  is the positive unit $n$-cube, and the coordination patterns in the vector $\textbf{a} \in \mathbb{R}^n$ as explained in \cite{Valero-Cuevas2009mathematical, valero-cuevas2015fundamentals}.
+Moreover, when task constraints are introduced, only those points within the $n$-cube that meet those constraints are allowable.
 In the context of producing a vector of static force with the endpoint of the limb in a give posture, the constraints that define that task (i.e., the direction and magnitude of the force vector at the endpoint) are linear equations.  Each constraint equation defines a hyper-plane of dimension $n-1$.
-The \emph{feasible activation set} of the task, if it exists,  is formed by the intersection of the $n$-cube and the hyperplanes.
+The \emph{feasible activation set} of the task, if it exists, is formed by the intersection of the $n$-cube and the constraint hyperplanes.
 Thus if the limb can meet all constraint equations, described as the rows of matrix $A$, the feasible activation set is given by the convex polytope $P$ containing all $\textbf{a} \in \mathbb{R}^n$, that satisfy
 \begin{align}
 \label{eq:constraints}
