@@ -83,6 +83,9 @@ object Bounds{
     }
   }
   /*
+  Compute Uppers Documentation:
+  @param A DenseMatrix
+  @param b DenseVector
   Takes in an A matrix and a b vector (representing an Ax <=b linear system) and outputs the upperbounds for each column of A [each lambda].)
    */
   def ComputeUppers(A: DenseMatrix[Double], b: DenseVector[Double]) = {
