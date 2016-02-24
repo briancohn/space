@@ -8,9 +8,11 @@ import breeze.math._
  */
 package object MainClass {
   def main(args: Array[String]) {
-     val vector_progression = linspace(-3.5333,5.3333,6)
+    val vector_progression = linspace(-3.5333,5.3333,6)
     println("Beginning Vector progression on Toy Example.")
-     vector_progression.map(v => toy_example(10000, DenseVector(v)))
+//    vector_progression.map(v => toy_example(10000, DenseVector(v)))
+    vector_progression.map(v => toy_example_recursive(10000, DenseVector(v)))
+
     println("done w toy example")
   }
   def PointsFor(PointsPerAlpha: Int, v:DenseVector[Double], direction: String, AlphaLenOut:Int, AlphaLim: Tuple2[Double,Double]): Unit ={
@@ -67,18 +69,50 @@ def toy_example(num: Int, vector: DenseVector[Double]) {
     matrix_of_feasible_x_vectors(*, ::).map(dv => HitAndRun(OrthonormalBasis,StartingPoint,RandomObject))
     //HitAndRun(OrthonormalBasis,StartingPoint,RandomObject)
   }
-  //important! this does not subsample,so that needs to be addressed on a higher level
-  def hit_and_run_recursive_acc(OrthonormalBasis: DenseVector[Double],matrix_so_far: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double]): DenseMatrix[V] = {
-    def we_have_done_enough_samples(n): Boolean = {n == 0}
-    if we_have_done_enough_samples(iterations_remaining)
-      matrix_so_far
-    else
-    //gen new point
-      val NewPoint = HitAndRun(OrthonormalBasis,CurrentPoint,new scala.utils.Random(iterations) ) //here I use the iterations as the seed
-//add point to db
-      val matrix_so_far_with_new_point = DenseMatrix.vertcat(matrix_so_far, NewPoint.toDenseMatrix)
-      hit_and_run_recursive_acc(OrthonormalBasis,matrix_so_far_with_new_point, n-1, NewPoint.toDenseMatrix)
 
+
+  def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
+    import bbdl.space._
+    import breeze.linalg._
+    import breeze.numerics._
+    import breeze.stats._
+    val H_inverted = DenseMatrix(
+      (3.333333333),
+      (-3.533333333),
+      (2.0)
+    )
+    val H = H_inverted.t
+    //val forcevector_scaled_down = forcevector*1.0
+    val StartingPoint = GenStartingPoint(H,force_vector)
+    val feasible_activations = hit_and_run_recursive_acc(Ortho(Basis(H)).toDenseMatrix, DenseMatrix.zeros[Double](1,H.cols),num,StartingPoint)
+    println(
+      "id174892" + " feasible activations are /n" + feasible_activations
+    )
+    val FileName = Output.TimestampCSVName("output/" + "toy_example_recursive" + force_vector(0) +"N_positive").toString()
+    val MyFile = new java.io.File(FileName)
+    csvwrite(MyFile, feasible_activations)
+    println("Saved" + FileName)
+  }
+
+
+  //important! this does not subsample,so that needs to be addressed on a higher level
+  def hit_and_run_recursive_acc(OrthonormalBasis: DenseMatrix[Double],matrix_so_far: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double]): DenseMatrix[Double] = {
+    def we_have_done_enough_samples(n: Int): Boolean = {n == 0}
+    if (we_have_done_enough_samples(iterations_remaining)) {
+      println("finished. Length of matrix is" + matrix_so_far.rows)
+      matrix_so_far
+  }
+    else {
+      //gen new point
+      println("Iteration_lim_not_met. Picking another point.")
+      println("Orthonormal Basis is" + OrthonormalBasis)
+      println("Current Point is" + CurrentPoint)
+      val NewPoint = HitAndRun(OrthonormalBasis, CurrentPoint, new scala.util.Random(iterations_remaining)) //here I use the iterations as the seed
+      //add point to db
+      val matrix_so_far_with_new_point = DenseMatrix.vertcat(matrix_so_far, NewPoint.toDenseMatrix)
+      println("NewPoint. Iterations remaining = " + iterations_remaining)
+      hit_and_run_recursive_acc(OrthonormalBasis, matrix_so_far_with_new_point, iterations_remaining - 1, NewPoint)
+    }
   }
 
 }
