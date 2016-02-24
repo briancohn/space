@@ -293,3 +293,12 @@ help
 tasks
 publish
 update
+test
+run 10
+test
+run 10
+run 100
+~run 100
+run 1000
+~run 1000
+run

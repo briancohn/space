@@ -1,0 +1,57 @@
+USED VECTORS FINAL (from the manually-selected Francisco holds)
+PALMAR
+    Force.y               Mx              Force.x            M.z          
+ Min.   :-0.05575   Min.   :-0.02965   Min.   :0.4515   Min.   :-0.02997  
+ 1st Qu.:-0.05285   1st Qu.:-0.02578   1st Qu.:0.4583   1st Qu.:-0.02836  
+ Median :-0.05124   Median :-0.02385   Median :0.4605   Median :-0.02772  
+ Mean   :-0.05129   Mean   :-0.02413   Mean   :0.4608   Mean   :-0.02775  
+ 3rd Qu.:-0.04995   3rd Qu.:-0.02256   3rd Qu.:0.4634   3rd Qu.:-0.02707  
+ Max.   :-0.04544   Max.   :-0.01805   Max.   :0.4699   Max.   :-0.02514  
+      M.y             Force.z         
+ Min.   :-0.6004   Min.   :-0.007735  
+ 1st Qu.:-0.5911   1st Qu.:-0.005156  
+ Median :-0.5882   Median :-0.003867  
+ Mean   :-0.5879   Mean   :-0.003781  
+ 3rd Qu.:-0.5849   3rd Qu.:-0.002578  
+ Max.   :-0.5762   Max.   : 0.000967  
+
+
+
+USED VECTORS FINAL (from the manually-selected Francisco holds)
+OFF_PALMAR
+
+    Force.y               Mx              Force.x            M.z          
+ Min.   :-0.07283   Min.   :-0.05930   Min.   :0.4319   Min.   :-0.03191  
+ 1st Qu.:-0.07026   1st Qu.:-0.05672   1st Qu.:0.4386   1st Qu.:-0.03029  
+ Median :-0.06929   Median :-0.05575   Median :0.4428   Median :-0.02965  
+ Mean   :-0.06918   Mean   :-0.05533   Mean   :0.4449   Mean   :-0.02968  
+ 3rd Qu.:-0.06800   3rd Qu.:-0.05382   3rd Qu.:0.4518   3rd Qu.:-0.02900  
+ Max.   :-0.06413   Max.   :-0.05028   Max.   :0.4602   Max.   :-0.02739  
+      M.y             Force.z        
+ Min.   :-0.5582   Min.   :-0.06317  
+ 1st Qu.:-0.5495   1st Qu.:-0.05865  
+ Median :-0.5385   Median :-0.05704  
+ Mean   :-0.5410   Mean   :-0.05698  
+ 3rd Qu.:-0.5337   3rd Qu.:-0.05479  
+ Max.   :-0.5253   Max.   :-0.05028 
+
+
+ USED VECTORS FINAL 
+ NULL
+
+     Force.y                 Mx                Force.x          
+ Min.   :-0.0016110   Min.   :-0.0009670   Min.   :-1.611e-03  
+ 1st Qu.:-0.0009670   1st Qu.: 0.0006450   1st Qu.:-3.220e-04  
+ Median :-0.0003220   Median : 0.0009670   Median : 0.000e+00  
+ Mean   :-0.0004283   Mean   : 0.0009787   Mean   : 8.669e-05  
+ 3rd Qu.: 0.0000000   3rd Qu.: 0.0012890   3rd Qu.: 3.220e-04  
+ Max.   : 0.0012890   Max.   : 0.0025780   Max.   : 1.934e-03  
+      M.z                  M.y                Force.z          
+ Min.   :-0.0029010   Min.   :-1.289e-03   Min.   :-1.611e-03  
+ 1st Qu.:-0.0012890   1st Qu.:-6.450e-04   1st Qu.:-3.220e-04  
+ Median :-0.0009670   Median : 0.000e+00   Median : 0.000e+00  
+ Mean   :-0.0009829   Mean   :-3.854e-05   Mean   : 5.566e-05  
+ 3rd Qu.:-0.0006450   3rd Qu.: 3.220e-04   3rd Qu.: 6.450e-04  
+ Max.   : 0.0006450   Max.   : 2.256e-03   Max.   : 1.611e-03 
+
+ 

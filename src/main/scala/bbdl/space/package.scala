@@ -11,7 +11,8 @@ package object MainClass {
     val vector_progression = linspace(-3.5333,5.3333,6)
     println("Beginning Vector progression on Toy Example.")
 //    vector_progression.map(v => toy_example(10000, DenseVector(v)))
-    vector_progression.map(v => toy_example_recursive(10000, DenseVector(v)))
+//    vector_progression.map(v => toy_example_recursive(10000, DenseVector(v)))
+    toy_example_recursive(50, DenseVector(0.0,0.0,0.0,0.0,0.0,0.0))
 
     println("done w toy example")
   }
