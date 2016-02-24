@@ -63,7 +63,23 @@ def toy_example(num: Int, vector: DenseVector[Double]) {
     val Basis_H = Basis(H)
     val OrthonormalBasis = Ortho(Basis_H).toDenseMatrix
     val StartingPoint = GenStartingPoint(H,forcevector)
-    PointStream.generate(n,OrthonormalBasis,StartingPoint,RandomObject)
+    val matrix_of_feasible_x_vectors = DenseMatrix.ones[Double](n,H.cols) // prep the matrix to hold all the resultant data
+    matrix_of_feasible_x_vectors(*, ::).map(dv => HitAndRun(OrthonormalBasis,StartingPoint,RandomObject))
+    //HitAndRun(OrthonormalBasis,StartingPoint,RandomObject)
   }
+  //important! this does not subsample,so that needs to be addressed on a higher level
+  def hit_and_run_recursive_acc(OrthonormalBasis: DenseVector[Double],matrix_so_far: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double]): DenseMatrix[V] = {
+    def we_have_done_enough_samples(n): Boolean = {n == 0}
+    if we_have_done_enough_samples(iterations_remaining)
+      matrix_so_far
+    else
+    //gen new point
+      val NewPoint = HitAndRun(OrthonormalBasis,CurrentPoint,new scala.utils.Random(iterations) ) //here I use the iterations as the seed
+//add point to db
+      val matrix_so_far_with_new_point = DenseMatrix.vertcat(matrix_so_far, NewPoint.toDenseMatrix)
+      hit_and_run_recursive_acc(OrthonormalBasis,matrix_so_far_with_new_point, n-1, NewPoint.toDenseMatrix)
+
+  }
+
 }
 
