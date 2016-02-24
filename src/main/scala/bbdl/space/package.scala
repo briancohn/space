@@ -12,8 +12,9 @@ package object MainClass {
     println("Beginning Vector progression on Toy Example.")
 //    vector_progression.map(v => toy_example(10000, DenseVector(v)))
 //    vector_progression.map(v => toy_example_recursive(10000, DenseVector(v)))
-    toy_example_recursive(50, DenseVector(0.0,0.0,0.0,0.0,0.0,0.0))
-
+    toy_example_recursive(100, DenseVector(0.0,0.0,0.0,0.0,0.0,0.0))
+    //toy_example_recursive(100, DenseVector(0.4449,-0.06918,-0.05698,-0.05533,-0.5410,-0.02968)) //offpalmar
+    toy_example_recursive(100, DenseVector(0.4608,-0.05129, -0.003781,-0.02413,-0.5879,-0.02775 ))
     println("done w toy example")
   }
   def PointsFor(PointsPerAlpha: Int, v:DenseVector[Double], direction: String, AlphaLenOut:Int, AlphaLim: Tuple2[Double,Double]): Unit ={
@@ -85,11 +86,11 @@ def toy_example(num: Int, vector: DenseVector[Double]) {
       (-0.052470830930441033,-0.062128293533437497,0.10031391656256949,0.0035509814140534685,-0.13371084553191795,-0.03093669541061039),
       (-0.035172533320395709,-0.038834705446617303,0.12056741892517414,-0.0083866339168305482,-0.17108381572684578,-0.034351131281275503),
       (-0.03434527032650516,-0.049846961079497459,0.13386517901452974,-0.0049010529463190044,-0.15254523824400101,-0.0076352171312698827)
-
     )
     val H = H_inverted.t
     //val forcevector_scaled_down = forcevector*1.0
     val StartingPoint = GenStartingPoint(H,force_vector)
+    println("Starting point is " +StartingPoint)
     val feasible_activations = hit_and_run_recursive_acc(Ortho(Basis(H)).toDenseMatrix, DenseMatrix.zeros[Double](1,H.cols),num,StartingPoint)
     println(
       "id174892" + " feasible activations are /n" + feasible_activations
