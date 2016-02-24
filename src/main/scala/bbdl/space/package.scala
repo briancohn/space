@@ -98,19 +98,19 @@ def toy_example(num: Int, vector: DenseVector[Double]) {
   //important! this does not subsample,so that needs to be addressed on a higher level
   def hit_and_run_recursive_acc(OrthonormalBasis: DenseMatrix[Double],matrix_so_far: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double]): DenseMatrix[Double] = {
     def we_have_done_enough_samples(n: Int): Boolean = {n == 0}
+
     if (we_have_done_enough_samples(iterations_remaining)) {
       println("finished. Length of matrix is" + matrix_so_far.rows)
+      //return the finished matrix
       matrix_so_far
   }
     else {
       //gen new point
-      println("Iteration_lim_not_met. Picking another point.")
-      println("Orthonormal Basis is" + OrthonormalBasis)
-      println("Current Point is" + CurrentPoint)
       val NewPoint = HitAndRun(OrthonormalBasis, CurrentPoint, new scala.util.Random(iterations_remaining)) //here I use the iterations as the seed
       //add point to db
       val matrix_so_far_with_new_point = DenseMatrix.vertcat(matrix_so_far, NewPoint.toDenseMatrix)
       println("NewPoint. Iterations remaining = " + iterations_remaining)
+      //recurse now with the new point as the new seed
       hit_and_run_recursive_acc(OrthonormalBasis, matrix_so_far_with_new_point, iterations_remaining - 1, NewPoint)
     }
   }
