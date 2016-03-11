@@ -249,7 +249,7 @@ object GetRandomDirection{
     for (i <- 0 to A.cols - 1){
       Lambdas(i) = RandomObject.nextGaussian()
     }
-//    println(Lambdas)
+   // println(Lambdas)
    	val LambdaVec = DenseVector(Lambdas.toArray)
 		A * LambdaVec //matrix multiplication means that it multiplies and adds all the rows up.
 	}
@@ -333,7 +333,6 @@ object GetNewPoint{
 object RandomPointBetween {
 	def apply(E1: DenseVector[Double], E2: DenseVector[Double], RandomObject: scala.util.Random) = {
 		val lambda = RandomObject.nextDouble() //between 0 and 1 by default
-//		println(lambda)
     E1 + (E2-E1)*lambda
 	}
 }

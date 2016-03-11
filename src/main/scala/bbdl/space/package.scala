@@ -1,5 +1,6 @@
 package bbdl
 import bbdl.space._
+import scala.annotation.tailrec
 import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
@@ -11,23 +12,8 @@ package object MainClass {
   def main(args: Array[String]) {
     println("1")
     Timing.time {toy_example_recursive(1, DenseVector(1.0))}
-
-       println("10")
+    println("10")
     Timing.time {toy_example_recursive(10, DenseVector(1.0))}
-
-       println("100")
-    Timing.time {toy_example_recursive(100, DenseVector(1.0))}
-
-       println("1000")
-    Timing.time {toy_example_recursive(1000, DenseVector(1.0))}
-
-       println("10000")
-    Timing.time {toy_example_recursive(10000, DenseVector(1.0))}
-
-       println("100000")
-    Timing.time {toy_example_recursive(100000, DenseVector(1.0))}
-
-
   }
 
   def PointsFor(PointsPerAlpha: Int, v:DenseVector[Double], direction: String, AlphaLenOut:Int, AlphaLim: Tuple2[Double,Double]): Unit ={
@@ -64,6 +50,7 @@ def toy_example(num: Int, vector: DenseVector[Double]) {
     (-3.533333333),
     (2.0)
   )
+
   val H = H_inverted.t
   //val forcevector_scaled_down = forcevector*1.0
   val feasible_activations = hit_and_run_repetitions(H, vector, num)
@@ -105,7 +92,7 @@ def cadaver_experiment_H_hit_and_run(num: Int, force_vector: DenseVector[Double]
     //val forcevector_scaled_down = forcevector*1.0
     val StartingPoint = GenStartingPoint(H,force_vector)
     println("Starting point is " +StartingPoint)
-    val feasible_activations = hit_and_run_recursive_acc(Ortho(Basis(H)).toDenseMatrix, DenseMatrix.zeros[Double](1,H.cols),num,StartingPoint)
+    val feasible_activations = hit_and_run_recursive_acc_with_intermediate_steps(Ortho(Basis(H)).toDenseMatrix, DenseMatrix.zeros[Double](1,H.cols),num,StartingPoint)
     println(
       "id174892" + " feasible activations are /n" + feasible_activations
     )
@@ -119,51 +106,68 @@ val toy_arm_example_H = DenseMatrix(
   (10.0/3.0, -53.0/15.0, 2.0)
 )
 def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
-
+    val autocorrelation_jumps = 100
     val H = toy_arm_example_H
     val StartingPoint = GenStartingPoint(H,force_vector)
-    println("Starting point is " +StartingPoint)
+    println("Starting point is " + StartingPoint)
     val OrthonormalBasis = Ortho(Basis(H)).toDenseMatrix
-    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H.cols),num,StartingPoint)
+    val uar_point_array = Array.range(0, num).map(
+      x => {
+      val per_uar_point_random_seed = new scala.util.Random(x)
+      HR_uar_point(OrthonormalBasis, autocorrelation_jumps, StartingPoint, per_uar_point_random_seed).asDenseMatrix
+      }
+  )
+    val uar_points = DenseMatrix.vertcat(uar_point_array:_* )
+    println("Shape is " + (uar_points.rows, uar_points.cols))
+
+
+
     val FileName = Output.TimestampCSVName("output/" + "toy_example_HR" + force_vector(0) +"N_positive").toString()
     val MyFile = new java.io.File(FileName)
-    csvwrite(MyFile, feasible_activations)
-    println("Saved" + FileName)
+    csvwrite(MyFile, uar_points)
+    println("Saved " + FileName)
   }
 
 
-
-
-
-
-
-
-
-
-
-
-def hit_and_run_subsampled() = {
-  
-}
 
   //TODO important! this does not subsample,so that needs to be addressed on a higher level
-  def hit_and_run_recursive_acc(OrthonormalBasis: DenseMatrix[Double],matrix_so_far: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double]): DenseMatrix[Double] = {
-    def we_have_done_enough_samples(n: Int): Boolean = {n == 0}
+@tailrec  
+def hit_and_run_recursive_acc_with_intermediate_steps(OrthonormalBasis: DenseMatrix[Double],matrix_so_far: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double]): DenseMatrix[Double] = {
+  def we_have_done_enough_samples(n: Int): Boolean = {n == 0}
 
-    if (we_have_done_enough_samples(iterations_remaining)) {
-      println("finished. Length of matrix is " + matrix_so_far.rows)
-      //return the finished matrix
-      matrix_so_far
+  if (we_have_done_enough_samples(iterations_remaining)) {
+    println("finished. Length of matrix is " + matrix_so_far.rows)
+    //return the finished matrix
+    matrix_so_far
+}
+  else {
+    //gen new point
+    val NewPoint = HitAndRun(OrthonormalBasis, CurrentPoint, new scala.util.Random(iterations_remaining)) //here I use the iterations as the seed
+    //add point to db
+    val matrix_so_far_with_new_point = DenseMatrix.vertcat(matrix_so_far, NewPoint.toDenseMatrix)
+    //recurse now with the new point as the new seed
+    hit_and_run_recursive_acc_with_intermediate_steps(OrthonormalBasis, matrix_so_far_with_new_point, iterations_remaining - 1, NewPoint)
   }
-    else {
-      //gen new point
-      val NewPoint = HitAndRun(OrthonormalBasis, CurrentPoint, new scala.util.Random(iterations_remaining)) //here I use the iterations as the seed
-      //add point to db
-      val matrix_so_far_with_new_point = DenseMatrix.vertcat(matrix_so_far, NewPoint.toDenseMatrix)
-      //recurse now with the new point as the new seed
-      hit_and_run_recursive_acc(OrthonormalBasis, matrix_so_far_with_new_point, iterations_remaining - 1, NewPoint)
-    }
+}
+
+// Hit and Run uniform at random point.
+// @param iterations_remaining is the number of jumps to make before returning the new point. We recommend 100 because experimental evidence supports this for at least 7 variables.
+@tailrec  
+def HR_uar_point(OrthonormalBasis: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double], per_uar_point_random_seed: scala.util.Random): DenseVector[Double] = {
+  def we_have_done_enough_samples(n: Int): Boolean = {n == 0}
+
+  if (we_have_done_enough_samples(iterations_remaining)) {
+    //return the completely un-autocorrelated point as the point that was sampled uniformly-at-random from the space.
+    CurrentPoint
+}
+  else {
+    //gen new point
+    println("Iterations until UAR remaining: " + iterations_remaining)
+    val NewPoint = HitAndRun(OrthonormalBasis, CurrentPoint, new scala.util.Random(iterations_remaining)) //here I use the iterations as the seed
+    //recurse now with the new point as the new seed
+    HR_uar_point(OrthonormalBasis, iterations_remaining - 1, NewPoint, new scala.util.Random(iterations_remaining))
   }
+}
 
 }
 
