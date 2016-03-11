@@ -158,7 +158,8 @@ object GenStartingPoint{
 	}
 
 	/** Generation of a central starting point within the solution space.
-  		* @param A Linear programming constraints in a DenseMatrix[Double]. 
+    *
+    * @param A Linear programming constraints in a DenseMatrix[Double].
   		* @param b Linear programming DenseVector[Double], strictly less than its companion row in A.
   		* @return x DenseVector[Double] centrally-maximized solution for inner point.
   	*/
@@ -383,7 +384,7 @@ object LowLevelSimplex{
   }
 }
 /*
-@param OthonormalBasis
+@param OihonormalBasis
 @param StartingPoint
 @param RandomObject Instance fof a scala.util.Random, with a seed already set internally.
  */
@@ -518,6 +519,15 @@ object PointStream {
     }
     db
   }
+  def get_random_object_from_seed(x: Int): scala.util.Random= {
+    val new_random_object = new scala.util.Random(x)
+    new_random_object
+  }
+//  def generate_functional(n: Int, OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random): DenseMatrix[Double] = {
+//    val db = (0 to n).map(x => generator(OrthonormalBasis, CurrentPoint, get_random_object_from_seed(x)))
+//    db
+//
+//  }
 
   def fill(OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random, Predicate: DenseMatrix[Double]=>Boolean, acc: DenseMatrix[Double]):DenseMatrix[Double] ={
     if (Predicate(acc)){
