@@ -14,9 +14,6 @@ package object MainClass {
 //    vector_progression.map(v => toy_example_recursive(10000, DenseVector(v)))
     toy_example_recursive(100, DenseVector(0.0,0.0,0.0,0.0,0.0,0.0))
     //toy_example_recursive(100, DenseVector(0.4449,-0.06918,-0.05698,-0.05533,-0.5410,-0.02968)) //offpalmar
-    val desired_force = DenseVector(0.4608,-0.05129, -0.003781,-0.02413,-0.5879,-0.02775 )*0.01
-    println("This:" + desired_force + "is the desired force")
-    toy_example_recursive(100,desired_force)
     println("done w toy example")
   }
   def PointsFor(PointsPerAlpha: Int, v:DenseVector[Double], direction: String, AlphaLenOut:Int, AlphaLim: Tuple2[Double,Double]): Unit ={
