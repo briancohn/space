@@ -8,14 +8,9 @@ import breeze.math._
  */
 package object MainClass {
   def main(args: Array[String]) {
-    val vector_progression = linspace(-3.5333,5.3333,6)
-    println("Beginning Vector progression on Toy Example.")
-//    vector_progression.map(v => toy_example(10000, DenseVector(v)))
-//    vector_progression.map(v => toy_example_recursive(10000, DenseVector(v)))
     toy_example_recursive(100, DenseVector(0.0,0.0,0.0,0.0,0.0,0.0))
-    //toy_example_recursive(100, DenseVector(0.4449,-0.06918,-0.05698,-0.05533,-0.5410,-0.02968)) //offpalmar
-    println("done w toy example")
   }
+  
   def PointsFor(PointsPerAlpha: Int, v:DenseVector[Double], direction: String, AlphaLenOut:Int, AlphaLim: Tuple2[Double,Double]): Unit ={
     import bbdl.space._
     import breeze.linalg._
