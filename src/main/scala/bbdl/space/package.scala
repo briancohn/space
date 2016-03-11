@@ -3,14 +3,15 @@ import bbdl.space._
 import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
+import breeze.stats._
 /**
  * Created by Brian on 2/13/15.
  */
 package object MainClass {
   def main(args: Array[String]) {
-    toy_example_recursive(100, DenseVector(0.0,0.0,0.0,0.0,0.0,0.0))
+    toy_example_recursive(100, DenseVector(0.0))
   }
-  
+
   def PointsFor(PointsPerAlpha: Int, v:DenseVector[Double], direction: String, AlphaLenOut:Int, AlphaLim: Tuple2[Double,Double]): Unit ={
     import bbdl.space._
     import breeze.linalg._
@@ -54,7 +55,7 @@ def toy_example(num: Int, vector: DenseVector[Double]) {
   println("Saved" + FileName)
 }
 
-  def hit_and_run_repetitions(H: DenseMatrix[Double], forcevector: DenseVector[Double], n: Int): DenseMatrix[Double] ={
+def hit_and_run_repetitions(H: DenseMatrix[Double], forcevector: DenseVector[Double], n: Int): DenseMatrix[Double] ={
     import bbdl.space._
     import breeze.linalg._
     val RandomObject = new scala.util.Random(10)
@@ -67,7 +68,7 @@ def toy_example(num: Int, vector: DenseVector[Double]) {
   }
 
 
-  def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
+def cadaver_experiment_H_hit_and_run(num: Int, force_vector: DenseVector[Double]) {
     import bbdl.space._
     import breeze.linalg._
     import breeze.numerics._
@@ -95,6 +96,43 @@ def toy_example(num: Int, vector: DenseVector[Double]) {
     csvwrite(MyFile, feasible_activations)
     println("Saved" + FileName)
   }
+
+val toy_arm_example_H = DenseMatrix(
+  (10.0/3.0, -53.0/15.0, 2.0)
+)
+def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
+
+    val H = toy_arm_example_H
+    val StartingPoint = GenStartingPoint(H,force_vector)
+    println("Starting point is " +StartingPoint)
+    val OrthonormalBasis = Ortho(Basis(H)).toDenseMatrix
+    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H.cols),num,StartingPoint)
+    println(
+      "id174892" + " feasible activations are /n" + feasible_activations
+    )
+    val FileName = Output.TimestampCSVName("output/" + "toy_example_recursive" + force_vector(0) +"N_positive").toString()
+    val MyFile = new java.io.File(FileName)
+    csvwrite(MyFile, feasible_activations)
+    println("Saved" + FileName)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   //important! this does not subsample,so that needs to be addressed on a higher level
