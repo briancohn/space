@@ -27,7 +27,15 @@ object MaximumOutput {
   }
 }
 
-
+object Timing {
+  def time[R](block: => R): R = {
+      val t0 = System.nanoTime()
+      val result = block    // call-by-name
+      val t1 = System.nanoTime()
+      println("Elapsed time: " + (t1 - t0) + "ns")
+      result
+  }
+}
 /*
 Set of functions for generating upper and lower bounds of each lambda from i to A.cols (n).
  */

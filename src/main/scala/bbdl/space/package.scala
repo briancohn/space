@@ -9,7 +9,25 @@ import breeze.stats._
  */
 package object MainClass {
   def main(args: Array[String]) {
-    toy_example_recursive(100, DenseVector(0.0))
+    println("1")
+    Timing.time {toy_example_recursive(1, DenseVector(1.0))}
+
+       println("10")
+    Timing.time {toy_example_recursive(10, DenseVector(1.0))}
+
+       println("100")
+    Timing.time {toy_example_recursive(100, DenseVector(1.0))}
+
+       println("1000")
+    Timing.time {toy_example_recursive(1000, DenseVector(1.0))}
+
+       println("10000")
+    Timing.time {toy_example_recursive(10000, DenseVector(1.0))}
+
+       println("100000")
+    Timing.time {toy_example_recursive(100000, DenseVector(1.0))}
+
+
   }
 
   def PointsFor(PointsPerAlpha: Int, v:DenseVector[Double], direction: String, AlphaLenOut:Int, AlphaLim: Tuple2[Double,Double]): Unit ={
@@ -107,10 +125,7 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
     println("Starting point is " +StartingPoint)
     val OrthonormalBasis = Ortho(Basis(H)).toDenseMatrix
     val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H.cols),num,StartingPoint)
-    println(
-      "id174892" + " feasible activations are /n" + feasible_activations
-    )
-    val FileName = Output.TimestampCSVName("output/" + "toy_example_recursive" + force_vector(0) +"N_positive").toString()
+    val FileName = Output.TimestampCSVName("output/" + "toy_example_HR" + force_vector(0) +"N_positive").toString()
     val MyFile = new java.io.File(FileName)
     csvwrite(MyFile, feasible_activations)
     println("Saved" + FileName)
@@ -127,20 +142,16 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
 
 
 
+def hit_and_run_subsampled() = {
+  
+}
 
-
-
-
-
-
-
-
-  //important! this does not subsample,so that needs to be addressed on a higher level
+  //TODO important! this does not subsample,so that needs to be addressed on a higher level
   def hit_and_run_recursive_acc(OrthonormalBasis: DenseMatrix[Double],matrix_so_far: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double]): DenseMatrix[Double] = {
     def we_have_done_enough_samples(n: Int): Boolean = {n == 0}
 
     if (we_have_done_enough_samples(iterations_remaining)) {
-      println("finished. Length of matrix is" + matrix_so_far.rows)
+      println("finished. Length of matrix is " + matrix_so_far.rows)
       //return the finished matrix
       matrix_so_far
   }
@@ -149,7 +160,6 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
       val NewPoint = HitAndRun(OrthonormalBasis, CurrentPoint, new scala.util.Random(iterations_remaining)) //here I use the iterations as the seed
       //add point to db
       val matrix_so_far_with_new_point = DenseMatrix.vertcat(matrix_so_far, NewPoint.toDenseMatrix)
-      println("NewPoint. Iterations remaining = " + iterations_remaining)
       //recurse now with the new point as the new seed
       hit_and_run_recursive_acc(OrthonormalBasis, matrix_so_far_with_new_point, iterations_remaining - 1, NewPoint)
     }
