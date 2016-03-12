@@ -11,7 +11,7 @@ libraryDependencies ++= Seq(
 
 initialCommands := "import bbdl.space._"
 
-libraryDependencies += "org.apache.spark" %% "spark-core" % "1.2.0"
+//libraryDependencies += "org.apache.spark" %% "spark-core" % "1.2.0"
 libraryDependencies  ++= Seq(
   // other dependencies here
   "org.scalanlp" %% "breeze" % "0.12",
