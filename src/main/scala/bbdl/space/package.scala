@@ -125,8 +125,8 @@ def hit_and_run_recursive_acc_with_intermediate_steps(OrthonormalBasis: DenseMat
 @tailrec  
 def HR_uar_point(OrthonormalBasis: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double], per_uar_point_random_seed: scala.util.Random): DenseVector[Double] = {
   println("Starting new HR Jump Pattern. Random input is: " + per_uar_point_random_seed)
-  println("one randomval from this one is" + new scala.util.Random(per_uar_point_random_seed.nextInt).nextFloat)
-  println("one randomval from this one is" + new scala.util.Random(per_uar_point_random_seed.nextInt).nextFloat)
+  println("one random val from this one is" + new scala.util.Random(per_uar_point_random_seed.nextLong).nextFloat)
+  println("one random val from this one is" + new scala.util.Random(per_uar_point_random_seed.nextLong).nextFloat)
   def we_have_done_enough_samples(n: Int): Boolean = {n == 0}
 
   if (we_have_done_enough_samples(iterations_remaining)) {
