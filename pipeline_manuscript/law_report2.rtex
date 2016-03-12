@@ -1,0 +1,239 @@
+\documentclass{article}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage[left=1.5in,right=1.5cm,top=3cm,bottom=2.5cm,headheight=1cm]{geometry}
+
+\usepackage{fancyhdr}
+
+\fancyheadoffset{0cm}
+\renewcommand{\footrulewidth}{0pt}
+
+
+
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength\headheight{0.6in}
+\addtolength{\textheight}{-30.0pt}
+\fancyhead[L]{\includegraphics[height = 0.53in]{SportsAcademyLogo.png}}
+\fancyhead[R]{}
+
+
+
+%% for inline R code: if the inline code is not correctly parsed, you will see a message
+\newcommand{\rinline}[1]{SOMETHING WRONG WITH knitr}
+\graphicspath{{figures/}}
+%% begin.rcode setup, include=FALSE
+% library(knitr)
+% opts_chunk$set(dev = 'pdf', fig.path='figure/latex-', cache.path='cache/latex-', fig.align='left')
+% my_pdf = function(file, width = 6, height = 6) { pdf(file, width = width, height = height, pointsize = 8)}
+% source("sections/Stabilogram.r")
+% stabilogramData <- read.csv("input_data/advertising-and-sales-data-36-co.csv")
+% source("sections/reminder-lawrence.R")
+% SkirtData = read.csv("input_data/annual-diameter-of-skirt-at-hem-.csv")
+%% end.rcode
+
+\begin{document}
+
+\begin{flushleft}
+Level II Biomechanics Report\\John Doe\\   January 15, 2016\\
+\end{flushleft}
+1. Upper Extremity\\  \qquad         a.Shoulder Rom
+
+%% begin.rcode warning=FALSE, echo=FALSE, fig.ext='pdf', out.width = '4in', out.height = '3in'
+%par(mfrow=c(2,1))
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "ab/adduction ROM (deg)", SkirtData$randomDiameters, F, T, 0, 0, F)
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "Time (s)", "ab/adduction VEL (deg/s)", SkirtData$randomDiameters, F, T, 0, 0, F)
+%% end.rcode
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '4in', out.height = '3in'
+%par(mfrow=c(2,1))
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "horiz. ab/adduction ROM (deg)", SkirtData$randomDiameters, F, T, 0, 0, F)
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "Time (s)", "horiz. ab/adduction VEL (deg/s)", SkirtData$randomDiameters, F, T, 0, 0, F)
+%% end.rcode
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '4in', out.height = '3in'
+%par(mfrow=c(2,1))
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "ab/adduction ROM (deg)", SkirtData$randomDiameters, F, T, 0, 0, F)
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "Time (s)", "ab/adduction VEL (deg/s)", SkirtData$randomDiameters, F, T, 0, 0, F)
+%% end.rcode
+
+\newpage
+
+b. Neutral Posture Kinematics\\
+\includegraphics{SkeletonArmPosition.png}\\
+
+\newpage
+
+c. Pushup Dynamics
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '4in', out.height = '3in'
+%par(mfrow=c(2,1))
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%% end.rcode
+d. Overhand Throw, one hand\\
+
+
+e. Overhand Throw, two hand\\
+
+\newpage
+
+II. Lower Extremity\\
+	a.Drop land
+
+%% begin.rcode warning=FALSE, echo=FALSE, dev='my_pdf', fig.ext='pdf', out.width = '6in', out.height = '3in'
+% library(png)
+% dis_img = readPNG("figures/SkeletonKneePosition.PNG")
+% par(mfrow=c(1,2))
+%   #move to the next space
+%   plot.new()
+%
+%   #save where the plot should go
+%   
+%   lim <- par()
+%   #draw the image in that space
+%   par(fig=c(0,0.3,0,1))
+%   rasterImage(dis_img, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
+%   par(fig=c(0.3,1,0,0.8),new=T)
+% simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Force (N)", SkirtData$randomDiameters, F, T, 0, 0, F)
+%% end.rcode
+
+
+\newpage
+
+
+b. Drop Vertical Jump
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '5in', out.height = '6in'
+% library(png)
+% dis_img = readPNG("figures/JumpingGraphic.png")
+% par(mfrow=c(3,1))
+%   #move to the next space
+%	plot.new()
+%
+%	#save where the plot should go
+%	lim <- par()
+%	#draw the image in that space
+%	rasterImage(dis_img, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%% end.rcode
+
+\newpage
+
+C. Standing Vertical Jump
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '5in', out.height = '6in'
+% library(png)
+% dis_img = readPNG("figures/JumpingGraphic.png")
+% par(mfrow=c(3,1))
+%   #move to the next space
+%	plot.new()
+%
+%	#save where the plot should go
+%	lim <- par()
+%	#draw the image in that space
+%	rasterImage(dis_img, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%% end.rcode
+
+\newpage
+\
+d.Approach Vertical Jump
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '5in', out.height = '6in'
+% library(png)
+% dis_img = readPNG("figures/JumpingGraphic.png")
+% par(mfrow=c(3,1))
+%   #move to the next space
+%	plot.new()
+%
+%	#save where the plot should go
+%	lim <- par()
+%	#draw the image in that space
+%	rasterImage(dis_img, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%% end.rcode
+
+e. Single Limb Balance
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '6in', out.height = '2in'
+% par(mfrow=c(1,3))
+% mainStabilogramPlot(stabilogramData[2]$Advertising, stabilogramData[3]$Sales, "Stabilogram", c("Settling Time = 36", "LyE = 0.3124125", "Area = 1253 cm^2"), 'blue')
+% mainStabilogramPlot(stabilogramData[2]$Advertising, stabilogramData[3]$Sales, "Stabilogram", c("Settling Time = 36", "LyE = 0.3124125", "Area = 1253 cm^2"), 'blue')
+% mainStabilogramPlot(stabilogramData[2]$Advertising, stabilogramData[3]$Sales, "Stabilogram", c("Settling Time = 36", "LyE = 0.3124125", "Area = 1253 cm^2"), 'blue')
+%% end.rcode
+
+\newpage
+
+g. Cutting Mechanics\\
+\includegraphics{StartFinishAngle.PNG}\\
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '5in', out.height = '3in'
+% par(mfrow=c(2,1))
+%
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T)
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T)
+%% end.rcode
+
+\newpage
+h. Single Limb Hop and Balance
+
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '6in', out.height = '6in'
+% par(mfrow=c(2,1))
+% mainStabilogramPlot(stabilogramData[2]$Advertising, stabilogramData[3]$Sales, "Stabilogram", c("Settling Time = 36", "LyE = 0.3124125", "Area = 1253 cm^2"), 'blue')
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%% end.rcode
+
+i. Broad Jump
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '6in', out.height = '4in'
+% library(png)
+% dis_img = readPNG("figures/JumpingGraphic.png")
+% par(mfrow=c(3,1))
+%   #move to the next space
+%	plot.new()
+%
+%	#save where the plot should go
+%	lim <- par()
+%	#draw the image in that space
+%	rasterImage(dis_img, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%% end.rcode
+
+J. Reaction Time
+
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '6in', out.height = '4in'
+% par(mfrow=c(2,1))
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%% end.rcode
+
+\newpage
+
+III. Core\\
+a.Endurance 
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '6in', out.height = '6in'
+% par(mfrow=c(2,1))
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "Average Skirt Diameter", SkirtData$randomDiameters, T,T,0,0,F)
+%% end.rcode
+
+\newpage
+b.Explosive Power
+
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '6in', out.height = '2in'
+% compoundSimpleStabilogramPlot(stabilogramData[2]$Advertising, stabilogramData[3]$Sales, stabilogramData[2]$Advertising, stabilogramData[3]$Sales,'red','blue', "figures/RightLeftLabel.png")
+%% end.rcode
+%% begin.rcode warning=FALSE, echo=FALSE,fig.ext='pdf', out.width = '6in', out.height = '3in'
+% par(mfrow=c(2,1))
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "COM height (cm)", SkirtData$randomDiameters, F,F,0,0,F)
+%simpleLineGraph(SkirtData$Year, 5, SkirtData$Annual.diameter.of.skirt.at.hem..1866.to.1911, 50, "", "", "COM height (cm)", SkirtData$randomDiameters, F,F,0,0,F)
+%% end.rcode
+
+
+
+
+
+
+
+
+
+\end{document}

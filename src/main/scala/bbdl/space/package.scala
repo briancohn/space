@@ -46,7 +46,7 @@ package object MainClass {
     val autocorrelation_jumps = 100
     val H = francisco_H
     val points = MixingAlgorithm.uar_points(autocorrelation_jumps, H, force_vector, num)
-    val FileName = Output.TimestampCSVName("output/" + "fco_finger_HR" + force_vector(0) +"XY").toString()
+    val FileName ="output/" + "fco_finger_HR" + force_vector(0) + "XY"
     val MyFile = new java.io.File(FileName)
     csvwrite(MyFile, points)
     println("Saved " + FileName)
