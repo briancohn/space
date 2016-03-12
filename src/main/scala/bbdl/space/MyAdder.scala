@@ -493,11 +493,11 @@ object ExtrudeVector {
 
 object MixingAlgorithm {
   def uar_points(mixing_time_steps: Int, A_matrix: DenseMatrix[Double], b_vector: DenseVector[Double], num_points_to_generate: Int) = {
-    Array.range(0, num_points_to_generate).map(x => uar_point(mixing_time_steps,A_matrix,b_vector,x).toDenseMatrix).reduce(DenseMatrix.vertcat(_,_))
+    Array.range(0,num_points_to_generate).map(x => uar_point(mixing_time_steps,A_matrix,b_vector,x.toLong).toDenseMatrix).reduce(DenseMatrix.vertcat(_,_))
   }
 //  each new point gets its own random seed. That way, the entire random process is parallelizeable.
 
-  def uar_point(hit_and_run_steps: Int, A_matrix: DenseMatrix[Double], b_vector: DenseVector[Double], seed_number: Int): DenseVector[Double] ={
+  def uar_point(hit_and_run_steps: Int, A_matrix: DenseMatrix[Double], b_vector: DenseVector[Double], seed_number: Long): DenseVector[Double] ={
     val my_rand = new scala.util.Random(seed_number)
     def gaussian_lambda_vector = DenseVector(Array.range(0, A_matrix.cols-1).map(x => my_rand.nextGaussian()))
     val direction_and_linepoint_lambdas = Array.range(0, hit_and_run_steps).map(x => (my_rand.nextDouble(), gaussian_lambda_vector) )
@@ -506,11 +506,19 @@ object MixingAlgorithm {
   }
 
   def mix_for_n_steps(OrthonormalBasis: DenseMatrix[Double], starting_point: DenseVector[Double], num_steps_to_hit_and_run: Int, direction_and_linepoint_lambdas: Array[(Double, DenseVector[Double])]): DenseVector[Double] = {
-    val x = direction_and_linepoint_lambdas(0)
-    NextPoint(OrthonormalBasis,starting_point,x._2,x._1)
+    var counter = 0
+    var current_point = starting_point
+    for (x <- Array.range(0, num_steps_to_hit_and_run)) {
+//      println("on Iter " + x)
+      current_point = NextPoint(OrthonormalBasis, current_point, direction_and_linepoint_lambdas(counter)._2, direction_and_linepoint_lambdas(0)._1)
+      counter+=1
+    }
+//    println("This many points were generated to get this one point:" + counter)
+    current_point
+
   }
 
-  def GetRandomDirection(A_input: DenseMatrix[Double], direction_lambda_vector: DenseVector[Double]) = {
+  def GetRandomDirection(OrthonormalBasis: DenseMatrix[Double], direction_lambda_vector: DenseVector[Double]) = {
     import breeze.linalg._
     import breeze.numerics._
     import java.io.File
@@ -524,7 +532,7 @@ object MixingAlgorithm {
     import scala.util._
     import breeze.util.JavaArrayOps
     val lambda = direction_lambda_vector.toDenseMatrix.t
-    A_input * lambda //matrix multiplication means that it multiplies and adds all the rows up.
+    OrthonormalBasis * lambda //matrix multiplication means that it multiplies and adds all the rows up.
   }
   def NextPoint(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], direction_lambda_vector: DenseVector[Double], uar_point_in_0_1: Double): DenseVector[Double]={
     val RandomDirection = GetRandomDirection(OrthonormalBasis, direction_lambda_vector) //has a random step in gaussian distribution

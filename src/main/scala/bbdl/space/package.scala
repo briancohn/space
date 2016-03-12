@@ -10,10 +10,10 @@ import breeze.stats._
  */
 package object MainClass {
   def main(args: Array[String]) {
-    println("100000")
+    println("10")
     Timing.time {
-//      toy_example_recursive(100000, DenseVector(1.0), 2)
-      fco_finger_recursive(100, DenseVector(1.0,1.0,0.0,0.0), 2)
+      toy_example_recursive(100000, DenseVector(0.0), 2)
+//      fco_finger_recursive(100, DenseVector(1.0,1.0,0.0,0.0), 2)
     }
   }
 
@@ -35,8 +35,7 @@ package object MainClass {
   def toy_example_recursive(num: Int, force_vector: DenseVector[Double], seed: Int) {
     val autocorrelation_jumps = 100
     val H = toy_arm_example_H
-    val b_vector = DenseVector(1.0)
-    val points = MixingAlgorithm.uar_points(autocorrelation_jumps, H, b_vector, num)
+    val points = MixingAlgorithm.uar_points(autocorrelation_jumps, H, force_vector, num)
     val FileName = Output.TimestampCSVName("output/" + "toy_example_HR" + force_vector(0) +"N_positive").toString()
     val MyFile = new java.io.File(FileName)
     csvwrite(MyFile, points)
