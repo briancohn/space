@@ -249,7 +249,6 @@ object GetRandomDirection{
     for (i <- 0 to A.cols - 1){
       Lambdas(i) = RandomObject.nextGaussian()
     }
-   // println(Lambdas)
    	val LambdaVec = DenseVector(Lambdas.toArray)
 		A * LambdaVec //matrix multiplication means that it multiplies and adds all the rows up.
 	}
@@ -320,19 +319,18 @@ object GetNewPoint{
   //Get New Point from p and q
   //@param p densevector of the point
   //@param q Densevector of the random direction
-  def apply(p: DenseVector[Double], q: DenseVector[Double], RandomObject: scala.util.Random) = {
+  def apply(p: DenseVector[Double], q: DenseVector[Double], line_picker_lambda: Double) = {
 	  val Bounds = GetBoundLimits(GetUpperBoundVector(p,q), GetLowerBoundVector(p,q))
 	  val Points = FindEndpoints(p,q, Bounds._1, Bounds._2)
-      val res = RandomPointBetween(Points._1, Points._2, RandomObject)
+      val res = RandomPointBetween(Points._1, Points._2, line_picker_lambda)
       res
   }
 }
 //@param E1 Vector of coordinates for the second point
 //@param E2 Vector of coordinates for the second point
-//@param seed Int defining the random number seed for point generation.
+//@param lambda a uniform at random point selected from [0, 1]
 object RandomPointBetween {
-	def apply(E1: DenseVector[Double], E2: DenseVector[Double], RandomObject: scala.util.Random) = {
-		val lambda = RandomObject.nextDouble() //between 0 and 1 by default
+	def apply(E1: DenseVector[Double], E2: DenseVector[Double], lambda: Double) = {
     E1 + (E2-E1)*lambda
 	}
 }
@@ -390,40 +388,9 @@ object LowLevelSimplex{
     x
   }
 }
-/*
-@param OihonormalBasis
-@param StartingPoint
-@param RandomObject Instance fof a scala.util.Random, with a seed already set internally.
- */
- object HitAndRun {
- 	def apply(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], RandomObject: scala.util.Random) = {
- 		val RandomDirection = GetRandomDirection(OrthonormalBasis, RandomObject) //has a random step in gaussian distribution
-    val NewPoint = GetNewPoint(StartingPoint, RandomDirection, RandomObject) //has a random step in uniform distribution
-    NewPoint
-  }
- }
 
 
-object SampleLinearSystem {
-  def apply(A: DenseMatrix[Double], v: DenseVector[Double], RandomObject: scala.util.Random, Samples: Int) = {
-    val OrthonormalBasis = Ortho(Basis(A)) //Orthogonalize the basis
-    var CurrentPoint = GenStartingPoint(A, v)
-    val Seed = 10
-    val RandomObject = new scala.util.Random(Seed)
-    var PointDatabase = DenseMatrix.zeros[Double](Samples, A.cols)
-    var RunningMean = CurrentPoint(0)
-    for (i <- 0 to Samples - 1) {
-      RunningMean = UpdateMean(CurrentPoint(0), RunningMean, i.toDouble + 2.0)
-      //      println(RunningMean)
-      //      (i.toDouble*0.2).toInt
-      CurrentPoint = HitAndRun(OrthonormalBasis, CurrentPoint, RandomObject)
-      PointDatabase(i, ::) := CurrentPoint.t
-      //TODO add points into the database
-    }
-    PointDatabase
 
-  }
-}
 object UpdateMean{
   def apply(NewValue: Double, PriorMean: Double, n: Double): Double = {
     val NConstant = (n-1.0)/n
@@ -458,132 +425,6 @@ object MixingTime {
   }
 }
 
-object PointStream {
-  //returns true when it's time to stop
-  /*
-  @param BeginIndex It will only compute the means once this number of rows have been sampled.
-   */
-  def MeanChaser(acc: DenseMatrix[Double]): Boolean ={
-    val PointNum = acc.rows
-    val BeginIndex=10000
-    if (PointNum<BeginIndex) {
-      if (PointNum%1000 == 0) println("False at " + PointNum)
-      false
-
-    } else {
-//      val SampleDouble = PointNum*0.20
-      val SampleNum = 2000
-      val subset = acc(PointNum - SampleNum to PointNum-1,::).toDenseMatrix.data
-      false
-    }
-  }
-
-  /*
-  Never stops it
-   */
-  def AlwaysTrue(acc: DenseMatrix[Double]): Boolean = {
-    true
-  }
-  /*
-  This stops it once it samples 1m points.
-   */
-  def HardCodedStop(acc:DenseMatrix[Double]): Boolean = {
-    if (acc.rows >= 50000) {
-      true //stop!
-    } else {
-      false //keep going
-    }
-  }
-
-  def generator(OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random): DenseVector[Double] = {
-    HitAndRun(OrthonormalBasis,CurrentPoint,RandomObject)
-  }
-  /*
-  @param n the number of points to calculate
-   */
-//  def generate(n: Int, OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random): DenseMatrix[Double] = {
-//    var db = CurrentPoint.toDenseMatrix
-//    var HitAndRunCurrentPoint = CurrentPoint
-//    for (i <- 1 to (n*100)-1) {
-//      HitAndRunCurrentPoint = generator(OrthonormalBasis, HitAndRunCurrentPoint, RandomObject)
-//      if (i%100==99) {
-//        db = DenseMatrix.vertcat(db, HitAndRunCurrentPoint.toDenseMatrix)
-//      } //add another row for each point
-//    }
-//    val transposedDB = db.t
-//    val DBfinal = transposedDB(::,1 to -1).t
-//    DBfinal
-//  }
-
-  /*
-@param n the number of points to calculate
- */
-  def generate(n: Int, OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random): DenseMatrix[Double] = {
-    var db = CurrentPoint.toDenseMatrix
-    for (i <- 1 to n-1) {
-      val newPt = generator(OrthonormalBasis, CurrentPoint, RandomObject).toDenseMatrix
-      db = DenseMatrix.vertcat(db, newPt) //add another row for each point
-    }
-    db
-  }
-  def get_random_object_from_seed(x: Int): scala.util.Random= {
-    val new_random_object = new scala.util.Random(x)
-    new_random_object
-  }
-//  def generate_functional(n: Int, OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random): DenseMatrix[Double] = {
-//    val db = (0 to n).map(x => generator(OrthonormalBasis, CurrentPoint, get_random_object_from_seed(x)))
-//    db
-//
-//  }
-
-  def fill(OrthonormalBasis: DenseMatrix[Double], CurrentPoint: DenseVector[Double], RandomObject: scala.util.Random, Predicate: DenseMatrix[Double]=>Boolean, acc: DenseMatrix[Double]):DenseMatrix[Double] ={
-    if (Predicate(acc)){
-      println("stop")
-      acc
-    } else {
-        val NewPt = generator(OrthonormalBasis, CurrentPoint, RandomObject)
-        if (acc.rows == 100000) {
-          val FileName = Output.TimestampCSVName("output/").toString()
-          val MyFile = new java.io.File(FileName)
-          csvwrite(MyFile, acc)
-        fill(OrthonormalBasis, NewPt, RandomObject, Predicate, NewPt.toDenseMatrix) //start over
-        } else {
-        fill(OrthonormalBasis, NewPt, RandomObject, Predicate, DenseMatrix.vertcat(acc, NewPt.toDenseMatrix))
-      }
-    }
-  }
-  def start(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], RandomObject: scala.util.Random, Predicate: DenseMatrix[Double]=>Boolean): Unit = {
-    fill(OrthonormalBasis, StartingPoint, RandomObject, Predicate, StartingPoint.toDenseMatrix)
-  }
-  def iteratorApproach(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], RandomObject: scala.util.Random) ={
-    val myIter = Iterator.iterate(StartingPoint)(x => generator(OrthonormalBasis,x,RandomObject))
-    myIter
-  }
-  /*
-  Wparam lengthOut The number of steps from 0.0 to 1.0 that will be taken.
-  @param v direction in output space; the force will march towards the Fmax.
-  @return db columns are muscles, force vector, alpha
-   */
-  def alphaGenerate(n: Int, alphaBounds: Tuple2[Double,Double],lengthOut: Int, v: DenseVector[Double], AInput: DenseMatrix[Double], OrthonormalBasis: DenseMatrix[Double], RandomObject: scala.util.Random): DenseMatrix[Double] = {
-    val MaxForce = MaximumOutput(AInput,v)._1 //do not need activations here
-    val VectorsA = VectorScale.ScaleProgression(MaxForce, alphaBounds._1, alphaBounds._2,lengthOut)
-    val ForceProgressions = VectorsA._1
-    val AlphaVals = VectorsA._2
-    val PointDB = ForceProgressions.map(
-      x => {
-        val Points = PointStream.generate(n,OrthonormalBasis.toDenseMatrix,GenStartingPoint(AInput,x),RandomObject)
-        val Vectors = ExtrudeVector(x,n)
-        DenseMatrix.horzcat(Points,Vectors)
-    }
-    )
-    val DBseq = PointDB.toArray.toSeq
-    val DB = DenseMatrix.vertcat(DBseq:_* )
-    val AlphaCol = VectorRepeat(AlphaVals, n).toDenseMatrix.t
-    DenseMatrix.horzcat(DB, AlphaCol)
-
-//    PointDB.foldLeft[DenseMatrix[Double]]((x,y) => DenseMatrix.vertcat(x,y))
-  }
-}
 
 object VectorRepeat {
   def apply(v: DenseVector[Double], n: Int):DenseVector[Double] = {
@@ -664,4 +505,25 @@ object ExtrudeVector {
     DenseMatrix(Range(0,n).map(x => k):_*)
   }
 }
+
+object MixingAlgorithm {
+
+  def uar_point(hit_and_run_steps: Int, A_matrix: DenseMatrix[Double], b_vector: DenseVector[Double]) ={
+    mix_for_n_steps(Ortho(Basis(A_matrix)),GenStartingPoint(A_matrix,b_vector),hit_and_run_steps)
+  }
+
+  def mix_for_n_steps(OrthonormalBasis: DenseMatrix[Double], starting_point: DenseVector[Double], num_steps_to_hit_and_run: Int)= {
+    Array.range(0, num_steps_to_hit_and_run)
+  }
+
+  def GetRandomDirection(A: DenseMatrix[Double], direction_lambda_vector: DenseVector[Double]) = {
+    val LambdaVec = DenseVector(direction_lambda_vector.toArray)
+    A * LambdaVec //matrix multiplication means that it multiplies and adds all the rows up.
+  }
+  def NextPoint(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], direction_lambda_vector: DenseVector[Double], uar_point_in_0_1: Double): DenseVector[Double]={
+    val RandomDirection = GetRandomDirection(OrthonormalBasis, direction_lambda_vector) //has a random step in gaussian distribution
+    GetNewPoint(StartingPoint, RandomDirection, uar_point_in_0_1) //has a random step in uniform distribution
+  }
+}
+
 
