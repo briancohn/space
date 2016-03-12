@@ -29,7 +29,7 @@ package object MainClass {
     val autocorrelation_jumps = 100
     val H = toy_arm_example_H
     val b_vector = DenseVector(1.0)
-    MixingAlgorithm.uar_point(autocorrelation_jumps, toy_arm_example_H, b_vector)
+    MixingAlgorithm.uar_point(100, H,b_vector,1)
     //    val FileName = Output.TimestampCSVName("output/" + "toy_example_HR" + force_vector(0) +"N_positive").toString()
     //    val MyFile = new java.io.File(FileName)
     //    csvwrite(MyFile, uar_points)

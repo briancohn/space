@@ -507,13 +507,23 @@ object ExtrudeVector {
 }
 
 object MixingAlgorithm {
+  def uar_points(mixing_time_steps: Int, A_matrix: DenseMatrix[Double], b_vector: DenseVector[Double], num_points_to_generate: Int) = {
+    //make the random numbers for use
 
-  def uar_point(hit_and_run_steps: Int, A_matrix: DenseMatrix[Double], b_vector: DenseVector[Double]) ={
-    mix_for_n_steps(Ortho(Basis(A_matrix)),GenStartingPoint(A_matrix,b_vector),hit_and_run_steps)
+    DenseMatrix.zeros[Double](num_points_to_generate,A_matrix.cols)
+  }
+//  each new point gets its own random seed. That way, the entire random process is parallelizeable.
+
+  def uar_point(hit_and_run_steps: Int, A_matrix: DenseMatrix[Double], b_vector: DenseVector[Double], seed_number: Int) ={
+    val my_rand = new scala.util.Random(seed_number)
+    def gaussian_lambda_vector = DenseVector(Array.range(0, A_matrix.cols).map(x => my_rand.nextGaussian()))
+    val direction_and_linepoint_lambdas = Array.range(0, hit_and_run_steps).map(x => (my_rand.nextDouble(), gaussian_lambda_vector) )
+    mix_for_n_steps(Ortho(Basis(A_matrix)),GenStartingPoint(A_matrix,b_vector),hit_and_run_steps, direction_and_linepoint_lambdas)
   }
 
-  def mix_for_n_steps(OrthonormalBasis: DenseMatrix[Double], starting_point: DenseVector[Double], num_steps_to_hit_and_run: Int)= {
-    Array.range(0, num_steps_to_hit_and_run)
+  def mix_for_n_steps(OrthonormalBasis: DenseMatrix[Double], starting_point: DenseVector[Double], num_steps_to_hit_and_run: Int, direction_and_linepoint_lambdas: Array[(Double, DenseVector[Double])]) = {
+    val x = direction_and_linepoint_lambdas(0)
+    NextPoint(OrthonormalBasis,starting_point,x._2,x._1)
   }
 
   def GetRandomDirection(A: DenseMatrix[Double], direction_lambda_vector: DenseVector[Double]) = {
