@@ -12,8 +12,8 @@ package object MainClass {
   def main(args: Array[String]) {
     println("100000")
     Timing.time {
-      toy_example_recursive(100000, DenseVector(1.0), 2)
-//      fco_finger_recursive(100000, DenseVector(1.0,1.0,0.0,0.0), 2)
+//      toy_example_recursive(100000, DenseVector(1.0), 2)
+      fco_finger_recursive(100, DenseVector(1.0,1.0,0.0,0.0), 2)
     }
   }
 
