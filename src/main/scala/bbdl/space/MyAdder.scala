@@ -493,7 +493,7 @@ object ExtrudeVector {
 
 object MixingAlgorithm {
   def uar_points(mixing_time_steps: Int, A_matrix: DenseMatrix[Double], b_vector: DenseVector[Double], num_points_to_generate: Int) = {
-    Array.range(0, num_points_to_generate).par.map(x => uar_point(mixing_time_steps,A_matrix,b_vector,x))
+    Array.range(0, num_points_to_generate).map(x => uar_point(mixing_time_steps,A_matrix,b_vector,x).toDenseMatrix).reduce(DenseMatrix.vertcat(_,_))
   }
 //  each new point gets its own random seed. That way, the entire random process is parallelizeable.
 
