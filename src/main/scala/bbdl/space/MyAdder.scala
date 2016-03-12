@@ -239,21 +239,6 @@ object Ortho extends Function[DenseMatrix[Double], DenseMatrix[Double]]{
 	} 
 }
 
-/*
-*by default the gaussian distribution is set to mean 0, sd 1
- */
-object GetRandomDirection{
-
-	def apply(A: DenseMatrix[Double], RandomObject: scala.util.Random) = {
-    var Lambdas = DenseVector.zeros[Double](A.cols)
-    for (i <- 0 to A.cols - 1){
-      Lambdas(i) = RandomObject.nextGaussian()
-    }
-   	val LambdaVec = DenseVector(Lambdas.toArray)
-		A * LambdaVec //matrix multiplication means that it multiplies and adds all the rows up.
-	}
-}
-
 //@param p The point cordinate, DenseVector[Double] of length n
 //@param q The direction, DenseVector[Double] of length n
 object GetNewPoint{
@@ -508,31 +493,42 @@ object ExtrudeVector {
 
 object MixingAlgorithm {
   def uar_points(mixing_time_steps: Int, A_matrix: DenseMatrix[Double], b_vector: DenseVector[Double], num_points_to_generate: Int) = {
-    //make the random numbers for use
-
-    DenseMatrix.zeros[Double](num_points_to_generate,A_matrix.cols)
+    Array.range(0, num_points_to_generate).par.map(x => uar_point(mixing_time_steps,A_matrix,b_vector,x))
   }
 //  each new point gets its own random seed. That way, the entire random process is parallelizeable.
 
-  def uar_point(hit_and_run_steps: Int, A_matrix: DenseMatrix[Double], b_vector: DenseVector[Double], seed_number: Int) ={
+  def uar_point(hit_and_run_steps: Int, A_matrix: DenseMatrix[Double], b_vector: DenseVector[Double], seed_number: Int): DenseVector[Double] ={
     val my_rand = new scala.util.Random(seed_number)
-    def gaussian_lambda_vector = DenseVector(Array.range(0, A_matrix.cols).map(x => my_rand.nextGaussian()))
+    def gaussian_lambda_vector = DenseVector(Array.range(0, A_matrix.cols-1).map(x => my_rand.nextGaussian()))
     val direction_and_linepoint_lambdas = Array.range(0, hit_and_run_steps).map(x => (my_rand.nextDouble(), gaussian_lambda_vector) )
-    mix_for_n_steps(Ortho(Basis(A_matrix)),GenStartingPoint(A_matrix,b_vector),hit_and_run_steps, direction_and_linepoint_lambdas)
+    val OrthonormalBasis = Ortho(Basis(A_matrix))
+    mix_for_n_steps(OrthonormalBasis, GenStartingPoint(A_matrix,b_vector),hit_and_run_steps, direction_and_linepoint_lambdas)
   }
 
-  def mix_for_n_steps(OrthonormalBasis: DenseMatrix[Double], starting_point: DenseVector[Double], num_steps_to_hit_and_run: Int, direction_and_linepoint_lambdas: Array[(Double, DenseVector[Double])]) = {
+  def mix_for_n_steps(OrthonormalBasis: DenseMatrix[Double], starting_point: DenseVector[Double], num_steps_to_hit_and_run: Int, direction_and_linepoint_lambdas: Array[(Double, DenseVector[Double])]): DenseVector[Double] = {
     val x = direction_and_linepoint_lambdas(0)
     NextPoint(OrthonormalBasis,starting_point,x._2,x._1)
   }
 
-  def GetRandomDirection(A: DenseMatrix[Double], direction_lambda_vector: DenseVector[Double]) = {
-    val LambdaVec = DenseVector(direction_lambda_vector.toArray)
-    A * LambdaVec //matrix multiplication means that it multiplies and adds all the rows up.
+  def GetRandomDirection(A_input: DenseMatrix[Double], direction_lambda_vector: DenseVector[Double]) = {
+    import breeze.linalg._
+    import breeze.numerics._
+    import java.io.File
+    import java.util.Date
+    import breeze.linalg._
+    import breeze.numerics._
+    import breeze.math._
+    import breeze.optimize.linear.LinearProgram
+    import breeze.util.JavaArrayOps
+    import spire.math.Real
+    import scala.util._
+    import breeze.util.JavaArrayOps
+    val lambda = direction_lambda_vector.toDenseMatrix.t
+    A_input * lambda //matrix multiplication means that it multiplies and adds all the rows up.
   }
   def NextPoint(OrthonormalBasis: DenseMatrix[Double], StartingPoint: DenseVector[Double], direction_lambda_vector: DenseVector[Double], uar_point_in_0_1: Double): DenseVector[Double]={
     val RandomDirection = GetRandomDirection(OrthonormalBasis, direction_lambda_vector) //has a random step in gaussian distribution
-    GetNewPoint(StartingPoint, RandomDirection, uar_point_in_0_1) //has a random step in uniform distribution
+    GetNewPoint(StartingPoint.toDenseVector, RandomDirection.toDenseVector, uar_point_in_0_1) //has a random step in uniform distribution
   }
 }
 

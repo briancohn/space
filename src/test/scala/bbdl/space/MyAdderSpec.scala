@@ -75,57 +75,6 @@ class MaximumOutputSpec extends FlatSpec with Matchers {
   }
 }
 
-class GetRandomDirectionSpec extends FlatSpec with Matchers {
-	behavior of "GetRandomDirection"
-  val Seed = 10
-  val RandomObject = new scala.util.Random(Seed)
-  it should "Get a random direction for all positive inputs" in {
-    val B = DenseMatrix((1.0,0.0), (0.0,1.0), (0.0, 0.0))
-
-    val result = GetRandomDirection(B, RandomObject)
-    assert(result === DenseVector(1.6882124514042414, -0.8414172955978727, 0.0))
-	}
-	it should "get a random direction for some negative inputs" in {
-	  val B = DenseMatrix((-1.0,0.0), (0.0,1.0), (0.0, 0.0))
-	  val RandomDirection = GetRandomDirection(B, RandomObject)
-	  val expected = DenseVector(0.32113532510702947, -0.23661697576709095, 0.0)
-    assert(RandomDirection === expected)
-	}
-  it should "take in an identity matrix, and output a vector whose values are distributed gauss-normally" in{
-    val n = 10
-    val IdentityMatrix = DenseMatrix.eye[Double](n)
-    val RandomDirection = GetRandomDirection(IdentityMatrix, RandomObject)
-    assert(RandomDirection === DenseVector(-0.5241639211111205, -0.34602233612988537, 1.1638138842834067, -1.662967347612762, -0.5866125475069541, 1.3084986313549418, -0.7113249308260786, -0.9384431706369464, 0.005116309664665023, 0.3555017051770467))
-  }
-  it should "take in an identity matrix with an extra row of zeros at the bottom, and output a vector whose values are distributed gauss-normally" in{
-    val n = 10
-    val IdentityMatrix = DenseMatrix.eye[Double](n)
-    val TallerMatrix = DenseMatrix.vertcat(IdentityMatrix, DenseMatrix.zeros[Double](1,n))
-    val RandomDirection = GetRandomDirection(TallerMatrix, RandomObject)
-    assert(AbsDiff.Matricies(RandomDirection.toDenseMatrix, DenseVector(0.6685391145389219, 0.6327216675776454, -0.9424452549137063, -0.009898782433063143, 1.8021608700963798, 1.8765599210333714, 0.5111602993013169, 0.8418645608663314, -0.8955260348019763, -0.4938850345409942, 0.0).toDenseMatrix) < 1E-14)
-  }
-
-  val RandomObject7 = new scala.util.Random(7)
-  it should "produce a gauss-distribution with mean 0 and standard deviation 1 on an identity matrix" in {
-    val x = GetRandomDirection(breeze.linalg.DenseMatrix.eye[Double](10), RandomObject7)
-    assert(x === DenseVector(0.8452060657049847, 0.9128761787534405, -0.2870786364749953, 0.7518594314874758, 1.335473668231534, -0.9499789372646104, 0.599049892177836, 1.204570743449295, 2.4820093995603614, -0.7539501059617072))
-  }
-  import bbdl.space.GetRandomDirection
-  import breeze.linalg.DenseMatrix
-  val n = 1000
-  val Mat = DenseMatrix.eye[Double](n)
-  val Direction = GetRandomDirection(Mat, RandomObject)
-  val Mu = breeze.stats.mean(Direction)
-  val Sigma = breeze.stats.stddev(Direction)
-
-  it should "produce a gaussian distribution with mean 0 with a very large matrix" in {
-    assert(abs(Mu) < 0.10)
-  }
-  it should "produce a gaussian distribution with SD 1 with a very large matrix" in {
-    assert(abs(Sigma - 1.0) < 0.05)
-  }
-}
-
 class BasisSpec extends FlatSpec with Matchers {
 	behavior of "Basis"
 	it should "take in a matrix of size (2,5), and output a (5,2) basis" in {
