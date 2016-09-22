@@ -1,6 +1,10 @@
 library(stringr)
 source('src/R/csv_helpers.R')
 source('src/R/get_max_alpha_solutions.R')
+# Make the toy histogram figure for one alpha
+
+
+
 csvlist = c(
 "Z_alphaProgression1430924065026.csv"
 )
