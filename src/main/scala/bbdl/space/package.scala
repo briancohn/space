@@ -4,19 +4,42 @@ import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
 import breeze.stats._
+import breeze.util.JavaArrayOps
+
 /**
  * Created by Brian on 2/13/15.
  */
 package object MainClass {
   def main(args: Array[String]) {
-    var toy_sample_num = 1000000
+//    generate_points_toy_example_for_paper(1000000)
+    generate_points_finger_for_paper(1000000)
+  }
+  def generate_points_finger_for_paper(sample_num: Int): Unit = {
+    val JR = DenseMatrix(
+      (-0.08941, -0.0447, -0.009249, 0.03669, 0.1421, 0.2087, -0.2138),
+      (-0.04689, -0.1496, 0.052,0.052, 0.0248, 0.0, 0.0248),
+      (0.06472, 0.001953, -0.1518,-0.1518, 0.2919, 0.0568, 0.2067),
+      (0.003081, -0.002352, -0.0001649, -0.0001649, -0.0004483, 0.0001579, -0.000685)
+    )
+    val Fm: DenseVector[Double] = DenseVector(123.0, 219.0,	23.52, 91.74,	21.6,	124.8,129.6)
+    val H_matrix = JR*diag(Fm)
+    val positive_distal_direction = DenseVector(1.0,0.0,0.0,0.0) //pure force, with no torques
+    val max_out_res = MaximumOutput(H_matrix, positive_distal_direction)
+    val max_force_vector = max_out_res._1
+    val progression_forces = linspace(0.00000001,0.9, length= 10).map(alpha => max_force_vector*alpha)
+    val array_progression_forces = progression_forces.toArray
+
+    array_progression_forces.par.map(x => hit_run_recursive_forcevector(sample_num,x,H_matrix,"finger"))
+
+
+  }
+  def generate_points_toy_example_for_paper(toy_sample_num: Int) {
     val H_inverted = DenseMatrix(
       (3.333333333),
       (-3.533333333),
       (2.0)
     )
     val H = H_inverted.t
-
     val positive_x_direction = DenseVector(1.0)
     //first, calculate what the maximal contraction is in the +x direction
     val max_out_res = MaximumOutput(H,positive_x_direction)
@@ -132,7 +155,19 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
     println("Saved" + FileName)
   }
 
-
+  def hit_run_recursive_forcevector(num: Int, force_vector: DenseVector[Double], H_matrix: DenseMatrix[Double], plant_name: String) {
+    val StartingPoint = GenStartingPoint(H_matrix,force_vector)
+    println("Starting point is " +StartingPoint)
+    val OrthonormalBasis = Ortho(Basis(H_matrix)).toDenseMatrix
+    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H_matrix.cols),num,StartingPoint)
+    println(
+      "id174892" + " feasible activations are /n" + feasible_activations
+    )
+    val FileName = Output.TimestampCSVName("output/" + plant_name + force_vector(0)).toString()
+    val MyFile = new java.io.File(FileName)
+    csvwrite(MyFile, feasible_activations)
+    println("Saved" + FileName)
+  }
 
 
 
