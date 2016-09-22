@@ -9,7 +9,23 @@ import breeze.stats._
  */
 package object MainClass {
   def main(args: Array[String]) {
-    toy_example_recursive(100, DenseVector(0.0))
+    var toy_sample_num = 1000000
+    val H_inverted = DenseMatrix(
+      (3.333333333),
+      (-3.533333333),
+      (2.0)
+    )
+    val H = H_inverted.t
+
+    val positive_x_direction = DenseVector(1.0)
+    //first, calculate what the maximal contraction is in the +x direction
+    val max_out_res = MaximumOutput(H,positive_x_direction)
+    val max_force_vector = max_out_res._1
+    println(max_out_res._1)
+    //scale progression vectors by the maximum force val.
+    var progression_forces = linspace(0.0000001,0.9,length = 10).map(alpha => max_force_vector*alpha)
+    //compute points for each of the progression forces
+    progression_forces.map(x => toy_example_recursive(toy_sample_num, x))
   }
 
   def PointsFor(PointsPerAlpha: Int, v:DenseVector[Double], direction: String, AlphaLenOut:Int, AlphaLim: Tuple2[Double,Double]): Unit ={
@@ -149,7 +165,7 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
       val NewPoint = HitAndRun(OrthonormalBasis, CurrentPoint, new scala.util.Random(iterations_remaining)) //here I use the iterations as the seed
       //add point to db
       val matrix_so_far_with_new_point = DenseMatrix.vertcat(matrix_so_far, NewPoint.toDenseMatrix)
-      println("NewPoint. Iterations remaining = " + iterations_remaining)
+//      println("NewPoint. Iterations remaining = " + iterations_remaining)
       //recurse now with the new point as the new seed
       hit_and_run_recursive_acc(OrthonormalBasis, matrix_so_far_with_new_point, iterations_remaining - 1, NewPoint)
     }
