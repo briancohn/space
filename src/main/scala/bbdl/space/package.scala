@@ -5,16 +5,20 @@ import breeze.numerics._
 import breeze.math._
 import breeze.stats._
 import breeze.util.JavaArrayOps
+import collection.mutable._
+import collection.JavaConverters._
 
 /**
  * Created by Brian on 2/13/15.
  */
 package object MainClass {
   def main(args: Array[String]) {
-//    generate_points_toy_example_for_paper(1000000)
-    generate_points_finger_for_paper(sample_num = 100000, alpha_steps = 100)
+//    generate_points_toy_example_for_paper("toy_example", 1000000)
+//    generate_points_finger_for_paper("finger_high_density", sample_num = 100000, alpha_steps = 100)
+    generate_points_finger_for_paper("finger_low_density",sample_num = 1000, alpha_steps = 100 )
   }
-  def generate_points_finger_for_paper(sample_num: Int, alpha_steps: Int): Unit = {
+
+  def generate_points_finger_for_paper(file_prefix: String, sample_num: Int, alpha_steps: Int): Unit = {
     val JR = DenseMatrix(
       (-0.08941, -0.0447, -0.009249, 0.03669, 0.1421, 0.2087, -0.2138),
       (-0.04689, -0.1496, 0.052,0.052, 0.0248, 0.0, 0.0248),
@@ -30,8 +34,7 @@ package object MainClass {
     val progression_forces = linspace(0.8,0.9999999999, length= 257).map(alpha => max_force_vector*alpha)
     val array_progression_forces = progression_forces.toArray
 
-    array_progression_forces.par.map(x => hit_run_recursive_forcevector(sample_num,x,H_matrix,"finger"))
-
+    array_progression_forces.map(x => hit_run_recursive_forcevector(sample_num,x,H_matrix,file_prefix))
 
   }
   def generate_points_toy_example_for_paper(toy_sample_num: Int) {
@@ -160,39 +163,21 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
     val full_length = matrix.rows
     matrix(Range(1,full_length+1),::)
   }
+
   def hit_run_recursive_forcevector(num: Int, force_vector: DenseVector[Double], H_matrix: DenseMatrix[Double], plant_name: String) {
     val StartingPoint = GenStartingPoint(H_matrix,force_vector)
     println("Starting point is " +StartingPoint)
     val OrthonormalBasis = Ortho(Basis(H_matrix)).toDenseMatrix
-    val feasible_activations = trim_first_row(hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H_matrix.cols),num,StartingPoint))
-
-
-
+    val output_db = hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H_matrix.cols),num,StartingPoint)
+    val feasible_activations = trim_first_row(output_db)
     println(
       "id174892" + " feasible activations are /n" + feasible_activations
     )
-    val FileName = Output.TimestampCSVName("output/" + plant_name + force_vector(0)).toString()
+    val FileName = Output.TimestampCSVName("output/" + plant_name + "_" +  force_vector(0)).toString()
     val MyFile = new java.io.File(FileName)
     csvwrite(MyFile, feasible_activations)
     println("Saved" + FileName)
   }
-
-  0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   //important! this does not subsample,so that needs to be addressed on a higher level
   def hit_and_run_recursive_acc(OrthonormalBasis: DenseMatrix[Double],matrix_so_far: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double]): DenseMatrix[Double] = {
