@@ -177,7 +177,6 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
     println("Saved" + FileName)
   }
 
-  0
 
 
 
