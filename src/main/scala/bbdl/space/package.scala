@@ -12,9 +12,9 @@ import breeze.util.JavaArrayOps
 package object MainClass {
   def main(args: Array[String]) {
 //    generate_points_toy_example_for_paper(1000000)
-    generate_points_finger_for_paper(1000000)
+    generate_points_finger_for_paper(sample_num = 100000, alpha_steps = 100)
   }
-  def generate_points_finger_for_paper(sample_num: Int): Unit = {
+  def generate_points_finger_for_paper(sample_num: Int, alpha_steps: Int): Unit = {
     val JR = DenseMatrix(
       (-0.08941, -0.0447, -0.009249, 0.03669, 0.1421, 0.2087, -0.2138),
       (-0.04689, -0.1496, 0.052,0.052, 0.0248, 0.0, 0.0248),
@@ -26,7 +26,8 @@ package object MainClass {
     val positive_distal_direction = DenseVector(1.0,0.0,0.0,0.0) //pure force, with no torques
     val max_out_res = MaximumOutput(H_matrix, positive_distal_direction)
     val max_force_vector = max_out_res._1
-    val progression_forces = linspace(0.00000001,0.9, length= 10).map(alpha => max_force_vector*alpha)
+    println(max_force_vector)
+    val progression_forces = linspace(0.8,0.9999999999, length= 257).map(alpha => max_force_vector*alpha)
     val array_progression_forces = progression_forces.toArray
 
     array_progression_forces.par.map(x => hit_run_recursive_forcevector(sample_num,x,H_matrix,"finger"))
@@ -155,11 +156,18 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
     println("Saved" + FileName)
   }
 
+  def trim_first_row(matrix: DenseMatrix[Double]): DenseMatrix[Double] = {
+    val full_length = matrix.rows
+    matrix(Range(1,full_length+1),::)
+  }
   def hit_run_recursive_forcevector(num: Int, force_vector: DenseVector[Double], H_matrix: DenseMatrix[Double], plant_name: String) {
     val StartingPoint = GenStartingPoint(H_matrix,force_vector)
     println("Starting point is " +StartingPoint)
     val OrthonormalBasis = Ortho(Basis(H_matrix)).toDenseMatrix
-    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H_matrix.cols),num,StartingPoint)
+    val feasible_activations = trim_first_row(hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H_matrix.cols),num,StartingPoint))
+
+
+
     println(
       "id174892" + " feasible activations are /n" + feasible_activations
     )
@@ -169,7 +177,7 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
     println("Saved" + FileName)
   }
 
-
+  0
 
 
 
