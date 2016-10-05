@@ -65,6 +65,7 @@ main <- function(filename_list, folder_path = ""){
 		},
 		mc.cores=8)
 	message("2")
+
 	list_of_histogram_sublists <- lapply(list_of_point_matrices, histogram_all_columns)
 	
 	#split the ublists and reorder into histograms by muscle

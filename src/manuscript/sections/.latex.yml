@@ -1,3 +1,0 @@
-# In .latex.yml
-compiler: pdflatex, xelatex
-root_file: root.tex

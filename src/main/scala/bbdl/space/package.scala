@@ -12,7 +12,7 @@ import breeze.util.JavaArrayOps
 package object MainClass {
   def main(args: Array[String]) {
 //    generate_points_toy_example_for_paper(1000000)
-    generate_points_finger_for_paper(sample_num = 100000, alpha_steps = 100)
+    generate_points_finger_for_paper(sample_num = 1000, alpha_steps = 100)
   }
   def generate_points_finger_for_paper(sample_num: Int, alpha_steps: Int): Unit = {
     val JR = DenseMatrix(
