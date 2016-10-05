@@ -150,7 +150,7 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
     println(
       "id174892" + " feasible activations are /n" + feasible_activations
     )
-    val FileName = Output.TimestampCSVName("output/" + "toy_example_recursive" + force_vector(0) +"N_positive").toString()
+    val FileName = Output.TimestampCSVName("output/" + "toy_example_recursive" + force_vector(0) +"N_positive_").toString()
     val MyFile = new java.io.File(FileName)
     csvwrite(MyFile, feasible_activations)
     println("Saved" + FileName)
@@ -162,16 +162,9 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
   }
   def hit_run_recursive_forcevector(num: Int, force_vector: DenseVector[Double], H_matrix: DenseMatrix[Double], plant_name: String) {
     val StartingPoint = GenStartingPoint(H_matrix,force_vector)
-    println("Starting point is " +StartingPoint)
     val OrthonormalBasis = Ortho(Basis(H_matrix)).toDenseMatrix
     val feasible_activations = trim_first_row(hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H_matrix.cols),num,StartingPoint))
-
-
-
-    println(
-      "id174892" + " feasible activations are /n" + feasible_activations
-    )
-    val FileName = Output.TimestampCSVName("output/" + plant_name + force_vector(0)).toString()
+    val FileName = Output.TimestampCSVName("output/" + plant_name + force_vector(0) + "_").toString()
     val MyFile = new java.io.File(FileName)
     csvwrite(MyFile, feasible_activations)
     println("Saved" + FileName)
