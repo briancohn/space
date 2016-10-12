@@ -165,10 +165,10 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
     val StartingPoint = GenStartingPoint(H_matrix,force_vector)
     val OrthonormalBasis = Ortho(Basis(H_matrix)).toDenseMatrix
     val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H_matrix.cols),num,StartingPoint, is_the_first_seed_point = true)
-    val slice_indices = Range(100,1001,100).toArray
-    slice_indices.map(
-      x => feasible_activations(1,::)
-    )
+//    val slice_indices = Range(100,1001,100).toArray
+//    slice_indices.map(
+//      x => feasible_activations(1,::)
+//    )
 
     val FileName = Output.TimestampCSVName("output/" + plant_name + force_vector(0) + "_").toString()
     val MyFile = new java.io.File(FileName)
