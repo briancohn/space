@@ -1,5 +1,6 @@
 package bbdl
 import bbdl.space._
+import breeze.linalg.DenseMatrix._
 import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
@@ -103,7 +104,7 @@ def hit_and_run_repetitions(H: DenseMatrix[Double], forcevector: DenseVector[Dou
     val Basis_H = Basis(H)
     val OrthonormalBasis = Ortho(Basis_H).toDenseMatrix
     val StartingPoint = GenStartingPoint(H,forcevector)
-    val matrix_of_feasible_x_vectors = DenseMatrix.ones[Double](n,H.cols) // prep the matrix to hold all the resultant data
+    val matrix_of_feasible_x_vectors = ones[Double](n,H.cols) // prep the matrix to hold all the resultant data
     matrix_of_feasible_x_vectors(*, ::).map(dv => HitAndRun(OrthonormalBasis,StartingPoint,RandomObject))
     //HitAndRun(OrthonormalBasis,StartingPoint,RandomObject)
   }
@@ -128,7 +129,7 @@ def cadaver_experiment_H_hit_and_run(num: Int, force_vector: DenseVector[Double]
     //val forcevector_scaled_down = forcevector*1.0
     val StartingPoint = GenStartingPoint(H,force_vector)
     println("Starting point is " +StartingPoint)
-    val feasible_activations = hit_and_run_recursive_acc(Ortho(Basis(H)).toDenseMatrix, DenseMatrix.zeros[Double](1,H.cols),num,StartingPoint)
+    val feasible_activations = hit_and_run_recursive_acc(Ortho(Basis(H)).toDenseMatrix, zeros[Double](1,H.cols),num,StartingPoint)
     println(
       "id174892" + " feasible activations are /n" + feasible_activations
     )
@@ -147,7 +148,7 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
     val StartingPoint = GenStartingPoint(H,force_vector)
     println("Starting point is " +StartingPoint)
     val OrthonormalBasis = Ortho(Basis(H)).toDenseMatrix
-    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H.cols),num,StartingPoint)
+    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, zeros[Double](1,H.cols),num,StartingPoint)
     println(
       "id174892" + " feasible activations are /n" + feasible_activations
     )
@@ -164,15 +165,21 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
   def hit_run_recursive_forcevector(num: Int, force_vector: DenseVector[Double], H_matrix: DenseMatrix[Double], plant_name: String) {
     val StartingPoint = GenStartingPoint(H_matrix,force_vector)
     val OrthonormalBasis = Ortho(Basis(H_matrix)).toDenseMatrix
-    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H_matrix.cols),num,StartingPoint, is_the_first_seed_point = true)
-//    val slice_indices = Range(100,1001,100).toArray
-//    slice_indices.map(
-//      x => feasible_activations(1,::)
-//    )
+    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, zeros[Double](1,H_matrix.cols),num,StartingPoint, is_the_first_seed_point = true)
+    val slice_indices = Range(100,1000,100).toArray
+    val index_iterator_for_slices = Range(0, slice_indices.length).toArray
+    val subsampled_activations = index_iterator_for_slices.map(x => feasible_activations(slice_indices(x),::).t).map(x => x.toDenseMatrix)
+    DenseMatrix.vertcat(subsampled_activations: _*)
+
+
+
+//    val concatenated_matrix = DenseMatrix.vertcat(subsampled_activations: _*)
+
+//    val concatenated_matrix = subsampled_activations.reduceLeft((first_mat, second_mat) => DenseMatrix.vertcat(first_mat.t,second_mat.t))
 
     val FileName = Output.TimestampCSVName("output/" + plant_name + force_vector(0) + "_").toString()
     val MyFile = new java.io.File(FileName)
-    csvwrite(MyFile, feasible_activations)
+    csvwrite(MyFile, feasible_activations )
     println("Saved" + FileName)
   }
 
@@ -213,7 +220,7 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
       //gen new point
       val NewPoint = HitAndRun(OrthonormalBasis, CurrentPoint, new scala.util.Random(iterations_remaining)) //here I use the iterations as the seed
       //add point to db
-      val matrix_so_far_with_new_point = DenseMatrix.vertcat(matrix_so_far, NewPoint.toDenseMatrix)
+      val matrix_so_far_with_new_point = vertcat(matrix_so_far, NewPoint.toDenseMatrix)
       //recurse now with the new point as the new seed
       hit_and_run_recursive_acc(OrthonormalBasis, matrix_so_far_with_new_point, iterations_remaining - 1, NewPoint)
     }
