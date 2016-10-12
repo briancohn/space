@@ -30,7 +30,7 @@ package object MainClass {
     val progression_forces = linspace(0.8,0.9999999999, length= 257).map(alpha => max_force_vector*alpha)
     val array_progression_forces = progression_forces.toArray
 
-    array_progression_forces.par.map(x => hit_run_recursive_forcevector(sample_num,x,H_matrix,"finger"))
+    array_progression_forces.map(x => hit_run_recursive_forcevector(sample_num,x,H_matrix,"finger"))
 
 
   }
@@ -163,7 +163,7 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
   def hit_run_recursive_forcevector(num: Int, force_vector: DenseVector[Double], H_matrix: DenseMatrix[Double], plant_name: String) {
     val StartingPoint = GenStartingPoint(H_matrix,force_vector)
     val OrthonormalBasis = Ortho(Basis(H_matrix)).toDenseMatrix
-    val feasible_activations = trim_first_row(hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H_matrix.cols),num,StartingPoint))
+    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H_matrix.cols),num,StartingPoint)
     val FileName = Output.TimestampCSVName("output/" + plant_name + force_vector(0) + "_").toString()
     val MyFile = new java.io.File(FileName)
     csvwrite(MyFile, feasible_activations)
@@ -186,7 +186,7 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
 
 
 
-  //important! this does not subsample,so that needs to be addressed on a higher level
+  //important! this does not subsample, so that needs to be addressed on a higher level
   def hit_and_run_recursive_acc(OrthonormalBasis: DenseMatrix[Double],matrix_so_far: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double]): DenseMatrix[Double] = {
     def we_have_done_enough_samples(n: Int): Boolean = {n == 0}
 
