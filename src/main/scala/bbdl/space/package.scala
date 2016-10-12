@@ -6,6 +6,7 @@ import breeze.math._
 import breeze.stats._
 import breeze.util.JavaArrayOps
 
+
 /**
  * Created by Brian on 2/13/15.
  */
@@ -163,7 +164,7 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
   def hit_run_recursive_forcevector(num: Int, force_vector: DenseVector[Double], H_matrix: DenseMatrix[Double], plant_name: String) {
     val StartingPoint = GenStartingPoint(H_matrix,force_vector)
     val OrthonormalBasis = Ortho(Basis(H_matrix)).toDenseMatrix
-    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H_matrix.cols),num,StartingPoint)
+    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, DenseMatrix.zeros[Double](1,H_matrix.cols),num,StartingPoint, is_the_first_seed_point = true)
     val FileName = Output.TimestampCSVName("output/" + plant_name + force_vector(0) + "_").toString()
     val MyFile = new java.io.File(FileName)
     csvwrite(MyFile, feasible_activations)
@@ -187,20 +188,27 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
 
 
   //important! this does not subsample, so that needs to be addressed on a higher level
-  def hit_and_run_recursive_acc(OrthonormalBasis: DenseMatrix[Double],matrix_so_far: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double]): DenseMatrix[Double] = {
+  def hit_and_run_recursive_acc(OrthonormalBasis: DenseMatrix[Double],matrix_so_far: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double], is_the_first_seed_point: Boolean = false): DenseMatrix[Double] = {
+
     def we_have_done_enough_samples(n: Int): Boolean = {n == 0}
 
     if (we_have_done_enough_samples(iterations_remaining)) {
       println("finished. Length of matrix is" + matrix_so_far.rows)
-      //return the finished matrix
       matrix_so_far
   }
-    else {
+    else if (is_the_first_seed_point) {
+      val NewPoint = HitAndRun(OrthonormalBasis, CurrentPoint, new scala.util.Random(iterations_remaining)) //here I use the iterations as the seed
+      //add point to db
+      val matrix_so_far_with_new_point = NewPoint.toDenseMatrix
+      //recurse now with the new point as the new seed
+      hit_and_run_recursive_acc(OrthonormalBasis, matrix_so_far_with_new_point, iterations_remaining - 1, NewPoint)
+    }
+    else
+    {
       //gen new point
       val NewPoint = HitAndRun(OrthonormalBasis, CurrentPoint, new scala.util.Random(iterations_remaining)) //here I use the iterations as the seed
       //add point to db
       val matrix_so_far_with_new_point = DenseMatrix.vertcat(matrix_so_far, NewPoint.toDenseMatrix)
-//      println("NewPoint. Iterations remaining = " + iterations_remaining)
       //recurse now with the new point as the new seed
       hit_and_run_recursive_acc(OrthonormalBasis, matrix_so_far_with_new_point, iterations_remaining - 1, NewPoint)
     }
