@@ -34,7 +34,7 @@ package object MainClass {
     val max_force_vector = max_out_res._1
     println(max_force_vector)
 
-    val progression_forces = linspace(0.8,0.9999999999, length= alpha_steps).map(alpha => max_force_vector*alpha)
+    val progression_forces = linspace(0.0,0.9999999999, length= alpha_steps).map(alpha => max_force_vector*alpha)
     val array_progression_forces = progression_forces.toArray
 
     array_progression_forces.map(x => hit_run_recursive_forcevector(nSamples, nSubsamples, x, H_matrix,"finger"))
