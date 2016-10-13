@@ -1,4 +1,6 @@
 package bbdl
+import java.nio.file.{Files, Path, Paths}
+
 import bbdl.space._
 import breeze.linalg.DenseMatrix._
 import breeze.linalg._
@@ -14,8 +16,31 @@ import breeze.util.JavaArrayOps
 package object MainClass {
   def main(args: Array[String]) {
 //    generate_points_toy_example_for_paper(1000000)
-    generate_points_finger_for_paper(sample_num = 1000, alpha_steps = 100)
+    generate_points_for_paracord_animation(nSamples = 1000, nSubsamples = 10, alpha_steps = 300)
   }
+
+  def generate_points_for_paracord_animation(nSamples: Int = 1000, nSubsamples: Int = 100, alpha_steps: Int = 300): Unit = {
+
+    val JR = DenseMatrix(
+      (-0.08941, -0.0447, -0.009249, 0.03669, 0.1421, 0.2087, -0.2138),
+      (-0.04689, -0.1496, 0.052,0.052, 0.0248, 0.0, 0.0248),
+      (0.06472, 0.001953, -0.1518,-0.1518, 0.2919, 0.0568, 0.2067),
+      (0.003081, -0.002352, -0.0001649, -0.0001649, -0.0004483, 0.0001579, -0.000685)
+    )
+    val Fm: DenseVector[Double] = DenseVector(123.0, 219.0,	23.52, 91.74,	21.6,	124.8,129.6)
+    val H_matrix = JR*diag(Fm)
+    val positive_distal_direction = DenseVector(1.0,0.0,0.0,0.0) //pure force, with no torques
+    val max_out_res = MaximumOutput(H_matrix, positive_distal_direction)
+    val max_force_vector = max_out_res._1
+    println(max_force_vector)
+
+    val progression_forces = linspace(0.0,0.9999999999, length= alpha_steps).map(alpha => max_force_vector*alpha)
+    val array_progression_forces = progression_forces.toArray
+
+    array_progression_forces.map(x => hit_run_recursive_forcevector(nSamples, nSubsamples, x, H_matrix,"finger"))
+
+  }
+
   def generate_points_finger_for_paper(sample_num: Int, alpha_steps: Int): Unit = {
     val JR = DenseMatrix(
       (-0.08941, -0.0447, -0.009249, 0.03669, 0.1421, 0.2087, -0.2138),
@@ -32,7 +57,7 @@ package object MainClass {
     val progression_forces = linspace(0.8,0.9999999999, length= 257).map(alpha => max_force_vector*alpha)
     val array_progression_forces = progression_forces.toArray
 
-    array_progression_forces.map(x => hit_run_recursive_forcevector(sample_num,x,H_matrix,"finger"))
+    array_progression_forces.map(x => hit_run_recursive_forcevector(sample_num, 100, x,H_matrix,"finger"))
 
 
   }
@@ -162,24 +187,31 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
     val full_length = matrix.rows
     matrix(Range(1,full_length+1),::)
   }
-  def hit_run_recursive_forcevector(num: Int, force_vector: DenseVector[Double], H_matrix: DenseMatrix[Double], plant_name: String) {
+
+  def hit_run_recursive_forcevector(nSamples: Int, nSubSamples: Int, force_vector: DenseVector[Double], H_matrix: DenseMatrix[Double], plant_name: String) {
+
     val StartingPoint = GenStartingPoint(H_matrix,force_vector)
     val OrthonormalBasis = Ortho(Basis(H_matrix)).toDenseMatrix
-    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, zeros[Double](1,H_matrix.cols),num,StartingPoint, is_the_first_seed_point = true)
-    val slice_indices = Range(100,1000,100).toArray
+    val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, zeros[Double](1,H_matrix.cols),nSamples,StartingPoint, is_the_first_seed_point = true)
+
+    // subsampling
+    val subsampleSteps = nSamples/nSubSamples
+    val slice_indices = Range(subsampleSteps,nSamples+1,subsampleSteps).toArray.map(x => x-1)
     val index_iterator_for_slices = Range(0, slice_indices.length).toArray
+
+    // Generate matrix of subsampled activations
     val subsampled_activations = index_iterator_for_slices.map(x => feasible_activations(slice_indices(x),::).t).map(x => x.toDenseMatrix)
-    DenseMatrix.vertcat(subsampled_activations: _*)
+    val subsampled_activation_matrix = DenseMatrix.vertcat(subsampled_activations: _*)
 
+    // output to file
 
-
-//    val concatenated_matrix = DenseMatrix.vertcat(subsampled_activations: _*)
-
-//    val concatenated_matrix = subsampled_activations.reduceLeft((first_mat, second_mat) => DenseMatrix.vertcat(first_mat.t,second_mat.t))
+    if(!Files.exists(Paths.get("output/"))) {
+      Files.createDirectories(Paths.get("output"));
+    }
 
     val FileName = Output.TimestampCSVName("output/" + plant_name + force_vector(0) + "_").toString()
     val MyFile = new java.io.File(FileName)
-    csvwrite(MyFile, feasible_activations )
+    csvwrite(MyFile, subsampled_activation_matrix)
     println("Saved" + FileName)
   }
 
