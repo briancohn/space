@@ -16,7 +16,16 @@ import breeze.util.JavaArrayOps
 package object MainClass {
   def main(args: Array[String]) {
 //    generate_points_toy_example_for_paper(1000000)
-    generate_points_for_paracord_animation(nSamples = 1000, nSubsamples = 10, alpha_steps = 300)
+    if args[0] == "paracord_animation"
+    y
+
+    def decide_analysis(string_input: String): String = string_input match {
+      // Then you specify the patterns:
+      case "paracord_animation" => generate_points_for_paracord_animation(nSamples = 10000, nSubsamples = 10, alpha_steps = 300)
+      case "high_density_heatmap" =>
+      case ""     =>
+    }
+
   }
 
   def generate_points_for_paracord_animation(nSamples: Int = 1000, nSubsamples: Int = 100, alpha_steps: Int = 300): Unit = {
