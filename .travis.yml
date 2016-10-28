@@ -10,7 +10,9 @@ script:
   - sbt update
   - sbt compile
   - sbt test
-  - sbt run
+  - sbt "run parcoord_animation"
+  - sbt "run toy_example_test"
+  - sbt "run high_density_heatmap"
 jdk:
   - oraclejdk7
 notifications:
