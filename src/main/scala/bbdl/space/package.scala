@@ -18,7 +18,7 @@ package object MainClass {
   def main(args: Array[String]) {
     def generate_requested_simulation(string_input: String): Unit = {
       if (string_input == "paracord_animation")   generate_points_for_paracord_animation(nSamples = 10000, nSubsamples = 10, alpha_steps = 300)
-      if (string_input == "high_density_heatmap")  generate_points_finger_for_paper(1000, 20)
+      if (string_input == "high_density_heatmap")  generate_points_finger_for_paper(100000, 3)
       if (string_input == "toy_example_test")      generate_points_toy_example_for_paper(1000000)
       else println("No string matched for simulation.")
     }
