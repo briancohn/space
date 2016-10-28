@@ -14,18 +14,15 @@ import breeze.util.JavaArrayOps
  * Created by Brian on 2/13/15.
  */
 package object MainClass {
+
   def main(args: Array[String]) {
-//    generate_points_toy_example_for_paper(1000000)
-    if args[0] == "paracord_animation"
-    y
-
-    def decide_analysis(string_input: String): String = string_input match {
-      // Then you specify the patterns:
-      case "paracord_animation" => generate_points_for_paracord_animation(nSamples = 10000, nSubsamples = 10, alpha_steps = 300)
-      case "high_density_heatmap" =>
-      case ""     =>
+    def generate_requested_simulation(string_input: String): Unit = {
+      if (string_input == "paracord_animation")   generate_points_for_paracord_animation(nSamples = 10000, nSubsamples = 10, alpha_steps = 300)
+      if (string_input == "high_density_heatmap")  generate_points_finger_for_paper(1000, 20)
+      if (string_input == "toy_example_test")      generate_points_toy_example_for_paper(1000000)
+      else println("No string matched for simulation.")
     }
-
+    generate_requested_simulation(args(0))
   }
 
   def generate_points_for_paracord_animation(nSamples: Int = 1000, nSubsamples: Int = 100, alpha_steps: Int = 300): Unit = {
@@ -46,7 +43,7 @@ package object MainClass {
     val progression_forces = linspace(0.0,0.9999999999, length= alpha_steps).map(alpha => max_force_vector*alpha)
     val array_progression_forces = progression_forces.toArray
 
-    array_progression_forces.map(x => hit_run_recursive_forcevector(nSamples, nSubsamples, x, H_matrix,"finger"))
+    array_progression_forces.map(x => hit_run_recursive_forcevector(nSamples, nSubsamples, x, H_matrix,"parcoord_animation_finger"))
 
   }
 
@@ -63,10 +60,10 @@ package object MainClass {
     val max_out_res = MaximumOutput(H_matrix, positive_distal_direction)
     val max_force_vector = max_out_res._1
     println(max_force_vector)
-    val progression_forces = linspace(0.8,0.9999999999, length= 257).map(alpha => max_force_vector*alpha)
+    val progression_forces = linspace(0.0,0.9999999999, length= sample_num).map(alpha => max_force_vector*alpha)
     val array_progression_forces = progression_forces.toArray
 
-    array_progression_forces.map(x => hit_run_recursive_forcevector(sample_num, 100, x,H_matrix,"finger"))
+    array_progression_forces.map(x => hit_run_recursive_forcevector(sample_num, 100, x,H_matrix,"heatmap_progression_finger"))
 
 
   }
@@ -196,14 +193,14 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
     val full_length = matrix.rows
     matrix(Range(1,full_length+1),::)
   }
-
+// this algorithm is the hit and run algorithm. Mixing time is defined by the nSubSamples variable
   def hit_run_recursive_forcevector(nSamples: Int, nSubSamples: Int, force_vector: DenseVector[Double], H_matrix: DenseMatrix[Double], plant_name: String) {
 
     val StartingPoint = GenStartingPoint(H_matrix,force_vector)
     val OrthonormalBasis = Ortho(Basis(H_matrix)).toDenseMatrix
     val feasible_activations = hit_and_run_recursive_acc(OrthonormalBasis, zeros[Double](1,H_matrix.cols),nSamples,StartingPoint, is_the_first_seed_point = true)
 
-    // subsampling
+    // Subsampling
     val subsampleSteps = nSamples/nSubSamples
     val slice_indices = Range(subsampleSteps,nSamples+1,subsampleSteps).toArray.map(x => x-1)
     val index_iterator_for_slices = Range(0, slice_indices.length).toArray
@@ -240,7 +237,7 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
 
 
 
-  //important! this does not subsample, so that needs to be addressed on a higher level
+  //important! this does not subsample
   def hit_and_run_recursive_acc(OrthonormalBasis: DenseMatrix[Double],matrix_so_far: DenseMatrix[Double], iterations_remaining:Int, CurrentPoint: DenseVector[Double], is_the_first_seed_point: Boolean = false): DenseMatrix[Double] = {
 
     def we_have_done_enough_samples(n: Int): Boolean = {n == 0}
@@ -266,6 +263,8 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
       hit_and_run_recursive_acc(OrthonormalBasis, matrix_so_far_with_new_point, iterations_remaining - 1, NewPoint)
     }
   }
+
+
 
 }
 
