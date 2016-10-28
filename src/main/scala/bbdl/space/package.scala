@@ -17,15 +17,16 @@ package object MainClass {
 
   def main(args: Array[String]) {
     def generate_requested_simulation(string_input: String): Unit = {
-      if (string_input == "paracord_animation")   generate_points_for_paracord_animation(nSamples = 10000, nSubsamples = 10, alpha_steps = 300)
+      if (string_input == "parcoord_animation")   generate_points_for_parcoord_animation(nSamples = 10000, nSubsamples = 10, alpha_steps = 300)
       if (string_input == "high_density_heatmap")  generate_points_finger_for_paper(100000, 3)
       if (string_input == "toy_example_test")      generate_points_toy_example_for_paper(1000000)
       else println("No string matched for simulation.")
     }
+    println(args)
     generate_requested_simulation(args(0))
   }
 
-  def generate_points_for_paracord_animation(nSamples: Int = 1000, nSubsamples: Int = 100, alpha_steps: Int = 300): Unit = {
+  def generate_points_for_parcoord_animation(nSamples: Int = 1000, nSubsamples: Int = 100, alpha_steps: Int = 300): Unit = {
 
     val JR = DenseMatrix(
       (-0.08941, -0.0447, -0.009249, 0.03669, 0.1421, 0.2087, -0.2138),
