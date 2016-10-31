@@ -7,9 +7,8 @@ require(tools)
 # returns an extended dataframe from original data
 # make 3 sections: 1= data, 2= normalized costs, 3= raw costs
 make_dataframe = function(data) {
-  m = dim(data)[2]
-  data[(m+1):(m+12)] = 0
-  colnames(data) = 1:(m+12)
+  #m = dim(data)[2]
+  #colnames(data) = 1:(m+12)
   return(data)
 }
 
@@ -69,19 +68,20 @@ fill_axes = function(df) {
 
 
 # plot point lines
-points = function(df,alpha) {
-  m  = dim(df)[2] - 12
+add_paracoord_points = function(df,alpha) {
+  m  = dim(df)[2]
   
   # define transparency and margins
   color_transparent <- adjustcolor(col='blue', alpha.f = alpha)
   
   #plot points
-  plot(colnames(df)[1:(m+6)], df[1,1:(m+6)], type='l', col=color_transparent, ylim=c(0.0,1.1), 
+  colnames(df) = 1:m
+  plot(colnames(df), df[1,1:m], type='l', col=color_transparent, ylim=c(0.0,1.1), 
        lwd=0.2, axes=FALSE,ann=FALSE)
   
   N = dim(df)[1]
-  for (i in 2:N) {
-    lines(colnames(df)[1:(m+6)], df[i,1:(m+6)], type='l', lwd=0.2, col=color_transparent, ylim=c(0.0,1.1))
+  for(i in 2:N) {
+    lines(colnames(df), df[i,], type='l', lwd=0.2, col=color_transparent, ylim=c(0.0,1.1))
   }
 }
 
@@ -118,54 +118,24 @@ get_axis_bounds = function(df,axnum) {
 
 
 # plot axes
-axes = function(df){
-  m  = dim(df)[2] - 12
+create_axes = function(df, finger=FALSE){
+  m  = dim(df)[2]
   
   # create custom axis for each muscle
   for (axnum in 1:m) {
     axis(2, at=seq(0,1,0.2), pos=axnum, las=2, lwd=0.2, tck=-0.005, cex.axis=0.2, hadj=1.5)
   }
   
-  # custom axes for costs
-  for (axnum in (m+1):(m+6)) {
-    A = get_axis_bounds(df, axnum)
-    
-    if (A$high != Inf) {
-      # axes for custom normalized label locations
-      axis(2, at=seq(A$low,A$high,A$inc), pos=axnum, labels=A$labels, 
-           las=2, lwd=0.2, tck=-0.005, cex.axis=0.2, hadj=1.5)
-      
-      # empty axis to make sure it extends all the way from end to end
-      axis(2, at=c(0,1), pos=axnum, labels=c('',''), las=2, lwd=0.2, tck=-0.005, cex.axis=0.2)
-    }
-    else {
-      axis(2, at=seq(0,1,0.2), pos=axnum, las=2, lwd=0.2, tck=-0.005, cex.axis=0.2, hadj=1.5)
-    }
-    
-  }
+  label_axes(df, finger=finger)
 }
-
 
 # label the axes
 label_axes = function(df,finger=FALSE) {
-  m  = dim(df)[2] - 12
+  m  = dim(df)[2]
   
-  if (finger==TRUE & m==7) {
-    axis(3, at=1:13, lwd=0, cex.axis=0.3, 
-         lab=c('FP','FS','DI','PI','EI','LUM','EC','L1','L2','L3','L1W','L2W','L3W'), 
-         pos=1, padj=0)
-  }
-  else {
-    mlabels = 1:(m+6)
-    for (i in 1:m){
-      mlabels[i] = paste(c("M",i),collapse="")
-    }
-    mlabels[(m+1):(m+6)] = c('L1','L2','L3','L1W','L2W','L3W')
-    
-    axis(3, at=1:(m+6), lwd=0, cex.axis=0.3,
-         lab=mlabels,
-         pos=1,padj=0)
-  }
+  axis(3, at=1:m, lwd=0, cex.axis=0.3, 
+       lab=c('FP','FS','DI','PI','EI','LUM','EC'), 
+       pos=1, padj=0)
 }
 
 
@@ -173,14 +143,12 @@ label_axes = function(df,finger=FALSE) {
 pdf_plot = function(df,alpha,finger=FALSE, outputdir, filename) {
   # start pdf
   #pdf(file=paste(outputdir, filename, sep="/"), height=2.3, width=4,compress=FALSE)
-  jpeg(file=paste(outputdir, filename, sep="/"), width=480, height=480)
+  jpeg(file=paste(outputdir, filename, sep="/"), width=600, height=600, quality=100)
   # plot lines
   par(mar=c(0,0,0,0), mgp=c(0,0,0))
-  points(df,alpha)
+  add_paracoord_points(df,alpha)
   # plot axes
-  axes(df)
-  # label axes
-  label_axes(df,finger)
+  create_axes(df, finger)
   # flush out pdf
   dev.off()
 }
@@ -238,11 +206,11 @@ pdf_mplot = function(df,alpha,finger=FALSE) {
 # make_plot
 # in: csv file (file), (fmax), number of points (N), transparency (t)
 # out: pdf of plot in Downloads folder
-make_plot = function(file, fmax, N, t, finger=FALSE, outputdir) {
-  data = read.csv(file)
-  df = make_dataframe(data[1:N,])
-  df = fill_costs(df,fmax)
-  df = fill_axes(df)
+paracoord_plot = function(file, fmax, N, t, finger=FALSE, outputdir) {
+  df = read.csv(file)
+  #df = make_dataframe(data[1:N,])
+  #df = fill_costs(df,fmax)
+  #df = fill_axes(df)
   pdf_plot(df,t,finger, outputdir=outputdir, filename=paste(basename(file_path_sans_ext(file)),"_plot.jpg", sep=""))
 }
 
