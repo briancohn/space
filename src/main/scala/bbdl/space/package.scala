@@ -209,7 +209,7 @@ def toy_example_recursive(num: Int, force_vector: DenseVector[Double]) {
       Files.createDirectories(Paths.get("output"));
     }
 
-    val FileName = Output.TimestampCSVName("output/" + plant_name + force_vector(0) + "_").toString()
+    val FileName = Output.TimestampCSVName("output/" + plant_name + "_forcevector_" + force_vector(0) + "_").toString()
     val MyFile = new java.io.File(FileName)
     csvwrite(MyFile, subsampled_activation_matrix)
     println("Saved" + FileName)
