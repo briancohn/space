@@ -39,6 +39,7 @@ sort_files_by_ascending_force_value <- function(list_of_filenames){
 	value = substr(list_of_filenames,0,1)
 	force_vals_per_filename <- lapply(list_of_filenames, extract_float_from_filepath)
 	sort(force_vals_per_filename, index.return = TRUE)) #get the indices from here, those will be your sorted indices
+# https://stat.ethz.ch/R-manual/R-devel/library/base/html/sort.html
 	list_of_files[sorted_indices]
 }
 
