@@ -41,6 +41,9 @@ package object MainClass {
 
   }
 
+
+
+
   def generate_points_finger_for_paper(sample_num: Int, alpha_steps: Int): Unit = {
     val JR = DenseMatrix(
       (-0.08941, -0.0447, -0.009249, 0.03669, 0.1421, 0.2087, -0.2138),
