@@ -206,12 +206,12 @@ pdf_mplot = function(df,alpha,finger=FALSE) {
 # make_plot
 # in: csv file (file), (fmax), number of points (N), transparency (t)
 # out: pdf of plot in Downloads folder
-paracoord_plot = function(file, fmax, N, t, finger=FALSE, outputdir) {
+paracoord_plot = function(file, fmax, N, t, finger=FALSE, outputdir, outputname=basename(file_path_sans_ext(file))) {
   df = read.csv(file)
   #df = make_dataframe(data[1:N,])
   #df = fill_costs(df,fmax)
   #df = fill_axes(df)
-  pdf_plot(df,t,finger, outputdir=outputdir, filename=paste(basename(file_path_sans_ext(file)),"_plot.jpg", sep=""))
+  pdf_plot(df,t,finger, outputdir=outputdir, filename=,paste(outputname,".jpg", sep=""))
 }
 
 
