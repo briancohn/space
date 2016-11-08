@@ -44,7 +44,7 @@ main <- function(path="~/Documents/GitHub/bcohn12/space/output/", output_directo
 	#browser()
 	sorted_files <- sort_files_by_ascending_force_value(files)
 	lapply(sorted_files, function(file) {
-	  paracoord_plot(file, fmax, 9, 0.7, outputdir=output_directory, outputname=extract_float_from_filepath(file))
+	  paracoord_plot(file, fmax, 9, 0.8, outputdir=output_directory, outputname=extract_float_from_filepath(file))
 	})
 }
 

@@ -143,7 +143,7 @@ label_axes = function(df,finger=FALSE) {
 pdf_plot = function(df,alpha,finger=FALSE, outputdir, filename) {
   # start pdf
   #pdf(file=paste(outputdir, filename, sep="/"), height=2.3, width=4,compress=FALSE)
-  jpeg(file=paste(outputdir, filename, sep="/"), width=600, height=600, quality=100)
+  jpeg(file=paste(outputdir, filename, sep="/"), width=600, height=600, quality=1, res=300)
   # plot lines
   par(mar=c(0,0,0,0), mgp=c(0,0,0))
   add_paracoord_points(df,alpha)
