@@ -143,7 +143,7 @@ label_axes = function(df,finger=FALSE) {
 pdf_plot = function(df,alpha,finger=FALSE, outputdir, filename) {
   # start pdf
   #pdf(file=paste(outputdir, filename, sep="/"), height=2.3, width=4,compress=FALSE)
-  jpeg(file=paste(outputdir, filename, sep="/"), width=600, height=600, quality=100)
+  jpeg(file=paste(outputdir, filename, sep="/"), width=600, height=600, quality=1, res=300)
   # plot lines
   par(mar=c(0,0,0,0), mgp=c(0,0,0))
   add_paracoord_points(df,alpha)
@@ -206,12 +206,12 @@ pdf_mplot = function(df,alpha,finger=FALSE) {
 # make_plot
 # in: csv file (file), (fmax), number of points (N), transparency (t)
 # out: pdf of plot in Downloads folder
-paracoord_plot = function(file, fmax, N, t, finger=FALSE, outputdir) {
+paracoord_plot = function(file, fmax, N, t, finger=FALSE, outputdir, outputname=basename(file_path_sans_ext(file))) {
   df = read.csv(file)
   #df = make_dataframe(data[1:N,])
   #df = fill_costs(df,fmax)
   #df = fill_axes(df)
-  pdf_plot(df,t,finger, outputdir=outputdir, filename=paste(basename(file_path_sans_ext(file)),"_plot.jpg", sep=""))
+  pdf_plot(df,t,finger, outputdir=outputdir, filename=,paste(outputname,".jpg", sep=""))
 }
 
 
