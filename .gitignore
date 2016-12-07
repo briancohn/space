@@ -59,3 +59,4 @@ output/
 src/manuscript/root.pdf
 src/manuscript/root.pdf
 target/.history
+.Rproj.user
