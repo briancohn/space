@@ -1,6 +1,6 @@
 library(ggplot2)
 library(devtools)
-
+library(dplyr)
 pca_loadings_and_component_info <- function(hitrun_point_dataframe) {
 	res <- prcomp(hitrun_point_dataframe, scale=TRUE, center=TRUE)
 	return(res)
@@ -28,43 +28,50 @@ center_all_point_about_col_medians <- function(a){
 	return(a)
 }
 
+#you have to specify which PC you want
+#@param n is the number of samples form the hit run dataframe
+#@param PC is an integer, representing the PC you want. e.g. PC1 would be PC = 1
+#@return pc_variance_explained a numeric \in [0,1]
+variance_explained_for_a_PC_from_df <- function(hitrun_dataframe,n, PC){
+	sample_hitrun_df <- sample_n(hitrun_dataframe,n)
+	pca_info = pca_loadings_and_component_info(sample_hitrun_df)
+	pc_variance_explained <- proportions_of_variance_explained(pca_info)[[PC]]
+	return(pc_variance_explained)
+}
+get_vector_of_PC_variance_explained_for_subsampled_df <- function(hitrun_dataframe, sample_n, PC_of_interest, num_replicates){
+	do.call(c, lapply(1:100, function(x) variance_explained_for_a_PC_from_df(hitrun_dataframe, sample_n, PC_of_interest)))
+}
 
-
+variance_explained_boxplots_over_forceprogression <- function(list_of_hitrun_dataframes, sample_n, PC_of_interest, num_replicates){
+	list_of_PC_variance_vectors <- lapply(list_of_hitrun_dataframes, function(x) get_vector_of_PC_variance_explained_for_subsampled_df(x, sample_n, PC_of_interest, num_replicates))
+	names(list_of_PC_variance_vectors) <- c(0:9)
+	op <- par(mar = rep(1, 4))
+    boxplot(list_of_PC_variance_vectors, ylim=c(0,1), cex = 0.25, xlab="f_x", ylab= paste0("PC", PC_of_interest, "variance_expl."), main=paste(sample_n, "samples per PCA"), asp=1.0)
+    par(op)
+}
 
 main <- function(){
 	csv_files <- csv_filename_list()
 	list_of_hitrun_points <- lapply(csv_files, read.csv, header=FALSE)
-	list_of_hitrun_points <- lapply(list_of_hitrun_points, add_finger_muscle_name_cols)
-	browser()
+	list_of_hitrun_dataframes <- lapply(list_of_hitrun_points, add_finger_muscle_name_cols)
+	list_of_hitrun_points <- list_of_hitrun_dataframes
 
-
-	par(mfrow=c(2,2))
-	pdf("progression_histograms.pdf")
-		boxplot_hitrun_point(list_of_hitrun_points[[1]], "0 Newtons")
-		boxplot_hitrun_point(list_of_hitrun_points[[4]], "9 Newtons")
-		boxplot_hitrun_point(list_of_hitrun_points[[8]], "19 Newtons")
-		boxplot_hitrun_point(list_of_hitrun_points[[9]], "25 Newtons")
+	pdf("pc1_progression.pdf", width= 16, height = 9)
+	par(mfrow=c(2,3))
+	sample_sizes_to_evaluate_PC_on = c(10,100,1000)
+	#do pc1
+	lapply( sample_sizes_to_evaluate_PC_on,
+		function(x) variance_explained_boxplots_over_forceprogression(list_of_hitrun_dataframes, sample_n=x, PC_of_interest=1, num_replicates=100)
+		)
+	#do pc2
+	lapply( sample_sizes_to_evaluate_PC_on,
+		function(x) variance_explained_boxplots_over_forceprogression(list_of_hitrun_dataframes, sample_n=x, PC_of_interest=2, num_replicates=100)
+		)
+	#do pc3
+	# lapply( sample_sizes_to_evaluate_PC_on,
+	# 	function(x) variance_explained_boxplots_over_forceprogression(list_of_hitrun_dataframes, sample_n=x, PC_of_interest=3, num_replicates=100)
+	# 	)
 	dev.off()
-
-
-	list_of_hitrun_points_of_interest <- list(
-		list_of_hitrun_points[[1]],
-		list_of_hitrun_points[[2]],
-		list_of_hitrun_points[[3]],
-		list_of_hitrun_points[[4]],
-		list_of_hitrun_points[[5]],
-		list_of_hitrun_points[[6]],
-		list_of_hitrun_points[[7]],
-		list_of_hitrun_points[[8]],
-		list_of_hitrun_points[[9]],
-		list_of_hitrun_points[[10]]
-	)
-	list_of_pca_results <- lapply(list_of_hitrun_points_of_interest, pca_loadings_and_component_info)
-	list_of_PC_importance_vectors <- lapply(list_of_pca_results, proportions_of_variance_explained)
-	lineplot_success <- lapply(list_of_pca_results, simple_pca_line_plot)
-	median_centered_example <- center_all_point_about_col_medians(list_of_hitrun_points[[1]])
-	write.csv(median_centered_example, file = "median_centered_example_datapoints_force_at_zero.csv")
-	return(0)
 }
 
 pc_importance_as_force_changes <- function(list_of_PC_importance_vectors) {
