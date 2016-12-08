@@ -52,8 +52,7 @@ variance_explained_boxplots_over_forceprogression <- function(list_of_hitrun_dat
 }
 
 main <- function(){
-	csv_files <- csv_filename_list()
-	list_of_hitrun_points <- lapply(csv_files, read.csv, header=FALSE)
+	list_of_hitrun_points <- lapply(csv_filename_list(), read.csv, header=FALSE)
 	list_of_hitrun_dataframes <- lapply(list_of_hitrun_points, add_finger_muscle_name_cols)
 	list_of_hitrun_points <- list_of_hitrun_dataframes
 
