@@ -42,11 +42,12 @@ get_vector_of_PC_variance_explained_for_subsampled_df <- function(hitrun_datafra
 	do.call(c, lapply(1:100, function(x) variance_explained_for_a_PC_from_df(hitrun_dataframe, sample_n, PC_of_interest)))
 }
 
+#the outliers threshold: outliers are: outside 1.5 times the interquartile range
 variance_explained_boxplots_over_forceprogression <- function(list_of_hitrun_dataframes, sample_n, PC_of_interest, num_replicates){
 	list_of_PC_variance_vectors <- lapply(list_of_hitrun_dataframes, function(x) get_vector_of_PC_variance_explained_for_subsampled_df(x, sample_n, PC_of_interest, num_replicates))
 	names(list_of_PC_variance_vectors) <- c(0:9)
 	op <- par(mar = rep(1, 4))
-    boxplot(list_of_PC_variance_vectors, ylim=c(0,1), cex = 0.25, xlab="f_x", ylab= paste0("PC", PC_of_interest, "variance_expl."), main=paste(sample_n, "samples per PCA"), asp=1.0)
+    boxplot(list_of_PC_variance_vectors, ylim=c(0,1), cex = 0.25, xlab="", ylab="", main="", asp=1.0, boxwex=0.4, whisklty=1, outpch=20)
     par(op)
 }
 
@@ -56,7 +57,7 @@ main <- function(){
 	list_of_hitrun_dataframes <- lapply(list_of_hitrun_points, add_finger_muscle_name_cols)
 	list_of_hitrun_points <- list_of_hitrun_dataframes
 
-	pdf("pc1_progression.pdf", width= 16, height = 9)
+	pdf("pc1_progression.pdf", width= 16, height = 9.5, useDingbats=FALSE)
 	par(mfrow=c(2,3))
 	sample_sizes_to_evaluate_PC_on = c(10,100,1000)
 	#do pc1
