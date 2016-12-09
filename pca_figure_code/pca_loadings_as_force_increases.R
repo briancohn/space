@@ -1,4 +1,4 @@
-library(gridExtra)
+	library(gridExtra)
 library(MASS)
 
 source('pca_analysis.R')
@@ -76,8 +76,9 @@ main <- function(){
 	labs(x = "Muscle", y="Normalized Loading for PC2")+
 	 scale_colour_discrete(name  ="Distal Fingertip Force",
                             labels=c("3.2N", "19.2N", "25.6N"))
-
-	grid.arrange(pc1_plot,pc2_plot, ncol=1)
+	
+	combined_plot <- grid.arrange(pc1_plot,pc2_plot, ncol=1)
+	ggsave('pca_loadings_as_force_increases.pdf', combined_plot, width=6, height = 3.5, units="in")
 
 
 }
