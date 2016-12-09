@@ -51,7 +51,7 @@ variance_explained_boxplots_over_forceprogression <- function(list_of_hitrun_dat
     par(op)
 }
 
-main <- function(){
+pc1_pc2_varexplained_pdf_figure <- function(){
 	list_of_hitrun_points <- lapply(csv_filename_list(), read.csv, header=FALSE)
 	list_of_hitrun_dataframes <- lapply(list_of_hitrun_points, add_finger_muscle_name_cols)
 	list_of_hitrun_points <- list_of_hitrun_dataframes
@@ -68,9 +68,6 @@ main <- function(){
 		function(x) variance_explained_boxplots_over_forceprogression(list_of_hitrun_dataframes, sample_n=x, PC_of_interest=2, num_replicates=100)
 		)
 	#do pc3
-	# lapply( sample_sizes_to_evaluate_PC_on,
-	# 	function(x) variance_explained_boxplots_over_forceprogression(list_of_hitrun_dataframes, sample_n=x, PC_of_interest=3, num_replicates=100)
-	# 	)
 	dev.off()
 }
 
@@ -90,7 +87,6 @@ simple_pca_line_plot <- function(prcomp_pca_result) {
 proportions_of_variance_explained <- function(prcomp_pca_result) {
 	return(summary(prcomp_pca_result)[[6]][2,])
 }
-
 
 boxplot_hitrun_point<- function(hitrun_point_dataframe, force){
 		boxplot(
@@ -115,7 +111,4 @@ csv_filename_list <- function(){
 		"force_progression_10k_points/finger_forcevector_28.811554635079055_1479839473159.csv"
 	)
 }
-
-
-main()
 
