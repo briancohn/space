@@ -27,14 +27,30 @@ main <- function() {
 	# list_of_PC_loadings_dataframes <- produce_bootstrap_pca_experiment(n=10, num_replicates=100, PC_of_interest=1)
 	num_replicates=100
 	num_samples = 10
-	list_of_10k_hitrun_dataframes <- list_10k_dataset_hitrun_dataframes()
-	list_of_PC_loading_bootstrap_lists <- lapply(list_of_10k_hitrun_dataframes,
+	PC_of_interest=1
+	list_of_dataframes_at_three_levels <- list_10k_dataset_hitrun_dataframes()[c(2,8,10)]
+	list_of_list_of_bootstrap_dataframes <- lapply(list_of_dataframes_at_three_levels,
 												produce_smaller_subsample_dataframes,
 												num_replicates,
 												num_samples
 												)
+	list_of_loadings_dataframes <- lapply(list_of_list_of_bootstrap_dataframes, compute_many_replicates_of_loadings, PC_of_interest)
 	browser()
 
+}
+
+compute_many_replicates_of_loadings <- function(bootstrap_hitrun_dataframes, PC_of_interest){
+	list_of_loadings_for_each_replicate <- lapply(bootstrap_hitrun_dataframes, get_loadings_for_PC, PC=PC_of_interest)
+	loadings_dataframe <- bind_loadings_replicates_into_dataframe(list_of_loadings_for_each_replicate)
+	return(loadings_dataframe)
+}
+
+
+##' @description each row is a different replicate
+bind_loadings_replicates_into_dataframe <- function(list_of_loadings_for_each_replicate) {
+	loadings_dataframe <- do.call(rbind,list_of_loadings_for_each_replicate) 
+	rownames(loadings_dataframe) <- NULL #rownames are ancilliary
+	return(loadings_dataframe)
 }
 
 produce_smaller_subsample_dataframes <- function(hitrun_dataframe, num_replicates, num_samples){
