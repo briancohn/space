@@ -97,6 +97,8 @@ boxplot_hitrun_point<- function(hitrun_point_dataframe, force){
 	)
 }
 #manually list (in order of ascending forces) a progression of points. force.
+##' @description Each of these files has ten thousand activations that are capable of producing the force mentioned on the title. 
+##' Note that these forces are in the distal direction of a human index finger.
 csv_filename_list <- function(){
 	c(
 		"force_progression_10k_points/finger_forcevector_0.0_1479548844925.csv",
@@ -112,3 +114,38 @@ csv_filename_list <- function(){
 	)
 }
 
+get_loadings_for_PC <- function(hitrun_dataframe, PC) {
+	rotations <- pca_loadings_and_component_info(hitrun_dataframe)$rotation
+	rotations_t <- t(rotations)
+	subset_pcs <- rotations_t[PC,]
+	return(t(data.frame(subset_pcs)))
+}
+
+
+
+
+#source http://stats.stackexchange.com/questions/178626/how-to-normalize-data-between-1-and-1
+x_scaled_to_0_1 <- function(x,vector_max, vector_min) {
+	return((x-vector_min) / (vector_max - vector_min))
+}
+
+#source http://stats.stackexchange.com/questions/178626/how-to-normalize-data-between-1-and-1
+scale_value_between_plus_or_minus_1 <- function(x, vector_max, vector_min){
+	return(2 * x_scaled_to_0_1(x, vector_max, vector_min) - 1)
+}
+scale_vector_between_plus_or_minus_1 <- function(vector) {
+	vector_max <- max(vector)
+	vector_min <- min(vector)
+	scaled_list <- lapply(vector, function(x) scale_value_between_plus_or_minus_1(x,vector_max,vector_min))
+	return(do.call(c, scaled_list))
+}
+
+divide_vector_by_max_of_vectors_abs_value <- function(vector) vector/max(abs(vector))
+
+#loadings_per_task is a dataframe, where each row is a different task, and the columns are the normalized PC vectors to [-1,1]
+pc_loadings_parcoord <- function(loadings_per_task){
+	require(reshape2) # for melt
+	dfm = melt(loadings_per_task)
+	pca_parcoord_plot <- ggplot(dfm, aes(variable,value,group=X1, colour=X1))+ scale_fill_brewer() + geom_path(alpha=1) + theme_bw() + geom_point()
+	return(pca_parcoord_plot)
+}
