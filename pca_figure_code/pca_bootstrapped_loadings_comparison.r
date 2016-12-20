@@ -21,26 +21,82 @@ list_10k_dataset_hitrun_dataframes <- function(){
 
 main <- function() {
 	require(ggplot2)
-	p <- ggplot(mtcars, aes(factor(cyl), mpg))
-	p + geom_boxplot(aes(fill = factor(am)))
 	#where each dataframe has many rows, each of which represents a PC loading vector.
 	# list_of_PC_loadings_dataframes <- produce_bootstrap_pca_experiment(n=10, num_replicates=100, PC_of_interest=1)
-	num_replicates=100
-	num_samples = 10
+	num_replicates=1000
+	num_samples = 1000
 	PC_of_interest=1
-	list_of_dataframes_at_three_levels <- list_10k_dataset_hitrun_dataframes()[c(2,8,10)]
-	list_of_list_of_bootstrap_dataframes <- lapply(list_of_dataframes_at_three_levels,
+
+	#each level is a measure of force at the end of the finger
+	message(1)
+	list_of_hitrun_dataframes_for_different_forces <- list_10k_dataset_hitrun_dataframes()[c(1,2,3,4,5,6,7,8,9)]
+	message(2)
+	melted_loading_data <- pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, num_replicates,num_samples,PC_of_interest)
+	p <- loading_bootstrap_figure(melted_loading_data)
+	plot_loadings_for_each_muscle_across_force_levels(melted_loading_data)
+
+
+	p1_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 100,10,1))
+	p1_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 100,100,1))
+	p1_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 100,500,1))
+	p2_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 100,10,2))
+	p2_5 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 100,100,2))
+	p2_6 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 100,500,2))
+	require(gridExtra)
+	combined_figure <- grid.arrange(p1_1, p1_2, p1_3, p2_4, p2_5, p2_6, ncol=3)
+	ggsave('pca_loadings_bootstrapped.pdf', combined_figure, width=25, height = 13, units="in")
+	browser()
+}
+
+
+
+plot_loadings_for_each_muscle_across_force_levels <- function(melted_loading_data){
+	group_normalized_loadings_by_muscle <- lapply(finger_muscle_names_in_order(), function(muscle_name){
+		extract_muscle_from_melted_loadings_data(melted_loading_data, muscle_name)
+	})
+	par(mfrow=c(1,7))
+	lapply(group_normalized_loadings_by_muscle, plot_normalized_loading_over_force_for_a_muscle)
+	par(mfrow=c(1,1))
+}
+
+pca_bootstrap_normalized_loadings_melted <- function(list_of_hitrun_dataframes_for_different_forces, num_replicates, num_samples, PC_of_interest){
+	list_of_list_of_bootstrap_dataframes <- lapply(list_of_hitrun_dataframes_for_different_forces,
 												produce_smaller_subsample_dataframes,
 												num_replicates,
 												num_samples
 												)
+	message(3)
 	list_of_loadings_dataframes <- lapply(list_of_list_of_bootstrap_dataframes, compute_many_replicates_of_loadings, PC_of_interest)
-	browser()
+	message(4)
+	melted_loading_data <- melt_loadings_dataframes(list_of_loadings_dataframes)
+	return(melted_loading_data)
+}
 
+extract_muscle_from_melted_loadings_data <- function(melted_loading_data, muscle_name){
+	return(melted_loading_data[melted_loading_data$muscle_name==muscle_name,])
+}
+
+plot_normalized_loading_over_force_for_a_muscle <- function(loading_data){
+	plot(loading_data$index_in_force_list, loading_data$loading_value, xlab="Index In Force List", ylab="Loading Value (normalized) ")
+}
+
+loading_bootstrap_figure <- function(melted_loading_data) {
+	loading_bootstrapping_figure <- ggplot(melted_loading_data, aes(factor(muscle_name), loading_value)) + 
+		geom_boxplot(aes(fill = factor(index_in_force_list))) +
+		ylim(-1.0,1.0)
+	return(loading_bootstrapping_figure)
+}
+
+melt_loadings_dataframes <- function(list_of_loadings_dataframes) {
+	require(reshape)
+	melted_loading_data <- melt(list_of_loadings_dataframes)
+	colnames(melted_loading_data) <- c("replicate_number", "muscle_name", "loading_value", "index_in_force_list")
+	melted_loading_data$index_in_force_list <- as.factor(melted_loading_data$index_in_force_list)
+	return(melted_loading_data)
 }
 
 compute_many_replicates_of_loadings <- function(bootstrap_hitrun_dataframes, PC_of_interest){
-	list_of_loadings_for_each_replicate <- lapply(bootstrap_hitrun_dataframes, get_loadings_for_PC, PC=PC_of_interest)
+	list_of_loadings_for_each_replicate <- lapply(bootstrap_hitrun_dataframes, get_loadings_for_PC, PC=PC_of_interest, normalize_to_max_abs_value=TRUE)
 	loadings_dataframe <- bind_loadings_replicates_into_dataframe(list_of_loadings_for_each_replicate)
 	return(loadings_dataframe)
 }
@@ -70,7 +126,6 @@ subsample_rows_from_dataframe <- function(df, n_sample_size){
 produce_bootstrap_pca_experiment <- function(n, num_replicates, PC_of_interest) {
 	list_of_pc_loadings <- subsampled_PC_loadings_from_10k_dataset(n, PC_of_interest)
 	list_of_many_PC_loading_vectors<- lapply(get_many_PC_loading_vectors_by_subsampling_points_dataframe(full_dataset_dataframe, n, PC_of_interest))
-	browser()
 }
 
 subsampled_PC_loadings_from_10k_dataset <- function(n_sample_size, PC_of_interest) {
