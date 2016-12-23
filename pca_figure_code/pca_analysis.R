@@ -6,8 +6,11 @@ pca_loadings_and_component_info <- function(hitrun_point_dataframe) {
 	return(res)
 }
 
+finger_muscle_names_in_order <- function(){
+	return(c("FDP","FDS","EIP","EDC","LUM","DI","PI"))
+}
 add_finger_muscle_name_cols<- function(hitrun_point_dataframe){
-	colnames(hitrun_point_dataframe) <- c("FDP","FDS","EIP","EDC","LUM","DI","PI")
+	colnames(hitrun_point_dataframe) <- finger_muscle_names_in_order()
 	return(hitrun_point_dataframe)
 }
 #a is a dataframe containing hit and run points about the same task. (assumes cols are named #FDP
@@ -114,11 +117,19 @@ csv_filename_list <- function(){
 	)
 }
 
-get_loadings_for_PC <- function(hitrun_dataframe, PC) {
+list_of_strings_of_newtons <- function() c("0.0","3.20","6.40","9.60","12.8","16.0","19.2","22.4","25.6","28.8")
+
+get_loadings_for_PC <- function(hitrun_dataframe, PC, normalize_to_max_abs_value=FALSE) {
 	rotations <- pca_loadings_and_component_info(hitrun_dataframe)$rotation
 	rotations_t <- t(rotations)
 	subset_pcs <- rotations_t[PC,]
-	return(t(data.frame(subset_pcs)))
+	res <- t(data.frame(subset_pcs))
+	if (normalize_to_max_abs_value){
+		normalized_res <- lapply(list(res), function(x) divide_vector_by_max_of_vectors_abs_value(x))
+		return(normalized_res[[1]])
+	} else {
+		return(res)
+	}
 }
 
 
