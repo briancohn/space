@@ -29,23 +29,31 @@ main <- function() {
 
 	#each level is a measure of force at the end of the finger
 	message(1)
-	list_of_hitrun_dataframes_for_different_forces <- list_10k_dataset_hitrun_dataframes()[c(1,2,3,4,5,6,7,8,9)]
-	message(2)
-	melted_loading_data <- pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, num_replicates,num_samples,PC_of_interest)
+	list_of_hitrun_dataframes_for_different_forces <- list_10k_dataset_hitrun_dataframes()[c(2,3,4,5,6,7,8,9)]
+	melted_loading_data <- pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, num_replicates,num_samples,PC_of_interest, snap_vector_signs_to_reference=TRUE)
 	p <- loading_bootstrap_figure(melted_loading_data)
 	plot_loadings_for_each_muscle_across_force_levels(melted_loading_data)
 
 
-	p1_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 100,10,1))
-	p1_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 100,100,1))
-	p1_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 100,500,1))
-	p2_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 100,10,2))
-	p2_5 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 100,100,2))
-	p2_6 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 100,500,2))
+	p1_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,1,snap_vector_signs_to_reference=TRUE))
+	p1_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,1,snap_vector_signs_to_reference=TRUE))
+	p1_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,1,snap_vector_signs_to_reference=TRUE))
+	p1_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,1,snap_vector_signs_to_reference=TRUE))
+	p2_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,2,snap_vector_signs_to_reference=TRUE))
+	p2_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,2,snap_vector_signs_to_reference=TRUE))
+	p2_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,2,snap_vector_signs_to_reference=TRUE))
+	p2_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,2,snap_vector_signs_to_reference=TRUE))
 	require(gridExtra)
-	combined_figure <- grid.arrange(p1_1, p1_2, p1_3, p2_4, p2_5, p2_6, ncol=3)
-	ggsave('pca_loadings_bootstrapped.pdf', combined_figure, width=25, height = 13, units="in")
-	browser()
+	combined_figure <- grid.arrange(p1_1,
+									p1_2,
+									p1_3,
+									p2_4,
+									p2_1,
+									p2_2,
+									p2_3,
+									p2_4,
+									ncol=4)
+	ggsave('pca_loadings_bootstrapped.pdf', combined_figure, width=30, height = 13, units="in")
 }
 
 
@@ -59,7 +67,12 @@ plot_loadings_for_each_muscle_across_force_levels <- function(melted_loading_dat
 	par(mfrow=c(1,1))
 }
 
-pca_bootstrap_normalized_loadings_melted <- function(list_of_hitrun_dataframes_for_different_forces, num_replicates, num_samples, PC_of_interest){
+pca_bootstrap_normalized_loadings_melted <- function(list_of_hitrun_dataframes_for_different_forces,
+													 num_replicates,
+													 num_samples,
+													 PC_of_interest,
+													 snap_vector_signs_to_reference=FALSE)
+	{
 	list_of_list_of_bootstrap_dataframes <- lapply(list_of_hitrun_dataframes_for_different_forces,
 												produce_smaller_subsample_dataframes,
 												num_replicates,
@@ -67,10 +80,37 @@ pca_bootstrap_normalized_loadings_melted <- function(list_of_hitrun_dataframes_f
 												)
 	message(3)
 	list_of_loadings_dataframes <- lapply(list_of_list_of_bootstrap_dataframes, compute_many_replicates_of_loadings, PC_of_interest)
+	
+	if (snap_vector_signs_to_reference){
+		reference_vector <- list_of_loadings_dataframes[[1]][2,]
+		list_of_loadings_dataframes <- lapply(list_of_loadings_dataframes,
+			function(x) {
+				return(assimilate_vector_signs_to_reference(x, reference_vector))
+				}
+		)
+	}
 	message(4)
 	melted_loading_data <- melt_loadings_dataframes(list_of_loadings_dataframes)
 	return(melted_loading_data)
 }
+
+
+assimilate_vector_signs_to_reference <- function(dataframe_of_interest, reference_vector){
+	require(plyr)
+	return(adply(dataframe_of_interest, 1, flip_sign_if_dot_is_negative, reference_vector))
+}
+
+flip_sign_if_dot_is_negative <- function(vector_of_loading_values, reference_vector){
+	dot_product_result <- vector_of_loading_values %*% reference_vector
+	if (is_negative(dot_product_result)) {
+		return(vector_of_loading_values*-1)
+	} else {
+		return(vector_of_loading_values)
+	}
+}
+
+is_negative <- function(x) x<0
+is_positive <- function(x) x>0
 
 extract_muscle_from_melted_loadings_data <- function(melted_loading_data, muscle_name){
 	return(melted_loading_data[melted_loading_data$muscle_name==muscle_name,])
@@ -81,9 +121,14 @@ plot_normalized_loading_over_force_for_a_muscle <- function(loading_data){
 }
 
 loading_bootstrap_figure <- function(melted_loading_data) {
-	loading_bootstrapping_figure <- ggplot(melted_loading_data, aes(factor(muscle_name), loading_value)) + 
+	loading_bootstrapping_figure <- ggplot(melted_loading_data, aes(factor(muscle_name, levels=c("FDP", "FDS", "EIP", "EDC", "LUM", "DI", "PI")), loading_value)) + 
 		geom_boxplot(aes(fill = factor(index_in_force_list))) +
-		ylim(-1.0,1.0)
+		ylim(-1.0,1.0) +
+		xlab("Muscle") +
+		ylab("Normalized Loading Value from PCA")+
+		theme_bw()+
+		scale_color_manual(labels = c("low", "med", "high"), values = c("black", "blue", "lightblue"))
+
 	return(loading_bootstrapping_figure)
 }
 
@@ -116,7 +161,6 @@ produce_smaller_subsample_dataframes <- function(hitrun_dataframe, num_replicate
 	return(list_of_list_of_sampling_dataframes)
 }
 
-
 subsample_rows_from_dataframe <- function(df, n_sample_size){
 	return(df[sample(nrow(df), n_sample_size), ])
 }
@@ -139,8 +183,5 @@ get_many_PC_loading_vectors_by_subsampling_points_dataframe <- function(hitrun_d
 	list_of_PC_loading_vectors <- lapply(list_of_subsamples_from_df, get_loadings_for_PC, PC_of_interest)
 	return(list_of_PC_loading_vectors)
 }
-
-
-
 
 main()
