@@ -35,23 +35,35 @@ main <- function() {
 	plot_loadings_for_each_muscle_across_force_levels(melted_loading_data)
 
 
-	p1_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,1,snap_vector_signs_to_reference=TRUE))
-	p1_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,1,snap_vector_signs_to_reference=TRUE))
-	p1_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,1,snap_vector_signs_to_reference=TRUE))
-	p1_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,1,snap_vector_signs_to_reference=TRUE))
-	p2_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,2,snap_vector_signs_to_reference=TRUE))
-	p2_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,2,snap_vector_signs_to_reference=TRUE))
-	p2_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,2,snap_vector_signs_to_reference=TRUE))
-	p2_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,2,snap_vector_signs_to_reference=TRUE))
+	pc1_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,1,snap_vector_signs_to_reference=TRUE))
+	pc1_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,1,snap_vector_signs_to_reference=TRUE))
+	pc1_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,1,snap_vector_signs_to_reference=TRUE))
+	pc1_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,1,snap_vector_signs_to_reference=TRUE))
+	
+	pc2_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,2,snap_vector_signs_to_reference=TRUE))
+	pc2_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,2,snap_vector_signs_to_reference=TRUE))
+	pc2_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,2,snap_vector_signs_to_reference=TRUE))
+	pc2_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,2,snap_vector_signs_to_reference=TRUE))
+	
+	pc3_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,3,snap_vector_signs_to_reference=TRUE))
+	pc3_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,3,snap_vector_signs_to_reference=TRUE))
+	pc3_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,3,snap_vector_signs_to_reference=TRUE))
+	pc3_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,3,snap_vector_signs_to_reference=TRUE))
 	require(gridExtra)
-	combined_figure <- grid.arrange(p1_1,
-									p1_2,
-									p1_3,
-									p2_4,
-									p2_1,
-									p2_2,
-									p2_3,
-									p2_4,
+	combined_figure <- grid.arrange(pc1_1,
+									pc1_2,
+									pc1_3,
+									pc1_4,
+
+									pc2_1,
+									pc2_2,
+									pc2_3,
+									pc2_4,
+
+									pc3_1,
+									pc3_2,
+									pc3_3,
+									pc3_4,
 									ncol=4)
 	ggsave('pca_loadings_bootstrapped.pdf', combined_figure, width=30, height = 13, units="in")
 }
