@@ -20,6 +20,7 @@ list_10k_dataset_hitrun_dataframes <- function(){
 }
 
 main <- function() {
+	set.seed(100) #done for the purpose of scientific replicability =)
 	require(ggplot2)
 	#where each dataframe has many rows, each of which represents a PC loading vector.
 	# list_of_PC_loadings_dataframes <- produce_bootstrap_pca_experiment(n=10, num_replicates=100, PC_of_interest=1)
@@ -36,18 +37,18 @@ main <- function() {
 
 
 	pc1_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,1,snap_vector_signs_to_reference=TRUE))
-	pc1_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,1,snap_vector_signs_to_reference=TRUE))
+	pc1_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,1,snap_vector_signs_to_reference=TRUE), TRUE)
 	pc1_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,1,snap_vector_signs_to_reference=TRUE))
-	pc1_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,1,snap_vector_signs_to_reference=TRUE))
+	pc1_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,1,snap_vector_signs_to_reference=TRUE), TRUE)
 	
 	pc2_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,2,snap_vector_signs_to_reference=TRUE))
 	pc2_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,2,snap_vector_signs_to_reference=TRUE))
-	pc2_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,2,snap_vector_signs_to_reference=TRUE))
-	pc2_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,2,snap_vector_signs_to_reference=TRUE))
+	pc2_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,2,snap_vector_signs_to_reference=TRUE), TRUE)
+	pc2_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,2,snap_vector_signs_to_reference=TRUE), TRUE)
 	
 	pc3_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,3,snap_vector_signs_to_reference=TRUE))
 	pc3_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,3,snap_vector_signs_to_reference=TRUE))
-	pc3_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,3,snap_vector_signs_to_reference=TRUE))
+	pc3_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,3,snap_vector_signs_to_reference=TRUE), TRUE)
 	pc3_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,3,snap_vector_signs_to_reference=TRUE))
 	require(gridExtra)
 	combined_figure <- grid.arrange(pc1_1,
@@ -132,7 +133,12 @@ plot_normalized_loading_over_force_for_a_muscle <- function(loading_data){
 	plot(loading_data$index_in_force_list, loading_data$loading_value, xlab="Index In Force List", ylab="Loading Value (normalized) ")
 }
 
-loading_bootstrap_figure <- function(melted_loading_data) {
+loading_bootstrap_figure <- function(melted_loading_data, FLIP_X=FALSE) {
+
+	if (FLIP_X) {
+		melted_loading_data$loading_value <- melted_loading_data$loading_value * -1.0
+	}
+
 	loading_bootstrapping_figure <- ggplot(melted_loading_data, aes(factor(muscle_name, levels=c("FDP", "FDS", "EIP", "EDC", "LUM", "DI", "PI")), loading_value)) + 
 		geom_boxplot(aes(fill = factor(index_in_force_list))) +
 		ylim(-1.0,1.0) +
