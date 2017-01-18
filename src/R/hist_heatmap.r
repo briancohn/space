@@ -82,7 +82,7 @@ main <- function(filename_list, folder_path = ""){
 	message("4")
 	list_of_histogram_matrices <- lapply(list_of_histogram_progressions, get_matrix_of_counts)
 	list_of_histogram_matrices_density <- lapply(list_of_histogram_matrices, density_normalization)
-	pdf(paste0(get_unix_time_string_now(), "quicktry2.pdf"), height = 3.5, width = 21)
+	pdf(paste0(get_unix_time_string_now(), "quicktry2_histogram_heatmap.pdf"), height = 3.5, width = 21)
 	par(mfrow=c(1,7))
 	lapply(list_of_histogram_matrices_density, plot_force_progression_map)
 	dev.off()
