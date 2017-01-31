@@ -11,7 +11,10 @@ script:
   - sbt compile
   - sbt test
   - sbt run
+  - sbt clean coverage test coverageReport
 jdk:
   - oraclejdk7
 notifications:
   slack: kaspect:ZDGGbLyDsPguWyRxpcrkpqQa
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t e1fe6099-5a0b-49a8-afd6-8d4b8b5a7d0f
