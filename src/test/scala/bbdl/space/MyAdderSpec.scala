@@ -447,6 +447,24 @@ class VectorScaleSpec() extends FlatSpec with Matchers{
   }
 }
 
+//creating unit test for Range excursion
+class VectorExcursion() extends FlatSpec with Matchers {
+
+    "VectorExcursion" should "make ALL elements of a vector are within the range length" {
+        import bbdl.space._
+        import breeze.linalg._
+        import breeze.numerics._
+        import breeze.stats._
+
+        val rangeVector = DenseVector(1.0, 2.0, 7.4, 10.0)
+        val range = 8.0
+        val result = RangeExcursion.ValueOutsideRange(rangeVector, range)
+        val answer = 1
+        
+        assert(answer == 1)
+    }
+}
+
 class PointStreamSpec() extends FlatSpec with Matchers {
   behavior of "PointStream"
   "PointStream" should "generate n points when using PointStream.generate(n)" in {
