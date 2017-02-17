@@ -447,22 +447,29 @@ class VectorScaleSpec() extends FlatSpec with Matchers{
   }
 }
 
-//creating unit test for Range excursion
-class VectorExcursion() extends FlatSpec with Matchers {
+//test vector Excursion class 
+class VectorExcursionSpec() extends FlatSpec with Matchers {
+  behavior of "VectorExcursion"
+  it should "return false when range exceeds i" in {
+    val vector_of_interest = DenseVector(1.0,2.0,3.0,4.0,5.0)
+    val is_outside_range = RangeExcursion.ValueOutsideRange(vector_of_interest,500)
+    is_outside_range shouldBe false
+  }
 
-    "VectorExcursion" should "make ALL elements of a vector are within the range length" {
-        import bbdl.space._
-        import breeze.linalg._
-        import breeze.numerics._
-        import breeze.stats._
+  it should "return true when range does not exceed i" in {
+    val vector_of_interest = DenseVector(1.0,2.0,3.0,4.0,15.0)
+    val is_outside_range = RangeExcursion.ValueOutsideRange(vector_of_interest,11)
+    is_outside_range shouldBe true
 
-        val rangeVector = DenseVector(1.0, 2.0, 7.4, 10.0)
-        val range = 8.0
-        val result = RangeExcursion.ValueOutsideRange(rangeVector, range)
-        val answer = 1
-        
-        assert(answer == 1)
-    }
+  }
+  it should "return true when range does not exceed i in large vector" in {
+    val vector_of_interest =  DenseVector(1.0,2.0,3.0, 15.0, 17.0, 50.0, 80.0, 100.0, 123.3,
+                              313.3, 333.0, 340.0, 345.0, 350.0, 380.0, 390.0, 400.0, 401.0,
+                              402.0, 403.0, 404.0, 420.0, 421.0, 422.0, 430.0, 440.0, 450.0,
+                              451.0, 460.0, 470.0, 471.0, 474.0, 475.0, 476.0, 480.0, 1000.0)
+    val is_outside_range = RangeExcursion.ValueOutsideRange(vector_of_interest, 600)
+    is_outside_range shouldBe true
+  }
 }
 
 class PointStreamSpec() extends FlatSpec with Matchers {
