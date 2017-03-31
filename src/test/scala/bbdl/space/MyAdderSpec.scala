@@ -3,6 +3,7 @@ import java.io.File
 import breeze.linalg._
 import breeze.numerics._
 import breeze.math._
+import org.scalacheck.Prop.False
 import org.scalatest._
 import Matchers._
 import scala.util.Random
@@ -733,5 +734,21 @@ class CostSpec() extends  FlatSpec with Matchers {
     assert(Cost.L2WeightedNorm(ExpV,ExpW)- res(4)< 1E-6)
     assert(Cost.L3WeightedNorm(ExpV,ExpW)- res(5)< 1E-6)
   }
+
 }
 
+class VectorExcursionSpec() extends FlatSpec with Matchers {
+  behavior of "VectorExcursion"
+  it should "return true when range exceeds i" in {
+    val vector_of_interest = DenseVector(1.0,2.0,3.0,4.0,5.0)
+    val is_outside_range = RangeExcursion.ValueOutsideRange(vector_of_interest,500)
+    val string_version = is_outside_range.toString()
+    string_version shouldBe "false"
+  }
+
+  it should "return false without string workaround" in {
+    val vector_of_interest = DenseVector(1.0,2.0,3.0,4.0,5.0)
+    val is_outside_range = RangeExcursion.ValueOutsideRange(vector_of_interest,500)
+    is_outside_range shouldBe false
+  }
+}

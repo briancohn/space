@@ -1,4 +1,5 @@
 source('vectormap.r')
+source('distal_progression_csv_filename_list.r')
 
 ## @param point_matrix a matrix where each row is a n-dimensional point sampled. columns are muscles.
 ## @return val a list of histogramdatastructures
@@ -66,7 +67,7 @@ main <- function(filename_list, folder_path = ""){
 		})
 	message("All point sets from CSV are in active Memory.")
 
-	list_of_histogram_sublists <- lapply(list_of_point_matrices, histogram_all_columns, binwidth=0.01)
+	list_of_histogram_sublists <- lapply(list_of_point_matrices, histogram_all_columns, binwidth=0.05)
 	
 	#split the ublists and reorder into histograms by muscle
 	# tasks_iterator = 1:length(finger_alpha_progression_filenames)
@@ -116,10 +117,9 @@ pca_muscle_solution_space <- function(filename, folder_path){
 
 
 # main(finger_alpha_progression_filenames)
-source('distal_progression_csv_filename_list.r')
-filenames_to_visualize <- distal_progression_csv_filename_list()
 
-main(filenames_to_visualize, folder_path = '~/Documents/GitHub/bcohn12/space/output/n_100_distal_progression/')
+filenames_to_visualize <- distal_progression_csv_filename_list_len_10()
+main(filenames_to_visualize, folder_path = '~/Documents/GitHub/bcohn12/space/output/n_1000_alphalen_10/')
 # dev.off()
 # plot.new()
 # par(mfrow=c(1,3))
