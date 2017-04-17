@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/bcohn12/space.png?label=ready&title=Ready)](https://waffle.io/bcohn12/space)
 # space
 [![Build Status](https://travis-ci.org/bcohn12/space.svg?branch=master)](https://travis-ci.org/bcohn12/space)
 [![Build Status](https://semaphoreci.com/api/v1/projects/a45fbc4a-ee80-4f0c-91c5-61ddffa1cad9/416002/badge.svg)](https://semaphoreci.com/bcohn12/space)      
