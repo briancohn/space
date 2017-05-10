@@ -30,26 +30,26 @@ main <- function() {
 
 	#each level is a measure of force at the end of the finger
 	message(1)
-	list_of_hitrun_dataframes_for_different_forces <- list_10k_dataset_hitrun_dataframes()[c(2,3,4,5,6,7,8,9)]
+	list_of_hitrun_dataframes_for_different_forces <- list_10k_dataset_hitrun_dataframes()[c(1,2,3,4,5,6,7,8,9)]
 	melted_loading_data <- pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, num_replicates,num_samples,PC_of_interest, snap_vector_signs_to_reference=TRUE)
 	p <- loading_bootstrap_figure(melted_loading_data)
 	plot_loadings_for_each_muscle_across_force_levels(melted_loading_data)
 
 
 	pc1_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,1,snap_vector_signs_to_reference=TRUE))
-	pc1_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,1,snap_vector_signs_to_reference=TRUE), TRUE)
-	pc1_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,1,snap_vector_signs_to_reference=TRUE))
-	pc1_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,1,snap_vector_signs_to_reference=TRUE), TRUE)
+	pc1_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,1,snap_vector_signs_to_reference=TRUE))
+	pc1_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,1000,1,snap_vector_signs_to_reference=TRUE))
+	pc1_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,5000,1,snap_vector_signs_to_reference=TRUE), TRUE)
 	
 	pc2_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,2,snap_vector_signs_to_reference=TRUE))
-	pc2_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,2,snap_vector_signs_to_reference=TRUE))
-	pc2_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,2,snap_vector_signs_to_reference=TRUE), TRUE)
-	pc2_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,2,snap_vector_signs_to_reference=TRUE), TRUE)
+	pc2_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,2,snap_vector_signs_to_reference=TRUE), TRUE)
+	pc2_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,1000,2,snap_vector_signs_to_reference=TRUE))
+	pc2_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,5000,2,snap_vector_signs_to_reference=TRUE), TRUE)
 	
 	pc3_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,3,snap_vector_signs_to_reference=TRUE))
-	pc3_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,20,3,snap_vector_signs_to_reference=TRUE))
-	pc3_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,50,3,snap_vector_signs_to_reference=TRUE), TRUE)
-	pc3_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,3,snap_vector_signs_to_reference=TRUE))
+	pc3_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,3,snap_vector_signs_to_reference=TRUE), TRUE)
+	pc3_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,1000,3,snap_vector_signs_to_reference=TRUE))
+	pc3_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,5000,3,snap_vector_signs_to_reference=TRUE))
 	require(gridExtra)
 	combined_figure <- grid.arrange(pc1_1,
 									pc1_2,
