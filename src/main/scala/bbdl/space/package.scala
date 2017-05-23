@@ -16,10 +16,10 @@ import breeze.util.JavaArrayOps
 package object MainClass {
   def main(args: Array[String]) {
 //    generate_points_toy_example_for_paper(1000000)
-    generate_points_for_paracord_animation(nSamples = 1000, nSubsamples = 10, alpha_steps = 300)
+    generate_points_for_paracord_animation(nSamples = 100000, nSubsamples = 100, alpha_steps = 500)
   }
 
-  def generate_points_for_paracord_animation(nSamples: Int = 1000, nSubsamples: Int = 100, alpha_steps: Int = 300): Unit = {
+  def generate_points_for_paracord_animation(nSamples: Int = 100000, nSubsamples: Int = 100, alpha_steps: Int = 40): Unit = {
 
     val JR = DenseMatrix(
       (-0.08941, -0.0447, -0.009249, 0.03669, 0.1421, 0.2087, -0.2138),
@@ -37,7 +37,7 @@ package object MainClass {
     val progression_forces = linspace(0.0,0.9999999999, length= alpha_steps).map(alpha => max_force_vector*alpha)
     val array_progression_forces = progression_forces.toArray
 
-    array_progression_forces.map(x => hit_run_recursive_forcevector(nSamples, nSubsamples, x, H_matrix,"finger"))
+    array_progression_forces.par.map(x => hit_run_recursive_forcevector(nSamples, nSubsamples, x, H_matrix,"finger"))
 
   }
 

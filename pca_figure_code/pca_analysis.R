@@ -1,13 +1,16 @@
 library(ggplot2)
 library(devtools)
 library(dplyr)
-pca_loadings_and_component_info <- function(hitrun_point_dataframe) {
+pca_loadings_and_component_info <- function(hitrun_point_dataframe, scale=TRUE, center=TRUE) {
 	res <- prcomp(hitrun_point_dataframe, scale=TRUE, center=TRUE)
 	return(res)
 }
 
+finger_muscle_names_in_order <- function(){
+	return(c("FDP","FDS","EIP","EDC","LUM","DI","PI"))
+}
 add_finger_muscle_name_cols<- function(hitrun_point_dataframe){
-	colnames(hitrun_point_dataframe) <- c("FDP","FDS","EIP","EDC","LUM","DI","PI")
+	colnames(hitrun_point_dataframe) <- finger_muscle_names_in_order()
 	return(hitrun_point_dataframe)
 }
 #a is a dataframe containing hit and run points about the same task. (assumes cols are named #FDP
@@ -51,7 +54,7 @@ variance_explained_boxplots_over_forceprogression <- function(list_of_hitrun_dat
     par(op)
 }
 
-main <- function(){
+pc1_pc2_varexplained_pdf_figure <- function(){
 	list_of_hitrun_points <- lapply(csv_filename_list(), read.csv, header=FALSE)
 	list_of_hitrun_dataframes <- lapply(list_of_hitrun_points, add_finger_muscle_name_cols)
 	list_of_hitrun_points <- list_of_hitrun_dataframes
@@ -68,9 +71,6 @@ main <- function(){
 		function(x) variance_explained_boxplots_over_forceprogression(list_of_hitrun_dataframes, sample_n=x, PC_of_interest=2, num_replicates=100)
 		)
 	#do pc3
-	# lapply( sample_sizes_to_evaluate_PC_on,
-	# 	function(x) variance_explained_boxplots_over_forceprogression(list_of_hitrun_dataframes, sample_n=x, PC_of_interest=3, num_replicates=100)
-	# 	)
 	dev.off()
 }
 
@@ -91,7 +91,6 @@ proportions_of_variance_explained <- function(prcomp_pca_result) {
 	return(summary(prcomp_pca_result)[[6]][2,])
 }
 
-
 boxplot_hitrun_point<- function(hitrun_point_dataframe, force){
 		boxplot(
 			hitrun_point_dataframe,
@@ -101,6 +100,8 @@ boxplot_hitrun_point<- function(hitrun_point_dataframe, force){
 	)
 }
 #manually list (in order of ascending forces) a progression of points. force.
+##' @description Each of these files has ten thousand activations that are capable of producing the force mentioned on the title. 
+##' Note that these forces are in the distal direction of a human index finger.
 csv_filename_list <- function(){
 	c(
 		"force_progression_10k_points/finger_forcevector_0.0_1479548844925.csv",
@@ -116,6 +117,46 @@ csv_filename_list <- function(){
 	)
 }
 
+list_of_strings_of_newtons <- function() c("0.0","3.20","6.40","9.60","12.8","16.0","19.2","22.4","25.6","28.8")
 
-main()
+get_loadings_for_PC <- function(hitrun_dataframe, PC, normalize_to_max_abs_value=FALSE, scale=TRUe, center=TRUE) {
+	rotations <- pca_loadings_and_component_info(hitrun_dataframe, scale, center)$rotation
+	rotations_t <- t(rotations)
+	subset_pcs <- rotations_t[PC,]
+	res <- t(data.frame(subset_pcs))
+	if (normalize_to_max_abs_value){
+		normalized_res <- lapply(list(res), function(x) divide_vector_by_max_of_vectors_abs_value(x))
+		return(normalized_res[[1]])
+	} else {
+		return(res)
+	}
+}
 
+
+
+
+#source http://stats.stackexchange.com/questions/178626/how-to-normalize-data-between-1-and-1
+x_scaled_to_0_1 <- function(x,vector_max, vector_min) {
+	return((x-vector_min) / (vector_max - vector_min))
+}
+
+#source http://stats.stackexchange.com/questions/178626/how-to-normalize-data-between-1-and-1
+scale_value_between_plus_or_minus_1 <- function(x, vector_max, vector_min){
+	return(2 * x_scaled_to_0_1(x, vector_max, vector_min) - 1)
+}
+scale_vector_between_plus_or_minus_1 <- function(vector) {
+	vector_max <- max(vector)
+	vector_min <- min(vector)
+	scaled_list <- lapply(vector, function(x) scale_value_between_plus_or_minus_1(x,vector_max,vector_min))
+	return(do.call(c, scaled_list))
+}
+
+divide_vector_by_max_of_vectors_abs_value <- function(vector) vector/max(abs(vector))
+
+#loadings_per_task is a dataframe, where each row is a different task, and the columns are the normalized PC vectors to [-1,1]
+pc_loadings_parcoord <- function(loadings_per_task){
+	require(reshape2) # for melt
+	dfm = melt(loadings_per_task)
+	pca_parcoord_plot <- ggplot(dfm, aes(variable,value,group=X1, colour=X1))+ scale_fill_brewer() + geom_path(alpha=1) + theme_bw() + geom_point()
+	return(pca_parcoord_plot)
+}
