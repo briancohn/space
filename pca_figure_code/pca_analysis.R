@@ -1,7 +1,7 @@
 library(ggplot2)
 library(devtools)
 library(dplyr)
-pca_loadings_and_component_info <- function(hitrun_point_dataframe) {
+pca_loadings_and_component_info <- function(hitrun_point_dataframe, scale=TRUE, center=TRUE) {
 	res <- prcomp(hitrun_point_dataframe, scale=TRUE, center=TRUE)
 	return(res)
 }
@@ -119,8 +119,8 @@ csv_filename_list <- function(){
 
 list_of_strings_of_newtons <- function() c("0.0","3.20","6.40","9.60","12.8","16.0","19.2","22.4","25.6","28.8")
 
-get_loadings_for_PC <- function(hitrun_dataframe, PC, normalize_to_max_abs_value=FALSE) {
-	rotations <- pca_loadings_and_component_info(hitrun_dataframe)$rotation
+get_loadings_for_PC <- function(hitrun_dataframe, PC, normalize_to_max_abs_value=FALSE, scale=TRUe, center=TRUE) {
+	rotations <- pca_loadings_and_component_info(hitrun_dataframe, scale, center)$rotation
 	rotations_t <- t(rotations)
 	subset_pcs <- rotations_t[PC,]
 	res <- t(data.frame(subset_pcs))

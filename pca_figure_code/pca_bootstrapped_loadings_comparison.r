@@ -67,6 +67,7 @@ main <- function() {
 									pc3_4,
 									ncol=4)
 	ggsave('pca_loadings_bootstrapped.pdf', combined_figure, width=30, height = 13, units="in")
+	browser()
 }
 
 
