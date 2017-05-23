@@ -19,5 +19,5 @@ fill_costs = function(df,m, fmax_vector) {
 fmax_vector=c(123, 219, 124.8, 129.6, 23.52, 21.6, 91.74) #newtons each muscle is maximally capable of producing.
 points_dataframe <- read.csv('n_1000_alphalen_10/finger_forcevector_19.207703090052718_1484767085612.csv', header=FALSE)
 points_with_costs <- fill_costs(points_dataframe, 7, fmax_vector)
-
+write.csv(points_with_costs, 'points_with_costs_for_19.2077N_distal_task.csv')
 
