@@ -3,23 +3,24 @@
 [![Build Status](https://semaphoreci.com/api/v1/projects/a45fbc4a-ee80-4f0c-91c5-61ddffa1cad9/416002/badge.svg)](https://semaphoreci.com/bcohn12/space)      
 [![Codacy Badge](https://www.codacy.com/project/badge/df8cbf6a225249ae9619b25cc613f0e8)](https://www.codacy.com/app/brian_cohn14/space)
 
-[![PDF Status](https://www.sharelatex.com/github/repos/bcohn12/space/builds/latest/badge.svg)](https://www.sharelatex.com/github/repos/bcohn12/space/builds/latest/output.pdf)
+[<img src = "https://cloud.githubusercontent.com/assets/4623063/26612928/d8aa76c0-456c-11e7-9ba9-0ca74b01049b.gif">](https://briancohn.github.io/space-parcoords/)  
 
+Code and Supplementary Material for computing and visualizing the feasible activation space—the way that muscles combine to create forces at the end of a limb.
 
-Access the Interactive Parallel Coordinates Visualization:
-[Parcoord Visualization](https://briancohn.github.io/space-parcoords/)
-
-
-####Problem statement:
+#### Problem statement:
 We don't know how the brain picks the <strong>optimal</strong> strategy to coordinate its muscles and limbs to generate motion.
-####Why we are researching this:
+#### Why we are researching this:
 If we understand the constraints of force generation, we can see how many solutions the brain can choose from. Prosthetic and robotic designs are dependent upon robust control algorithms;  we have the opportunity to unveil how the brain optimizes its coordination strategy, and build the next generation of biologically-inspired robot arms, prosthetic designs, and orthopaedic treatments.
-####How do we approach this topic:
+#### How do we approach this topic:
 Take in data about a musculoskeletal arm or leg, and visualize how the brain optimizes the limb's force production. With many different muscles, there is an infinite number of control strategies. In this project, we look to constrain those possibilties as much as possible, until we uncover physical limitations to the solution space itself.
 
-####How are we doing this?
+#### How are we doing this?
 An N-Dimensional system of joints and muscles can get complex quickly. We look to approximate the volume of the solution subspace using custom random number generation and an analysis of the solutions we find.
-####What tools will help us solve this problem:
+
+# Parallel Coordinates Visualization:
+[Link](https://briancohn.github.io/space-parcoords/)
+
+#### What tools will help us solve this problem:
 This project can get computationally complex, very quickly. We have a cat-leg model that's got 31 muscles, 7 Degrees of freedom (at the joints), and 6 output dimensions (x,y,z,t<sub>x</sub>,t<sub>y</sub>,t<sub>z</sub>).
 
 Imagine you're holding a brick in your palm that weighs 2kg, and you can't move your elbow or shoulder. You have to push up with 20N force or the brick will move. It will require a direct upward force, and you can't create any torque on the brick (you're not allowed to spin it).
@@ -49,49 +50,11 @@ if you had 3 muscles controlling the 20N force upon the brick, your activation s
 	These are all feasible <i>solutions</i>, in that they can all generate the exact same output force in the same direction.
 
 
-#The big questions:
+# The big questions:
 When you have `n` muscles controlling the force at an endpoint, and you want to generate an exact force of `10N` directly up, what are all of the possible activation sets?
-###Visualization with a Feasible Activation Set (FAS)
-What does the 'solution space' look like?
-
-Every point within the Feasible Activation Set will produce the desired force output. The dimensionality of the FAS is highly dependent on the number of muscles and whether there are any other constraints on the system (to be discussed in another post).
-##Example
-If you had 4 muscles in your system, the feasible activation space could look like this:
-<img src="http://upload.wikimedia.org/wikipedia/commons/e/ef/3dpoly.svg">
 
 
-
-#Where do most of the solutions lie?
-TODO: add a figure describing how projections of density onto one dimension can work with volume, use a triangle or a pyramid for 2d and 3d examples.
-
-
-
-#What are the connections between the muscle activations?
-TODO: look at how solution vectors change when one muscle is constrained.
-Are there patterns?
-Are there inverse relationships?
-#Prediction
-Can I predict how much muscle 0 will be activated, if I know muscles 1 through n?
-TODO: look into Linear and Nonlinear prediction schemes
-TODO: Look into research on prosthetic muscle control systems (e.g. can we build a model to predict muscle activation via the other muscles?)
-
-#Probabalistic Heat Maps
-TODO: develop figures
-
-#Talk about assumptions
-Muscles insertions, strengths, joint movement planes, Output XYZ dimensions, Nonlinearities
-
-#Implementation
-Make a program to extract uniformly-distributed points within the n dimensional feasible activation space.
-TODO: mathematical formula for this recursive function
-Multiple cores will contribute their random points to a unified database with all solutions thus far.
-We will generate queries with constraints upon one or more muscles, to identify how other muscle compensate for constraints (<i>i.e.</i> loss of a muscle's function, weakening of a muscle, or strengthening of a muscle.)
-Query example:
-"How does muscle 1 activate when muscle 0's activation is limited to 50%?"
-`SELECT m1 FROM POINTS_TABLE WHERE m0 < 0.5`
-
-
-#Installation of Scala and SBT
+# Installation of Scala and SBT
 ```bash
 sudo apt-get update
 sudo apt-get install scala
@@ -99,7 +62,7 @@ wget https://dl.bintray.com/sbt/debian/sbt-0.13.7.deb
 sudo apt-get update
 sudo dpkg -i sbt-0.13.7.deb
 ```
-#Running the project
+# Running the project
 ```bash
  cd ~/your/path/to/space
  mkdir output
@@ -107,7 +70,7 @@ sudo dpkg -i sbt-0.13.7.deb
 ```
 This will generate 100 uniformly distributed points within a 7-muscle index finger model, and put the results CSVs in the output folder.
 
-#Mapping Code
+# Mapping Code
 ```latex
 J^{-T} \in \mathbb{R}^{m\times k} ,
 R \in \mathbb{R}^{k\times n} ,
@@ -118,6 +81,3 @@ m=\text{Output Dimensions}\\
 k=\text{DOF}\\
 n=\text{Muscles}\\
 ```
-
-
-https://docs.google.com/presentation/d/1arXzTLhYD5tdzfiQYsthWoewsP36PEL5ODuatkBJMGc/edit#slide=id.gbcc608561_0_0
