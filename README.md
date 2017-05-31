@@ -4,6 +4,12 @@
 [![Codacy Badge](https://www.codacy.com/project/badge/df8cbf6a225249ae9619b25cc613f0e8)](https://www.codacy.com/app/brian_cohn14/space)
 
 [![PDF Status](https://www.sharelatex.com/github/repos/bcohn12/space/builds/latest/badge.svg)](https://www.sharelatex.com/github/repos/bcohn12/space/builds/latest/output.pdf)
+
+
+Access the Interactive Parallel Coordinates Visualization:
+[Parcoord Visualization](https://briancohn.github.io/space-parcoords/)
+
+
 ####Problem statement:
 We don't know how the brain picks the <strong>optimal</strong> strategy to coordinate its muscles and limbs to generate motion.
 ####Why we are researching this:
