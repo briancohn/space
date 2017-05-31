@@ -1144,20 +1144,20 @@ add_col_with_value <- function(dataframe, value, colname="force") {
 }
 
 
-pc1_loadings <- lapply(point_matrices_labeled, get_loadings_for_PC,1)
+pc1_loadings <- lapply(point_matrices_labeled, get_loadings_for_PC,1, center=FALSE, scale=FALSE)
 pc1_loadings_and_forces<- lapply(1:length(pc1_loadings), function(index) {
   add_col_with_value(pc1_loadings[[index]], force_levels[index])
 })
 pc1_df <- do.call('rbind', pc1_loadings_and_forces)
 
 
-pc2_loadings <- lapply(point_matrices_labeled, get_loadings_for_PC,2)
+pc2_loadings <- lapply(point_matrices_labeled, get_loadings_for_PC,2, center=FALSE, scale=FALSE)
 pc2_loadings_and_forces<- lapply(1:length(pc2_loadings), function(index) {
   add_col_with_value(pc2_loadings[[index]], force_levels[index])
 })
 pc2_df <- do.call('rbind', pc2_loadings_and_forces)
 
-pc3_loadings <- lapply(point_matrices_labeled, get_loadings_for_PC,3)
+pc3_loadings <- lapply(point_matrices_labeled, get_loadings_for_PC,3, center=FALSE, scale=FALSE)
 pc3_loadings_and_forces<- lapply(1:length(pc3_loadings), function(index) {
   add_col_with_value(pc3_loadings[[index]], force_levels[index])
 })
@@ -1190,13 +1190,13 @@ lapply(1:7, function(x) {plot(pc1_df$force, pc1_df[,x], ylim=c(-1,1),main="")})
 ```
 
 #PC2
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 par(mfrow=c(4,2), mar=rep(0, 4))
 lapply(1:7, function(x) {plot(pc2_df$force, pc2_df[,x], ylim=c(-1,1),main="")})
 ```
 
 #PC3
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 par(mfrow=c(4,2), mar=rep(0, 4))
 lapply(1:7, function(x) {plot(pc3_df$force, pc3_df[,x], ylim=c(-1,1),main="")})
 ```
@@ -1205,34 +1205,30 @@ lapply(1:7, function(x) {plot(pc3_df$force, pc3_df[,x], ylim=c(-1,1),main="")})
 ```{r}
 plot_loadings_by_muscle <- function(pc1_df, pc2_df, pc3_df, ...) {
 lapply(1:7, function(x) {
-  plot(pc3_df$force, pc3_df[,x],type='n', ylim=c(-1,1),main="")
-  lines(pc1_df$force, pc1_df[,x], ylim=c(-1,1),main="", col='orange',...)
+  plot(pc1_df$force, pc3_df[,x],type='n', ylim=c(-1,1),main="", ylab="")
+  lines(pc1_df$force, pc1_df[,x], ylim=c(-1,1),main="", col='blue',...)
   lines(pc2_df$force, pc2_df[,x], ylim=c(-1,1),main="", col='black',...)
-  lines(pc3_df$force, pc3_df[,x], ylim=c(-1,1),main="", col='purple',...)
+  #lines(pc3_df$force, pc3_df[,x], ylim=c(-1,1),main="", col='purple',...)
   })
 }
 ```
 
 #Plot loadings for each PC for each Muscle
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 par(mfrow=c(2,4), mar=rep(1, 4))
 plot_loadings_by_muscle(pc1_df,pc2_df,pc3_df, lwd=2)
 ```
 
 #Plot loadings for each PC for each Muscle; with loadings multiplied by FDP's sign across all PCs
-```{r, echo=FALSE}
-par(mfrow=c(2,4), mar=rep(1, 4))
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+pdf("pc_loadings_FDP_made_positive.pdf", width=5, height=20)
+par(mfrow=c(7,1), mar=rep(1.5, 4))
 
 pc1_df_FDP <- multiply_rows_by_sign_of_column(pc1_df, 1)
 pc2_df_FDP <- multiply_rows_by_sign_of_column(pc2_df, 1)
 pc3_df_FDP <- multiply_rows_by_sign_of_column(pc3_df, 1)
 
 plot_loadings_by_muscle(pc1_df_FDP,pc2_df_FDP,pc3_df_FDP, lwd=2)
-```
-
-```{r}
-apply(pc1_df, 2, min) #min's
-apply(pc1_df, 2, max) #max's
-
+dev.off()
 ```
 

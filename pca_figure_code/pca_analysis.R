@@ -119,7 +119,7 @@ csv_filename_list <- function(){
 
 list_of_strings_of_newtons <- function() c("0.0","3.20","6.40","9.60","12.8","16.0","19.2","22.4","25.6","28.8")
 
-get_loadings_for_PC <- function(hitrun_dataframe, PC, normalize_to_max_abs_value=FALSE, scale=TRUe, center=TRUE) {
+get_loadings_for_PC <- function(hitrun_dataframe, PC, normalize_to_max_abs_value=FALSE, scale=TRUE, center=TRUE) {
 	rotations <- pca_loadings_and_component_info(hitrun_dataframe, scale, center)$rotation
 	rotations_t <- t(rotations)
 	subset_pcs <- rotations_t[PC,]
