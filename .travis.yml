@@ -1,6 +1,6 @@
 language: scala
 sbt_args: 
-   -sbt-version 0.13.1
+   -sbt-version 1.0.0
 scala:
    - 2.11.6
    - 2.12.3
