@@ -10,7 +10,6 @@ script:
   - sbt update
   - sbt compile
   - sbt test
-  - sbt run
   - sbt clean coverage test coverageReport
 jdk:
   - oraclejdk7
