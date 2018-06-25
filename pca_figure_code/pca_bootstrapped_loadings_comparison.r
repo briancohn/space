@@ -19,9 +19,12 @@ list_10k_dataset_hitrun_dataframes <- function(){
 	return(list_of_hitrun_dataframes)
 }
 
+
+rm_legend <- function(){
+	theme(legend.position="none")
+}
 main <- function() {
 	set.seed(100) #done for the purpose of scientific replicability =)
-	require(ggplot2)
 	#where each dataframe has many rows, each of which represents a PC loading vector.
 	# list_of_PC_loadings_dataframes <- produce_bootstrap_pca_experiment(n=10, num_replicates=100, PC_of_interest=1)
 	num_replicates=1000
@@ -31,25 +34,26 @@ main <- function() {
 	#each level is a measure of force at the end of the finger
 	message(1)
 	list_of_hitrun_dataframes_for_different_forces <- list_10k_dataset_hitrun_dataframes()[c(1,2,3,4,5,6,7,8,9)]
+	browser()
 	melted_loading_data <- pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, num_replicates,num_samples,PC_of_interest, snap_vector_signs_to_reference=TRUE)
 	p <- loading_bootstrap_figure(melted_loading_data)
 	plot_loadings_for_each_muscle_across_force_levels(melted_loading_data)
 
 
-	pc1_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,1,snap_vector_signs_to_reference=TRUE))
-	pc1_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,1,snap_vector_signs_to_reference=TRUE))
-	pc1_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,1000,1,snap_vector_signs_to_reference=TRUE))
-	pc1_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,5000,1,snap_vector_signs_to_reference=TRUE), TRUE)
+	pc1_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,1, snap_vector_signs_to_reference=TRUE)) + ylab("PC1") + rm_legend()
+	pc1_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,1, snap_vector_signs_to_reference=TRUE)) + ylab("") + rm_legend()
+	pc1_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,1000,1, snap_vector_signs_to_reference=TRUE))+ ylab("") + rm_legend()
+	pc1_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,5000,1, snap_vector_signs_to_reference=TRUE), TRUE)+ ylab("") + rm_legend()
 	
-	pc2_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,2,snap_vector_signs_to_reference=TRUE))
-	pc2_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,2,snap_vector_signs_to_reference=TRUE), TRUE)
-	pc2_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,1000,2,snap_vector_signs_to_reference=TRUE))
-	pc2_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,5000,2,snap_vector_signs_to_reference=TRUE), TRUE)
+	pc2_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,2, snap_vector_signs_to_reference=TRUE))+ ylab("PC2") + rm_legend()
+	pc2_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,2, snap_vector_signs_to_reference=TRUE), TRUE)+ ylab("") + rm_legend()
+	pc2_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,1000,2, snap_vector_signs_to_reference=TRUE))+ ylab("") + rm_legend()
+	pc2_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,5000,2, snap_vector_signs_to_reference=TRUE), TRUE)+ ylab("") + rm_legend()
 	
-	pc3_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,3,snap_vector_signs_to_reference=TRUE))
-	pc3_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,3,snap_vector_signs_to_reference=TRUE), TRUE)
-	pc3_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,1000,3,snap_vector_signs_to_reference=TRUE))
-	pc3_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,5000,3,snap_vector_signs_to_reference=TRUE))
+	pc3_1 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,10,3, snap_vector_signs_to_reference=TRUE)) + ylab("PC3") + rm_legend()
+	pc3_2 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,100,3, snap_vector_signs_to_reference=TRUE), TRUE) + ylab("") + rm_legend()
+	pc3_3 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,1000,3, snap_vector_signs_to_reference=TRUE)) + ylab("") + rm_legend()
+	pc3_4 <- loading_bootstrap_figure(pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, 1000,5000,3, snap_vector_signs_to_reference=TRUE)) + ylab("") + rm_legend()
 	require(gridExtra)
 	combined_figure <- grid.arrange(pc1_1,
 									pc1_2,
@@ -66,7 +70,7 @@ main <- function() {
 									pc3_3,
 									pc3_4,
 									ncol=4)
-	ggsave('pca_loadings_bootstrapped.pdf', combined_figure, width=30, height = 13, units="in")
+	ggsave('pca_loadings_bootstrapped.png', combined_figure, width=30, height = 13, units="in")
 	browser()
 }
 
@@ -93,7 +97,7 @@ pca_bootstrap_normalized_loadings_melted <- function(list_of_hitrun_dataframes_f
 												num_samples
 												)
 	message(3)
-	list_of_loadings_dataframes <- lapply(list_of_list_of_bootstrap_dataframes, compute_many_replicates_of_loadings, PC_of_interest)
+	list_of_loadings_dataframes <- pbmclapply(list_of_list_of_bootstrap_dataframes, compute_many_replicates_of_loadings, PC_of_interest, mc.cores=8)
 	
 	if (snap_vector_signs_to_reference){
 		reference_vector <- list_of_loadings_dataframes[[1]][2,]

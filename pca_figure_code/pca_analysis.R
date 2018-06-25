@@ -1,6 +1,8 @@
 library(ggplot2)
 library(devtools)
+library(pbmcapply)
 library(dplyr)
+library(gridExtra)
 pca_loadings_and_component_info <- function(hitrun_point_dataframe, scale=TRUE, center=TRUE) {
 	res <- prcomp(hitrun_point_dataframe, scale=TRUE, center=TRUE)
 	return(res)
