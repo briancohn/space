@@ -34,7 +34,6 @@ main <- function() {
 	#each level is a measure of force at the end of the finger
 	message(1)
 	list_of_hitrun_dataframes_for_different_forces <- list_10k_dataset_hitrun_dataframes()[c(1,2,3,4,5,6,7,8,9)]
-	browser()
 	melted_loading_data <- pca_bootstrap_normalized_loadings_melted(list_of_hitrun_dataframes_for_different_forces, num_replicates,num_samples,PC_of_interest, snap_vector_signs_to_reference=TRUE)
 	p <- loading_bootstrap_figure(melted_loading_data)
 	plot_loadings_for_each_muscle_across_force_levels(melted_loading_data)
@@ -71,7 +70,6 @@ main <- function() {
 									pc3_4,
 									ncol=4)
 	ggsave('pca_loadings_bootstrapped.png', combined_figure, width=30, height = 13, units="in")
-	browser()
 }
 
 

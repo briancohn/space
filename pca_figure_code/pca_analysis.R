@@ -119,6 +119,16 @@ csv_filename_list <- function(){
 	)
 }
 
+0.0
+3.2
+6.4
+9.6
+12.8
+16.0
+19.2
+22.4
+25.6
+
 list_of_strings_of_newtons <- function() c("0.0","3.20","6.40","9.60","12.8","16.0","19.2","22.4","25.6","28.8")
 
 get_loadings_for_PC <- function(hitrun_dataframe, PC, normalize_to_max_abs_value=FALSE, scale=TRUE, center=TRUE) {
