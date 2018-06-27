@@ -88,9 +88,6 @@ colnames(pc_df_zeroscore) <- c("PC","task_intensity", "muscle","z_score_based_pc
 p_z_score <- ggplot(pc_df_zeroscore, aes(task_intensity, z_score_based_pc_val, col=muscle)) + geom_line(size=1.3) + facet_grid(~PC)
 p_z_score <- p_z_score + theme_classic() + xlab("Task intensity in distal direction (N)") + ylab("PC loading using Z-scores as input)")
 #================
-
-
-
 G <- arrangeGrob(grobs=list(p, p_z_score), ncol=1)
 ggsave('loadings_z_score.png', G, height=10,width=7) 
 
