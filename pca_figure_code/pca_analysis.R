@@ -11,6 +11,14 @@ pca_loadings_and_component_info <- function(hitrun_point_dataframe, scale=TRUE, 
 finger_muscle_names_in_order <- function(){
 	return(c("FDP","FDS","EIP","EDC","LUM","DI","PI"))
 }
+
+list_10k_dataset_hitrun_dataframes <- function(){
+	blank_col_hitrun_data <- lapply(csv_filename_list(), read.csv, header=FALSE)
+	list_of_hitrun_dataframes <- lapply(blank_col_hitrun_data, add_finger_muscle_name_cols)
+	return(list_of_hitrun_dataframes)
+}
+
+
 add_finger_muscle_name_cols<- function(hitrun_point_dataframe){
 	colnames(hitrun_point_dataframe) <- finger_muscle_names_in_order()
 	return(hitrun_point_dataframe)
@@ -172,3 +180,23 @@ pc_loadings_parcoord <- function(loadings_per_task){
 	pca_parcoord_plot <- ggplot(dfm, aes(variable,value,group=X1, colour=X1))+ scale_fill_brewer() + geom_path(alpha=1) + theme_bw() + geom_point()
 	return(pca_parcoord_plot)
 }
+
+
+
+assimilate_vector_signs_to_reference <- function(dataframe_of_interest, reference_vector){
+	require(plyr)
+	
+	return(adply(dataframe_of_interest, 1, flip_sign_if_dot_is_negative, reference_vector))
+}
+
+flip_sign_if_dot_is_negative <- function(vector_of_loading_values, reference_vector){
+	dot_product_result <- vector_of_loading_values %*% reference_vector
+	if (is_negative(dot_product_result)) {
+		return(vector_of_loading_values*-1)
+	} else {
+		return(vector_of_loading_values)
+	}
+}
+
+is_negative <- function(x) x<0
+is_positive <- function(x) x>0

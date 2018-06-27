@@ -13,11 +13,7 @@ generate_dataframe_of_varying_pca_bootstrap_size <- function(bootstrap_n_sizes, 
 
 }
 
-list_10k_dataset_hitrun_dataframes <- function(){
-	blank_col_hitrun_data <- lapply(csv_filename_list(), read.csv, header=FALSE)
-	list_of_hitrun_dataframes <- lapply(blank_col_hitrun_data, add_finger_muscle_name_cols)
-	return(list_of_hitrun_dataframes)
-}
+
 
 
 rm_legend <- function(){
@@ -72,8 +68,6 @@ main <- function() {
 	ggsave('pca_loadings_bootstrapped.png', combined_figure, width=30, height = 13, units="in")
 }
 
-
-
 plot_loadings_for_each_muscle_across_force_levels <- function(melted_loading_data){
 	group_normalized_loadings_by_muscle <- lapply(finger_muscle_names_in_order(), function(muscle_name){
 		extract_muscle_from_melted_loadings_data(melted_loading_data, muscle_name)
@@ -96,8 +90,10 @@ pca_bootstrap_normalized_loadings_melted <- function(list_of_hitrun_dataframes_f
 												)
 	message(3)
 	list_of_loadings_dataframes <- pbmclapply(list_of_list_of_bootstrap_dataframes, compute_many_replicates_of_loadings, PC_of_interest, mc.cores=8)
-	
+
 	if (snap_vector_signs_to_reference){
+		# the second one appears to put the flexors both as positive. 
+		# we will use this as our reference for sign.
 		reference_vector <- list_of_loadings_dataframes[[1]][2,]
 		list_of_loadings_dataframes <- lapply(list_of_loadings_dataframes,
 			function(x) {
@@ -109,24 +105,6 @@ pca_bootstrap_normalized_loadings_melted <- function(list_of_hitrun_dataframes_f
 	melted_loading_data <- melt_loadings_dataframes(list_of_loadings_dataframes)
 	return(melted_loading_data)
 }
-
-
-assimilate_vector_signs_to_reference <- function(dataframe_of_interest, reference_vector){
-	require(plyr)
-	return(adply(dataframe_of_interest, 1, flip_sign_if_dot_is_negative, reference_vector))
-}
-
-flip_sign_if_dot_is_negative <- function(vector_of_loading_values, reference_vector){
-	dot_product_result <- vector_of_loading_values %*% reference_vector
-	if (is_negative(dot_product_result)) {
-		return(vector_of_loading_values*-1)
-	} else {
-		return(vector_of_loading_values)
-	}
-}
-
-is_negative <- function(x) x<0
-is_positive <- function(x) x>0
 
 extract_muscle_from_melted_loadings_data <- function(melted_loading_data, muscle_name){
 	return(melted_loading_data[melted_loading_data$muscle_name==muscle_name,])
