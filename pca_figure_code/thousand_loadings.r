@@ -36,5 +36,7 @@ colnames(tall_diff_matrix) <- c("force","pc","muscle","loading_value")
 p <- ggplot(tall_diff_matrix, aes(force, loading_value, col=pc)) + geom_line(aes(col=pc), size=0.4) + facet_grid(~muscle)
 p <- p + theme_classic()
 p
-ggsave("differential_for_centered_and_scaled.jpg",p)
-plot_loadings_by_muscle(pc1_df_FDP, pc2_df_FDP, pc3_df_FDP, lwd = 2)
+ggsave("differential_for_centered_and_scaled.jpg", p)
+# original plot for paper
+# par(mfrow=c(7,1)
+# plot_loadings_by_muscle(pc1_df_FDP, pc2_df_FDP, pc3_df_FDP, lwd = 2)
